@@ -77,9 +77,9 @@ public class YouTubePlayerBridge {
     }
 
     @JavascriptInterface
-    public void onApiChange(String message) {
+    public void onApiChange() {
         for(YouTubePlayer.YouTubeListener listener : getListeners())
-            listener.onApiChange(message, youTubePlayer);
+            listener.onApiChange(youTubePlayer);
     }
 
     @JavascriptInterface

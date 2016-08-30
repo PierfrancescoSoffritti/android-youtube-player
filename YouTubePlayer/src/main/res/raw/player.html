@@ -6,7 +6,7 @@
             width: 100%;
             margin: 0 0 0 0;
             padding: 0 0 0 0;
-            background: [BG_COLOR];
+            background: #000000;
             overflow: hidden;
             position: relative;
         }
@@ -21,154 +21,181 @@
     </body>
 
     <script type="text/javascript">
-          var player;
-          function onYouTubeIframeAPIReady() {
-              player = new YT.Player('playerId', {
-              height: '100%',
-              width: '100%',
-              videoId: '[VIDEO_ID]',
-              events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange,
-                'onPlaybackQualityChange': onPlayerPlaybackQualityChange,
-                'onPlaybackRateChange': onPlayerPlaybackRateChange,
-                'onError': onPlayerError,
-                'onApiChange': onPlayerApiChange
-              },
-              playerVars: {
-                'autoplay': 1,
-                'autohide': 1,
-                'controls': 0,
-                'enablejsapi': 1,
-                'fs': 0,
-                'origin' : 'http://www.youtube.com',
-                'rel': 0,
-                'showinfo': 0,
-                'iv_load_policy': 3
-              }
-            });
-          }
+    	var player;
+    	function onYouTubeIframeAPIReady() {
+    		player = new YT.Player('playerId', {
+    			height: '100%',
+    			width: '100%',
+    			events: {
+    				'onReady': onPlayerReady,
+    				'onStateChange': onPlayerStateChange,
+    				'onPlaybackQualityChange': onPlayerPlaybackQualityChange,
+    				'onPlaybackRateChange': onPlayerPlaybackRateChange,
+    				'onError': onPlayerError,
+    				'onApiChange': onPlayerApiChange
+    			},
+    			playerVars: {
+    				'autoplay': 0,
+    				'autohide': 1,
+    				'controls': 0,
+    				'enablejsapi': 1,
+    				'fs': 0,
+    				'origin' : 'http://www.youtube.com',
+    				'rel': 0,
+    				'showinfo': 0,
+    				'iv_load_policy': 3
+    			}
+    		});
+    	}
 
-          function onPlayerReady(event) {
-            console.log('player is ready');
-            onReady('player is ready');
-            sendDuration();
-            player.setOption("captions", "track", {"languageCode": "es"});
-            player.unloadModule("captions");
-          }
+    	function onPlayerReady(event) {
+    		console.log('[JS] player is ready');
 
-          var timerId = 0;
-          function onPlayerStateChange(event) {
-            clearTimeout(timerId);
+    		onReady();
+    	}
+
+    	// id of the task used to periodically send out the playback seconds
+    	var timerTaskId = 0;
+    	function onPlayerStateChange(event) {
+    		// stop task
+            clearTimeout(timerTaskId);
+
             switch (event.data) {
-              case YT.PlayerState.UNSTARTED:
-                onStateChange("UNSTARTED");
+            	case YT.PlayerState.UNSTARTED:
+            	onStateChange("UNSTARTED");
+            	break;
+
+            	case YT.PlayerState.ENDED:
+            	onStateChange("ENDED");
                 break;
-              case YT.PlayerState.ENDED:
-                onStateChange("ENDED");
-                break;
-              case YT.PlayerState.PLAYING:
-                player.unloadModule("captions");
+
+                case YT.PlayerState.PLAYING:
                 onStateChange("PLAYING");
-                timerId = setInterval(function() {
-                  setCurrentSeconds();
+                
+                // start task
+                timerTaskId = setInterval(function() {
+                	onCurrentSeconds();
                 }, 100);
+
+                // send video length
+                sendDuration();
                 break;
-              case YT.PlayerState.PAUSED:
+
+                case YT.PlayerState.PAUSED:
                 onStateChange("PAUSED");
                 break;
-              case YT.PlayerState.BUFFERING:
+
+                case YT.PlayerState.BUFFERING:
                 onStateChange("BUFFERING");
                 break;
-              case YT.PlayerState.CUED:
+
+                case YT.PlayerState.CUED:
                 onStateChange("CUED");
                 break;
             }
-          }
+        }
 
-          function onPlayerPlaybackQualityChange(playbackQuality) {
-           console.log('playback quality changed to ' + playbackQuality.data);
-           onPlaybackQualityChange('playback quality changed to ' + playbackQuality.data);
-          }
+        function onPlayerPlaybackQualityChange(playbackQuality) {
+        	console.log('[JS] quality changed to ' +playbackQuality.data);
 
-          function onPlayerPlaybackRateChange(playbackRate) {
-           console.log('playback rate changed to ' + playbackRate.data);
-           onPlaybackRateChange('playback rate changed to ' + playbackRate.data);
-          }
+        	onPlaybackQualityChange(playbackQuality.data);
+        }
 
-          function onPlayerError(e) {
-           console.log('An error occurred: ' + e.data);
-           onError('An error occurred: ' + e.data);
-          }
+        function onPlayerPlaybackRateChange(playbackRate) {
+        	console.log('[JS] playback rate changed to ' +playbackRate.data);
 
-          function onPlayerApiChange() {
-           console.log('The player API changed');
-           onApiChange('The player API changed');
-          }
+        	onPlaybackRateChange(playbackRate.data);
+        }
 
-          function onReady(e){
-            window.YouTubePlayerBridge.onReady(e);
-          }
+        function onPlayerError(error) {
+        	console.log('[JS] An error occurred: ' +e.data);
 
-          function onStateChange(e){
-            window.YouTubePlayerBridge.onStateChange(e);
-          }
+        	onError(e.data);
+        }
 
-          function onPlaybackQualityChange(e){
-            window.YouTubePlayerBridge.onPlaybackQualityChange(e);
-          }
+        function onPlayerApiChange() {
+        	console.log('[JS] player API changed');
 
-          function onPlaybackRateChange(e){
-            window.YouTubePlayerBridge.onPlaybackRateChange(e);
-          }
+        	onApiChange();
+        }
 
-          function onError(e){
-            window.YouTubePlayerBridge.onError(e);
-          }
+        // WEB to APP functions
 
-          function onApiChange(e){
-            window.YouTubePlayerBridge.onApiChange(e);
-          }
+        function onReady() {
+        	window.YouTubePlayerBridge.onReady();
+        }
 
-          function setCurrentSeconds(){
-            window.YouTubePlayerBridge.currentSeconds(player.getCurrentTime());
-          }
+        function onStateChange(state) {
+        	window.YouTubePlayerBridge.onStateChange(state);
+        }
 
-          function sendDuration(){
-            window.YouTubePlayerBridge.duration(player.getDuration());
-          }
+        function onPlaybackQualityChange(quality) {
+        	window.YouTubePlayerBridge.onPlaybackQualityChange(quality);
+        }
 
-          function setLog(msg){
-            window.YouTubePlayerBridge.onLog(msg);
-          }
+        function onPlaybackRateChange(rate) {
+            window.YouTubePlayerBridge.onPlaybackRateChange(rate);
+        }
 
-          function onSeekTo(startSeconds){
-            player.seekTo(startSeconds, true)
-          }
+        function onError(error) {
+        	window.YouTubePlayerBridge.onError(error);
+        }
 
-          function onVideoPause(){
-            player.pauseVideo();
-          }
+        function onApiChange() {
+        	window.YouTubePlayerBridge.onApiChange();
+        }
 
-          function onVideoPlay(){
-            player.playVideo();
-          }
+        function onCurrentSeconds() {
+        	window.YouTubePlayerBridge.currentSeconds(player.getCurrentTime());
+        }
 
-          function onHideControls(){
-            setLog("onHideControls()");
-          }
+        function sendDuration() {
+        	window.YouTubePlayerBridge.duration(player.getDuration());
+        }
 
-          function loadVideo(videoId, startSeconds){
-            setLog(videoId + "_" + startSeconds);
+        function setLog(msg) {
+        	window.YouTubePlayerBridge.onLog(msg);
+        }
+
+        // APP to WEB functions
+
+        function seekTo(startSeconds) {
+        	console.log("[JS] Seek to " +startSeconds);
+        	
+        	player.seekTo(startSeconds, true);
+        }
+
+        function pauseVideo() {
+        	console.log("[JS] Pause video");
+
+        	player.pauseVideo();
+        }
+
+        function playVideo() {
+        	console.log("[JS] Play video");
+
+        	player.playVideo();
+        }
+
+        function loadVideo(videoId, startSeconds) {
+        	console.log("[JS] Loading video: " +videoId + " - " + startSeconds);
+
+        	setLog("Loading video: " +videoId + " - " + startSeconds);
+
             player.loadVideoById(videoId, startSeconds);
-          }
+        }
 
-          function cueVideo(videoId){
-            setLog(videoId);
-            player.cueVideoById(videoId, 0, "default");
-            player.setVolume(100)
-          }
+        function cueVideo(videoId, startSeconds) {
+        	console.log("[JS] Cue video: " +videoId + " - " + startSeconds);
+            setLog("Cue video: " +videoId + " - " + startSeconds);
+
+            player.cueVideoById(videoId, startSeconds);
+        }
+
     </script>
 
-    <script src="https://www.youtube.com/iframe_api"></script>
+    <!--<script src="https://www.youtube.com/iframe_api"></script>-->
+    <script type="text/javascript">
+    	if (!window['YT']) {var YT = {loading: 0,loaded: 0};}if (!window['YTConfig']) {var YTConfig = {'host': 'http://www.youtube.com'};}if (!YT.loading) {YT.loading = 1;(function(){var l = [];YT.ready = function(f) {if (YT.loaded) {f();} else {l.push(f);}};window.onYTReady = function() {YT.loaded = 1;for (var i = 0; i < l.length; i++) {try {l[i]();} catch (e) {}}};YT.setConfig = function(c) {for (var k in c) {if (c.hasOwnProperty(k)) {YTConfig[k] = c[k];}}};var a = document.createElement('script');a.type = 'text/javascript';a.id = 'www-widgetapi-script';a.src = 'https:' + '//s.ytimg.com/yts/jsbin/www-widgetapi-vflxBao7t/www-widgetapi.js';a.async = true;var b = document.getElementsByTagName('script')[0];b.parentNode.insertBefore(a, b);})();}
+    </script>
 </html>

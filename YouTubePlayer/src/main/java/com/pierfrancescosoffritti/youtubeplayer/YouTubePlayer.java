@@ -1,12 +1,14 @@
 package com.pierfrancescosoffritti.youtubeplayer;
 
-import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebChromeClient;
@@ -22,10 +24,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class YouTubePlayer extends WebView {
+
     @NonNull private Set<YouTubeListener> youTubeListeners;
     @NonNull private final YouTubeListener innerYouTubeListener;
 
     @NonNull private YouTubePlayerParams params = new YouTubePlayerParams();
+
+    @NonNull private final Handler mainThreadHandler;
 
     public YouTubePlayer(Context context) {
         this(context, null);
@@ -38,6 +43,8 @@ public class YouTubePlayer extends WebView {
     public YouTubePlayer(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
+        mainThreadHandler = new Handler(Looper.getMainLooper());
+
         youTubeListeners = new HashSet<>();
         innerYouTubeListener = new InnerYouTubePlayerListener();
     }
@@ -49,6 +56,7 @@ public class YouTubePlayer extends WebView {
         WebSettings set = this.getSettings();
         set.setJavaScriptEnabled(true);
         set.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        set.setMediaPlaybackRequiresUserGesture(false);
         this.addJavascriptInterface(new YouTubePlayerBridge(this), "YouTubePlayerBridge");
         this.loadDataWithBaseURL("http://www.youtube.com", getVideoHTML(videoId), "text/html", "utf-8", null);
         this.setWebChromeClient(new WebChromeClient());
@@ -71,16 +79,7 @@ public class YouTubePlayer extends WebView {
 
             String html = sb.toString();
             html = html
-                    .replace("[VIDEO_ID]", videoId)
-                    .replace("[BG_COLOR]", "#000000")
-                    .replace("[AUTO_PLAY]", String.valueOf(params.getAutoplay()))
-                    .replace("[AUTO_HIDE]", String.valueOf(params.getAutohide()))
-                    .replace("[REL]", String.valueOf(params.getRel()))
-                    .replace("[SHOW_INFO]", String.valueOf(params.getShowinfo()))
-                    .replace("[ENABLE_JS_API]", String.valueOf(params.getEnablejsapi()))
-                    .replace("[DISABLE_KB]", String.valueOf(params.getDisablekb()))
-                    .replace("[CC_LANG_PREF]", String.valueOf(params.getCc_lang_pref()))
-                    .replace("[CONTROLS]", String.valueOf(params.getControls()));
+                    .replace("[VIDEO_ID]", videoId);
             return html;
         } catch (Exception e) {
             e.printStackTrace();
@@ -101,10 +100,26 @@ public class YouTubePlayer extends WebView {
         }
     }
 
-    public void adjustHeight(Context context) {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        this.getLayoutParams().height = (int) (displayMetrics.widthPixels * 0.5625);
+    public void loadVideo(final String videoId, final float startSeconds) {
+        Log.d(getClass().getSimpleName(), "loadVideo: " +videoId +", " +startSeconds);
+
+        mainThreadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                loadUrl("javascript:loadVideo('" +videoId +"', " +startSeconds +")");
+            }
+        });
+    }
+
+    public void cueVideo(final String videoId, final float startSeconds) {
+        Log.d(getClass().getSimpleName(), "cueVideo: " +videoId +", " +startSeconds);
+
+        mainThreadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                loadUrl("javascript:cueVideo('" +videoId +"', " +startSeconds +")");
+            }
+        });
     }
 
     @NonNull
@@ -128,7 +143,7 @@ public class YouTubePlayer extends WebView {
 
         void onError(String arg, @NonNull YouTubePlayer youTubePlayer);
 
-        void onApiChange(String arg, @NonNull YouTubePlayer youTubePlayer);
+        void onApiChange(@NonNull YouTubePlayer youTubePlayer);
 
         void onCurrentSecond(double second, @NonNull YouTubePlayer youTubePlayer);
 

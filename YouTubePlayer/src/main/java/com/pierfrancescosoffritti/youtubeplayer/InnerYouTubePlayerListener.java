@@ -40,7 +40,7 @@ public class InnerYouTubePlayerListener implements YouTubePlayer.YouTubeListener
     }
 
     @Override
-    public void onApiChange(String arg, @NonNull YouTubePlayer youTubePlayer) {
+    public void onApiChange(@NonNull YouTubePlayer youTubePlayer) {
 
     }
 
