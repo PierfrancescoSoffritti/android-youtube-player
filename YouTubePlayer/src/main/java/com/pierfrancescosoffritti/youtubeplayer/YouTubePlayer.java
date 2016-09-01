@@ -171,9 +171,13 @@ public class YouTubePlayer extends WebView {
 
         void onCurrentSecond(float second, @NonNull YouTubePlayer youTubePlayer);
 
-        void onDuration(float duration, @NonNull YouTubePlayer youTubePlayer);
+        void onVideoDuration(float duration, @NonNull YouTubePlayer youTubePlayer);
 
         void onLog(String log, @NonNull YouTubePlayer youTubePlayer);
+
+        void onVideoTitle(String videoTitle, @NonNull YouTubePlayer youTubePlayer);
+
+        void onVideoId(String videoId, @NonNull YouTubePlayer youTubePlayer);
     }
 
     public static class State {

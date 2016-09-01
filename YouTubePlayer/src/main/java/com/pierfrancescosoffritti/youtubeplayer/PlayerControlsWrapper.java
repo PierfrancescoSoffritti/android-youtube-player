@@ -1,13 +1,18 @@
 package com.pierfrancescosoffritti.youtubeplayer;
 
 import android.animation.Animator;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class PlayerControls implements View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayer.YouTubeListener, SeekBar.OnSeekBarChangeListener {
+public class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayer.YouTubeListener, SeekBar.OnSeekBarChangeListener {
     @NonNull private final YouTubePlayerView youTubePlayerView;
     @NonNull private final View controlsView;
 
@@ -31,8 +36,9 @@ public class PlayerControls implements View.OnClickListener, YouTubePlayerFullSc
 
     private boolean isPlaying;
     private boolean isVisible;
+    private boolean canFadeControls = false;
 
-    public PlayerControls(@NonNull YouTubePlayerView youTubePlayerView, @NonNull View controlsView) {
+    public PlayerControlsWrapper(@NonNull YouTubePlayerView youTubePlayerView, @NonNull View controlsView) {
         isPlaying = false;
         isVisible = true;
 
@@ -101,8 +107,21 @@ public class PlayerControls implements View.OnClickListener, YouTubePlayerFullSc
     }
 
     private void fadeControls(final float finalAlpha) {
+        if(!canFadeControls)
+            return;
+
         isVisible = finalAlpha != 0f;
-        controlsRoot.animate().alpha(finalAlpha).setDuration(300).setListener(new Animator.AnimatorListener() {
+
+        if(finalAlpha == 1f)
+            startFadeOutViewTimer();
+        else
+            handler.removeCallbacks(fadeOutRunnable);
+
+
+        controlsRoot.animate()
+                .alpha(finalAlpha)
+                .setDuration(300)
+                .setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
                 if(finalAlpha == 1f)
@@ -144,13 +163,23 @@ public class PlayerControls implements View.OnClickListener, YouTubePlayerFullSc
 
     @Override
     public void onStateChange(@YouTubePlayer.State.YouTubePlayerState int state, @NonNull YouTubePlayer youTubePlayer) {
-        if(state == YouTubePlayer.State.PLAYING || state == YouTubePlayer.State.PAUSED) {
+        newProgress = -1;
+
+        if(state == YouTubePlayer.State.PLAYING || state == YouTubePlayer.State.PAUSED || state == YouTubePlayer.State.VIDEO_CUED) {
+            panel.setBackgroundColor(ContextCompat.getColor(youTubePlayerView.getContext(), android.R.color.transparent));
             progress.setVisibility(View.GONE);
             playButton.setVisibility(View.VISIBLE);
 
+            canFadeControls = true;
             boolean playing = state == YouTubePlayer.State.PLAYING;
             updateViewState(playing);
+
+            if(playing)
+                startFadeOutViewTimer();
+
         } else {
+            canFadeControls = false;
+
             updateViewState(false);
             fadeControls(1f);
 
@@ -158,7 +187,23 @@ public class PlayerControls implements View.OnClickListener, YouTubePlayerFullSc
                 playButton.setVisibility(View.GONE);
                 progress.setVisibility(View.VISIBLE);
             }
+
+            if(state == YouTubePlayer.State.UNSTARTED) {
+                panel.setBackgroundColor(ContextCompat.getColor(youTubePlayerView.getContext(), android.R.color.black));
+            }
         }
+    }
+
+    Handler handler = new Handler(Looper.getMainLooper());
+    Runnable fadeOutRunnable = new Runnable() {
+        @Override
+        public void run() {
+            fadeControls(0f);
+        }
+    };
+
+    private void startFadeOutViewTimer() {
+        handler.postDelayed(fadeOutRunnable, 2500);
     }
 
     @Override
@@ -193,7 +238,7 @@ public class PlayerControls implements View.OnClickListener, YouTubePlayerFullSc
     }
 
     @Override
-    public void onDuration(float duration, @NonNull YouTubePlayer youTubePlayer) {
+    public void onVideoDuration(float duration, @NonNull YouTubePlayer youTubePlayer) {
         videoDuration.setText(Utils.formatTime(duration));
         seekBar.setMax((int) duration);
     }
@@ -201,6 +246,22 @@ public class PlayerControls implements View.OnClickListener, YouTubePlayerFullSc
     @Override
     public void onLog(String log, @NonNull YouTubePlayer youTubePlayer) {
 
+    }
+
+    @Override
+    public void onVideoTitle(String title, @NonNull YouTubePlayer youTubePlayer) {
+        videoTitle.setText(title);
+    }
+
+    @Override
+    public void onVideoId(final String videoId, @NonNull YouTubePlayer youTubePlayer) {
+        youTubeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + videoId));
+                controlsView.getContext().startActivity(intent);
+            }
+        });
     }
 
     private boolean seekBarTouchStarted = false;

@@ -34,9 +34,10 @@
             android:id="@+id/video_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="title"
+            android:text=""
             android:textColor="@android:color/white"
             android:textSize="14sp"
+            android:lines="1"
             android:padding="8dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true" />

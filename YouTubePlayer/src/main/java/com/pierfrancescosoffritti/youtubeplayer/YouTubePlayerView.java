@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.FrameLayout;
 
 import java.util.HashSet;
@@ -35,7 +36,7 @@ public class YouTubePlayerView extends FrameLayout {
         youTubePlayer = new YouTubePlayer(context);
         addView(youTubePlayer, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         playerControls = inflate(context, R.layout.player_controls, this);
-        PlayerControls playerControlsLogic = new PlayerControls(this, playerControls);
+        PlayerControlsWrapper playerControlsLogic = new PlayerControlsWrapper(this, playerControls);
 
         fullScreenListeners = new HashSet<>();
         fullScreenListeners.add(playerControlsLogic);
@@ -45,24 +46,19 @@ public class YouTubePlayerView extends FrameLayout {
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        ViewGroup.LayoutParams params = playerControls.getLayoutParams();
-        params.height = youTubePlayer.getLayoutParams().height;
-        params.width = youTubePlayer.getLayoutParams().width;
-        playerControls.setLayoutParams(params);
+        adjustControlsSize();
 
         super.onLayout(changed, left, top, right, bottom);
     }
 
-    public void initialize(YouTubePlayer.YouTubeListener youTubeListener) {
-        youTubePlayer.initialize(youTubeListener);
-    }
-
-    public void loadVideo(String videoId, int startSecond) {
-        youTubePlayer.loadVideo(videoId, startSecond);
-    }
-
-    public void release() {
-        youTubePlayer.destroy();
+    /**
+     * Adjust the size of the controls view so that it fits the player
+     */
+    private void adjustControlsSize() {
+        ViewGroup.LayoutParams params = playerControls.getLayoutParams();
+        params.height = youTubePlayer.getLayoutParams().height;
+        params.width = youTubePlayer.getLayoutParams().width;
+        playerControls.setLayoutParams(params);
     }
 
     public void enterFullScreen() {
@@ -75,11 +71,7 @@ public class YouTubePlayerView extends FrameLayout {
         setLayoutParams(viewParams);
 
         youTubePlayer.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-        ViewGroup.LayoutParams params = playerControls.getLayoutParams();
-        params.height = youTubePlayer.getLayoutParams().height;
-        params.width = youTubePlayer.getLayoutParams().width;
-        playerControls.setLayoutParams(params);
+        adjustControlsSize();
 
         isFullScreen = true;
 
@@ -97,11 +89,7 @@ public class YouTubePlayerView extends FrameLayout {
         setLayoutParams(viewParams);
 
         youTubePlayer.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        ViewGroup.LayoutParams params = playerControls.getLayoutParams();
-        params.height = youTubePlayer.getLayoutParams().height;
-        params.width = youTubePlayer.getLayoutParams().width;
-        playerControls.setLayoutParams(params);
+        adjustControlsSize();
 
         isFullScreen = false;
 
@@ -125,15 +113,74 @@ public class YouTubePlayerView extends FrameLayout {
         return fullScreenListeners.remove(fullScreenListener);
     }
 
+    // calls to YouTubePlayer
+
+    private boolean initialized = false;
+
+    public void initialize(YouTubePlayer.YouTubeListener youTubeListener) {
+        youTubePlayer.initialize(youTubeListener);
+
+        initialized = true;
+    }
+
+    /**
+     * See {@link YouTubePlayer#loadVideo(String, float)}
+     */
+    public void loadVideo(String videoId, int startSecond) {
+        if(!initialized)
+            throw new IllegalStateException("the player has not been initialized");
+
+        youTubePlayer.loadVideo(videoId, startSecond);
+    }
+
+    /**
+     * See {@link YouTubePlayer#cueVideo(String, float)}
+     */
+    public void cueVideo(String videoId, int startSeconds) {
+        if(!initialized)
+            throw new IllegalStateException("the player has not been initialized");
+
+        youTubePlayer.cueVideo(videoId, startSeconds);
+    }
+
+    /**
+     * Calls {@link WebView#destroy()} on the player.
+     * Call this method before destroying the host Fragment/Activity
+     */
+    public void release() {
+        if(!initialized)
+            throw new IllegalStateException("the player has not been initialized");
+
+        youTubePlayer.destroy();
+    }
+
+    /**
+     * See {@link YouTubePlayer#seekTo(int)}
+     */
     public void seekTo(int time) {
+        if(!initialized)
+            throw new IllegalStateException("the player has not been initialized");
+
         youTubePlayer.seekTo(time);
     }
 
+    /**
+     * See {@link YouTubePlayer#play()}
+     */
     public void playVideo() {
+        if(!initialized)
+            throw new IllegalStateException("the player has not been initialized");
+
         youTubePlayer.play();
     }
 
+    /**
+     * See {@link YouTubePlayer#pause()}
+     */
     public void pauseVideo() {
+        if(!initialized)
+            throw new IllegalStateException("the player has not been initialized");
+
         youTubePlayer.pause();
     }
 }

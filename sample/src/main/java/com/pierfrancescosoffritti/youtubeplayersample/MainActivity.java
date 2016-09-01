@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.next_video_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                youTubePlayerView.loadVideo("LvetJ9U_tVY", 0);
+                youTubePlayerView.cueVideo("LvetJ9U_tVY", 0);
             }
         });
 
@@ -65,12 +65,22 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onDuration(float duration, @NonNull YouTubePlayer youTubePlayer) {
+            public void onVideoDuration(float duration, @NonNull YouTubePlayer youTubePlayer) {
 
             }
 
             @Override
             public void onLog(String log, @NonNull YouTubePlayer youTubePlayer) {
+
+            }
+
+            @Override
+            public void onVideoTitle(String videoTitle, @NonNull YouTubePlayer youTubePlayer) {
+
+            }
+
+            @Override
+            public void onVideoId(String videoId, @NonNull YouTubePlayer youTubePlayer) {
 
             }
         });

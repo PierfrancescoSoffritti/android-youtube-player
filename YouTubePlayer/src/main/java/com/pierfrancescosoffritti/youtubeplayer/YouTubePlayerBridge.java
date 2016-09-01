@@ -114,24 +114,53 @@ public class YouTubePlayerBridge {
 
     @JavascriptInterface
     public void currentSeconds(final String seconds) {
+        final float fSeconds;
+        try {
+            fSeconds = Float.parseFloat(seconds);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return;
+        }
+
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                float dSeconds = Float.parseFloat(seconds);
                 for(YouTubePlayer.YouTubeListener listener : getListeners())
-                    listener.onCurrentSecond(dSeconds, youTubePlayer);
+                    listener.onCurrentSecond(fSeconds, youTubePlayer);
             }
         });
     }
 
     @JavascriptInterface
-    public void duration(final String seconds) {
+    public void onVideoTitle(final String videoTitle) {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                float duration = Float.parseFloat(seconds);
                 for(YouTubePlayer.YouTubeListener listener : getListeners())
-                    listener.onDuration(duration, youTubePlayer);
+                    listener.onVideoTitle(videoTitle, youTubePlayer);
+            }
+        });
+    }
+
+    @JavascriptInterface
+    public void onVideoId(final String videoId) {
+        mainThreadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                for(YouTubePlayer.YouTubeListener listener : getListeners())
+                    listener.onVideoId(videoId, youTubePlayer);
+            }
+        });
+    }
+
+    @JavascriptInterface
+    public void onVideoDuration(final String seconds) {
+        mainThreadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                float videoDuration = Float.parseFloat(seconds);
+                for(YouTubePlayer.YouTubeListener listener : getListeners())
+                    listener.onVideoDuration(videoDuration, youTubePlayer);
             }
         });
     }

@@ -79,8 +79,15 @@
                         onCurrentSeconds();
                     }, 100);
 
-                    // send video length
+                    // data available only if player is ready
+                    var videoData = player.getVideoData();
+                    var title = videoData['title'];
+                    var videoId = videoData['video_id'];
+
+                    // send video data
                     sendDuration();
+                    sendVideoTitle(title);
+                    sendVideoId(videoId)
                     break;
                 }
 
@@ -156,7 +163,15 @@
         }
 
         function sendDuration() {
-        	window.YouTubePlayerBridge.duration(player.getDuration());
+        	window.YouTubePlayerBridge.onVideoDuration(player.getDuration());
+        }
+
+        function sendVideoTitle(title) {
+        	window.YouTubePlayerBridge.onVideoTitle(title);
+        }
+
+        function sendVideoId(id) {
+        	window.YouTubePlayerBridge.onVideoId(id);
         }
 
         function setLog(msg) {
