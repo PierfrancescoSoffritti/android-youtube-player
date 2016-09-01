@@ -13,7 +13,8 @@
     <RelativeLayout
         android:id="@+id/controls_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent" >
 
         <View
             android:id="@+id/drop_shadow_top"
@@ -92,7 +93,7 @@
             android:padding="8dp"
 
             android:clickable="true"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="@drawable/background_item_selected"
 
             android:layout_alignParentBottom="true"
             android:layout_toLeftOf="@+id/fullscreen_button" />

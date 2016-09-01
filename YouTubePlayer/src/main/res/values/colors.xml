@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="red">#F44336</color>
-    <color name="item_selected">#FFFFFF</color>
+    <color name="item_selected">#90FFFFFF</color>
     <color name="drop_shadow_color">#66000000</color>
 </resources>

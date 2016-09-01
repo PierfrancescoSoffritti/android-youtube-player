@@ -27,8 +27,6 @@ public class YouTubePlayer extends WebView {
 
     @NonNull private Set<YouTubeListener> youTubeListeners;
 
-    @NonNull private YouTubePlayerParams params = new YouTubePlayerParams();
-
     @NonNull private final Handler mainThreadHandler;
 
     public YouTubePlayer(Context context) {
@@ -57,6 +55,7 @@ public class YouTubePlayer extends WebView {
         set.setMediaPlaybackRequiresUserGesture(false);
         this.addJavascriptInterface(new YouTubePlayerBridge(this), "YouTubePlayerBridge");
         this.loadDataWithBaseURL("http://www.youtube.com", getVideoHTML(), "text/html", "utf-8", null);
+//        this.loadUrl("file:///android_asset/player.html");
         this.setWebChromeClient(new WebChromeClient());
     }
 
@@ -75,13 +74,11 @@ public class YouTubePlayer extends WebView {
 
             inputStream.close();
 
-            String html = sb.toString();
-
-            return html;
+            return sb.toString();
         } catch (Exception e) {
             e.printStackTrace();
+            return "";
         }
-        return "";
     }
 
     @Override
@@ -120,8 +117,16 @@ public class YouTubePlayer extends WebView {
     }
 
     @NonNull
-    public Set<YouTubeListener> getYouTubeListeners() {
+    public Set<YouTubeListener> getListeners() {
         return youTubeListeners;
+    }
+
+    public boolean addListener(YouTubeListener listener) {
+        return youTubeListeners.add(listener);
+    }
+
+    public boolean removeListener(YouTubeListener listener) {
+        return youTubeListeners.remove(listener);
     }
 
     public interface YouTubeListener {
@@ -137,9 +142,9 @@ public class YouTubePlayer extends WebView {
 
         void onApiChange(@NonNull YouTubePlayer youTubePlayer);
 
-        void onCurrentSecond(double second, @NonNull YouTubePlayer youTubePlayer);
+        void onCurrentSecond(float second, @NonNull YouTubePlayer youTubePlayer);
 
-        void onDuration(double duration, @NonNull YouTubePlayer youTubePlayer);
+        void onDuration(float duration, @NonNull YouTubePlayer youTubePlayer);
 
         void onLog(String log, @NonNull YouTubePlayer youTubePlayer);
     }

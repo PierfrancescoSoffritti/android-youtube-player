@@ -1,8 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-
-    <solid
-        android:color="@color/item_selected"/>
-</shape>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" android:drawable="@color/item_selected" />
+    <item android:state_pressed="false" android:drawable="@android:color/transparent" />
+</selector>

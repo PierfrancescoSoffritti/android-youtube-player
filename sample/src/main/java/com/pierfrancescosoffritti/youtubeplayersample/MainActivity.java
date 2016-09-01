@@ -60,12 +60,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCurrentSecond(double second, @NonNull YouTubePlayer youTubePlayer) {
+            public void onCurrentSecond(float second, @NonNull YouTubePlayer youTubePlayer) {
 
             }
 
             @Override
-            public void onDuration(double duration, @NonNull YouTubePlayer youTubePlayer) {
+            public void onDuration(float duration, @NonNull YouTubePlayer youTubePlayer) {
 
             }
 
