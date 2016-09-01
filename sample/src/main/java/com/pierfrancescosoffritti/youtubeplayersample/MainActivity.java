@@ -1,34 +1,34 @@
 package com.pierfrancescosoffritti.youtubeplayersample;
 
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayer;
+import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private YouTubePlayer youTubePlayer;
+    private YouTubePlayerView youTubePlayerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        youTubePlayer = (YouTubePlayer) findViewById(R.id.youtube_player);
+        youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_player_view);
 //        youTubePlayer.setAutoPlayerHeight(this);
 
         findViewById(R.id.next_video_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                youTubePlayer.loadVideo("LvetJ9U_tVY", 0);
+                youTubePlayerView.loadVideo("LvetJ9U_tVY", 0);
             }
         });
 
-        youTubePlayer.initialize("6JYIGclVQdw", new YouTubePlayer.YouTubeListener() {
+        youTubePlayerView.initialize(new YouTubePlayer.YouTubeListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 youTubePlayer.loadVideo("6JYIGclVQdw", 0);
@@ -79,16 +79,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            ViewGroup.LayoutParams params = youTubePlayer.getLayoutParams();
-            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
-            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            youTubePlayer.setLayoutParams(params);
+//            ViewGroup.LayoutParams params = youTubePlayerView.getLayoutParams();
+//            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+//            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+//            youTubePlayerView.setLayoutParams(params);
+            youTubePlayerView.enterFullScreen();
         } else {
-            ViewGroup.LayoutParams params = youTubePlayer.getLayoutParams();
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            youTubePlayer.setLayoutParams(params);
+//            ViewGroup.LayoutParams params = youTubePlayerView.getLayoutParams();
+//            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+//            params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+//            youTubePlayerView.setLayoutParams(params);
 //            youTubePlayer.adjustHeight(this);
+            youTubePlayerView.exitFullScreen();
         }
 
         super.onConfigurationChanged(newConfig);
@@ -98,6 +100,6 @@ public class MainActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
 
-        youTubePlayer.destroy();
+        youTubePlayerView.release();
     }
 }

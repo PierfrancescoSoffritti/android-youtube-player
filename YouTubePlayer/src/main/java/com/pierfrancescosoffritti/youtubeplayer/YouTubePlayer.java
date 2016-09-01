@@ -26,7 +26,6 @@ import java.util.Set;
 public class YouTubePlayer extends WebView {
 
     @NonNull private Set<YouTubeListener> youTubeListeners;
-    @NonNull private final YouTubeListener innerYouTubeListener;
 
     @NonNull private YouTubePlayerParams params = new YouTubePlayerParams();
 
@@ -46,10 +45,9 @@ public class YouTubePlayer extends WebView {
         mainThreadHandler = new Handler(Looper.getMainLooper());
 
         youTubeListeners = new HashSet<>();
-        innerYouTubeListener = new InnerYouTubePlayerListener();
     }
 
-    public void initialize(String videoId, @Nullable YouTubeListener youTubeListener) {
+    public void initialize(@Nullable YouTubeListener youTubeListener) {
         if(youTubeListener != null)
             this.youTubeListeners.add(youTubeListener);
 
@@ -58,11 +56,11 @@ public class YouTubePlayer extends WebView {
         set.setCacheMode(WebSettings.LOAD_NO_CACHE);
         set.setMediaPlaybackRequiresUserGesture(false);
         this.addJavascriptInterface(new YouTubePlayerBridge(this), "YouTubePlayerBridge");
-        this.loadDataWithBaseURL("http://www.youtube.com", getVideoHTML(videoId), "text/html", "utf-8", null);
+        this.loadDataWithBaseURL("http://www.youtube.com", getVideoHTML(), "text/html", "utf-8", null);
         this.setWebChromeClient(new WebChromeClient());
     }
 
-    private String getVideoHTML(String videoId) {
+    private String getVideoHTML() {
         try {
             InputStream inputStream = getResources().openRawResource(R.raw.player);
 
@@ -78,8 +76,7 @@ public class YouTubePlayer extends WebView {
             inputStream.close();
 
             String html = sb.toString();
-            html = html
-                    .replace("[VIDEO_ID]", videoId);
+
             return html;
         } catch (Exception e) {
             e.printStackTrace();
@@ -125,11 +122,6 @@ public class YouTubePlayer extends WebView {
     @NonNull
     public Set<YouTubeListener> getYouTubeListeners() {
         return youTubeListeners;
-    }
-
-    @NonNull
-    protected YouTubeListener getInnerYouTubeListener() {
-        return innerYouTubeListener;
     }
 
     public interface YouTubeListener {

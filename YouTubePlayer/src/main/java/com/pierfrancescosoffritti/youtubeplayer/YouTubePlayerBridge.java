@@ -104,7 +104,6 @@ public class YouTubePlayerBridge {
 
     private Set<YouTubePlayer.YouTubeListener> getListeners() {
         Set<YouTubePlayer.YouTubeListener> listeners = new HashSet<>();
-        listeners.add(youTubePlayer.getInnerYouTubeListener());
         listeners.addAll(youTubePlayer.getYouTubeListeners());
 
         return listeners;
