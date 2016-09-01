@@ -9,41 +9,38 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayer.YouTubeListener, SeekBar.OnSeekBarChangeListener {
+class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayer.YouTubeListener, SeekBar.OnSeekBarChangeListener {
+    // will use this view as an access point to the YouTubePlayer
     @NonNull private final YouTubePlayerView youTubePlayerView;
-    @NonNull private final View controlsView;
 
+    // view responsible for intercepting clicks. Could have used controlsRoot view, but in this way I'm able to hide all the control at once by hiding controlsRoot
     @NonNull private final View panel;
 
+    // view containing the controls
     @NonNull private final View controlsRoot;
 
     @NonNull private final TextView videoTitle;
     @NonNull private final TextView videoCurrentTime;
     @NonNull private final TextView videoDuration;
 
-    @NonNull private final View progress;
+    @NonNull private final ProgressBar progressBar;
     @NonNull private final ImageView playButton;
     @NonNull private final ImageView youTubeButton;
     @NonNull private final ImageView fullScreenButton;
 
     @NonNull private final SeekBar seekBar;
 
-    @NonNull private final View dropShadowTop;
-    @NonNull private final View dropShadowBottom;
-
-    private boolean isPlaying;
-    private boolean isVisible;
+    // view state
+    private boolean isPlaying = false;
+    private boolean isVisible = true;
     private boolean canFadeControls = false;
 
-    public PlayerControlsWrapper(@NonNull YouTubePlayerView youTubePlayerView, @NonNull View controlsView) {
-        isPlaying = false;
-        isVisible = true;
-
+    protected PlayerControlsWrapper(@NonNull YouTubePlayerView youTubePlayerView, @NonNull View controlsView) {
         this.youTubePlayerView = youTubePlayerView;
-        this.controlsView = controlsView;
 
         panel = controlsView.findViewById(R.id.panel);
 
@@ -53,15 +50,12 @@ public class PlayerControlsWrapper implements View.OnClickListener, YouTubePlaye
         videoCurrentTime = (TextView) controlsView.findViewById(R.id.video_current_time);
         videoDuration = (TextView) controlsView.findViewById(R.id.video_duration);
 
-        progress = controlsView.findViewById(R.id.progress);
+        progressBar = (ProgressBar) controlsView.findViewById(R.id.progress);
         playButton = (ImageView) controlsView.findViewById(R.id.play_button);
         youTubeButton = (ImageView) controlsView.findViewById(R.id.youtube_button);
         fullScreenButton = (ImageView) controlsView.findViewById(R.id.fullscreen_button);
 
         seekBar = (SeekBar) controlsView.findViewById(R.id.seek_bar);
-
-        dropShadowTop = controlsView.findViewById(R.id.drop_shadow_top);
-        dropShadowBottom = controlsView.findViewById(R.id.drop_shadow_bottom);
 
         seekBar.setOnSeekBarChangeListener(this);
         panel.setOnClickListener(this);
@@ -77,7 +71,6 @@ public class PlayerControlsWrapper implements View.OnClickListener, YouTubePlaye
             onPlayButtonPressed();
         else if(view == fullScreenButton)
             onFullScreenPressed();
-
     }
 
     private void onFullScreenPressed() {
@@ -85,7 +78,7 @@ public class PlayerControlsWrapper implements View.OnClickListener, YouTubePlaye
     }
 
     private void onPlayButtonPressed() {
-        updateViewState(!isPlaying);
+        updateViewPlaybackState(!isPlaying);
 
         if(isPlaying)
             youTubePlayerView.playVideo();
@@ -93,7 +86,7 @@ public class PlayerControlsWrapper implements View.OnClickListener, YouTubePlaye
             youTubePlayerView.pauseVideo();
     }
 
-    private void updateViewState(boolean playing) {
+    private void updateViewPlaybackState(boolean playing) {
         isPlaying = playing;
 
         int img = playing ? R.drawable.ic_pause_36dp : R.drawable.ic_play_36dp;
@@ -112,7 +105,9 @@ public class PlayerControlsWrapper implements View.OnClickListener, YouTubePlaye
 
         isVisible = finalAlpha != 0f;
 
-        if(finalAlpha == 1f)
+        // if the controls are shown and the player is playing they should automatically hide after a while.
+        // if the controls are hidden then I have to remove the task
+        if(finalAlpha == 1f && isPlaying)
             startFadeOutViewTimer();
         else
             handler.removeCallbacks(fadeOutRunnable);
@@ -122,29 +117,37 @@ public class PlayerControlsWrapper implements View.OnClickListener, YouTubePlaye
                 .alpha(finalAlpha)
                 .setDuration(300)
                 .setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-                if(finalAlpha == 1f)
-                    controlsRoot.setVisibility(View.VISIBLE);
-            }
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+                        if (finalAlpha == 1f)
+                            controlsRoot.setVisibility(View.VISIBLE);
+                    }
 
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                if(finalAlpha == 0f)
-                    controlsRoot.setVisibility(View.GONE);
-            }
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        if (finalAlpha == 0f)
+                            controlsRoot.setVisibility(View.GONE);
+                    }
 
-            @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
-        }).start();
+                    @Override public void onAnimationCancel(Animator animator) { }
+                    @Override public void onAnimationRepeat(Animator animator) { }
+                }).start();
     }
+
+    private final Handler handler = new Handler(Looper.getMainLooper());
+    private final Runnable fadeOutRunnable = new Runnable() {
+        @Override
+        public void run() {
+            fadeControls(0f);
+        }
+    };
+
+    private void startFadeOutViewTimer() {
+        handler.postDelayed(fadeOutRunnable, 2500);
+    }
+
+
+    // fullscreen callbacks
 
     @Override
     public void onYouTubePlayerEnterFullScreen() {
@@ -156,116 +159,91 @@ public class PlayerControlsWrapper implements View.OnClickListener, YouTubePlaye
         fullScreenButton.setImageResource(R.drawable.ic_fullscreen_24dp);
     }
 
-    @Override
-    public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-
-    }
+    // YouTubePlayer callbacks
 
     @Override
-    public void onStateChange(@YouTubePlayer.State.YouTubePlayerState int state, @NonNull YouTubePlayer youTubePlayer) {
-        newProgress = -1;
+    public void onStateChange(@YouTubePlayer.State.YouTubePlayerState int state) {
+        newSeekBarProgress = -1;
 
         if(state == YouTubePlayer.State.PLAYING || state == YouTubePlayer.State.PAUSED || state == YouTubePlayer.State.VIDEO_CUED) {
             panel.setBackgroundColor(ContextCompat.getColor(youTubePlayerView.getContext(), android.R.color.transparent));
-            progress.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
             playButton.setVisibility(View.VISIBLE);
 
             canFadeControls = true;
             boolean playing = state == YouTubePlayer.State.PLAYING;
-            updateViewState(playing);
+            updateViewPlaybackState(playing);
 
             if(playing)
                 startFadeOutViewTimer();
+            else
+                handler.removeCallbacks(fadeOutRunnable);
 
         } else {
-            canFadeControls = false;
-
-            updateViewState(false);
+            updateViewPlaybackState(false);
             fadeControls(1f);
 
             if(state == YouTubePlayer.State.BUFFERING) {
                 playButton.setVisibility(View.GONE);
-                progress.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
+                canFadeControls = false;
             }
 
             if(state == YouTubePlayer.State.UNSTARTED) {
                 panel.setBackgroundColor(ContextCompat.getColor(youTubePlayerView.getContext(), android.R.color.black));
+                canFadeControls = false;
             }
         }
     }
 
-    Handler handler = new Handler(Looper.getMainLooper());
-    Runnable fadeOutRunnable = new Runnable() {
-        @Override
-        public void run() {
-            fadeControls(0f);
-        }
-    };
-
-    private void startFadeOutViewTimer() {
-        handler.postDelayed(fadeOutRunnable, 2500);
-    }
-
     @Override
-    public void onPlaybackQualityChange(@YouTubePlayer.PlaybackQuality.Quality int playbackQuality, @NonNull YouTubePlayer youTubePlayer) {
-
-    }
-
-    @Override
-    public void onPlaybackRateChange(double rate, @NonNull YouTubePlayer youTubePlayer) {
-
-    }
-
-    @Override
-    public void onError(String arg, @NonNull YouTubePlayer youTubePlayer) {
-
-    }
-
-    @Override
-    public void onApiChange(@NonNull YouTubePlayer youTubePlayer) {
-
-    }
-
-    @Override
-    public void onCurrentSecond(float second, @NonNull YouTubePlayer youTubePlayer) {
+    public void onCurrentSecond(float second) {
+        // ignore if the user is currently moving the SeekBar
         if(seekBarTouchStarted)
             return;
-        if(newProgress > 0 && !Utils.formatTime(second).equals(Utils.formatTime(newProgress)))
+        // ignore if the current time is older than what the user selected with the SeekBar
+        if(newSeekBarProgress > 0 && !Utils.formatTime(second).equals(Utils.formatTime(newSeekBarProgress)))
             return;
 
-        newProgress = -1;
+        newSeekBarProgress = -1;
+
         seekBar.setProgress((int) second);
     }
 
     @Override
-    public void onVideoDuration(float duration, @NonNull YouTubePlayer youTubePlayer) {
+    public void onVideoDuration(float duration) {
         videoDuration.setText(Utils.formatTime(duration));
         seekBar.setMax((int) duration);
     }
 
     @Override
-    public void onLog(String log, @NonNull YouTubePlayer youTubePlayer) {
-
-    }
-
-    @Override
-    public void onVideoTitle(String title, @NonNull YouTubePlayer youTubePlayer) {
+    public void onVideoTitle(String title) {
         videoTitle.setText(title);
     }
 
     @Override
-    public void onVideoId(final String videoId, @NonNull YouTubePlayer youTubePlayer) {
+    public void onVideoId(final String videoId) {
         youTubeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + videoId));
-                controlsView.getContext().startActivity(intent);
+                controlsRoot.getContext().startActivity(intent);
             }
         });
     }
 
+    @Override public void onReady() { }
+    @Override public void onLog(String log) { }
+    @Override public void onPlaybackQualityChange(@YouTubePlayer.PlaybackQuality.Quality int playbackQuality) { }
+    @Override public void onPlaybackRateChange(double rate) { }
+    @Override public void onError(String arg) { }
+    @Override public void onApiChange() { }
+
+    // SeekBar callbacks
+
     private boolean seekBarTouchStarted = false;
-    private int newProgress = -1;
+    // I need this variable because onCurrentSecond gets called every 100 mils, so without the proper checks on this variable in onCurrentSeconds the seek bar glitches when touched.
+    private int newSeekBarProgress = -1;
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -280,7 +258,7 @@ public class PlayerControlsWrapper implements View.OnClickListener, YouTubePlaye
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         if(isPlaying)
-            newProgress = seekBar.getProgress();
+            newSeekBarProgress = seekBar.getProgress();
 
         youTubePlayerView.seekTo(seekBar.getProgress());
         seekBarTouchStarted = false;

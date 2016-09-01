@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebChromeClient;
@@ -23,29 +22,30 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.HashSet;
 import java.util.Set;
 
-public class YouTubePlayer extends WebView {
+/**
+ * WebView implementing the actual YouTube Player
+ */
+class YouTubePlayer extends WebView {
 
     @NonNull private Set<YouTubeListener> youTubeListeners;
-
     @NonNull private final Handler mainThreadHandler;
 
-    public YouTubePlayer(Context context) {
+    protected YouTubePlayer(Context context) {
         this(context, null);
     }
 
-    public YouTubePlayer(Context context, AttributeSet attrs) {
+    protected YouTubePlayer(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public YouTubePlayer(Context context, AttributeSet attrs, int defStyleAttr) {
+    protected YouTubePlayer(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         mainThreadHandler = new Handler(Looper.getMainLooper());
-
         youTubeListeners = new HashSet<>();
     }
 
-    public void initialize(@Nullable YouTubeListener youTubeListener) {
+    protected void initialize(@Nullable YouTubeListener youTubeListener) {
         if(youTubeListener != null)
             this.youTubeListeners.add(youTubeListener);
 
@@ -55,7 +55,6 @@ public class YouTubePlayer extends WebView {
         set.setMediaPlaybackRequiresUserGesture(false);
         this.addJavascriptInterface(new YouTubePlayerBridge(this), "YouTubePlayerBridge");
         this.loadDataWithBaseURL("http://www.youtube.com", getVideoHTML(), "text/html", "utf-8", null);
-//        this.loadUrl("file:///android_asset/player.html");
         this.setWebChromeClient(new WebChromeClient());
     }
 
@@ -85,6 +84,7 @@ public class YouTubePlayer extends WebView {
     public void setLayoutParams(ViewGroup.LayoutParams params) {
         super.setLayoutParams(params);
 
+        // make sure that the player height is equals to the video height
         if(params.height == ViewGroup.LayoutParams.WRAP_CONTENT) {
             DisplayMetrics displayMetrics = new DisplayMetrics();
             WindowManager windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
@@ -94,9 +94,7 @@ public class YouTubePlayer extends WebView {
         }
     }
 
-    public void loadVideo(final String videoId, final float startSeconds) {
-        Log.d(getClass().getSimpleName(), "loadVideo: " +videoId +", " +startSeconds);
-
+    protected void loadVideo(final String videoId, final float startSeconds) {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -105,9 +103,7 @@ public class YouTubePlayer extends WebView {
         });
     }
 
-    public void cueVideo(final String videoId, final float startSeconds) {
-        Log.d(getClass().getSimpleName(), "cueVideo: " +videoId +", " +startSeconds);
-
+    protected void cueVideo(final String videoId, final float startSeconds) {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -116,7 +112,7 @@ public class YouTubePlayer extends WebView {
         });
     }
 
-    public void play() {
+    protected void play() {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -125,7 +121,7 @@ public class YouTubePlayer extends WebView {
         });
     }
 
-    public void pause() {
+    protected void pause() {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -134,7 +130,7 @@ public class YouTubePlayer extends WebView {
         });
     }
 
-    public void seekTo(final int time) {
+    protected void seekTo(final int time) {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -144,40 +140,30 @@ public class YouTubePlayer extends WebView {
     }
 
     @NonNull
-    public Set<YouTubeListener> getListeners() {
+    protected Set<YouTubeListener> getListeners() {
         return youTubeListeners;
     }
 
-    public boolean addListener(YouTubeListener listener) {
+    protected boolean addListener(YouTubeListener listener) {
         return youTubeListeners.add(listener);
     }
 
-    public boolean removeListener(YouTubeListener listener) {
+    protected boolean removeListener(YouTubeListener listener) {
         return youTubeListeners.remove(listener);
     }
 
     public interface YouTubeListener {
-        void onReady(@NonNull YouTubePlayer youTubePlayer);
-
-        void onStateChange(@State.YouTubePlayerState int state, @NonNull YouTubePlayer youTubePlayer);
-
-        void onPlaybackQualityChange(@PlaybackQuality.Quality int playbackQuality, @NonNull YouTubePlayer youTubePlayer);
-
-        void onPlaybackRateChange(double rate, @NonNull YouTubePlayer youTubePlayer);
-
-        void onError(String arg, @NonNull YouTubePlayer youTubePlayer);
-
-        void onApiChange(@NonNull YouTubePlayer youTubePlayer);
-
-        void onCurrentSecond(float second, @NonNull YouTubePlayer youTubePlayer);
-
-        void onVideoDuration(float duration, @NonNull YouTubePlayer youTubePlayer);
-
-        void onLog(String log, @NonNull YouTubePlayer youTubePlayer);
-
-        void onVideoTitle(String videoTitle, @NonNull YouTubePlayer youTubePlayer);
-
-        void onVideoId(String videoId, @NonNull YouTubePlayer youTubePlayer);
+        void onReady();
+        void onStateChange(@State.YouTubePlayerState int state);
+        void onPlaybackQualityChange(@PlaybackQuality.Quality int playbackQuality);
+        void onPlaybackRateChange(double rate);
+        void onError(String arg);
+        void onApiChange();
+        void onCurrentSecond(float second);
+        void onVideoDuration(float duration);
+        void onLog(String log);
+        void onVideoTitle(String videoTitle);
+        void onVideoId(String videoId);
     }
 
     public static class State {

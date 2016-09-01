@@ -5,9 +5,6 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.webkit.JavascriptInterface;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * WEB TO APP bridge
  */
@@ -23,8 +20,8 @@ public class YouTubePlayerBridge {
 
     @JavascriptInterface
     public void onReady() {
-        for(YouTubePlayer.YouTubeListener listener : getListeners())
-            listener.onReady(youTubePlayer);
+        for(YouTubePlayer.YouTubeListener listener : youTubePlayer.getListeners())
+            listener.onReady();
     }
 
     @JavascriptInterface
@@ -33,19 +30,19 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayer.YouTubeListener listener : getListeners())
+                for(YouTubePlayer.YouTubeListener listener : youTubePlayer.getListeners())
                     if ("UNSTARTED".equalsIgnoreCase(state))
-                        listener.onStateChange(YouTubePlayer.State.UNSTARTED, youTubePlayer);
+                        listener.onStateChange(YouTubePlayer.State.UNSTARTED);
                     else if ("ENDED".equalsIgnoreCase(state))
-                        listener.onStateChange(YouTubePlayer.State.ENDED, youTubePlayer);
+                        listener.onStateChange(YouTubePlayer.State.ENDED);
                     else if ("PLAYING".equalsIgnoreCase(state))
-                        listener.onStateChange(YouTubePlayer.State.PLAYING, youTubePlayer);
+                        listener.onStateChange(YouTubePlayer.State.PLAYING);
                     else if ("PAUSED".equalsIgnoreCase(state))
-                        listener.onStateChange(YouTubePlayer.State.PAUSED, youTubePlayer);
+                        listener.onStateChange(YouTubePlayer.State.PAUSED);
                     else if ("BUFFERING".equalsIgnoreCase(state))
-                        listener.onStateChange(YouTubePlayer.State.BUFFERING, youTubePlayer);
+                        listener.onStateChange(YouTubePlayer.State.BUFFERING);
                     else if ("CUED".equalsIgnoreCase(state))
-                        listener.onStateChange(YouTubePlayer.State.VIDEO_CUED, youTubePlayer);
+                        listener.onStateChange(YouTubePlayer.State.VIDEO_CUED);
             }
         });
     }
@@ -55,27 +52,28 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayer.YouTubeListener listener : getListeners())
+                for(YouTubePlayer.YouTubeListener listener : youTubePlayer.getListeners())
                     if ("small".equalsIgnoreCase(quality))
-                        listener.onPlaybackQualityChange(YouTubePlayer.PlaybackQuality.SMALL, youTubePlayer);
+                        listener.onPlaybackQualityChange(YouTubePlayer.PlaybackQuality.SMALL);
                     else if ("medium".equalsIgnoreCase(quality))
-                        listener.onPlaybackQualityChange(YouTubePlayer.PlaybackQuality.MEDIUM, youTubePlayer);
+                        listener.onPlaybackQualityChange(YouTubePlayer.PlaybackQuality.MEDIUM);
                     else if ("large".equalsIgnoreCase(quality))
-                        listener.onPlaybackQualityChange(YouTubePlayer.PlaybackQuality.LARGE, youTubePlayer);
+                        listener.onPlaybackQualityChange(YouTubePlayer.PlaybackQuality.LARGE);
                     else if ("hd720".equalsIgnoreCase(quality))
-                        listener.onPlaybackQualityChange(YouTubePlayer.PlaybackQuality.HD720, youTubePlayer);
+                        listener.onPlaybackQualityChange(YouTubePlayer.PlaybackQuality.HD720);
                     else if ("hd1080".equalsIgnoreCase(quality))
-                        listener.onPlaybackQualityChange(YouTubePlayer.PlaybackQuality.HD1080, youTubePlayer);
+                        listener.onPlaybackQualityChange(YouTubePlayer.PlaybackQuality.HD1080);
                     else if ("highres".equalsIgnoreCase(quality))
-                        listener.onPlaybackQualityChange(YouTubePlayer.PlaybackQuality.HIGH_RES, youTubePlayer);
+                        listener.onPlaybackQualityChange(YouTubePlayer.PlaybackQuality.HIGH_RES);
                     else if ("default".equalsIgnoreCase(quality))
-                        listener.onPlaybackQualityChange(YouTubePlayer.PlaybackQuality.DEFAULT, youTubePlayer);
+                        listener.onPlaybackQualityChange(YouTubePlayer.PlaybackQuality.DEFAULT);
             }
         });
     }
 
     /**
      *  The default playback rate is 1, which indicates that the video is playing at normal speed. Playback rates may include values like 0.25, 0.5, 1, 1.5, and 2.
+     *  <br/><br/>TODO add constants
      * @param rate 0.25, 0.5, 1, 1.5, 2
      */
     @JavascriptInterface
@@ -84,8 +82,8 @@ public class YouTubePlayerBridge {
             @Override
             public void run() {
                 double dRate = Double.parseDouble(rate);
-                for(YouTubePlayer.YouTubeListener listener : getListeners())
-                    listener.onPlaybackRateChange(dRate, youTubePlayer);
+                for(YouTubePlayer.YouTubeListener listener : youTubePlayer.getListeners())
+                    listener.onPlaybackRateChange(dRate);
             }
         });
     }
@@ -95,8 +93,8 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayer.YouTubeListener listener : getListeners())
-                    listener.onError(error, youTubePlayer);
+                for(YouTubePlayer.YouTubeListener listener : youTubePlayer.getListeners())
+                    listener.onError(error);
             }
         });
     }
@@ -106,8 +104,8 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayer.YouTubeListener listener : getListeners())
-                    listener.onApiChange(youTubePlayer);
+                for(YouTubePlayer.YouTubeListener listener : youTubePlayer.getListeners())
+                    listener.onApiChange();
             }
         });
     }
@@ -125,8 +123,8 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayer.YouTubeListener listener : getListeners())
-                    listener.onCurrentSecond(fSeconds, youTubePlayer);
+                for(YouTubePlayer.YouTubeListener listener : youTubePlayer.getListeners())
+                    listener.onCurrentSecond(fSeconds);
             }
         });
     }
@@ -136,8 +134,8 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayer.YouTubeListener listener : getListeners())
-                    listener.onVideoTitle(videoTitle, youTubePlayer);
+                for(YouTubePlayer.YouTubeListener listener : youTubePlayer.getListeners())
+                    listener.onVideoTitle(videoTitle);
             }
         });
     }
@@ -147,8 +145,8 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayer.YouTubeListener listener : getListeners())
-                    listener.onVideoId(videoId, youTubePlayer);
+                for(YouTubePlayer.YouTubeListener listener : youTubePlayer.getListeners())
+                    listener.onVideoId(videoId);
             }
         });
     }
@@ -159,8 +157,8 @@ public class YouTubePlayerBridge {
             @Override
             public void run() {
                 float videoDuration = Float.parseFloat(seconds);
-                for(YouTubePlayer.YouTubeListener listener : getListeners())
-                    listener.onVideoDuration(videoDuration, youTubePlayer);
+                for(YouTubePlayer.YouTubeListener listener : youTubePlayer.getListeners())
+                    listener.onVideoDuration(videoDuration);
             }
         });
     }
@@ -170,16 +168,9 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayer.YouTubeListener listener : getListeners())
-                    listener.onLog(message, youTubePlayer);
+                for(YouTubePlayer.YouTubeListener listener : youTubePlayer.getListeners())
+                    listener.onLog(message);
             }
         });
-    }
-
-    private Set<YouTubePlayer.YouTubeListener> getListeners() {
-        Set<YouTubePlayer.YouTubeListener> listeners = new HashSet<>();
-        listeners.addAll(youTubePlayer.getListeners());
-
-        return listeners;
     }
 }

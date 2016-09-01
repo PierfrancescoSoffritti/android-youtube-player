@@ -40,7 +40,7 @@
             android:lines="1"
             android:padding="8dp"
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true" />
+            android:layout_alignParentStart="true" />
 
         <ImageView
             android:id="@+id/play_button"
@@ -54,7 +54,8 @@
             android:clickable="true"
             android:background="@drawable/background_item_selected"
 
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/play_button" />
 
         <ProgressBar
             android:id="@+id/progress"
@@ -67,7 +68,7 @@
             android:id="@+id/video_current_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0:00"
+            android:text="@string/null_time"
             android:textColor="@android:color/white"
             android:textSize="12sp"
 
@@ -75,7 +76,7 @@
             android:gravity="center_vertical"
 
             android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_alignBottom="@+id/youtube_button"
             android:layout_alignTop="@+id/youtube_button" />
 
@@ -83,7 +84,7 @@
             android:id="@+id/video_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0:00"
+            android:text="@string/null_time"
             android:textColor="@android:color/white"
             android:textSize="12sp"
 
@@ -91,7 +92,7 @@
             android:gravity="center_vertical"
 
             android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@+id/youtube_button"
+            android:layout_toStartOf="@+id/youtube_button"
             android:layout_alignBottom="@+id/youtube_button"
             android:layout_alignTop="@+id/youtube_button" />
 
@@ -106,7 +107,8 @@
             android:background="@drawable/background_item_selected"
 
             android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@+id/fullscreen_button" />
+            android:layout_toStartOf="@+id/fullscreen_button"
+            android:contentDescription="@string/open_video_in_youtube" />
 
         <ImageView
             android:id="@+id/fullscreen_button"
@@ -119,7 +121,9 @@
             android:background="@drawable/background_item_selected"
 
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentEnd="true"
+
+            android:contentDescription="@string/full_screen_button" />
 
         <SeekBar
             android:id="@+id/seek_bar"
@@ -129,8 +133,8 @@
             android:progressTint="@color/red"
             android:progressBackgroundTint="@color/red"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/video_current_time"
-            android:layout_toLeftOf="@+id/video_duration"
+            android:layout_toEndOf="@+id/video_current_time"
+            android:layout_toStartOf="@+id/video_duration"
             android:layout_alignTop="@+id/youtube_button"
             android:layout_alignBottom="@+id/youtube_button" />
     </RelativeLayout>
