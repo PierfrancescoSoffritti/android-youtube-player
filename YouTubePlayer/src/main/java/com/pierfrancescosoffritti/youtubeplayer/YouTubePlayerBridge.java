@@ -29,6 +29,7 @@ public class YouTubePlayerBridge {
 
     @JavascriptInterface
     public void onStateChange(final String state) {
+        System.out.println(state);
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {

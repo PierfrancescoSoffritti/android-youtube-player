@@ -116,6 +116,33 @@ public class YouTubePlayer extends WebView {
         });
     }
 
+    public void play() {
+        mainThreadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                loadUrl("javascript:playVideo()");
+            }
+        });
+    }
+
+    public void pause() {
+        mainThreadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                loadUrl("javascript:pauseVideo()");
+            }
+        });
+    }
+
+    public void seekTo(final int time) {
+        mainThreadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                loadUrl("javascript:seekTo(" +time +")");
+            }
+        });
+    }
+
     @NonNull
     public Set<YouTubeListener> getListeners() {
         return youTubeListeners;

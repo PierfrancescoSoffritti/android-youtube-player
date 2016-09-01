@@ -124,4 +124,16 @@ public class YouTubePlayerView extends FrameLayout {
     public boolean removeFullScreenListener(@NonNull YouTubePlayerFullScreenListener fullScreenListener) {
         return fullScreenListeners.remove(fullScreenListener);
     }
+
+    public void seekTo(int time) {
+        youTubePlayer.seekTo(time);
+    }
+
+    public void playVideo() {
+        youTubePlayer.play();
+    }
+
+    public void pauseVideo() {
+        youTubePlayer.pause();
+    }
 }

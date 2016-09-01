@@ -47,17 +47,26 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_play_36dp"
 
+            android:visibility="gone"
+
             android:padding="8dp"
             android:clickable="true"
             android:background="@drawable/background_item_selected"
 
             android:layout_centerInParent="true" />
 
+        <ProgressBar
+            android:id="@+id/progress"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
         <TextView
             android:id="@+id/video_current_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00:00"
+            android:text="0:00"
             android:textColor="@android:color/white"
             android:textSize="12sp"
 
@@ -73,7 +82,7 @@
             android:id="@+id/video_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00:00"
+            android:text="0:00"
             android:textColor="@android:color/white"
             android:textSize="12sp"
 

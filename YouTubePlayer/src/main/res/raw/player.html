@@ -61,37 +61,43 @@
             clearTimeout(timerTaskId);
 
             switch (event.data) {
-            	case YT.PlayerState.UNSTARTED:
-            	onStateChange("UNSTARTED");
-            	break;
+            	case YT.PlayerState.UNSTARTED: {
+                    onStateChange("UNSTARTED");
+                    break;
+                }
 
-            	case YT.PlayerState.ENDED:
-            	onStateChange("ENDED");
-                break;
+            	case YT.PlayerState.ENDED: {
+                    onStateChange("ENDED");
+                    break;
+                }
 
-                case YT.PlayerState.PLAYING:
-                onStateChange("PLAYING");
-                
-                // start task
-                timerTaskId = setInterval(function() {
-                	onCurrentSeconds();
-                }, 500);
+                case YT.PlayerState.PLAYING: {
+                    onStateChange("PLAYING");
 
-                // send video length
-                sendDuration();
-                break;
+                    // start task
+                    timerTaskId = setInterval(function() {
+                        onCurrentSeconds();
+                    }, 100);
 
-                case YT.PlayerState.PAUSED:
-                onStateChange("PAUSED");
-                break;
+                    // send video length
+                    sendDuration();
+                    break;
+                }
 
-                case YT.PlayerState.BUFFERING:
-                onStateChange("BUFFERING");
-                break;
+                case YT.PlayerState.PAUSED: {
+                    onStateChange("PAUSED");
+                    break;
+                }
 
-                case YT.PlayerState.CUED:
-                onStateChange("CUED");
-                break;
+                case YT.PlayerState.BUFFERING: {
+                    onStateChange("BUFFERING");
+                    break;
+                }
+
+                case YT.PlayerState.CUED: {
+                    onStateChange("CUED");
+                    break;
+                }
             }
         }
 
@@ -161,6 +167,10 @@
 
         function seekTo(startSeconds) {
         	console.log("[JS] Seek to " +startSeconds);
+
+            // startSeconds is not exactly precise because is an int
+        	if(Math.floor(player.getDuration()) == startSeconds)
+        	    startSeconds = player.getDuration();
         	
         	player.seekTo(startSeconds, true);
         }

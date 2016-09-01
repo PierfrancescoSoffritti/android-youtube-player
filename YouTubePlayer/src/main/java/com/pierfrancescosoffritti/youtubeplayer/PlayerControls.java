@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class PlayerControls implements View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayer.YouTubeListener {
+public class PlayerControls implements View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayer.YouTubeListener, SeekBar.OnSeekBarChangeListener {
     @NonNull private final YouTubePlayerView youTubePlayerView;
     @NonNull private final View controlsView;
 
@@ -19,6 +19,7 @@ public class PlayerControls implements View.OnClickListener, YouTubePlayerFullSc
     @NonNull private final TextView videoCurrentTime;
     @NonNull private final TextView videoDuration;
 
+    @NonNull private final View progress;
     @NonNull private final ImageView playButton;
     @NonNull private final ImageView youTubeButton;
     @NonNull private final ImageView fullScreenButton;
@@ -46,6 +47,7 @@ public class PlayerControls implements View.OnClickListener, YouTubePlayerFullSc
         videoCurrentTime = (TextView) controlsView.findViewById(R.id.video_current_time);
         videoDuration = (TextView) controlsView.findViewById(R.id.video_duration);
 
+        progress = controlsView.findViewById(R.id.progress);
         playButton = (ImageView) controlsView.findViewById(R.id.play_button);
         youTubeButton = (ImageView) controlsView.findViewById(R.id.youtube_button);
         fullScreenButton = (ImageView) controlsView.findViewById(R.id.fullscreen_button);
@@ -55,6 +57,7 @@ public class PlayerControls implements View.OnClickListener, YouTubePlayerFullSc
         dropShadowTop = controlsView.findViewById(R.id.drop_shadow_top);
         dropShadowBottom = controlsView.findViewById(R.id.drop_shadow_bottom);
 
+        seekBar.setOnSeekBarChangeListener(this);
         panel.setOnClickListener(this);
         playButton.setOnClickListener(this);
         fullScreenButton.setOnClickListener(this);
@@ -63,7 +66,7 @@ public class PlayerControls implements View.OnClickListener, YouTubePlayerFullSc
     @Override
     public void onClick(View view) {
         if(view == panel)
-            fadeControls();
+            toggleControlsVisibility();
         else if(view == playButton)
             onPlayButtonPressed();
         else if(view == fullScreenButton)
@@ -76,16 +79,29 @@ public class PlayerControls implements View.OnClickListener, YouTubePlayerFullSc
     }
 
     private void onPlayButtonPressed() {
-        isPlaying = !isPlaying;
+        updateViewState(!isPlaying);
 
-        int img = isPlaying ? R.drawable.ic_play_36dp : R.drawable.ic_pause_36dp;
+        if(isPlaying)
+            youTubePlayerView.playVideo();
+        else
+            youTubePlayerView.pauseVideo();
+    }
+
+    private void updateViewState(boolean playing) {
+        isPlaying = playing;
+
+        int img = playing ? R.drawable.ic_pause_36dp : R.drawable.ic_play_36dp;
 
         playButton.setImageResource(img);
     }
 
-    private void fadeControls() {
+    private void toggleControlsVisibility() {
         final float finalAlpha = isVisible ? 0f : 1f;
-        isVisible = !isVisible;
+        fadeControls(finalAlpha);
+    }
+
+    private void fadeControls(final float finalAlpha) {
+        isVisible = finalAlpha != 0f;
         controlsRoot.animate().alpha(finalAlpha).setDuration(300).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
@@ -128,7 +144,21 @@ public class PlayerControls implements View.OnClickListener, YouTubePlayerFullSc
 
     @Override
     public void onStateChange(@YouTubePlayer.State.YouTubePlayerState int state, @NonNull YouTubePlayer youTubePlayer) {
+        if(state == YouTubePlayer.State.PLAYING || state == YouTubePlayer.State.PAUSED) {
+            progress.setVisibility(View.GONE);
+            playButton.setVisibility(View.VISIBLE);
 
+            boolean playing = state == YouTubePlayer.State.PLAYING;
+            updateViewState(playing);
+        } else {
+            updateViewState(false);
+            fadeControls(1f);
+
+            if(state == YouTubePlayer.State.BUFFERING) {
+                playButton.setVisibility(View.GONE);
+                progress.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override
@@ -153,16 +183,45 @@ public class PlayerControls implements View.OnClickListener, YouTubePlayerFullSc
 
     @Override
     public void onCurrentSecond(float second, @NonNull YouTubePlayer youTubePlayer) {
-        videoCurrentTime.setText(Utils.formatTime(second));
+        if(seekBarTouchStarted)
+            return;
+        if(newProgress > 0 && !Utils.formatTime(second).equals(Utils.formatTime(newProgress)))
+            return;
+
+        newProgress = -1;
+        seekBar.setProgress((int) second);
     }
 
     @Override
     public void onDuration(float duration, @NonNull YouTubePlayer youTubePlayer) {
         videoDuration.setText(Utils.formatTime(duration));
+        seekBar.setMax((int) duration);
     }
 
     @Override
     public void onLog(String log, @NonNull YouTubePlayer youTubePlayer) {
 
+    }
+
+    private boolean seekBarTouchStarted = false;
+    private int newProgress = -1;
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+        videoCurrentTime.setText(Utils.formatTime(i));
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+        seekBarTouchStarted = true;
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+        if(isPlaying)
+            newProgress = seekBar.getProgress();
+
+        youTubePlayerView.seekTo(seekBar.getProgress());
+        seekBarTouchStarted = false;
     }
 }
