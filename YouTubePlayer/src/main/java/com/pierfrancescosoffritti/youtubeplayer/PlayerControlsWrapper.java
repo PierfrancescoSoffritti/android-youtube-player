@@ -236,7 +236,7 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
     @Override public void onLog(String log) { }
     @Override public void onPlaybackQualityChange(@YouTubePlayer.PlaybackQuality.Quality int playbackQuality) { }
     @Override public void onPlaybackRateChange(double rate) { }
-    @Override public void onError(String arg) { }
+    @Override public void onError(@YouTubePlayer.Error.PlayerError int error) { }
     @Override public void onApiChange() { }
 
     // SeekBar callbacks

@@ -8,7 +8,8 @@
         android:id="@+id/panel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:background="@android:color/black" />
 
     <RelativeLayout
         android:id="@+id/controls_root"

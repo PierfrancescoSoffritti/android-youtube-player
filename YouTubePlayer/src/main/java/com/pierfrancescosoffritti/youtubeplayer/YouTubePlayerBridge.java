@@ -93,8 +93,18 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayer.YouTubeListener listener : youTubePlayer.getListeners())
-                    listener.onError(error);
+                for(YouTubePlayer.YouTubeListener listener : youTubePlayer.getListeners()) {
+                    if ("2".equalsIgnoreCase(error))
+                        listener.onError(YouTubePlayer.Error.INVALID_PARAMENTER_IN_REQUEST);
+                    else if ("5".equalsIgnoreCase(error))
+                        listener.onError(YouTubePlayer.Error.HTML_5_PLAYER);
+                    else if ("100".equalsIgnoreCase(error))
+                        listener.onError(YouTubePlayer.Error.VIDEO_NOT_FOUND);
+                    else if ("101".equalsIgnoreCase(error))
+                        listener.onError(YouTubePlayer.Error.VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER);
+                    else if ("150".equalsIgnoreCase(error))
+                        listener.onError(YouTubePlayer.Error.VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER);
+                }
             }
         });
     }

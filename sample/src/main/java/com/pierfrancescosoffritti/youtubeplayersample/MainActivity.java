@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.next_video_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                youTubePlayerView.cueVideo("LvetJ9U_tVY", 0);
+                youTubePlayerView.loadVideo("LvetJ9U_tVY", 0);
             }
         });
 

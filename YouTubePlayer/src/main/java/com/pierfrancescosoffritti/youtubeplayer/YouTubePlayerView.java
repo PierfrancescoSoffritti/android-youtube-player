@@ -1,8 +1,11 @@
 package com.pierfrancescosoffritti.youtubeplayer;
 
 import android.content.Context;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -11,10 +14,14 @@ import android.widget.FrameLayout;
 import java.util.HashSet;
 import java.util.Set;
 
-public class YouTubePlayerView extends FrameLayout {
+public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.NetworkListener {
+
+    @NonNull private final NetworkReceiver networkReceiver;
 
     @NonNull private final YouTubePlayer youTubePlayer;
     @NonNull private final View playerControls;
+
+    @NonNull private final PlaybackResumer playbackResumer;
 
     private final Set<YouTubePlayerFullScreenListener> fullScreenListeners;
 
@@ -38,10 +45,16 @@ public class YouTubePlayerView extends FrameLayout {
         playerControls = inflate(context, R.layout.player_controls, this);
         PlayerControlsWrapper playerControlsLogic = new PlayerControlsWrapper(this, playerControls);
 
+        playbackResumer = new PlaybackResumer(this);
+
         fullScreenListeners = new HashSet<>();
         fullScreenListeners.add(playerControlsLogic);
 
         youTubePlayer.addListener(playerControlsLogic);
+        youTubePlayer.addListener(playbackResumer);
+
+        networkReceiver = new NetworkReceiver(this);
+        getContext().registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
     @Override
@@ -116,8 +129,25 @@ public class YouTubePlayerView extends FrameLayout {
     // calls to YouTubePlayer
 
     private boolean initialized = false;
+    private Callable onNetworkAvailableCallback;
 
-    public void initialize(YouTubePlayer.YouTubeListener youTubeListener) {
+    public void initialize(final YouTubePlayer.YouTubeListener youTubeListener) {
+        if(!Utils.isOnline(getContext())) {
+            Log.e("YouTubePlayerView", "Can't initialize because device is not connected to the internet.");
+
+            onNetworkAvailableCallback = new Callable() {
+                @Override
+                public void call() {
+                    Log.d("YouTubePlayerView", "Network available. Initializing player.");
+                    initialize(youTubeListener);
+
+                    onNetworkAvailableCallback = null;
+                }
+            };
+
+            return;
+        }
+
         youTubePlayer.initialize(youTubeListener);
 
         initialized = true;
@@ -126,7 +156,7 @@ public class YouTubePlayerView extends FrameLayout {
     /**
      * See {@link YouTubePlayer#loadVideo(String, float)}
      */
-    public void loadVideo(String videoId, int startSecond) {
+    public void loadVideo(String videoId, float startSecond) {
         if(!initialized)
             throw new IllegalStateException("the player has not been initialized");
 
@@ -136,7 +166,7 @@ public class YouTubePlayerView extends FrameLayout {
     /**
      * See {@link YouTubePlayer#cueVideo(String, float)}
      */
-    public void cueVideo(String videoId, int startSeconds) {
+    public void cueVideo(String videoId, float startSeconds) {
         if(!initialized)
             throw new IllegalStateException("the player has not been initialized");
 
@@ -152,6 +182,7 @@ public class YouTubePlayerView extends FrameLayout {
             throw new IllegalStateException("the player has not been initialized");
 
         youTubePlayer.destroy();
+        getContext().unregisterReceiver(networkReceiver);
     }
 
     /**
@@ -182,5 +213,19 @@ public class YouTubePlayerView extends FrameLayout {
             throw new IllegalStateException("the player has not been initialized");
 
         youTubePlayer.pause();
+    }
+
+    @Override
+    public void onNetworkAvailable() {
+        Log.d("YouTubePlayerView", "Network available.");
+        if(!initialized && onNetworkAvailableCallback != null)
+            onNetworkAvailableCallback.call();
+        else
+            playbackResumer.resume();
+    }
+
+    @Override
+    public void onNetworkUnavailable() {
+
     }
 }

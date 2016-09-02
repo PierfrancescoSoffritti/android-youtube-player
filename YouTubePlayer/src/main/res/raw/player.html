@@ -8,7 +8,7 @@
             padding: 0 0 0 0;
             background: #000000;
             overflow: hidden;
-            position: relative;
+            position: fixed;
         }
     </style>
 
@@ -121,9 +121,9 @@
         }
 
         function onPlayerError(error) {
-        	console.log('[JS] An error occurred: ' +e.data);
+        	console.log('[JS] An error occurred: ' +error.data);
 
-        	onError(e.data);
+        	onError(error.data);
         }
 
         function onPlayerApiChange() {

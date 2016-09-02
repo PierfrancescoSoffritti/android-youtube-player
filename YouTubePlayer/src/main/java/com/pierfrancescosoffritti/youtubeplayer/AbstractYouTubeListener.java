@@ -22,7 +22,7 @@ public abstract class AbstractYouTubeListener implements YouTubePlayer.YouTubeLi
     }
 
     @Override
-    public void onError(String arg) {
+    public void onError(@YouTubePlayer.Error.PlayerError int error) {
     }
 
     @Override

@@ -49,10 +49,10 @@ class YouTubePlayer extends WebView {
         if(youTubeListener != null)
             this.youTubeListeners.add(youTubeListener);
 
-        WebSettings set = this.getSettings();
-        set.setJavaScriptEnabled(true);
-        set.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        set.setMediaPlaybackRequiresUserGesture(false);
+        WebSettings settings = this.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        settings.setMediaPlaybackRequiresUserGesture(false);
         this.addJavascriptInterface(new YouTubePlayerBridge(this), "YouTubePlayerBridge");
         this.loadDataWithBaseURL("http://www.youtube.com", getVideoHTML(), "text/html", "utf-8", null);
         this.setWebChromeClient(new WebChromeClient());
@@ -157,7 +157,7 @@ class YouTubePlayer extends WebView {
         void onStateChange(@State.YouTubePlayerState int state);
         void onPlaybackQualityChange(@PlaybackQuality.Quality int playbackQuality);
         void onPlaybackRateChange(double rate);
-        void onError(String arg);
+        void onError(@Error.PlayerError int error);
         void onApiChange();
         void onCurrentSecond(float second);
         void onVideoDuration(float duration);
@@ -191,5 +191,16 @@ class YouTubePlayer extends WebView {
         @IntDef({SMALL, MEDIUM, LARGE, HD720, HD1080, HIGH_RES, DEFAULT})
         @Retention(RetentionPolicy.SOURCE)
         public @interface Quality {}
+    }
+
+    public static class Error {
+        public final static int INVALID_PARAMENTER_IN_REQUEST = 0;
+        public final static int HTML_5_PLAYER = 1;
+        public final static int VIDEO_NOT_FOUND = 2;
+        public final static int VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER = 3;
+
+        @IntDef({INVALID_PARAMENTER_IN_REQUEST, HTML_5_PLAYER, VIDEO_NOT_FOUND, VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER})
+        @Retention(RetentionPolicy.SOURCE)
+        public @interface PlayerError {}
     }
 }
