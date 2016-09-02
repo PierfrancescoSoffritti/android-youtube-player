@@ -1,6 +1,7 @@
 package com.pierfrancescosoffritti.youtubeplayer;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.IntDef;
@@ -52,7 +53,11 @@ class YouTubePlayer extends WebView {
         WebSettings settings = this.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        settings.setMediaPlaybackRequiresUserGesture(false);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            settings.setMediaPlaybackRequiresUserGesture(false);
+        }
+
         this.addJavascriptInterface(new YouTubePlayerBridge(this), "YouTubePlayerBridge");
         this.loadDataWithBaseURL("http://www.youtube.com", getVideoHTML(), "text/html", "utf-8", null);
         this.setWebChromeClient(new WebChromeClient());
