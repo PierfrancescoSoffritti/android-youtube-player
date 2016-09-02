@@ -263,4 +263,8 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
         youTubePlayerView.seekTo(seekBar.getProgress());
         seekBarTouchStarted = false;
     }
+
+    public void onNewVideo() {
+        seekBar.setProgress(0);
+    }
 }

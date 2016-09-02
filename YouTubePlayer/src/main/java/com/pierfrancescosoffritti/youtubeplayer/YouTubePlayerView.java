@@ -20,7 +20,9 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     @NonNull private final NetworkReceiver networkReceiver;
 
     @NonNull private final YouTubePlayer youTubePlayer;
+
     @NonNull private final View playerControls;
+    @NonNull private final PlayerControlsWrapper playerControlsWrapper;
 
     @NonNull private final PlaybackResumer playbackResumer;
 
@@ -44,14 +46,14 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         youTubePlayer = new YouTubePlayer(context);
         addView(youTubePlayer, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         playerControls = inflate(context, R.layout.player_controls, this);
-        PlayerControlsWrapper playerControlsLogic = new PlayerControlsWrapper(this, playerControls);
+        playerControlsWrapper = new PlayerControlsWrapper(this, playerControls);
 
         playbackResumer = new PlaybackResumer(this);
 
         fullScreenListeners = new HashSet<>();
-        fullScreenListeners.add(playerControlsLogic);
+        fullScreenListeners.add(playerControlsWrapper);
 
-        youTubePlayer.addListener(playerControlsLogic);
+        youTubePlayer.addListener(playerControlsWrapper);
         youTubePlayer.addListener(playbackResumer);
 
         networkReceiver = new NetworkReceiver(this);
@@ -169,20 +171,26 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
      * See {@link YouTubePlayer#loadVideo(String, float)}
      */
     public void loadVideo(String videoId, float startSecond) {
-        if(!initialized)
-            throw new IllegalStateException("the player has not been initialized");
+        if(!initialized) {
+            Log.e("YouTubePlayerView", "the player has not been initialized");
+            return;
+        }
 
         youTubePlayer.loadVideo(videoId, startSecond);
+        playerControlsWrapper.onNewVideo();
     }
 
     /**
      * See {@link YouTubePlayer#cueVideo(String, float)}
      */
     public void cueVideo(String videoId, float startSeconds) {
-        if(!initialized)
-            throw new IllegalStateException("the player has not been initialized");
+        if(!initialized) {
+            Log.e("YouTubePlayerView", "the player has not been initialized");
+            return;
+        }
 
         youTubePlayer.cueVideo(videoId, startSeconds);
+        playerControlsWrapper.onNewVideo();
     }
 
     /**
@@ -190,8 +198,10 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
      * Call this method before destroying the host Fragment/Activity
      */
     public void release() {
-        if(!initialized)
-            throw new IllegalStateException("the player has not been initialized");
+        if(!initialized) {
+            Log.e("YouTubePlayerView", "the player has not been initialized");
+            return;
+        }
 
         youTubePlayer.destroy();
         getContext().unregisterReceiver(networkReceiver);
@@ -201,8 +211,10 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
      * See {@link YouTubePlayer#seekTo(int)}
      */
     public void seekTo(int time) {
-        if(!initialized)
-            throw new IllegalStateException("the player has not been initialized");
+        if(!initialized) {
+            Log.e("YouTubePlayerView", "the player has not been initialized");
+            return;
+        }
 
         youTubePlayer.seekTo(time);
     }
@@ -211,8 +223,10 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
      * See {@link YouTubePlayer#play()}
      */
     public void playVideo() {
-        if(!initialized)
-            throw new IllegalStateException("the player has not been initialized");
+        if(!initialized) {
+            Log.e("YouTubePlayerView", "the player has not been initialized");
+            return;
+        }
 
         youTubePlayer.play();
     }
@@ -221,8 +235,10 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
      * See {@link YouTubePlayer#pause()}
      */
     public void pauseVideo() {
-        if(!initialized)
-            throw new IllegalStateException("the player has not been initialized");
+        if(!initialized) {
+            Log.e("YouTubePlayerView", "the player has not been initialized");
+            return;
+        }
 
         youTubePlayer.pause();
     }
