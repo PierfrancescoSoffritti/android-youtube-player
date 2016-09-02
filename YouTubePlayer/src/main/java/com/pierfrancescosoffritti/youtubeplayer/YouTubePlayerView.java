@@ -131,6 +131,11 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     private boolean initialized = false;
     private Callable onNetworkAvailableCallback;
 
+    /**
+     * Initialize the player
+     * @param youTubeListener lister for player events
+     * @param handleNetworkEvents if <b>true</b> a broadcast receiver will be registered.<br/>If <b>false</b> you should handle network events with your broadcast receiver. See {@link YouTubePlayerView#onNetworkAvailable()} and {@link YouTubePlayerView#onNetworkUnavailable()}
+     */
     public void initialize(@Nullable final YouTubePlayer.YouTubeListener youTubeListener, boolean handleNetworkEvents) {
         if(handleNetworkEvents)
             getContext().registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));

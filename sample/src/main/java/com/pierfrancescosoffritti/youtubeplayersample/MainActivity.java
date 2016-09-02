@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 youTubePlayerView.loadVideo("6JYIGclVQdw", 0);
             }
 
-        });
+        }, true);
     }
 
     @Override
