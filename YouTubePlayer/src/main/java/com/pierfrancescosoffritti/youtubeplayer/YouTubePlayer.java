@@ -26,7 +26,7 @@ import java.util.Set;
 /**
  * WebView implementing the actual YouTube Player
  */
-class YouTubePlayer extends WebView {
+public class YouTubePlayer extends WebView {
 
     @NonNull private Set<YouTubeListener> youTubeListeners;
     @NonNull private final Handler mainThreadHandler;
