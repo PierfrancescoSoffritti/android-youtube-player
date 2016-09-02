@@ -94,6 +94,11 @@ class YouTubePlayer extends WebView {
         }
     }
 
+    /**
+     * This function loads and plays the specified video.
+     * @param videoId
+     * @param startSeconds the time from which the video should start playing
+     */
     protected void loadVideo(final String videoId, final float startSeconds) {
         mainThreadHandler.post(new Runnable() {
             @Override
@@ -103,6 +108,11 @@ class YouTubePlayer extends WebView {
         });
     }
 
+    /**
+     * This function loads the specified video's thumbnail and prepares the player to play the video.
+     * @param videoId
+     * @param startSeconds the time from which the video should start playing
+     */
     protected void cueVideo(final String videoId, final float startSeconds) {
         mainThreadHandler.post(new Runnable() {
             @Override

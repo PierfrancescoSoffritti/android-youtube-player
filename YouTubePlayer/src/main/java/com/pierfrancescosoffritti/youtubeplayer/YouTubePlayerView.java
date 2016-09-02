@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -54,7 +55,6 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         youTubePlayer.addListener(playbackResumer);
 
         networkReceiver = new NetworkReceiver(this);
-        getContext().registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
     @Override
@@ -131,7 +131,10 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     private boolean initialized = false;
     private Callable onNetworkAvailableCallback;
 
-    public void initialize(final YouTubePlayer.YouTubeListener youTubeListener) {
+    public void initialize(@Nullable final YouTubePlayer.YouTubeListener youTubeListener, boolean handleNetworkEvents) {
+        if(handleNetworkEvents)
+            getContext().registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+
         if(!Utils.isOnline(getContext())) {
             Log.e("YouTubePlayerView", "Can't initialize because device is not connected to the internet.");
 
@@ -139,7 +142,8 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
                 @Override
                 public void call() {
                     Log.d("YouTubePlayerView", "Network available. Initializing player.");
-                    initialize(youTubeListener);
+                    youTubePlayer.initialize(youTubeListener);
+                    initialized = true;
 
                     onNetworkAvailableCallback = null;
                 }
@@ -149,7 +153,6 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         }
 
         youTubePlayer.initialize(youTubeListener);
-
         initialized = true;
     }
 
