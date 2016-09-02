@@ -76,6 +76,13 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         playerControls.setLayoutParams(params);
     }
 
+    /**
+     * Set a custom behaviour to the full screen button.
+     */
+    public void onFullScreenButtonListener(OnClickListener listener) {
+        playerControlsWrapper.setOnFullScreenButtonListener(listener);
+    }
+
     public boolean isFullScreen() {
         return isFullScreen;
     }
@@ -204,7 +211,10 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         }
 
         youTubePlayer.destroy();
-        getContext().unregisterReceiver(networkReceiver);
+        try {
+            getContext().unregisterReceiver(networkReceiver);
+        } catch (Exception ignore) {
+        }
     }
 
     /**

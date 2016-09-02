@@ -34,6 +34,8 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
 
     @NonNull private final SeekBar seekBar;
 
+    private View.OnClickListener onFullScreenButtonListener;
+
     // view state
     private boolean isPlaying = false;
     private boolean isVisible = true;
@@ -63,6 +65,10 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
         fullScreenButton.setOnClickListener(this);
     }
 
+    public void setOnFullScreenButtonListener(View.OnClickListener onFullScreenButtonListener) {
+        this.onFullScreenButtonListener = onFullScreenButtonListener;
+    }
+
     @Override
     public void onClick(View view) {
         if(view == panel)
@@ -74,7 +80,10 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
     }
 
     private void onFullScreenPressed() {
-        youTubePlayerView.toggleFullScreen();
+        if(onFullScreenButtonListener == null)
+            youTubePlayerView.toggleFullScreen();
+        else
+            onFullScreenButtonListener.onClick(fullScreenButton);
     }
 
     private void onPlayButtonPressed() {
