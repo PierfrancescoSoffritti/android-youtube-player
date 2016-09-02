@@ -182,7 +182,7 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     }
 
     /**
-     * Calls {@link WebView#destroy()} on the player.
+     * Calls {@link WebView#destroy()} on the player. And unregisters the broadcast receiver (for network events), if registered.
      * Call this method before destroying the host Fragment/Activity
      */
     public void release() {
