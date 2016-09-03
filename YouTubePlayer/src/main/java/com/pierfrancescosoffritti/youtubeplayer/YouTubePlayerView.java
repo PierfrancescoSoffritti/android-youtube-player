@@ -60,10 +60,9 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     }
 
     @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         adjustControlsSize();
-
-        super.onLayout(changed, left, top, right, bottom);
     }
 
     /**
@@ -265,5 +264,9 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     @Override
     public void onNetworkUnavailable() {
 
+    }
+
+    public void showTitle(boolean show) {
+        playerControlsWrapper.showTitle(show);
     }
 }

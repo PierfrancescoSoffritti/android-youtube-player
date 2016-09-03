@@ -276,4 +276,8 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
     public void onNewVideo() {
         seekBar.setProgress(0);
     }
+
+    public void showTitle(boolean show) {
+        videoTitle.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
 }
