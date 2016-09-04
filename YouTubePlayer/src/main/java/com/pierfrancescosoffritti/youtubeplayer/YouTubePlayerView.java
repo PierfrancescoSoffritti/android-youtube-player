@@ -25,7 +25,6 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     @NonNull private final PlayerControlsWrapper playerControlsWrapper;
 
     @NonNull private final PlaybackResumer playbackResumer;
-    @NonNull private final PlayerStateWatcher playerStateWatcher;
 
     private final Set<YouTubePlayerFullScreenListener> fullScreenListeners;
 
@@ -50,14 +49,12 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         playerControlsWrapper = new PlayerControlsWrapper(this, playerControls);
 
         playbackResumer = new PlaybackResumer(this);
-        playerStateWatcher = new PlayerStateWatcher();
 
         fullScreenListeners = new HashSet<>();
         fullScreenListeners.add(playerControlsWrapper);
 
         youTubePlayer.addListener(playerControlsWrapper);
         youTubePlayer.addListener(playbackResumer);
-        youTubePlayer.addListener(playerStateWatcher);
 
         networkReceiver = new NetworkReceiver(this);
     }
@@ -185,11 +182,6 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
             return;
         }
 
-        if(!playerStateWatcher.isReady()) {
-            Log.e("YouTubePlayerView", "player not ready");
-            return;
-        }
-
         youTubePlayer.loadVideo(videoId, startSecond);
         playerControlsWrapper.onNewVideo();
     }
@@ -200,11 +192,6 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     public void cueVideo(String videoId, float startSeconds) {
         if(!initialized) {
             Log.e("YouTubePlayerView", "the player has not been initialized");
-            return;
-        }
-
-        if(!playerStateWatcher.isReady()) {
-            Log.e("YouTubePlayerView", "player not ready");
             return;
         }
 
@@ -219,11 +206,6 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     public void release() {
         if(!initialized) {
             Log.e("YouTubePlayerView", "the player has not been initialized");
-            return;
-        }
-
-        if(!playerStateWatcher.isReady()) {
-            Log.e("YouTubePlayerView", "player not ready");
             return;
         }
 
@@ -243,11 +225,6 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
             return;
         }
 
-        if(!playerStateWatcher.isReady()) {
-            Log.e("YouTubePlayerView", "player not ready");
-            return;
-        }
-
         youTubePlayer.seekTo(time);
     }
 
@@ -260,11 +237,6 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
             return;
         }
 
-        if(!playerStateWatcher.isReady()) {
-            Log.e("YouTubePlayerView", "player not ready");
-            return;
-        }
-
         youTubePlayer.play();
     }
 
@@ -274,11 +246,6 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     public void pauseVideo() {
         if(!initialized) {
             Log.e("YouTubePlayerView", "the player has not been initialized");
-            return;
-        }
-
-        if(!playerStateWatcher.isReady()) {
-            Log.e("YouTubePlayerView", "player not ready");
             return;
         }
 
