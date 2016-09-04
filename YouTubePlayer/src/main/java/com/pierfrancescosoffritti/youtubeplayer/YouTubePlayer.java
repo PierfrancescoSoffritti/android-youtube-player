@@ -59,11 +59,11 @@ public class YouTubePlayer extends WebView {
         }
 
         this.addJavascriptInterface(new YouTubePlayerBridge(this), "YouTubePlayerBridge");
-        this.loadDataWithBaseURL("http://www.youtube.com", getVideoHTML(), "text/html", "utf-8", null);
+        this.loadDataWithBaseURL("https://www.youtube.com", getVideoPlayerHTML(), "text/html", "utf-8", null);
         this.setWebChromeClient(new WebChromeClient());
     }
 
-    private String getVideoHTML() {
+    private String getVideoPlayerHTML() {
         try {
             InputStream inputStream = getResources().openRawResource(R.raw.player);
 
