@@ -201,6 +201,9 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
             if(state == YouTubePlayer.State.UNSTARTED) {
                 panel.setBackgroundColor(ContextCompat.getColor(youTubePlayerView.getContext(), android.R.color.black));
                 canFadeControls = false;
+
+                progressBar.setVisibility(View.GONE);
+                playButton.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -275,6 +278,7 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
 
     public void onNewVideo() {
         seekBar.setProgress(0);
+        seekBar.setMax(0);
 
         videoTitle.post(new Runnable() {
             @Override
@@ -282,6 +286,8 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
                 videoTitle.setText("");
             }
         });
+
+        youTubeButton.setOnClickListener(null);
     }
 
     public void showTitle(boolean show) {
