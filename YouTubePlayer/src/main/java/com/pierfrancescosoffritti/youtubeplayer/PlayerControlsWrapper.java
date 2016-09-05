@@ -280,6 +280,13 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
         seekBar.setProgress(0);
         seekBar.setMax(0);
 
+        videoDuration.post(new Runnable() {
+            @Override
+            public void run() {
+                videoDuration.setText("");
+            }
+        });
+
         videoTitle.post(new Runnable() {
             @Override
             public void run() {
