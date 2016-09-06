@@ -44,7 +44,8 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         isFullScreen = false;
 
         youTubePlayer = new YouTubePlayer(context);
-        addView(youTubePlayer, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        addView(youTubePlayer, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
         playerControls = inflate(context, R.layout.player_controls, this);
         playerControlsWrapper = new PlayerControlsWrapper(this, playerControls);
 
@@ -61,18 +62,12 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        adjustControlsSize();
-    }
-
-    /**
-     * Adjust the size of the controls view so that it fits the player
-     */
-    private void adjustControlsSize() {
-        ViewGroup.LayoutParams params = playerControls.getLayoutParams();
-        params.height = youTubePlayer.getLayoutParams().height;
-        params.width = youTubePlayer.getLayoutParams().width;
-        playerControls.setLayoutParams(params);
+        // if wrap content make the view 16:9
+        if(getLayoutParams().height == ViewGroup.LayoutParams.WRAP_CONTENT) {
+            int fourThreeHeight = View.MeasureSpec.makeMeasureSpec(View.MeasureSpec.getSize(widthMeasureSpec) * 9 / 16, View.MeasureSpec.EXACTLY);
+            super.onMeasure(widthMeasureSpec, fourThreeHeight);
+        } else
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     /**
@@ -95,9 +90,6 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         viewParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
         setLayoutParams(viewParams);
 
-        youTubePlayer.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        adjustControlsSize();
-
         isFullScreen = true;
 
         for(YouTubePlayerFullScreenListener fullScreenListener : fullScreenListeners)
@@ -112,9 +104,6 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         viewParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         viewParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
         setLayoutParams(viewParams);
-
-        youTubePlayer.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        adjustControlsSize();
 
         isFullScreen = false;
 

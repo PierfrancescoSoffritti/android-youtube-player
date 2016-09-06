@@ -133,6 +133,9 @@
             android:thumbTint="@color/red"
             android:progressTint="@color/red"
             android:progressBackgroundTint="@color/red"
+
+            android:maxHeight="100dp"
+
             android:layout_alignParentBottom="true"
             android:layout_toEndOf="@+id/video_current_time"
             android:layout_toStartOf="@+id/video_duration"

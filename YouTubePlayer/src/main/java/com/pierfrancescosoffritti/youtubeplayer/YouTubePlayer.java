@@ -1,16 +1,12 @@
 package com.pierfrancescosoffritti.youtubeplayer;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -53,11 +49,7 @@ public class YouTubePlayer extends WebView {
         WebSettings settings = this.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            settings.setMediaPlaybackRequiresUserGesture(false);
-        }
-
+        settings.setMediaPlaybackRequiresUserGesture(false);
         this.addJavascriptInterface(new YouTubePlayerBridge(this), "YouTubePlayerBridge");
         this.loadDataWithBaseURL("https://www.youtube.com", getVideoPlayerHTML(), "text/html", "utf-8", null);
         this.setWebChromeClient(new WebChromeClient());
@@ -82,20 +74,6 @@ public class YouTubePlayer extends WebView {
         } catch (Exception e) {
             e.printStackTrace();
             return "";
-        }
-    }
-
-    @Override
-    public void setLayoutParams(ViewGroup.LayoutParams params) {
-        super.setLayoutParams(params);
-
-        // make sure that the player height is equals to the video height
-        if(params.height == ViewGroup.LayoutParams.WRAP_CONTENT) {
-            DisplayMetrics displayMetrics = new DisplayMetrics();
-            WindowManager windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-            windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-
-            this.getLayoutParams().height = (int) (displayMetrics.widthPixels * 0.5625);
         }
     }
 
