@@ -1,6 +1,7 @@
 package com.pierfrancescosoffritti.youtubeplayer;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.IntDef;
@@ -52,7 +53,16 @@ public class YouTubePlayer extends WebView {
         settings.setMediaPlaybackRequiresUserGesture(false);
         this.addJavascriptInterface(new YouTubePlayerBridge(this), "YouTubePlayerBridge");
         this.loadDataWithBaseURL("https://www.youtube.com", getVideoPlayerHTML(), "text/html", "utf-8", null);
-        this.setWebChromeClient(new WebChromeClient());
+        this.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public Bitmap getDefaultVideoPoster() {
+                Bitmap result = super.getDefaultVideoPoster();
+                if(result == null)
+                    return Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565);
+                else
+                    return result;
+            }
+        });
     }
 
     private String getVideoPlayerHTML() {
