@@ -1,18 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
 
-    <com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView
-        android:id="@+id/youtube_player_view"
+    android:fitsSystemWindows="true" >
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/root"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/next_video_button"
+        <include
+            layout="@layout/toolbar"
+            android:id="@+id/toolbar" />
+
+        <com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView
+            android:id="@+id/youtube_player_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/next_video_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="nextVideo" />
+    </LinearLayout>
+
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="nextVideo" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_gravity="start" />
+
+</android.support.v4.widget.DrawerLayout>

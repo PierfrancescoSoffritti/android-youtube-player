@@ -179,7 +179,7 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
     };
 
     private void startFadeOutViewTimer() {
-        handler.postDelayed(fadeOutRunnable, 2500);
+        handler.postDelayed(fadeOutRunnable, 3000);
     }
 
 
