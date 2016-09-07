@@ -117,7 +117,6 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
             exitFullScreen();
         else
             enterFullScreen();
-
     }
 
     public boolean addFullScreenListener(@NonNull YouTubePlayerFullScreenListener fullScreenListener) {
