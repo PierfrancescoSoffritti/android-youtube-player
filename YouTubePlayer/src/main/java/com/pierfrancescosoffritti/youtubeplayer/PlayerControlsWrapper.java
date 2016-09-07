@@ -2,6 +2,7 @@ package com.pierfrancescosoffritti.youtubeplayer;
 
 import android.animation.Animator;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
@@ -32,6 +33,9 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
     @NonNull private final ImageView youTubeButton;
     @NonNull private final ImageView fullScreenButton;
 
+    @NonNull private final ImageView customActionLeft;
+    @NonNull private final ImageView customActionRight;
+
     @NonNull private final SeekBar seekBar;
 
     private View.OnClickListener onFullScreenButtonListener;
@@ -57,6 +61,9 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
         youTubeButton = (ImageView) controlsView.findViewById(R.id.youtube_button);
         fullScreenButton = (ImageView) controlsView.findViewById(R.id.fullscreen_button);
 
+        customActionLeft = (ImageView) controlsView.findViewById(R.id.custom_action_left_button);
+        customActionRight = (ImageView) controlsView.findViewById(R.id.custom_action_right_button);
+
         seekBar = (SeekBar) controlsView.findViewById(R.id.seek_bar);
 
         seekBar.setOnSeekBarChangeListener(this);
@@ -67,6 +74,26 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
 
     public void setOnFullScreenButtonListener(View.OnClickListener onFullScreenButtonListener) {
         this.onFullScreenButtonListener = onFullScreenButtonListener;
+    }
+
+    protected void setCustomActionRight(Drawable icon, View.OnClickListener clickListener) {
+        customActionRight.setImageDrawable(icon);
+        customActionRight.setOnClickListener(clickListener);
+
+        if(clickListener != null)
+            customActionRight.setVisibility(View.VISIBLE);
+        else
+            customActionRight.setVisibility(View.GONE);
+    }
+
+    protected void setCustomActionLeft(Drawable icon, View.OnClickListener clickListener) {
+        customActionLeft.setImageDrawable(icon);
+        customActionLeft.setOnClickListener(clickListener);
+
+        if(clickListener != null)
+            customActionLeft.setVisibility(View.VISIBLE);
+        else
+            customActionRight.setVisibility(View.GONE);
     }
 
     @Override
@@ -179,6 +206,16 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
             progressBar.setVisibility(View.GONE);
             playButton.setVisibility(View.VISIBLE);
 
+            if(customActionLeft.hasOnClickListeners())
+                customActionLeft.setVisibility(View.VISIBLE);
+            else
+                customActionLeft.setVisibility(View.GONE);
+
+            if(customActionRight.hasOnClickListeners())
+                customActionRight.setVisibility(View.VISIBLE);
+            else
+                customActionRight.setVisibility(View.GONE);
+
             canFadeControls = true;
             boolean playing = state == YouTubePlayer.State.PLAYING;
             updateViewPlaybackState(playing);
@@ -193,7 +230,11 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
             fadeControls(1f);
 
             if(state == YouTubePlayer.State.BUFFERING) {
-                playButton.setVisibility(View.GONE);
+                playButton.setVisibility(View.INVISIBLE);
+
+                customActionLeft.setVisibility(View.GONE);
+                customActionRight.setVisibility(View.GONE);
+
                 progressBar.setVisibility(View.VISIBLE);
                 canFadeControls = false;
             }

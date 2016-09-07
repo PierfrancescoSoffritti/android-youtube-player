@@ -2,6 +2,7 @@ package com.pierfrancescosoffritti.youtubeplayersample;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -40,8 +41,15 @@ public class MainActivity extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             youTubePlayerView.enterFullScreen();
+            youTubePlayerView.setCustomActionRight(ContextCompat.getDrawable(this, R.drawable.ic_pause_36dp), new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    youTubePlayerView.pauseVideo();
+                }
+            });
         } else {
             youTubePlayerView.exitFullScreen();
+            youTubePlayerView.setCustomActionRight(ContextCompat.getDrawable(this, R.drawable.ic_pause_36dp), null);
         }
 
         super.onConfigurationChanged(newConfig);

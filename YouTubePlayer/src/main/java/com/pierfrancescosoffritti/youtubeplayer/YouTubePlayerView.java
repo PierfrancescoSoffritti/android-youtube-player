@@ -2,6 +2,7 @@ package com.pierfrancescosoffritti.youtubeplayer;
 
 import android.content.Context;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -64,8 +65,8 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         // if wrap content make the view 16:9
         if(getLayoutParams().height == ViewGroup.LayoutParams.WRAP_CONTENT) {
-            int fourThreeHeight = View.MeasureSpec.makeMeasureSpec(View.MeasureSpec.getSize(widthMeasureSpec) * 9 / 16, View.MeasureSpec.EXACTLY);
-            super.onMeasure(widthMeasureSpec, fourThreeHeight);
+            int sixteenNineHeight = View.MeasureSpec.makeMeasureSpec(View.MeasureSpec.getSize(widthMeasureSpec) * 9 / 16, View.MeasureSpec.EXACTLY);
+            super.onMeasure(widthMeasureSpec, sixteenNineHeight);
         } else
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
@@ -257,5 +258,13 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
 
     public void showTitle(boolean show) {
         playerControlsWrapper.showTitle(show);
+    }
+
+    public void setCustomActionRight(Drawable icon, View.OnClickListener clickListener) {
+        playerControlsWrapper.setCustomActionRight(icon, clickListener);
+    }
+
+    public void setCustomActionLeft(Drawable icon, View.OnClickListener clickListener) {
+        playerControlsWrapper.setCustomActionLeft(icon, clickListener);
     }
 }

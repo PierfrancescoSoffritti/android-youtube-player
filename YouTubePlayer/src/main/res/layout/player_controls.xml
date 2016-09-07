@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_play_36dp"
 
-            android:visibility="gone"
+            android:visibility="invisible"
 
             android:padding="8dp"
             android:clickable="true"
@@ -141,6 +141,41 @@
             android:layout_toStartOf="@+id/video_duration"
             android:layout_alignTop="@+id/youtube_button"
             android:layout_alignBottom="@+id/youtube_button" />
+
+        <ImageView
+            android:id="@+id/custom_action_left_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_play_36dp"
+
+            android:visibility="gone"
+
+            android:padding="8dp"
+            android:layout_margin="32dp"
+
+            android:clickable="true"
+            android:background="@drawable/background_item_selected"
+
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/play_button" />
+
+        <ImageView
+            android:id="@+id/custom_action_right_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_play_36dp"
+
+            android:visibility="gone"
+
+            android:padding="8dp"
+            android:layout_margin="32dp"
+
+            android:clickable="true"
+            android:background="@drawable/background_item_selected"
+
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/play_button" />
+
     </RelativeLayout>
 
 </FrameLayout>
