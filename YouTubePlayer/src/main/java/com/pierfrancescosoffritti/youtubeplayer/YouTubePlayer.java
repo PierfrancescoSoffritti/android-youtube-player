@@ -56,7 +56,12 @@ public class YouTubePlayer extends WebView {
         this.setWebChromeClient(new WebChromeClient() {
             @Override
             public Bitmap getDefaultVideoPoster() {
-                Bitmap result = super.getDefaultVideoPoster();
+                Bitmap result = null;
+                try {
+                    result = super.getDefaultVideoPoster();
+                } catch (Exception ignore) {
+                }
+
                 if(result == null)
                     return Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565);
                 else
