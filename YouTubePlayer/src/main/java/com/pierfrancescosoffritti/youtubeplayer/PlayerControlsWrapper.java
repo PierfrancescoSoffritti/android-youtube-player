@@ -45,7 +45,7 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
     private boolean isVisible = true;
     private boolean canFadeControls = false;
 
-    protected PlayerControlsWrapper(@NonNull YouTubePlayerView youTubePlayerView, @NonNull View controlsView) {
+    PlayerControlsWrapper(@NonNull YouTubePlayerView youTubePlayerView, @NonNull View controlsView) {
         this.youTubePlayerView = youTubePlayerView;
 
         panel = controlsView.findViewById(R.id.panel);
@@ -72,11 +72,11 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
         fullScreenButton.setOnClickListener(this);
     }
 
-    public void setOnFullScreenButtonListener(View.OnClickListener onFullScreenButtonListener) {
+    void setOnFullScreenButtonListener(View.OnClickListener onFullScreenButtonListener) {
         this.onFullScreenButtonListener = onFullScreenButtonListener;
     }
 
-    protected void setCustomActionRight(Drawable icon, View.OnClickListener clickListener) {
+    void setCustomActionRight(Drawable icon, View.OnClickListener clickListener) {
         customActionRight.setImageDrawable(icon);
         customActionRight.setOnClickListener(clickListener);
 
@@ -86,7 +86,7 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
             customActionRight.setVisibility(View.GONE);
     }
 
-    protected void setCustomActionLeft(Drawable icon, View.OnClickListener clickListener) {
+    void setCustomActionLeft(Drawable icon, View.OnClickListener clickListener) {
         customActionLeft.setImageDrawable(icon);
         customActionLeft.setOnClickListener(clickListener);
 
@@ -317,7 +317,7 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
         seekBarTouchStarted = false;
     }
 
-    public void onNewVideo() {
+    void onNewVideo() {
         seekBar.setProgress(0);
         seekBar.setMax(0);
 
@@ -340,5 +340,10 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
 
     public void showTitle(boolean show) {
         videoTitle.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    void showFullscreenButton(boolean show) {
+        int visibility = show ? View.VISIBLE : View.INVISIBLE;
+        fullScreenButton.setVisibility(visibility);
     }
 }

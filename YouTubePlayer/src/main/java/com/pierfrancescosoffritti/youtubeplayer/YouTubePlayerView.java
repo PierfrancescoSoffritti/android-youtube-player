@@ -266,4 +266,8 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     public void setCustomActionLeft(Drawable icon, View.OnClickListener clickListener) {
         playerControlsWrapper.setCustomActionLeft(icon, clickListener);
     }
+
+    public void showFullScreenButton(boolean show) {
+        playerControlsWrapper.showFullscreenButton(show);
+    }
 }
