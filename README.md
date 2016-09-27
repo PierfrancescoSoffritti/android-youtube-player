@@ -3,7 +3,7 @@
 [![](https://jitpack.io/v/PierfrancescoSoffritti/AndroidYouTubePlayer.svg)](https://jitpack.io/#PierfrancescoSoffritti/AndroidYouTubePlayer)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AndroidYouTubePlayer-green.svg?style=true)](https://android-arsenal.com/details/1/4322)
 
-The AndroidYouTubePlayer is a simple View that can be easily integrated in every Activity/Fragment. The interaction with YouTube is based on the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference?hl=it).
+The AndroidYouTubePlayer is a simple View that can be easily integrated in every Activity/Fragment. The interaction with YouTube is based on the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference?hl=it), therefore the YouTube app is not required to use the player.
 
 This library has been developed out of necessity. At the time I was working on an app completely based on the fruition of YouTube videos.
 There's an official API provided by Google for the integration of YouTube videos in an Android app: the YouTube Android Player API. But its many bugs and the total lack of support from Google made it impossible to use in production. The app was crashing because of internal bugs of the player ([with 3 years old bug reports](https://code.google.com/p/gdata-issues/issues/detail?id=4395)) and no update has been released in almost a year.
