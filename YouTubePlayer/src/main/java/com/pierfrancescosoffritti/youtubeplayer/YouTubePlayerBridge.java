@@ -26,7 +26,6 @@ public class YouTubePlayerBridge {
 
     @JavascriptInterface
     public void onStateChange(final String state) {
-//        System.out.println(state);
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -81,9 +80,13 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                double dRate = Double.parseDouble(rate);
-                for(YouTubePlayer.YouTubeListener listener : youTubePlayer.getListeners())
-                    listener.onPlaybackRateChange(dRate);
+                try {
+                    double dRate = Double.parseDouble(rate);
+                    for (YouTubePlayer.YouTubeListener listener : youTubePlayer.getListeners())
+                        listener.onPlaybackRateChange(dRate);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -166,9 +169,13 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                float videoDuration = Float.parseFloat(seconds);
-                for(YouTubePlayer.YouTubeListener listener : youTubePlayer.getListeners())
-                    listener.onVideoDuration(videoDuration);
+                try {
+                    float videoDuration = Float.parseFloat(seconds);
+                    for (YouTubePlayer.YouTubeListener listener : youTubePlayer.getListeners())
+                        listener.onVideoDuration(videoDuration);
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

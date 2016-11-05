@@ -53,6 +53,8 @@ public class YouTubePlayer extends WebView {
         settings.setMediaPlaybackRequiresUserGesture(false);
         this.addJavascriptInterface(new YouTubePlayerBridge(this), "YouTubePlayerBridge");
         this.loadDataWithBaseURL("https://www.youtube.com", getVideoPlayerHTML(), "text/html", "utf-8", null);
+
+        // apparently there's a bug in the ChromeClient
         this.setWebChromeClient(new WebChromeClient() {
             @Override
             public Bitmap getDefaultVideoPoster() {
