@@ -45,6 +45,8 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
     private boolean isVisible = true;
     private boolean canFadeControls = false;
 
+    private boolean hideUI = false;
+
     PlayerControlsWrapper(@NonNull YouTubePlayerView youTubePlayerView, @NonNull View controlsView) {
         this.youTubePlayerView = youTubePlayerView;
 
@@ -136,7 +138,7 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
     }
 
     private void fadeControls(final float finalAlpha) {
-        if(!canFadeControls)
+        if(!canFadeControls || hideUI)
             return;
 
         isVisible = finalAlpha != 0f;
@@ -340,6 +342,14 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
 
     public void showTitle(boolean show) {
         videoTitle.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    void hideUI(boolean hide) {
+        if(hide)
+            controlsRoot.setVisibility(View.INVISIBLE);
+        else
+            controlsRoot.setVisibility(View.VISIBLE);
+        hideUI = hide;
     }
 
     void showFullscreenButton(boolean show) {

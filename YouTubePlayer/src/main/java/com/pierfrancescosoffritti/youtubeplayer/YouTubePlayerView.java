@@ -270,4 +270,8 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     public void showFullScreenButton(boolean show) {
         playerControlsWrapper.showFullscreenButton(show);
     }
+
+    public void hideUI(boolean hide) {
+        playerControlsWrapper.hideUI(hide);
+    }
 }
