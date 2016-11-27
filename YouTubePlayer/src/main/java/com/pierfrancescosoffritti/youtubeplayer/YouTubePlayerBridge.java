@@ -3,6 +3,7 @@ package com.pierfrancescosoffritti.youtubeplayer;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.webkit.JavascriptInterface;
 
 /**
@@ -170,7 +171,8 @@ public class YouTubePlayerBridge {
             @Override
             public void run() {
                 try {
-                    float videoDuration = Float.parseFloat(seconds);
+                    String finalSeconds = TextUtils.isEmpty(seconds) ? "0" : seconds;
+                    float videoDuration = Float.parseFloat(finalSeconds);
                     for (YouTubePlayer.YouTubeListener listener : youTubePlayer.getListeners())
                         listener.onVideoDuration(videoDuration);
                 } catch (NumberFormatException e) {
