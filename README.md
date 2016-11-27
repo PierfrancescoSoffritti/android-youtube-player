@@ -33,8 +33,17 @@ dependencies {
 }
 ```
 
-## Usage
+## Proguard
+If you are using ProGuard you might need to add the following option:
+```
+-keep public class com.pierfrancescosoffritti.youtubeplayer.** {
+   public *;
+}
 
+-keepnames class com.pierfrancescosoffritti.youtubeplayer.*
+```
+
+## Usage
 Add the YouTubePlayerView to your layout
 ```
 <LinearLayout
