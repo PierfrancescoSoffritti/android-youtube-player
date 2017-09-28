@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         }, true);
 
+
         youTubePlayerView.addFullScreenListener(new YouTubePlayerFullScreenListener() {
             @Override
             public void onYouTubePlayerEnterFullScreen() {

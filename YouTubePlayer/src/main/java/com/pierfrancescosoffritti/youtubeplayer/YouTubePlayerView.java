@@ -82,6 +82,10 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         return isFullScreen;
     }
 
+    public boolean isPaused(){
+        return youTubePlayer.isPaused();
+    }
+
     public void enterFullScreen() {
         if(isFullScreen)
             return;

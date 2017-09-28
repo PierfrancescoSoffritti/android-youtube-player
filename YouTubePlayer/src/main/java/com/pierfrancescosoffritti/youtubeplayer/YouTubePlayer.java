@@ -25,8 +25,11 @@ import java.util.Set;
  */
 public class YouTubePlayer extends WebView {
 
-    @NonNull private Set<YouTubeListener> youTubeListeners;
-    @NonNull private final Handler mainThreadHandler;
+    @NonNull
+    private Set<YouTubeListener> youTubeListeners;
+    @NonNull
+    private final Handler mainThreadHandler;
+    public boolean isPaused = false;
 
     protected YouTubePlayer(Context context) {
         this(context, null);
@@ -44,7 +47,7 @@ public class YouTubePlayer extends WebView {
     }
 
     protected void initialize(@Nullable YouTubeListener youTubeListener) {
-        if(youTubeListener != null)
+        if (youTubeListener != null)
             this.youTubeListeners.add(youTubeListener);
 
         WebSettings settings = this.getSettings();
@@ -64,7 +67,7 @@ public class YouTubePlayer extends WebView {
                 } catch (Exception ignore) {
                 }
 
-                if(result == null)
+                if (result == null)
                     return Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565);
                 else
                     return result;
@@ -96,6 +99,7 @@ public class YouTubePlayer extends WebView {
 
     /**
      * This function loads and plays the specified video.
+     *
      * @param videoId
      * @param startSeconds the time from which the video should start playing
      */
@@ -103,13 +107,14 @@ public class YouTubePlayer extends WebView {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                loadUrl("javascript:loadVideo('" +videoId +"', " +startSeconds +")");
+                loadUrl("javascript:loadVideo('" + videoId + "', " + startSeconds + ")");
             }
         });
     }
 
     /**
      * This function loads the specified video's thumbnail and prepares the player to play the video.
+     *
      * @param videoId
      * @param startSeconds the time from which the video should start playing
      */
@@ -117,12 +122,17 @@ public class YouTubePlayer extends WebView {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                loadUrl("javascript:cueVideo('" +videoId +"', " +startSeconds +")");
+                loadUrl("javascript:cueVideo('" + videoId + "', " + startSeconds + ")");
             }
         });
     }
 
+    protected boolean isPaused(){
+        return isPaused;
+    }
+
     protected void play() {
+        isPaused=false;
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -132,6 +142,7 @@ public class YouTubePlayer extends WebView {
     }
 
     protected void pause() {
+        isPaused=true;
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -144,7 +155,7 @@ public class YouTubePlayer extends WebView {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                loadUrl("javascript:seekTo(" +time +")");
+                loadUrl("javascript:seekTo(" + time + ")");
             }
         });
     }
@@ -164,15 +175,25 @@ public class YouTubePlayer extends WebView {
 
     public interface YouTubeListener {
         void onReady();
+
         void onStateChange(@State.YouTubePlayerState int state);
+
         void onPlaybackQualityChange(@PlaybackQuality.Quality int playbackQuality);
+
         void onPlaybackRateChange(double rate);
+
         void onError(@Error.PlayerError int error);
+
         void onApiChange();
+
         void onCurrentSecond(float second);
+
         void onVideoDuration(float duration);
+
         void onLog(String log);
+
         void onVideoTitle(String videoTitle);
+
         void onVideoId(String videoId);
     }
 
@@ -186,7 +207,8 @@ public class YouTubePlayer extends WebView {
 
         @IntDef({UNSTARTED, ENDED, PLAYING, PAUSED, BUFFERING, VIDEO_CUED})
         @Retention(RetentionPolicy.SOURCE)
-        public @interface YouTubePlayerState {}
+        public @interface YouTubePlayerState {
+        }
     }
 
     public static class PlaybackQuality {
@@ -200,7 +222,8 @@ public class YouTubePlayer extends WebView {
 
         @IntDef({SMALL, MEDIUM, LARGE, HD720, HD1080, HIGH_RES, DEFAULT})
         @Retention(RetentionPolicy.SOURCE)
-        public @interface Quality {}
+        public @interface Quality {
+        }
     }
 
     public static class Error {
@@ -211,6 +234,7 @@ public class YouTubePlayer extends WebView {
 
         @IntDef({INVALID_PARAMENTER_IN_REQUEST, HTML_5_PLAYER, VIDEO_NOT_FOUND, VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER})
         @Retention(RetentionPolicy.SOURCE)
-        public @interface PlayerError {}
+        public @interface PlayerError {
+        }
     }
 }
