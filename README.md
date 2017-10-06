@@ -29,7 +29,7 @@ allprojects {
 Add this to your module-level `build.gradle`:
 ```
 dependencies {
-  compile 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:0.7.2'
+  compile 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:0.7.8'
 }
 ```
 
