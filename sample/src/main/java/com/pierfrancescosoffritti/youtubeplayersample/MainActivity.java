@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.pierfrancescosoffritti.youtubeplayer.AbstractYouTubeListener;
+import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayer;
 import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView;
 
@@ -31,6 +32,63 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }, true);
+
+        youTubePlayerView.addYouTubeListener(new YouTubePlayer.YouTubeListener() {
+            @Override
+            public void onReady() {
+
+            }
+
+            @Override
+            public void onStateChange(@YouTubePlayer.PlayerState.State int state) {
+
+            }
+
+            @Override
+            public void onPlaybackQualityChange(@YouTubePlayer.PlaybackQuality.Quality int playbackQuality) {
+
+            }
+
+            @Override
+            public void onPlaybackRateChange(String rate) {
+
+            }
+
+            @Override
+            public void onError(@YouTubePlayer.PlayerError.Error int error) {
+
+            }
+
+            @Override
+            public void onApiChange() {
+
+            }
+
+            @Override
+            public void onCurrentSecond(float second) {
+
+            }
+
+            @Override
+            public void onVideoDuration(float duration) {
+
+            }
+
+            @Override
+            public void onMessage(String log) {
+
+            }
+
+            @Override
+            public void onVideoTitle(String videoTitle) {
+
+            }
+
+            @Override
+            public void onVideoId(String videoId) {
+
+            }
+        });
 
         youTubePlayerView.addFullScreenListener(new YouTubePlayerFullScreenListener() {
             @Override

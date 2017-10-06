@@ -4,8 +4,8 @@
         html, body {
             height: 100%;
             width: 100%;
-            margin: 0 0 0 0;
-            padding: 0 0 0 0;
+            margin: 0;
+            padding: 0;
             background: #000000;
             overflow: hidden;
             position: fixed;
@@ -13,215 +13,129 @@
     </style>
 
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <script src="https://www.youtube.com/iframe_api"></script>
     </head>
 
     <body>
-        <div id="playerId"></div>
+        <div id="youTubePlayerDOM"></div>
     </body>
 
     <script type="text/javascript">
-    	var player;
+        
+        const UNSTARTED = "UNSTARTED";
+        const ENDED = "ENDED";
+        const PLAYING = "PLAYING";
+        const PAUSED = "PAUSED";
+        const BUFFERING = "BUFFERING";
+        const CUED = "CUED";
+        
+        const YouTubePlayerBridge = window.YouTubePlayerBridge;
+    	let player;
+
     	function onYouTubeIframeAPIReady() {
-    		player = new YT.Player('playerId', {
-    			height: '100%',
+    		player = new YT.Player('youTubePlayerDOM', {
+    			
+                height: '100%',
     			width: '100%',
-    			events: {
-    				'onReady': onPlayerReady,
-    				'onStateChange': onPlayerStateChange,
-    				'onPlaybackQualityChange': onPlayerPlaybackQualityChange,
-    				'onPlaybackRateChange': onPlayerPlaybackRateChange,
-    				'onError': onPlayerError,
-    				'onApiChange': onPlayerApiChange
+    			
+                events: {
+    				onReady: event => YouTubePlayerBridge.sendReady(),
+    				onStateChange: event => sendPlayerStateChange(event.data),
+    				onPlaybackQualityChange: event => YouTubePlayerBridge.sendPlaybackQualityChange(event.data),
+    				onPlaybackRateChange: event => YouTubePlayerBridge.sendPlaybackRateChange(event.data),
+    				onError: event => YouTubePlayerBridge.sendError(error.data),
+    				onApiChange: event => YouTubePlayerBridge.sendApiChange()
     			},
+
     			playerVars: {
-    				'autoplay': 0,
-    				'autohide': 1,
-    				'controls': 0,
-    				'enablejsapi': 1,
-    				'fs': 0,
-    				'origin' : 'https://www.youtube.com',
-    				'rel': 0,
-    				'showinfo': 0,
-    				'iv_load_policy': 3
+    				autoplay: 0,
+    				autohide: 1,
+    				controls: 0,
+    				enablejsapi: 1,
+    				fs: 0,
+    				origin: 'https://www.youtube.com',
+    				rel: 0,
+    				showinfo: 0,
+    				iv_load_policy: 3
     			}
+                
     		});
     	}
 
-    	function onPlayerReady(event) {
-    		console.log('[JS] player is ready');
-
-    		onReady();
-    	}
-
-    	// id of the task used to periodically send out the playback seconds
-    	var timerTaskId = 0;
-    	function onPlayerStateChange(event) {
-    		// stop task
+    	function sendPlayerStateChange(playerState) {
+            let timerTaskId;
             clearTimeout(timerTaskId);
 
-            switch (event.data) {
-            	case YT.PlayerState.UNSTARTED: {
-                    onStateChange("UNSTARTED");
-                    break;
-                }
+            switch (playerState) {
+            	case YT.PlayerState.UNSTARTED:
+                    sendStateChange(UNSTARTED);
+                    return;
 
-            	case YT.PlayerState.ENDED: {
-                    onStateChange("ENDED");
-                    break;
-                }
+            	case YT.PlayerState.ENDED:
+                    sendStateChange(ENDED);
+                    return;
 
-                case YT.PlayerState.PLAYING: {
-                    onStateChange("PLAYING");
+                case YT.PlayerState.PLAYING:
+                    sendStateChange(PLAYING);
+                    timerTaskId = setInterval( () => YouTubePlayerBridge.sendVideoCurrentTime( player.getCurrentTime() ), 100 );
+                    sendVideoData(player.getVideoData());                
+                    return;
 
-                    // start task
-                    timerTaskId = setInterval(function() {
-                        onCurrentSeconds();
-                    }, 100);
+                case YT.PlayerState.PAUSED:
+                    sendStateChange(PAUSED);
+                    return;
 
-                    // data available only if player is ready
-                    var videoData = player.getVideoData();
-                    var title = videoData['title'];
-                    var videoId = videoData['video_id'];
+                case YT.PlayerState.BUFFERING:
+                    sendStateChange(BUFFERING);
+                    return;
 
-                    // send video data
-                    sendDuration();
-                    sendVideoTitle(title);
-                    sendVideoId(videoId)
-                    break;
-                }
+                case YT.PlayerState.CUED:
+                    sendStateChange(CUED);
+                    return;
+            }
 
-                case YT.PlayerState.PAUSED: {
-                    onStateChange("PAUSED");
-                    break;
-                }
+            function sendVideoData(videoData) {
+                const { video_id, title } = videoData;
+                const videoDuration = player.getDuration();
 
-                case YT.PlayerState.BUFFERING: {
-                    onStateChange("BUFFERING");
-                    break;
-                }
+                YouTubePlayerBridge.sendVideoId(video_id)
+                YouTubePlayerBridge.sendVideoTitle(title);
+                YouTubePlayerBridge.sendVideoDuration(videoDuration);
+            }
 
-                case YT.PlayerState.CUED: {
-                    onStateChange("CUED");
-                    break;
-                }
+            function sendStateChange(newState) {
+                YouTubePlayerBridge.sendStateChange(newState)
             }
         }
 
-        function onPlayerPlaybackQualityChange(playbackQuality) {
-        	console.log('[JS] quality changed to ' +playbackQuality.data);
+        // WEB to JAVA functions
 
-        	onPlaybackQualityChange(playbackQuality.data);
+        function sendMessage(msg) {
+        	YouTubePlayerBridge.sendMessage(msg);
         }
 
-        function onPlayerPlaybackRateChange(playbackRate) {
-        	console.log('[JS] playback rate changed to ' +playbackRate.data);
+        // JAVA to WEB functions
 
-        	onPlaybackRateChange(playbackRate.data);
-        }
-
-        function onPlayerError(error) {
-        	console.log('[JS] An error occurred: ' +error.data);
-
-        	onError(error.data);
-        }
-
-        function onPlayerApiChange() {
-        	console.log('[JS] player API changed');
-
-        	onApiChange();
-        }
-
-        // WEB to APP functions
-
-        function onReady() {
-        	window.YouTubePlayerBridge.onReady();
-        }
-
-        function onStateChange(state) {
-        	window.YouTubePlayerBridge.onStateChange(state);
-        }
-
-        function onPlaybackQualityChange(quality) {
-        	window.YouTubePlayerBridge.onPlaybackQualityChange(quality);
-        }
-
-        function onPlaybackRateChange(rate) {
-            window.YouTubePlayerBridge.onPlaybackRateChange(rate);
-        }
-
-        function onError(error) {
-        	window.YouTubePlayerBridge.onError(error);
-        }
-
-        function onApiChange() {
-        	window.YouTubePlayerBridge.onApiChange();
-        }
-
-        function onCurrentSeconds() {
-        	window.YouTubePlayerBridge.currentSeconds(player.getCurrentTime());
-        }
-
-        function sendDuration() {
-        	window.YouTubePlayerBridge.onVideoDuration(player.getDuration());
-        }
-
-        function sendVideoTitle(title) {
-        	window.YouTubePlayerBridge.onVideoTitle(title);
-        }
-
-        function sendVideoId(id) {
-        	window.YouTubePlayerBridge.onVideoId(id);
-        }
-
-        function setLog(msg) {
-        	window.YouTubePlayerBridge.onLog(msg);
-        }
-
-        // APP to WEB functions
-
-        function seekTo(startSeconds) {
-        	console.log("[JS] Seek to " +startSeconds);
-
-            // startSeconds is not exactly precise because is an int
-        	if(Math.floor(player.getDuration()) == startSeconds)
-        	    startSeconds = player.getDuration();
-        	
+        function seekTo(startSeconds) {        	
         	player.seekTo(startSeconds, true);
         }
 
         function pauseVideo() {
-        	console.log("[JS] Pause video");
-
         	player.pauseVideo();
         }
 
         function playVideo() {
-        	console.log("[JS] Play video");
-
         	player.playVideo();
         }
 
         function loadVideo(videoId, startSeconds) {
-        	console.log("[JS] Loading video: " +videoId + " - " + startSeconds);
-
-        	setLog("Loading video: " +videoId + " - " + startSeconds);
-
             player.loadVideoById(videoId, startSeconds);
         }
 
         function cueVideo(videoId, startSeconds) {
-        	console.log("[JS] Cue video: " +videoId + " - " + startSeconds);
-            setLog("Cue video: " +videoId + " - " + startSeconds);
-
             player.cueVideoById(videoId, startSeconds);
         }
 
     </script>
-
-    <!--<script src="https://www.youtube.com/iframe_api"></script>-->
-    <!--<script type="text/javascript">-->
-    	<!--if (!window['YT']) {var YT = {loading: 0,loaded: 0};}if (!window['YTConfig']) {var YTConfig = {'host': 'http://www.youtube.com'};}if (!YT.loading) {YT.loading = 1;(function(){var l = [];YT.ready = function(f) {if (YT.loaded) {f();} else {l.push(f);}};window.onYTReady = function() {YT.loaded = 1;for (var i = 0; i < l.length; i++) {try {l[i]();} catch (e) {}}};YT.setConfig = function(c) {for (var k in c) {if (c.hasOwnProperty(k)) {YTConfig[k] = c[k];}}};var a = document.createElement('script');a.type = 'text/javascript';a.id = 'www-widgetapi-script';a.src = 'https:' + '//s.ytimg.com/yts/jsbin/www-widgetapi-vflxBao7t/www-widgetapi.js';a.async = true;var b = document.getElementsByTagName('script')[0];b.parentNode.insertBefore(a, b);})();}-->
-    <!--</script>-->
 </html>

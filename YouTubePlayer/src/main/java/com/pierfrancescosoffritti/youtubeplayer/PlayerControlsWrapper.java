@@ -200,10 +200,10 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
     // YouTubePlayer callbacks
 
     @Override
-    public void onStateChange(@YouTubePlayer.State.YouTubePlayerState int state) {
+    public void onStateChange(@YouTubePlayer.PlayerState.State int state) {
         newSeekBarProgress = -1;
 
-        if(state == YouTubePlayer.State.PLAYING || state == YouTubePlayer.State.PAUSED || state == YouTubePlayer.State.VIDEO_CUED) {
+        if(state == YouTubePlayer.PlayerState.PLAYING || state == YouTubePlayer.PlayerState.PAUSED || state == YouTubePlayer.PlayerState.VIDEO_CUED) {
             panel.setBackgroundColor(ContextCompat.getColor(youTubePlayerView.getContext(), android.R.color.transparent));
             progressBar.setVisibility(View.GONE);
             playButton.setVisibility(View.VISIBLE);
@@ -219,7 +219,7 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
                 customActionRight.setVisibility(View.GONE);
 
             canFadeControls = true;
-            boolean playing = state == YouTubePlayer.State.PLAYING;
+            boolean playing = state == YouTubePlayer.PlayerState.PLAYING;
             updateViewPlaybackState(playing);
 
             if(playing)
@@ -231,7 +231,7 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
             updateViewPlaybackState(false);
             fadeControls(1f);
 
-            if(state == YouTubePlayer.State.BUFFERING) {
+            if(state == YouTubePlayer.PlayerState.BUFFERING) {
                 playButton.setVisibility(View.INVISIBLE);
 
                 customActionLeft.setVisibility(View.GONE);
@@ -241,7 +241,7 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
                 canFadeControls = false;
             }
 
-            if(state == YouTubePlayer.State.UNSTARTED) {
+            if(state == YouTubePlayer.PlayerState.UNSTARTED) {
                 panel.setBackgroundColor(ContextCompat.getColor(youTubePlayerView.getContext(), android.R.color.black));
                 canFadeControls = false;
 
@@ -288,10 +288,10 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
     }
 
     @Override public void onReady() { }
-    @Override public void onLog(String log) { }
+    @Override public void onMessage(String log) { }
     @Override public void onPlaybackQualityChange(@YouTubePlayer.PlaybackQuality.Quality int playbackQuality) { }
-    @Override public void onPlaybackRateChange(double rate) { }
-    @Override public void onError(@YouTubePlayer.Error.PlayerError int error) { }
+    @Override public void onPlaybackRateChange(@YouTubePlayer.PlaybackRate.Rate String rate) { }
+    @Override public void onError(@YouTubePlayer.PlayerError.Error int error) { }
     @Override public void onApiChange() { }
 
     // SeekBar callbacks

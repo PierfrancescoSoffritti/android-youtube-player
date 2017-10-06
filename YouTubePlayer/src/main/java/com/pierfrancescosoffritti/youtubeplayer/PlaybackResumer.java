@@ -15,9 +15,9 @@ public class PlaybackResumer implements YouTubePlayer.YouTubeListener {
     }
 
     public void resume() {
-        if(isPlaying && error == YouTubePlayer.Error.HTML_5_PLAYER)
+        if(isPlaying && error == YouTubePlayer.PlayerError.HTML_5_PLAYER)
             youTubePlayerView.loadVideo(videoId, currentSecond);
-        else if(!isPlaying && error == YouTubePlayer.Error.HTML_5_PLAYER)
+        else if(!isPlaying && error == YouTubePlayer.PlayerError.HTML_5_PLAYER)
             youTubePlayerView.cueVideo(videoId, currentSecond);
 
         error = -1;
@@ -29,15 +29,15 @@ public class PlaybackResumer implements YouTubePlayer.YouTubeListener {
     }
 
     @Override
-    public void onStateChange(@YouTubePlayer.State.YouTubePlayerState int state) {
+    public void onStateChange(@YouTubePlayer.PlayerState.State int state) {
         switch (state) {
-            case YouTubePlayer.State.ENDED:
+            case YouTubePlayer.PlayerState.ENDED:
                 isPlaying = false;
                 break;
-            case YouTubePlayer.State.PAUSED:
+            case YouTubePlayer.PlayerState.PAUSED:
                 isPlaying = false;
                 break;
-            case YouTubePlayer.State.PLAYING:
+            case YouTubePlayer.PlayerState.PLAYING:
                 isPlaying = true;
                 break;
             default:
@@ -51,13 +51,13 @@ public class PlaybackResumer implements YouTubePlayer.YouTubeListener {
     }
 
     @Override
-    public void onPlaybackRateChange(double rate) {
+    public void onPlaybackRateChange(@YouTubePlayer.PlaybackRate.Rate String rate) {
 
     }
 
     @Override
-    public void onError(@YouTubePlayer.Error.PlayerError int error) {
-        if(error == YouTubePlayer.Error.HTML_5_PLAYER)
+    public void onError(@YouTubePlayer.PlayerError.Error int error) {
+        if(error == YouTubePlayer.PlayerError.HTML_5_PLAYER)
             this.error = error;
     }
 
@@ -77,7 +77,7 @@ public class PlaybackResumer implements YouTubePlayer.YouTubeListener {
     }
 
     @Override
-    public void onLog(String log) {
+    public void onMessage(String log) {
 
     }
 

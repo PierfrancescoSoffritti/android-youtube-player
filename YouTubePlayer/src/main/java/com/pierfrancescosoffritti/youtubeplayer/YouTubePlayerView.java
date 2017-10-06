@@ -162,6 +162,10 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         initialized = true;
     }
 
+    public void addYouTubeListener(YouTubePlayer.YouTubeListener youTubeListener) {
+        youTubePlayer.addListener(youTubeListener);
+    }
+
     /**
      * See {@link YouTubePlayer#loadVideo(String, float)}
      */

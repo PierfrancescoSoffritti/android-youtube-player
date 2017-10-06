@@ -10,7 +10,7 @@ public abstract class AbstractYouTubeListener implements YouTubePlayer.YouTubeLi
     }
 
     @Override
-    public void onStateChange(@YouTubePlayer.State.YouTubePlayerState int state) {
+    public void onStateChange(@YouTubePlayer.PlayerState.State int state) {
     }
 
     @Override
@@ -18,11 +18,11 @@ public abstract class AbstractYouTubeListener implements YouTubePlayer.YouTubeLi
     }
 
     @Override
-    public void onPlaybackRateChange(double rate) {
+    public void onPlaybackRateChange(@YouTubePlayer.PlaybackRate.Rate String rate) {
     }
 
     @Override
-    public void onError(@YouTubePlayer.Error.PlayerError int error) {
+    public void onError(@YouTubePlayer.PlayerError.Error int error) {
     }
 
     @Override
@@ -38,7 +38,7 @@ public abstract class AbstractYouTubeListener implements YouTubePlayer.YouTubeLi
     }
 
     @Override
-    public void onLog(String log) {
+    public void onMessage(String log) {
     }
 
     @Override
