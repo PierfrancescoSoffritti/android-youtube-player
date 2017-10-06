@@ -319,7 +319,7 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
         seekBarTouchStarted = false;
     }
 
-    void onNewVideo() {
+    void reset() {
         seekBar.setProgress(0);
         seekBar.setMax(0);
 
