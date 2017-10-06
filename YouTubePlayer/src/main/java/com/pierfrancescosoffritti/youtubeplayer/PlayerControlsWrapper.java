@@ -15,7 +15,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayer.YouTubeListener, SeekBar.OnSeekBarChangeListener {
-    // will use this view as an access point to the YouTubePlayer
     @NonNull private final YouTubePlayerView youTubePlayerView;
 
     // view responsible for intercepting clicks. Could have used controlsRoot view, but in this way I'm able to hide all the control at once by hiding controlsRoot
@@ -54,19 +53,19 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
 
         controlsRoot = controlsView.findViewById(R.id.controls_root);
 
-        videoTitle = (TextView) controlsView.findViewById(R.id.video_title);
-        videoCurrentTime = (TextView) controlsView.findViewById(R.id.video_current_time);
-        videoDuration = (TextView) controlsView.findViewById(R.id.video_duration);
+        videoTitle = controlsView.findViewById(R.id.video_title);
+        videoCurrentTime = controlsView.findViewById(R.id.video_current_time);
+        videoDuration = controlsView.findViewById(R.id.video_duration);
 
-        progressBar = (ProgressBar) controlsView.findViewById(R.id.progress);
-        playButton = (ImageView) controlsView.findViewById(R.id.play_button);
-        youTubeButton = (ImageView) controlsView.findViewById(R.id.youtube_button);
-        fullScreenButton = (ImageView) controlsView.findViewById(R.id.fullscreen_button);
+        progressBar = controlsView.findViewById(R.id.progress);
+        playButton = controlsView.findViewById(R.id.play_button);
+        youTubeButton = controlsView.findViewById(R.id.youtube_button);
+        fullScreenButton = controlsView.findViewById(R.id.fullscreen_button);
 
-        customActionLeft = (ImageView) controlsView.findViewById(R.id.custom_action_left_button);
-        customActionRight = (ImageView) controlsView.findViewById(R.id.custom_action_right_button);
+        customActionLeft = controlsView.findViewById(R.id.custom_action_left_button);
+        customActionRight = controlsView.findViewById(R.id.custom_action_right_button);
 
-        seekBar = (SeekBar) controlsView.findViewById(R.id.seek_bar);
+        seekBar = controlsView.findViewById(R.id.seek_bar);
 
         seekBar.setOnSeekBarChangeListener(this);
         panel.setOnClickListener(this);
@@ -116,19 +115,14 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
     }
 
     private void onPlayButtonPressed() {
-        updateViewPlaybackState(!isPlaying);
-
         if(isPlaying)
-            youTubePlayerView.playVideo();
-        else
             youTubePlayerView.pauseVideo();
+        else
+            youTubePlayerView.playVideo();
     }
 
-    private void updateViewPlaybackState(boolean playing) {
-        isPlaying = playing;
-
+    private void updatePlayPauseButtonIcon(boolean playing) {
         int img = playing ? R.drawable.ic_pause_36dp : R.drawable.ic_play_36dp;
-
         playButton.setImageResource(img);
     }
 
@@ -203,6 +197,8 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
     public void onStateChange(@YouTubePlayer.PlayerState.State int state) {
         newSeekBarProgress = -1;
 
+        updateControlsState(state);
+
         if(state == YouTubePlayer.PlayerState.PLAYING || state == YouTubePlayer.PlayerState.PAUSED || state == YouTubePlayer.PlayerState.VIDEO_CUED) {
             panel.setBackgroundColor(ContextCompat.getColor(youTubePlayerView.getContext(), android.R.color.transparent));
             progressBar.setVisibility(View.GONE);
@@ -220,7 +216,7 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
 
             canFadeControls = true;
             boolean playing = state == YouTubePlayer.PlayerState.PLAYING;
-            updateViewPlaybackState(playing);
+            updatePlayPauseButtonIcon(playing);
 
             if(playing)
                 startFadeOutViewTimer();
@@ -228,7 +224,7 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
                 handler.removeCallbacks(fadeOutRunnable);
 
         } else {
-            updateViewPlaybackState(false);
+            updatePlayPauseButtonIcon(false);
             fadeControls(1f);
 
             if(state == YouTubePlayer.PlayerState.BUFFERING) {
@@ -249,6 +245,24 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
                 playButton.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    private void updateControlsState(int state) {
+        switch (state) {
+            case YouTubePlayer.PlayerState.ENDED:
+                isPlaying = false;
+                break;
+            case YouTubePlayer.PlayerState.PAUSED:
+                isPlaying = false;
+                break;
+            case YouTubePlayer.PlayerState.PLAYING:
+                isPlaying = true;
+                break;
+            default:
+                break;
+        }
+
+        updatePlayPauseButtonIcon(!isPlaying);
     }
 
     @Override

@@ -88,15 +88,13 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         return fullScreenHandler.removeFullScreenListener(fullScreenListener);
     }
 
-    // calls to YouTubePlayer
-
     private boolean initialized = false;
     private Callable asyncInitialization;
 
     /**
      * Initialize the player
      * @param youTubeListener lister for player events
-     * @param handleNetworkEvents if <b>true</b> a broadcast receiver will be registered.<br/>If <b>false</b> you should handle network events with your broadcast receiver. See {@link YouTubePlayerView#onNetworkAvailable()} and {@link YouTubePlayerView#onNetworkUnavailable()}
+     * @param handleNetworkEvents if <b>true</b> a broadcast receiver will be registered.<br/>If <b>false</b> you should handle network events with your own broadcast receiver. See {@link YouTubePlayerView#onNetworkAvailable()} and {@link YouTubePlayerView#onNetworkUnavailable()}
      */
     public void initialize(@Nullable final YouTubePlayer.YouTubeListener youTubeListener, boolean handleNetworkEvents) {
         if(handleNetworkEvents)
@@ -127,6 +125,10 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         youTubePlayer.addListener(youTubeListener);
     }
 
+    public void removeYouTubeListener(YouTubePlayer.YouTubeListener youTubeListener) {
+        youTubePlayer.removeListener(youTubeListener);
+    }
+
     /**
      * See {@link YouTubePlayer#loadVideo(String, float)}
      */
@@ -155,9 +157,6 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         }
     }
 
-    /**
-     * See {@link YouTubePlayer#seekTo(int)}
-     */
     public void seekTo(int time) {
         youTubePlayer.seekTo(time);
     }
@@ -170,16 +169,10 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         youTubePlayer.unMute();
     }
 
-    /**
-     * See {@link YouTubePlayer#play()}
-     */
     public void playVideo() {
         youTubePlayer.play();
     }
 
-    /**
-     * See {@link YouTubePlayer#pause()}
-     */
     public void pauseVideo() {
         youTubePlayer.pause();
     }
@@ -194,7 +187,6 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
 
     @Override
     public void onNetworkUnavailable() {
-
     }
 
     public void showTitle(boolean show) {

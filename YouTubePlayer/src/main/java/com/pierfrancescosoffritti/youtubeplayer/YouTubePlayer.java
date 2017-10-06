@@ -202,12 +202,12 @@ public class YouTubePlayer extends WebView {
     }
 
     public static class PlayerState {
-        public final static int UNKNOWN = -1;
-        public final static int UNSTARTED = 0;
-        public final static int ENDED = 1;
-        public final static int PLAYING = 2;
-        public final static int PAUSED = 3;
-        public final static int BUFFERING = 4;
+        public final static int UNKNOWN = -10;
+        public final static int UNSTARTED = -1;
+        public final static int ENDED = 0;
+        public final static int PLAYING = 1;
+        public final static int PAUSED = 2;
+        public final static int BUFFERING = 3;
         public final static int VIDEO_CUED = 5;
 
         @IntDef({UNKNOWN, UNSTARTED, ENDED, PLAYING, PAUSED, BUFFERING, VIDEO_CUED})
@@ -216,14 +216,14 @@ public class YouTubePlayer extends WebView {
     }
 
     public static class PlaybackQuality {
-        public final static int UNKNOWN = -1;
+        public final static int UNKNOWN = -10;
         public final static int SMALL = 0;
         public final static int MEDIUM = 1;
         public final static int LARGE = 2;
         public final static int HD720 = 3;
         public final static int HD1080 = 4;
         public final static int HIGH_RES = 5;
-        public final static int DEFAULT = 6;
+        public final static int DEFAULT = -1;
 
         @IntDef({UNKNOWN, SMALL, MEDIUM, LARGE, HD720, HD1080, HIGH_RES, DEFAULT})
         @Retention(RetentionPolicy.SOURCE)
