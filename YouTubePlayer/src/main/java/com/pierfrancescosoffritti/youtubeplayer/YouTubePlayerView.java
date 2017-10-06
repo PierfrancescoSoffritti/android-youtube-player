@@ -72,6 +72,14 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         playerControlsWrapper.setOnFullScreenButtonListener(listener);
     }
 
+    public void enterFullScreen() {
+        fullScreenHandler.enterFullScreen(this);
+    }
+
+    public void exitFullScreen() {
+        fullScreenHandler.exitFullScreen(this);
+    }
+
     public boolean isFullScreen() {
         return fullScreenHandler.isFullScreen();
     }

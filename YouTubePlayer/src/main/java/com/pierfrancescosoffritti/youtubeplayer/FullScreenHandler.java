@@ -17,7 +17,7 @@ public class FullScreenHandler {
         fullScreenListeners = new HashSet<>();
     }
 
-    private void enterFullScreen(@NonNull View view) {
+    void enterFullScreen(@NonNull View view) {
         if(isFullScreen)
             return;
 
@@ -32,7 +32,7 @@ public class FullScreenHandler {
             fullScreenListener.onYouTubePlayerEnterFullScreen();
     }
 
-    private void exitFullScreen(@NonNull View view) {
+    void exitFullScreen(@NonNull View view) {
         if(!isFullScreen)
             return;
 
