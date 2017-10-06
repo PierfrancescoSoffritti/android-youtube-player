@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         youTubePlayerView.addYouTubeListener(new YouTubePlayer.YouTubeListener() {
             @Override
             public void onReady() {
-
             }
 
             @Override
@@ -81,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onVideoTitle(String videoTitle) {
-
             }
 
             @Override

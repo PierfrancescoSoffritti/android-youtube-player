@@ -221,6 +221,24 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         youTubePlayer.seekTo(time);
     }
 
+    public void mute() {
+        if(!initialized) {
+            Log.e("YouTubePlayerView", "the player has not been initialized");
+            return;
+        }
+
+        youTubePlayer.mute();
+    }
+
+    public void unMute() {
+        if(!initialized) {
+            Log.e("YouTubePlayerView", "the player has not been initialized");
+            return;
+        }
+
+        youTubePlayer.unMute();
+    }
+
     /**
      * See {@link YouTubePlayer#play()}
      */
