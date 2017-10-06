@@ -162,6 +162,12 @@ public class YouTubePlayer extends WebView {
         return youTubeListeners.remove(listener);
     }
 
+    @Override
+    public void destroy() {
+        mainThreadHandler.removeCallbacksAndMessages(null);
+        super.destroy();
+    }
+
     public interface YouTubeListener {
         void onReady();
         void onStateChange(@State.YouTubePlayerState int state);
