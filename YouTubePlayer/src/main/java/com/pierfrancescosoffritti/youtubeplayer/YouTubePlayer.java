@@ -24,10 +24,12 @@ import java.util.Set;
 /**
  * WebView implementing the actual YouTube Player
  */
-public class YouTubePlayer extends WebView {
+public class YouTubePlayer extends WebView implements YouTubePlayerActions {
 
-    @NonNull private Set<YouTubeListener> youTubeListeners;
+    @NonNull private Set<YouTubePlayerListener> youTubePlayerListeners;
     @NonNull private final Handler mainThreadHandler;
+
+    @Nullable private PlayerStateTracker playerStateTracker;
 
     protected YouTubePlayer(Context context) {
         this(context, null);
@@ -41,19 +43,125 @@ public class YouTubePlayer extends WebView {
         super(context, attrs, defStyleAttr);
 
         mainThreadHandler = new Handler(Looper.getMainLooper());
-        youTubeListeners = new HashSet<>();
+        youTubePlayerListeners = new HashSet<>();
     }
 
-    protected void initialize(@Nullable YouTubeListener youTubeListener) {
-        if(youTubeListener != null)
-            this.youTubeListeners.add(youTubeListener);
+    protected void initialize(@Nullable YouTubePlayerListener youTubePlayerListener) {
+        if(youTubePlayerListener != null)
+            this.youTubePlayerListeners.add(youTubePlayerListener);
 
+        playerStateTracker = new PlayerStateTracker();
+        youTubePlayerListeners.add(playerStateTracker);
+
+        initWebView();
+    }
+
+    @Override
+    public void loadVideo(final String videoId, final float startSeconds) {
+        mainThreadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                loadUrl("javascript:loadVideo('" +videoId +"', " +startSeconds +")");
+            }
+        });
+    }
+
+    @Override
+    public void cueVideo(final String videoId, final float startSeconds) {
+        mainThreadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                loadUrl("javascript:cueVideo('" +videoId +"', " +startSeconds +")");
+            }
+        });
+    }
+
+    @Override
+    public void play() {
+        mainThreadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                loadUrl("javascript:playVideo()");
+            }
+        });
+    }
+
+    @Override
+    public void pause() {
+        mainThreadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                loadUrl("javascript:pauseVideo()");
+            }
+        });
+    }
+
+    @Override
+    public void mute() {
+        mainThreadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                loadUrl("javascript:mute()");
+            }
+        });
+    }
+
+    @Override
+    public void unMute() {
+        mainThreadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                loadUrl("javascript:unMute()");
+            }
+        });
+    }
+
+    @Override
+    public void seekTo(final int time) {
+        mainThreadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                loadUrl("javascript:seekTo(" +time +")");
+            }
+        });
+    }
+
+    @Override
+    @PlayerState.State
+    public int getCurrentState() {
+        if(playerStateTracker == null)
+            throw new RuntimeException("Player not initialized.");
+
+        return playerStateTracker.currentState;
+    }
+
+    @Override
+    public void destroy() {
+        mainThreadHandler.removeCallbacksAndMessages(null);
+        super.destroy();
+    }
+
+    @NonNull
+    protected Set<YouTubePlayerListener> getListeners() {
+        return youTubePlayerListeners;
+    }
+
+    protected boolean addListener(YouTubePlayerListener listener) {
+        return youTubePlayerListeners.add(listener);
+    }
+
+    protected boolean removeListener(YouTubePlayerListener listener) {
+        return youTubePlayerListeners.remove(listener);
+    }
+
+    private void initWebView() {
         WebSettings settings = this.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         settings.setMediaPlaybackRequiresUserGesture(false);
+
         this.addJavascriptInterface(new YouTubePlayerBridge(this), "YouTubePlayerBridge");
-        this.loadDataWithBaseURL("https://www.youtube.com", getVideoPlayerHTML(), "text/html", "utf-8", null);
+        this.loadDataWithBaseURL("https://www.youtube.com", readYouTubePlayerHTMLFromFile(), "text/html", "utf-8", null);
 
         // apparently there's a bug in the ChromeClient
         this.setWebChromeClient(new WebChromeClient() {
@@ -73,7 +181,7 @@ public class YouTubePlayer extends WebView {
         });
     }
 
-    private String getVideoPlayerHTML() {
+    private String readYouTubePlayerHTMLFromFile() {
         try {
             InputStream inputStream = getResources().openRawResource(R.raw.player);
 
@@ -81,113 +189,28 @@ public class YouTubePlayer extends WebView {
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
             String read;
-            StringBuilder sb = new StringBuilder("");
+            StringBuilder sb = new StringBuilder();
 
-            while ((read = bufferedReader.readLine()) != null)
+            while ( ( read = bufferedReader.readLine() ) != null )
                 sb.append(read).append("\n");
-
             inputStream.close();
 
             return sb.toString();
         } catch (Exception e) {
-            e.printStackTrace();
-            return "";
+            throw new RuntimeException("Can't parse HTML file containing the player.");
         }
     }
 
-    /**
-     * This function loads and plays the specified video.
-     * @param videoId
-     * @param startSeconds the time from which the video should start playing
-     */
-    protected void loadVideo(final String videoId, final float startSeconds) {
-        mainThreadHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                loadUrl("javascript:loadVideo('" +videoId +"', " +startSeconds +")");
-            }
-        });
+    private class PlayerStateTracker extends AbstractYouTubePlayerListener {
+        @PlayerState.State private int currentState;
+
+        @Override
+        public void onStateChange(@YouTubePlayer.PlayerState.State int state) {
+            this.currentState = state;
+        }
     }
 
-    /**
-     * This function loads the specified video's thumbnail and prepares the player to play the video.
-     * @param videoId
-     * @param startSeconds the time from which the video should start playing
-     */
-    protected void cueVideo(final String videoId, final float startSeconds) {
-        mainThreadHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                loadUrl("javascript:cueVideo('" +videoId +"', " +startSeconds +")");
-            }
-        });
-    }
-
-    protected void play() {
-        mainThreadHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                loadUrl("javascript:playVideo()");
-            }
-        });
-    }
-
-    protected void pause() {
-        mainThreadHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                loadUrl("javascript:pauseVideo()");
-            }
-        });
-    }
-
-    protected void mute() {
-        mainThreadHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                loadUrl("javascript:mute()");
-            }
-        });
-    }
-
-    protected void unMute() {
-        mainThreadHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                loadUrl("javascript:unMute()");
-            }
-        });
-    }
-
-    protected void seekTo(final int time) {
-        mainThreadHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                loadUrl("javascript:seekTo(" +time +")");
-            }
-        });
-    }
-
-    @NonNull
-    protected Set<YouTubeListener> getListeners() {
-        return youTubeListeners;
-    }
-
-    protected boolean addListener(YouTubeListener listener) {
-        return youTubeListeners.add(listener);
-    }
-
-    protected boolean removeListener(YouTubeListener listener) {
-        return youTubeListeners.remove(listener);
-    }
-
-    @Override
-    public void destroy() {
-        mainThreadHandler.removeCallbacksAndMessages(null);
-        super.destroy();
-    }
-
-    public interface YouTubeListener {
+    public interface YouTubePlayerListener {
         void onReady();
         void onStateChange(@PlayerState.State int state);
         void onPlaybackQualityChange(@PlaybackQuality.Quality int playbackQuality);
@@ -231,7 +254,7 @@ public class YouTubePlayer extends WebView {
     }
 
     public static class PlayerError {
-        public final static int UNKNOWN = -1;
+        public final static int UNKNOWN = -10;
         public final static int INVALID_PARAMETER_IN_REQUEST = 0;
         public final static int HTML_5_PLAYER = 1;
         public final static int VIDEO_NOT_FOUND = 2;
@@ -244,7 +267,7 @@ public class YouTubePlayer extends WebView {
 
     // @param rate 0.25, 0.5, 1, 1.5, 2
     public static class PlaybackRate {
-        public final static String UNKNOWN = "-1";
+        public final static String UNKNOWN = "-10";
         public final static String RATE_0_25 = "0.25";
         public final static String RATE_0_5 = "0.5";
         public final static String RATE_1 = "1";

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import java.util.HashSet;
 import java.util.Set;
 
-public class FullScreenHandler {
+class FullScreenHandler {
 
     private boolean isFullScreen;
     private final Set<YouTubePlayerFullScreenListener> fullScreenListeners;

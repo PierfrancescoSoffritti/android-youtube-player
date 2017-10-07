@@ -6,7 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.pierfrancescosoffritti.youtubeplayer.AbstractYouTubeListener;
+import com.pierfrancescosoffritti.youtubeplayer.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayer;
 import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView;
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         fullScreenManager = new FullScreenManager(this);
 
         youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_player_view);
-        youTubePlayerView.initialize(new AbstractYouTubeListener() {
+        youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
 
             @Override
             public void onReady() {
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         }, true);
 
-        youTubePlayerView.addYouTubeListener(new YouTubePlayer.YouTubeListener() {
+        youTubePlayerView.addYouTubePlayerListener(new YouTubePlayer.YouTubePlayerListener() {
             @Override
             public void onReady() {
             }

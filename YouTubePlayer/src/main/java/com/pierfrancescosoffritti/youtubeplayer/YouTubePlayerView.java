@@ -13,18 +13,15 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
-import java.util.HashSet;
-import java.util.Set;
-
-public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.NetworkListener {
+public class YouTubePlayerView extends FrameLayout implements YouTubePlayerActions, NetworkReceiver.NetworkListener {
 
     @NonNull private final NetworkReceiver networkReceiver;
 
     @NonNull private final YouTubePlayer youTubePlayer;
     @NonNull private final PlayerControlsWrapper playerControlsWrapper;
     @NonNull private final PlaybackResumer playbackResumer;
-
-    private final FullScreenHandler fullScreenHandler;
+    @NonNull private final FullScreenHandler fullScreenHandler;
+    @Nullable private Callable asyncInitialization;
 
     public YouTubePlayerView(Context context) {
         this(context, null);
@@ -47,12 +44,12 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
 
         playbackResumer = new PlaybackResumer(this);
 
+        networkReceiver = new NetworkReceiver(this);
+
         addFullScreenListener(playerControlsWrapper);
 
         youTubePlayer.addListener(playerControlsWrapper);
         youTubePlayer.addListener(playbackResumer);
-
-        networkReceiver = new NetworkReceiver(this);
     }
 
     @Override
@@ -66,45 +63,11 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     }
 
     /**
-     * Set a custom behaviour to the full screen button.
-     */
-    public void onFullScreenButtonListener(OnClickListener listener) {
-        playerControlsWrapper.setOnFullScreenButtonListener(listener);
-    }
-
-    public void enterFullScreen() {
-        fullScreenHandler.enterFullScreen(this);
-    }
-
-    public void exitFullScreen() {
-        fullScreenHandler.exitFullScreen(this);
-    }
-
-    public boolean isFullScreen() {
-        return fullScreenHandler.isFullScreen();
-    }
-
-    public void toggleFullScreen() {
-        fullScreenHandler.toggleFullScreen(this);
-    }
-
-    public boolean addFullScreenListener(@NonNull YouTubePlayerFullScreenListener fullScreenListener) {
-        return fullScreenHandler.addFullScreenListener(fullScreenListener);
-    }
-
-    public boolean removeFullScreenListener(@NonNull YouTubePlayerFullScreenListener fullScreenListener) {
-        return fullScreenHandler.removeFullScreenListener(fullScreenListener);
-    }
-
-    private boolean initialized = false;
-    private Callable asyncInitialization;
-
-    /**
      * Initialize the player
-     * @param youTubeListener lister for player events
+     * @param youTubePlayerListener lister for player events
      * @param handleNetworkEvents if <b>true</b> a broadcast receiver will be registered.<br/>If <b>false</b> you should handle network events with your own broadcast receiver. See {@link YouTubePlayerView#onNetworkAvailable()} and {@link YouTubePlayerView#onNetworkUnavailable()}
      */
-    public void initialize(@Nullable final YouTubePlayer.YouTubeListener youTubeListener, boolean handleNetworkEvents) {
+    public void initialize(@Nullable final YouTubePlayer.YouTubePlayerListener youTubePlayerListener, boolean handleNetworkEvents) {
         if(handleNetworkEvents)
             getContext().registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
@@ -115,42 +78,64 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
                 @Override
                 public void call() {
                     Log.d("YouTubePlayerView", "Network available. Initializing player.");
-                    youTubePlayer.initialize(youTubeListener);
-                    initialized = true;
-
+                    youTubePlayer.initialize(youTubePlayerListener);
                     asyncInitialization = null;
                 }
             };
 
-            return;
-        }
-
-        youTubePlayer.initialize(youTubeListener);
-        initialized = true;
+        } else
+            youTubePlayer.initialize(youTubePlayerListener);
     }
 
-    public void addYouTubeListener(YouTubePlayer.YouTubeListener youTubeListener) {
-        youTubePlayer.addListener(youTubeListener);
+    public void addYouTubePlayerListener(YouTubePlayer.YouTubePlayerListener youTubePlayerListener) {
+        youTubePlayer.addListener(youTubePlayerListener);
     }
 
-    public void removeYouTubeListener(YouTubePlayer.YouTubeListener youTubeListener) {
-        youTubePlayer.removeListener(youTubeListener);
+    public void removeYouTubePlayerListener(YouTubePlayer.YouTubePlayerListener youTubePlayerListener) {
+        youTubePlayer.removeListener(youTubePlayerListener);
     }
 
-    /**
-     * See {@link YouTubePlayer#loadVideo(String, float)}
-     */
+    @Override
     public void loadVideo(String videoId, float startSecond) {
         youTubePlayer.loadVideo(videoId, startSecond);
         playerControlsWrapper.reset();
     }
 
-    /**
-     * See {@link YouTubePlayer#cueVideo(String, float)}
-     */
+    @Override
     public void cueVideo(String videoId, float startSeconds) {
         youTubePlayer.cueVideo(videoId, startSeconds);
         playerControlsWrapper.reset();
+    }
+
+    @Override
+    public void play() {
+        youTubePlayer.play();
+    }
+
+    @Override
+    public void pause() {
+        youTubePlayer.pause();
+    }
+
+    @Override
+    public void mute() {
+        youTubePlayer.mute();
+    }
+
+    @Override
+    public void unMute() {
+        youTubePlayer.unMute();
+    }
+
+    @Override
+    public void seekTo(int time) {
+        youTubePlayer.seekTo(time);
+    }
+
+    @Override
+    @YouTubePlayer.PlayerState.State
+    public int getCurrentState() {
+        return youTubePlayer.getCurrentState();
     }
 
     /**
@@ -165,29 +150,9 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         }
     }
 
-    public void seekTo(int time) {
-        youTubePlayer.seekTo(time);
-    }
-
-    public void mute() {
-        youTubePlayer.mute();
-    }
-
-    public void unMute() {
-        youTubePlayer.unMute();
-    }
-
-    public void playVideo() {
-        youTubePlayer.play();
-    }
-
-    public void pauseVideo() {
-        youTubePlayer.pause();
-    }
-
     @Override
     public void onNetworkAvailable() {
-        if(!initialized && asyncInitialization != null)
+        if(asyncInitialization != null)
             asyncInitialization.call();
         else
             playbackResumer.resume();
@@ -215,5 +180,33 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
 
     public void hideUI(boolean hide) {
         playerControlsWrapper.hideUI(hide);
+    }
+
+    public void setFullScreenButtonListener(OnClickListener listener) {
+        playerControlsWrapper.setOnFullScreenButtonListener(listener);
+    }
+
+    public void enterFullScreen() {
+        fullScreenHandler.enterFullScreen(this);
+    }
+
+    public void exitFullScreen() {
+        fullScreenHandler.exitFullScreen(this);
+    }
+
+    public boolean isFullScreen() {
+        return fullScreenHandler.isFullScreen();
+    }
+
+    public void toggleFullScreen() {
+        fullScreenHandler.toggleFullScreen(this);
+    }
+
+    public boolean addFullScreenListener(@NonNull YouTubePlayerFullScreenListener fullScreenListener) {
+        return fullScreenHandler.addFullScreenListener(fullScreenListener);
+    }
+
+    public boolean removeFullScreenListener(@NonNull YouTubePlayerFullScreenListener fullScreenListener) {
+        return fullScreenHandler.removeFullScreenListener(fullScreenListener);
     }
 }

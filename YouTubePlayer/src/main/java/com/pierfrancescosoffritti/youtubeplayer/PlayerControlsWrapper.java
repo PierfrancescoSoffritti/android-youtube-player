@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayer.YouTubeListener, SeekBar.OnSeekBarChangeListener {
+class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayer.YouTubePlayerListener, SeekBar.OnSeekBarChangeListener {
     @NonNull private final YouTubePlayerView youTubePlayerView;
 
     // view responsible for intercepting clicks. Could have used controlsRoot view, but in this way I'm able to hide all the control at once by hiding controlsRoot
@@ -116,9 +116,9 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
 
     private void onPlayButtonPressed() {
         if(isPlaying)
-            youTubePlayerView.pauseVideo();
+            youTubePlayerView.pause();
         else
-            youTubePlayerView.playVideo();
+            youTubePlayerView.play();
     }
 
     private void updatePlayPauseButtonIcon(boolean playing) {

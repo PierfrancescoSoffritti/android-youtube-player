@@ -1,6 +1,6 @@
 package com.pierfrancescosoffritti.youtubeplayer;
 
-class PlaybackResumer extends AbstractYouTubeListener {
+class PlaybackResumer extends AbstractYouTubePlayerListener {
 
     private boolean isPlaying = false;
     private int error = Integer.MIN_VALUE;
@@ -28,15 +28,15 @@ class PlaybackResumer extends AbstractYouTubeListener {
         switch (state) {
             case YouTubePlayer.PlayerState.ENDED:
                 isPlaying = false;
-                break;
+                return;
             case YouTubePlayer.PlayerState.PAUSED:
                 isPlaying = false;
-                break;
+                return;
             case YouTubePlayer.PlayerState.PLAYING:
                 isPlaying = true;
-                break;
+                return;
             default:
-                break;
+                return;
         }
     }
 
