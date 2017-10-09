@@ -228,8 +228,10 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
     // YouTubePlayer callbacks
 
+    // TODO refactor this method
     @Override
     public void onStateChange(@YouTubePlayer.PlayerState.State int state) {
+        System.out.println("state: " +state);
         newSeekBarProgress = -1;
 
         updateControlsState(state);
@@ -284,9 +286,13 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
             case YouTubePlayer.PlayerState.PLAYING:
                 isPlaying = true;
                 break;
+            case YouTubePlayer.PlayerState.UNSTARTED:
+                resetUI();
+                break;
             default:
                 break;
         }
+
 
         updatePlayPauseButtonIcon(!isPlaying);
     }
@@ -359,7 +365,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
         seekBarTouchStarted = false;
     }
 
-    public void reset() {
+    public void resetUI() {
         seekBar.setProgress(0);
         seekBar.setMax(0);
 

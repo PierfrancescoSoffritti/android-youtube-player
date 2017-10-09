@@ -97,13 +97,13 @@ public class YouTubePlayerView extends FrameLayout implements YouTubePlayerActio
     @Override
     public void loadVideo(String videoId, float startSecond) {
         youTubePlayer.loadVideo(videoId, startSecond);
-        playerUIControls.reset();
+//        playerUIControls.resetUI();
     }
 
     @Override
     public void cueVideo(String videoId, float startSeconds) {
         youTubePlayer.cueVideo(videoId, startSeconds);
-        playerUIControls.reset();
+//        playerUIControls.resetUI();
     }
 
     @Override
