@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayer;
+package com.pierfrancescosoffritti.youtubeplayer.ui;
 
 import android.animation.Animator;
 import android.content.Intent;
@@ -14,9 +14,13 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.pierfrancescosoffritti.youtubeplayer.R;
+import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayer;
+import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerFullScreenListener;
+import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
 
-class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayer.YouTubePlayerListener, SeekBar.OnSeekBarChangeListener {
+public class DefaultPlayerUIController implements PlayerUIController, View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayer.YouTubePlayerListener, SeekBar.OnSeekBarChangeListener {
     @NonNull private final YouTubePlayerView youTubePlayerView;
 
     // view responsible for intercepting clicks. Could have used controlsRoot view, but in this way I'm able to hide all the control at once by hiding controlsRoot
@@ -46,9 +50,9 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
     private boolean isVisible = true;
     private boolean canFadeControls = false;
 
-    private boolean hideUI = false;
+    private boolean showUI = true;
 
-    PlayerControlsWrapper(@NonNull YouTubePlayerView youTubePlayerView, @NonNull View controlsView) {
+    public DefaultPlayerUIController(@NonNull YouTubePlayerView youTubePlayerView, @NonNull View controlsView) {
         this.youTubePlayerView = youTubePlayerView;
 
         panel = controlsView.findViewById(R.id.panel);
@@ -75,28 +79,60 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
         fullScreenButton.setOnClickListener(this);
     }
 
-    void setOnFullScreenButtonListener(View.OnClickListener onFullScreenButtonListener) {
-        this.onFullScreenButtonListener = onFullScreenButtonListener;
+    @Override
+    public void showTitle(boolean show) {
+        videoTitle.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
-    void setCustomActionRight(Drawable icon, View.OnClickListener clickListener) {
-        customActionRight.setImageDrawable(icon);
-        customActionRight.setOnClickListener(clickListener);
-
-        if(clickListener != null)
-            customActionRight.setVisibility(View.VISIBLE);
+    @Override
+    public void showUI(boolean show) {
+        if(show)
+            controlsRoot.setVisibility(View.VISIBLE);
         else
-            customActionRight.setVisibility(View.GONE);
+            controlsRoot.setVisibility(View.INVISIBLE);
+
+        showUI = show;
     }
 
-    void setCustomActionLeft(Drawable icon, View.OnClickListener clickListener) {
+    /**
+     * Set custom action to the left of the Play/Pause button
+     */
+    @Override
+    public void setCustomAction1(Drawable icon, View.OnClickListener clickListener) {
         customActionLeft.setImageDrawable(icon);
         customActionLeft.setOnClickListener(clickListener);
+        showCustomAction1(clickListener != null);
+    }
 
-        if(clickListener != null)
-            customActionLeft.setVisibility(View.VISIBLE);
-        else
-            customActionRight.setVisibility(View.GONE);
+    /**
+     * Set custom action to the right of the Play/Pause button
+     */
+    @Override
+    public void setCustomAction2(Drawable icon, View.OnClickListener clickListener) {
+        customActionRight.setImageDrawable(icon);
+        customActionRight.setOnClickListener(clickListener);
+        showCustomAction2(clickListener != null);
+    }
+
+    public void showCustomAction1(boolean show) {
+        int visibility = show ? View.VISIBLE : View.GONE;
+        customActionLeft.setVisibility(visibility);
+    }
+
+    public void showCustomAction2(boolean show) {
+        int visibility = show ? View.VISIBLE : View.GONE;
+        customActionRight.setVisibility(visibility);
+    }
+
+    @Override
+    public void showFullscreenButton(boolean show) {
+        int visibility = show ? View.VISIBLE : View.INVISIBLE;
+        fullScreenButton.setVisibility(visibility);
+    }
+
+    @Override
+    public void setCustomFullScreenButtonListener(View.OnClickListener customFullScreenButtonListener) {
+        this.onFullScreenButtonListener = customFullScreenButtonListener;
     }
 
     @Override
@@ -133,14 +169,22 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
         fadeControls(finalAlpha);
     }
 
+    private final Handler handler = new Handler(Looper.getMainLooper());
+    private final Runnable fadeOutRunnable = new Runnable() {
+        @Override
+        public void run() {
+            fadeControls(0f);
+        }
+    };
+
     private void fadeControls(final float finalAlpha) {
-        if(!canFadeControls || hideUI)
+        if(!canFadeControls || !showUI)
             return;
 
         isVisible = finalAlpha != 0f;
 
         // if the controls are shown and the player is playing they should automatically hide after a while.
-        // if the controls are hidden then I have to remove the task
+        // if the controls are hidden remove fade out runnable
         if(finalAlpha == 1f && isPlaying)
             startFadeOutViewTimer();
         else
@@ -168,20 +212,9 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
                 }).start();
     }
 
-    private final Handler handler = new Handler(Looper.getMainLooper());
-    private final Runnable fadeOutRunnable = new Runnable() {
-        @Override
-        public void run() {
-            fadeControls(0f);
-        }
-    };
-
     private void startFadeOutViewTimer() {
         handler.postDelayed(fadeOutRunnable, 3000);
     }
-
-
-    // fullscreen callbacks
 
     @Override
     public void onYouTubePlayerEnterFullScreen() {
@@ -206,15 +239,6 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
             progressBar.setVisibility(View.GONE);
             playButton.setVisibility(View.VISIBLE);
 
-            if(customActionLeft.hasOnClickListeners())
-                customActionLeft.setVisibility(View.VISIBLE);
-            else
-                customActionLeft.setVisibility(View.GONE);
-
-            if(customActionRight.hasOnClickListeners())
-                customActionRight.setVisibility(View.VISIBLE);
-            else
-                customActionRight.setVisibility(View.GONE);
 
             canFadeControls = true;
             boolean playing = state == YouTubePlayer.PlayerState.PLAYING;
@@ -335,7 +359,7 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
         seekBarTouchStarted = false;
     }
 
-    void reset() {
+    public void reset() {
         seekBar.setProgress(0);
         seekBar.setMax(0);
 
@@ -354,22 +378,5 @@ class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullSc
         });
 
         youTubeButton.setOnClickListener(null);
-    }
-
-    public void showTitle(boolean show) {
-        videoTitle.setVisibility(show ? View.VISIBLE : View.GONE);
-    }
-
-    void hideUI(boolean hide) {
-        if(hide)
-            controlsRoot.setVisibility(View.INVISIBLE);
-        else
-            controlsRoot.setVisibility(View.VISIBLE);
-        hideUI = hide;
-    }
-
-    void showFullscreenButton(boolean show) {
-        int visibility = show ? View.VISIBLE : View.INVISIBLE;
-        fullScreenButton.setVisibility(visibility);
     }
 }

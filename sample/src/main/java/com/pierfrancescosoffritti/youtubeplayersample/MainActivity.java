@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         fullScreenManager = new FullScreenManager(this);
 
-        youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_player_view);
+        youTubePlayerView = findViewById(R.id.youtube_player_view);
         youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
 
             @Override
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 fullScreenManager.enterFullScreen();
 
-                youTubePlayerView.setCustomActionRight(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_pause_36dp), new View.OnClickListener() {
+                youTubePlayerView.getPlayerUIController().setCustomAction1(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_pause_36dp), new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         youTubePlayerView.pause();
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 fullScreenManager.exitFullScreen();
 
-                youTubePlayerView.setCustomActionRight(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_pause_36dp), null);
+                youTubePlayerView.getPlayerUIController().showCustomAction1(false);
             }
         });
 

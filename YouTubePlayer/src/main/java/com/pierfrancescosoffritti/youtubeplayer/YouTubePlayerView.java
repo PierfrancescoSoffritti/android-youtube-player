@@ -2,28 +2,28 @@ package com.pierfrancescosoffritti.youtubeplayer;
 
 import android.content.Context;
 import android.content.IntentFilter;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
 import com.pierfrancescosoffritti.youtubeplayer.playerUtils.PlaybackResumer;
+import com.pierfrancescosoffritti.youtubeplayer.ui.DefaultPlayerUIController;
+import com.pierfrancescosoffritti.youtubeplayer.ui.PlayerUIController;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Callable;
 import com.pierfrancescosoffritti.youtubeplayer.playerUtils.FullScreenHelper;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
 
 public class YouTubePlayerView extends FrameLayout implements YouTubePlayerActions, NetworkReceiver.NetworkListener {
 
-    @NonNull private final NetworkReceiver networkReceiver;
-
     @NonNull private final YouTubePlayer youTubePlayer;
-    @NonNull private final PlayerControlsWrapper playerControlsWrapper;
+    @NonNull private final DefaultPlayerUIController playerUIControls;
+
+    @NonNull private final NetworkReceiver networkReceiver;
     @NonNull private final PlaybackResumer playbackResumer;
     @NonNull private final FullScreenHelper fullScreenHelper;
     @Nullable private Callable asyncInitialization;
@@ -43,15 +43,15 @@ public class YouTubePlayerView extends FrameLayout implements YouTubePlayerActio
         addView(youTubePlayer, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         View playerControlsView = inflate(context, R.layout.player_controls, this);
-        playerControlsWrapper = new PlayerControlsWrapper(this, playerControlsView);
+        playerUIControls = new DefaultPlayerUIController(this, playerControlsView);
 
         playbackResumer = new PlaybackResumer(this);
         networkReceiver = new NetworkReceiver(this);
         fullScreenHelper = new FullScreenHelper();
 
-        addFullScreenListener(playerControlsWrapper);
+        addFullScreenListener(playerUIControls);
 
-        youTubePlayer.addListener(playerControlsWrapper);
+        youTubePlayer.addListener(playerUIControls);
         youTubePlayer.addListener(playbackResumer);
     }
 
@@ -97,13 +97,13 @@ public class YouTubePlayerView extends FrameLayout implements YouTubePlayerActio
     @Override
     public void loadVideo(String videoId, float startSecond) {
         youTubePlayer.loadVideo(videoId, startSecond);
-        playerControlsWrapper.reset();
+        playerUIControls.reset();
     }
 
     @Override
     public void cueVideo(String videoId, float startSeconds) {
         youTubePlayer.cueVideo(videoId, startSeconds);
-        playerControlsWrapper.reset();
+        playerUIControls.reset();
     }
 
     @Override
@@ -161,28 +161,9 @@ public class YouTubePlayerView extends FrameLayout implements YouTubePlayerActio
     public void onNetworkUnavailable() {
     }
 
-    public void showTitle(boolean show) {
-        playerControlsWrapper.showTitle(show);
-    }
-
-    public void setCustomActionRight(Drawable icon, View.OnClickListener clickListener) {
-        playerControlsWrapper.setCustomActionRight(icon, clickListener);
-    }
-
-    public void setCustomActionLeft(Drawable icon, View.OnClickListener clickListener) {
-        playerControlsWrapper.setCustomActionLeft(icon, clickListener);
-    }
-
-    public void showFullScreenButton(boolean show) {
-        playerControlsWrapper.showFullscreenButton(show);
-    }
-
-    public void hideUI(boolean hide) {
-        playerControlsWrapper.hideUI(hide);
-    }
-
-    public void setFullScreenButtonListener(OnClickListener listener) {
-        playerControlsWrapper.setOnFullScreenButtonListener(listener);
+    @NonNull
+    public PlayerUIController getPlayerUIController() {
+        return playerUIControls;
     }
 
     public void enterFullScreen() {
