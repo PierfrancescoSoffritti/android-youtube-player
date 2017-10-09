@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 youTubePlayerView.setCustomActionRight(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_pause_36dp), new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        youTubePlayerView.pauseVideo();
+                        youTubePlayerView.pause();
                     }
                 });
             }

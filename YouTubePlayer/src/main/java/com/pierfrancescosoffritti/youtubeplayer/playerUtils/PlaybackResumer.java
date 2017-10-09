@@ -1,28 +1,41 @@
-package com.pierfrancescosoffritti.youtubeplayer;
+package com.pierfrancescosoffritti.youtubeplayer.playerUtils;
 
-class PlaybackResumer extends AbstractYouTubePlayerListener {
+import android.annotation.SuppressLint;
+
+import com.pierfrancescosoffritti.youtubeplayer.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayer;
+import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView;
+
+/**
+ * Class responsible for resuming the playback state in case of network problems.
+ * eg: player is playing -> network goes out -> player stops -> network comes back -> player resumes playback automatically.
+ */
+public class PlaybackResumer extends AbstractYouTubePlayerListener {
+
+    private static final int NO_ERROR = Integer.MIN_VALUE;
 
     private boolean isPlaying = false;
-    private int error = Integer.MIN_VALUE;
+    private int error = NO_ERROR;
 
-    private String videoId;
+    private String currentVideoId;
     private float currentSecond;
 
     private YouTubePlayerView youTubePlayerView;
 
-    PlaybackResumer(YouTubePlayerView youTubePlayerView) {
+    public PlaybackResumer(YouTubePlayerView youTubePlayerView) {
         this.youTubePlayerView = youTubePlayerView;
     }
 
-    void resume() {
+    public  void resume() {
         if(isPlaying && error == YouTubePlayer.PlayerError.HTML_5_PLAYER)
-            youTubePlayerView.loadVideo(videoId, currentSecond);
+            youTubePlayerView.loadVideo(currentVideoId, currentSecond);
         else if(!isPlaying && error == YouTubePlayer.PlayerError.HTML_5_PLAYER)
-            youTubePlayerView.cueVideo(videoId, currentSecond);
+            youTubePlayerView.cueVideo(currentVideoId, currentSecond);
 
-        error = -1;
+        error = NO_ERROR;
     }
 
+    @SuppressLint("SwitchIntDef")
     @Override
     public void onStateChange(@YouTubePlayer.PlayerState.State int state) {
         switch (state) {
@@ -53,6 +66,6 @@ class PlaybackResumer extends AbstractYouTubePlayerListener {
 
     @Override
     public void onVideoId(String videoId) {
-        this.videoId = videoId;
+        this.currentVideoId = videoId;
     }
 }

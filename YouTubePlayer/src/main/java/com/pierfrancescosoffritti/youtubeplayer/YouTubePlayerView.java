@@ -13,6 +13,11 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
+import com.pierfrancescosoffritti.youtubeplayer.playerUtils.PlaybackResumer;
+import com.pierfrancescosoffritti.youtubeplayer.utils.Callable;
+import com.pierfrancescosoffritti.youtubeplayer.playerUtils.FullScreenHelper;
+import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
+
 public class YouTubePlayerView extends FrameLayout implements YouTubePlayerActions, NetworkReceiver.NetworkListener {
 
     @NonNull private final NetworkReceiver networkReceiver;
@@ -20,7 +25,7 @@ public class YouTubePlayerView extends FrameLayout implements YouTubePlayerActio
     @NonNull private final YouTubePlayer youTubePlayer;
     @NonNull private final PlayerControlsWrapper playerControlsWrapper;
     @NonNull private final PlaybackResumer playbackResumer;
-    @NonNull private final FullScreenHandler fullScreenHandler;
+    @NonNull private final FullScreenHelper fullScreenHelper;
     @Nullable private Callable asyncInitialization;
 
     public YouTubePlayerView(Context context) {
@@ -34,17 +39,15 @@ public class YouTubePlayerView extends FrameLayout implements YouTubePlayerActio
     public YouTubePlayerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        fullScreenHandler = new FullScreenHandler();
-
         youTubePlayer = new YouTubePlayer(context);
         addView(youTubePlayer, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        View playerControls = inflate(context, R.layout.player_controls, this);
-        playerControlsWrapper = new PlayerControlsWrapper(this, playerControls);
+        View playerControlsView = inflate(context, R.layout.player_controls, this);
+        playerControlsWrapper = new PlayerControlsWrapper(this, playerControlsView);
 
         playbackResumer = new PlaybackResumer(this);
-
         networkReceiver = new NetworkReceiver(this);
+        fullScreenHelper = new FullScreenHelper();
 
         addFullScreenListener(playerControlsWrapper);
 
@@ -71,20 +74,16 @@ public class YouTubePlayerView extends FrameLayout implements YouTubePlayerActio
         if(handleNetworkEvents)
             getContext().registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
-        if(!Utils.isOnline(getContext())) {
-            Log.e("YouTubePlayerView", "Can't initialize because device is not connected to the internet.");
+        asyncInitialization = new Callable() {
+            @Override
+            public void call() {
+                youTubePlayer.initialize(youTubePlayerListener);
+                asyncInitialization = null;
+            }
+        };
 
-            asyncInitialization = new Callable() {
-                @Override
-                public void call() {
-                    Log.d("YouTubePlayerView", "Network available. Initializing player.");
-                    youTubePlayer.initialize(youTubePlayerListener);
-                    asyncInitialization = null;
-                }
-            };
-
-        } else
-            youTubePlayer.initialize(youTubePlayerListener);
+        if(Utils.isOnline(getContext()))
+            asyncInitialization.call();
     }
 
     public void addYouTubePlayerListener(YouTubePlayer.YouTubePlayerListener youTubePlayerListener) {
@@ -187,26 +186,26 @@ public class YouTubePlayerView extends FrameLayout implements YouTubePlayerActio
     }
 
     public void enterFullScreen() {
-        fullScreenHandler.enterFullScreen(this);
+        fullScreenHelper.enterFullScreen(this);
     }
 
     public void exitFullScreen() {
-        fullScreenHandler.exitFullScreen(this);
+        fullScreenHelper.exitFullScreen(this);
     }
 
     public boolean isFullScreen() {
-        return fullScreenHandler.isFullScreen();
+        return fullScreenHelper.isFullScreen();
     }
 
     public void toggleFullScreen() {
-        fullScreenHandler.toggleFullScreen(this);
+        fullScreenHelper.toggleFullScreen(this);
     }
 
     public boolean addFullScreenListener(@NonNull YouTubePlayerFullScreenListener fullScreenListener) {
-        return fullScreenHandler.addFullScreenListener(fullScreenListener);
+        return fullScreenHelper.addFullScreenListener(fullScreenListener);
     }
 
     public boolean removeFullScreenListener(@NonNull YouTubePlayerFullScreenListener fullScreenListener) {
-        return fullScreenHandler.removeFullScreenListener(fullScreenListener);
+        return fullScreenHelper.removeFullScreenListener(fullScreenListener);
     }
 }

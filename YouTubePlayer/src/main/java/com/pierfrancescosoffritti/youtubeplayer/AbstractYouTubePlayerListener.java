@@ -4,7 +4,6 @@ package com.pierfrancescosoffritti.youtubeplayer;
  * Extend this class if you don't want to implement all the method of {@link YouTubePlayer.YouTubePlayerListener}
  */
 public abstract class AbstractYouTubePlayerListener implements YouTubePlayer.YouTubePlayerListener {
-
     @Override public void onReady() { }
     @Override public void onStateChange(@YouTubePlayer.PlayerState.State int state) { }
     @Override public void onPlaybackQualityChange(@YouTubePlayer.PlaybackQuality.Quality int playbackQuality) { }

@@ -17,7 +17,6 @@ interface YouTubePlayerActions {
      * @param startSeconds the time from which the video should start playing
      */
     void cueVideo(final String videoId, final float startSeconds);
-
     void play();
     void pause();
     void mute();

@@ -1,23 +1,25 @@
-package com.pierfrancescosoffritti.youtubeplayer;
+package com.pierfrancescosoffritti.youtubeplayer.playerUtils;
 
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerFullScreenListener;
+
 import java.util.HashSet;
 import java.util.Set;
 
-class FullScreenHandler {
+public class FullScreenHelper {
 
     private boolean isFullScreen;
     private final Set<YouTubePlayerFullScreenListener> fullScreenListeners;
 
-    FullScreenHandler() {
+    public FullScreenHelper() {
         isFullScreen = false;
         fullScreenListeners = new HashSet<>();
     }
 
-    void enterFullScreen(@NonNull View view) {
+    public void enterFullScreen(@NonNull View view) {
         if(isFullScreen)
             return;
 
@@ -32,7 +34,7 @@ class FullScreenHandler {
             fullScreenListener.onYouTubePlayerEnterFullScreen();
     }
 
-    void exitFullScreen(@NonNull View view) {
+    public void exitFullScreen(@NonNull View view) {
         if(!isFullScreen)
             return;
 
@@ -47,22 +49,22 @@ class FullScreenHandler {
             fullScreenListener.onYouTubePlayerExitFullScreen();
     }
 
-    void toggleFullScreen(@NonNull View view) {
+    public void toggleFullScreen(@NonNull View view) {
         if(isFullScreen)
             exitFullScreen(view);
         else
             enterFullScreen(view);
     }
 
-    boolean isFullScreen() {
+    public boolean isFullScreen() {
         return isFullScreen;
     }
 
-    boolean addFullScreenListener(@NonNull YouTubePlayerFullScreenListener fullScreenListener) {
+    public boolean addFullScreenListener(@NonNull YouTubePlayerFullScreenListener fullScreenListener) {
         return fullScreenListeners.add(fullScreenListener);
     }
 
-    boolean removeFullScreenListener(@NonNull YouTubePlayerFullScreenListener fullScreenListener) {
+    public boolean removeFullScreenListener(@NonNull YouTubePlayerFullScreenListener fullScreenListener) {
         return fullScreenListeners.remove(fullScreenListener);
     }
 }

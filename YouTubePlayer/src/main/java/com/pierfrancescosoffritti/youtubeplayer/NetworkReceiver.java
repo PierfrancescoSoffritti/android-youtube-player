@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
+
 public class NetworkReceiver extends BroadcastReceiver {
 
     public interface NetworkListener {

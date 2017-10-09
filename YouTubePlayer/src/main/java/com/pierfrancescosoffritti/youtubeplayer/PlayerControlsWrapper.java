@@ -14,6 +14,8 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
+
 class PlayerControlsWrapper implements View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayer.YouTubePlayerListener, SeekBar.OnSeekBarChangeListener {
     @NonNull private final YouTubePlayerView youTubePlayerView;
 
