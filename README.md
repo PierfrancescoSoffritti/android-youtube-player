@@ -1,7 +1,7 @@
 # AndroidYouTubePlayer
 
 [![](https://jitpack.io/v/PierfrancescoSoffritti/AndroidYouTubePlayer.svg)](https://jitpack.io/#PierfrancescoSoffritti/AndroidYouTubePlayer)
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AndroidYouTubePlayer-green.svg?style=true)](https://android-arsenal.com/details/1/4322)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Android--YouTube--Player-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/4322)
 
 The AndroidYouTubePlayer is a simple View that can be easily integrated in every Activity/Fragment. The interaction with YouTube is based on the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference?hl=it), therefore the YouTube app is not required to use the player.
 
