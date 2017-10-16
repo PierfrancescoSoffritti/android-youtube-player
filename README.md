@@ -9,8 +9,6 @@ The AndroidYouTubePlayer is a simple View that can be easily integrated in every
 
 This library has been developed out of necessity. The official library provided by Google for the integration of YouTube videos into Android apps is the [YouTube Android Player API](https://developers.google.com/youtube/android/player/). Its many bugs and the total lack of support from Google made it impossible to use in production. I've tried to use it but my app was crashing because of internal bugs in Google's player, ([sone bugs have 3+ years old bug reports](https://code.google.com/p/gdata-issues/issues/detail?id=4395)) and, at the moment, no update has been released for almost a year. This library provides a stable and open source alternative to the official YouTube Player.
 
-Download the sample app [here](https://github.com/PierfrancescoSoffritti/AndroidYouTubePlayer/blob/master/sample/sample-release.apk?raw=true)
-
 Apps using this library: (send me an email if you want to add your app to the list)
 
 - [Shuffly](https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.shuffly)
@@ -45,7 +43,10 @@ If you are using ProGuard you might need to add the following option:
 ```
 
 ## Usage
-Add the YouTubePlayerView to your layout
+
+A sample project that shows how to use the library is available in the [sample module](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/tree/master/sample). You can also [download the sample apk here](https://github.com/PierfrancescoSoffritti/AndroidYouTubePlayer/blob/master/sample/sample-release.apk?raw=true).
+
+In order to start using the player you need to add the YouTubePlayerView to your layout
 ```
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
