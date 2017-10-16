@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayer.youTubePlayer;
+package com.pierfrancescosoffritti.youtubeplayer.player;
 
 import android.support.annotation.IntDef;
 import android.support.annotation.StringDef;

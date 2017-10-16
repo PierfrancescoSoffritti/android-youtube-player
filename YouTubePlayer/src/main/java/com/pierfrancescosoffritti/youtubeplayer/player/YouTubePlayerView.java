@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayer.youTubePlayer;
+package com.pierfrancescosoffritti.youtubeplayer.player;
 
 import android.content.Context;
 import android.content.IntentFilter;
@@ -13,11 +13,11 @@ import android.widget.FrameLayout;
 
 import com.pierfrancescosoffritti.youtubeplayer.utils.NetworkReceiver;
 import com.pierfrancescosoffritti.youtubeplayer.R;
-import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.playerUtils.PlaybackResumer;
-import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.ui.DefaultPlayerUIController;
-import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.ui.PlayerUIController;
+import com.pierfrancescosoffritti.youtubeplayer.player.playerUtils.PlaybackResumer;
+import com.pierfrancescosoffritti.youtubeplayer.player.ui.DefaultPlayerUIController;
+import com.pierfrancescosoffritti.youtubeplayer.player.ui.PlayerUIController;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Callable;
-import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.playerUtils.FullScreenHelper;
+import com.pierfrancescosoffritti.youtubeplayer.player.playerUtils.FullScreenHelper;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
 
 public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.NetworkListener {

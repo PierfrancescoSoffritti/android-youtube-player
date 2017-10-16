@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayer.youTubePlayer;
+package com.pierfrancescosoffritti.youtubeplayer.player;
 
 import android.os.Handler;
 import android.os.Looper;

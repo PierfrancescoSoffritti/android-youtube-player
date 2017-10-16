@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.ui;
+package com.pierfrancescosoffritti.youtubeplayer.player.ui;
 
 import android.animation.Animator;
 import android.content.Intent;
@@ -15,10 +15,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.pierfrancescosoffritti.youtubeplayer.R;
-import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.PlayerConstants;
-import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.YouTubePlayer;
-import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.YouTubePlayerFullScreenListener;
-import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.YouTubePlayerView;
+import com.pierfrancescosoffritti.youtubeplayer.player.PlayerConstants;
+import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
+import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenListener;
+import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
 
 public class DefaultPlayerUIController implements PlayerUIController, View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayer.YouTubePlayerListener, SeekBar.OnSeekBarChangeListener {

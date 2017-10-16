@@ -1,10 +1,10 @@
-package com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.playerUtils;
+package com.pierfrancescosoffritti.youtubeplayer.player.playerUtils;
 
 import android.annotation.SuppressLint;
 
-import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.AbstractYouTubePlayerListener;
-import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.PlayerConstants;
-import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.YouTubePlayer;
+import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.youtubeplayer.player.PlayerConstants;
+import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
 
 /**
  * Class responsible for resuming the playback state in case of network problems.

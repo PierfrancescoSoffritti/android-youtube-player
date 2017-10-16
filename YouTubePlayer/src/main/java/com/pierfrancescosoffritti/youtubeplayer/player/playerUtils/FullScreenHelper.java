@@ -1,10 +1,10 @@
-package com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.playerUtils;
+package com.pierfrancescosoffritti.youtubeplayer.player.playerUtils;
 
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.YouTubePlayerFullScreenListener;
+import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenListener;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayer.youTubePlayer;
+package com.pierfrancescosoffritti.youtubeplayer.player;
 
 /**
  * Interface used to enforce contract between YouTubePlayer and YouTubePlayerView

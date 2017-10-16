@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayer.youTubePlayer;
+package com.pierfrancescosoffritti.youtubeplayer.player;
 
 /**
  * Extend this class if you don't want to implement all the method of {@link YouTubePlayer.YouTubePlayerListener}

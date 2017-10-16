@@ -7,10 +7,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.AbstractYouTubePlayerListener;
-import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.YouTubePlayer;
-import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.YouTubePlayerFullScreenListener;
-import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.YouTubePlayerView;
+import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
+import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenListener;
+import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 
 public class MainActivity extends AppCompatActivity {
 

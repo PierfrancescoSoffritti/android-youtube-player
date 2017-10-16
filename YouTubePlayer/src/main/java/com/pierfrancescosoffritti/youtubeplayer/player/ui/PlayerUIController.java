@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.ui;
+package com.pierfrancescosoffritti.youtubeplayer.player.ui;
 
 import android.graphics.drawable.Drawable;
 import android.view.View;
