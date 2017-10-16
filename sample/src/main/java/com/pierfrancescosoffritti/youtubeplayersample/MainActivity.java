@@ -2,6 +2,7 @@ package com.pierfrancescosoffritti.youtubeplayersample;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,6 +16,7 @@ import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView;
 public class MainActivity extends AppCompatActivity {
 
     private YouTubePlayerView youTubePlayerView;
+    @Nullable private YouTubePlayer youTubePlayer;
     private FullScreenManager fullScreenManager;
 
     @Override
@@ -27,11 +29,14 @@ public class MainActivity extends AppCompatActivity {
         youTubePlayerView = findViewById(R.id.youtube_player_view);
         youTubePlayerView.initialize(new YouTubePlayer.YouTubePlayerInitListener() {
             @Override
-            public void onInitSuccess(YouTubePlayer youTubePlayer) {
-                youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
+            public void onInitSuccess(final YouTubePlayer initializedYouTubePlayer) {
+
+                youTubePlayer = initializedYouTubePlayer;
+
+                initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
                     @Override
                     public void onReady() {
-                        youTubePlayerView.loadVideo("6JYIGclVQdw", 0);
+                        initializedYouTubePlayer.loadVideo("6JYIGclVQdw", 0);
                     }
 
                 });
@@ -47,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 youTubePlayerView.getPlayerUIController().setCustomAction1(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_pause_36dp), new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        youTubePlayerView.pause();
+                        if(youTubePlayer != null) youTubePlayer.pause();
                     }
                 });
             }
@@ -64,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.next_video_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                youTubePlayerView.loadVideo("LvetJ9U_tVY", 0);
+                if(youTubePlayer != null) youTubePlayer.loadVideo("LvetJ9U_tVY", 0);
             }
         });
     }

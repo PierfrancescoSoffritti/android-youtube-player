@@ -18,7 +18,7 @@ import com.pierfrancescosoffritti.youtubeplayer.utils.Callable;
 import com.pierfrancescosoffritti.youtubeplayer.playerUtils.FullScreenHelper;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
 
-public class YouTubePlayerView extends FrameLayout implements YouTubePlayerActions, NetworkReceiver.NetworkListener {
+public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.NetworkListener {
 
     @NonNull private final YouTubePlayer youTubePlayer;
     @NonNull private final DefaultPlayerUIController playerUIControls;
@@ -43,7 +43,7 @@ public class YouTubePlayerView extends FrameLayout implements YouTubePlayerActio
         addView(youTubePlayer, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         View playerControlsView = inflate(context, R.layout.player_controls, this);
-        playerUIControls = new DefaultPlayerUIController(this, playerControlsView);
+        playerUIControls = new DefaultPlayerUIController(this, youTubePlayer, playerControlsView);
 
         playbackResumer = new PlaybackResumer(this);
         networkReceiver = new NetworkReceiver(this);
@@ -96,47 +96,6 @@ public class YouTubePlayerView extends FrameLayout implements YouTubePlayerActio
         youTubePlayer.removeListener(youTubePlayerListener);
     }
 
-    @Override
-    public void loadVideo(String videoId, float startSecond) {
-        youTubePlayer.loadVideo(videoId, startSecond);
-    }
-
-    @Override
-    public void cueVideo(String videoId, float startSeconds) {
-        youTubePlayer.cueVideo(videoId, startSeconds);
-    }
-
-    @Override
-    public void play() {
-        youTubePlayer.play();
-    }
-
-    @Override
-    public void pause() {
-        youTubePlayer.pause();
-    }
-
-    @Override
-    public void mute() {
-        youTubePlayer.mute();
-    }
-
-    @Override
-    public void unMute() {
-        youTubePlayer.unMute();
-    }
-
-    @Override
-    public void seekTo(int time) {
-        youTubePlayer.seekTo(time);
-    }
-
-    @Override
-    @YouTubePlayer.PlayerState.State
-    public int getCurrentState() {
-        return youTubePlayer.getCurrentState();
-    }
-
     /**
      * Calls {@link WebView#destroy()} on the player. And unregisters the broadcast receiver (for network events), if registered.
      * Call this method before destroying the host Fragment/Activity
@@ -154,7 +113,7 @@ public class YouTubePlayerView extends FrameLayout implements YouTubePlayerActio
         if(asyncInitialization != null)
             asyncInitialization.call();
         else
-            playbackResumer.resume();
+            playbackResumer.resume(youTubePlayer);
     }
 
     @Override

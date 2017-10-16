@@ -26,11 +26,11 @@ public class PlaybackResumer extends AbstractYouTubePlayerListener {
         this.youTubePlayerView = youTubePlayerView;
     }
 
-    public  void resume() {
+    public  void resume(YouTubePlayer youTubePlayer) {
         if(isPlaying && error == YouTubePlayer.PlayerError.HTML_5_PLAYER)
-            youTubePlayerView.loadVideo(currentVideoId, currentSecond);
+            youTubePlayer.loadVideo(currentVideoId, currentSecond);
         else if(!isPlaying && error == YouTubePlayer.PlayerError.HTML_5_PLAYER)
-            youTubePlayerView.cueVideo(currentVideoId, currentSecond);
+            youTubePlayer.cueVideo(currentVideoId, currentSecond);
 
         error = NO_ERROR;
     }

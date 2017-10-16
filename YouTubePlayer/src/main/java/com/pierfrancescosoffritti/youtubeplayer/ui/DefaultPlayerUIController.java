@@ -22,6 +22,7 @@ import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
 
 public class DefaultPlayerUIController implements PlayerUIController, View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayer.YouTubePlayerListener, SeekBar.OnSeekBarChangeListener {
     @NonNull private final YouTubePlayerView youTubePlayerView;
+    @NonNull private final YouTubePlayer youTubePlayer;
 
     // view responsible for intercepting clicks. Could have used controlsRoot view, but in this way I'm able to hide all the control at once by hiding controlsRoot
     @NonNull private final View panel;
@@ -52,8 +53,9 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
     private boolean showUI = true;
 
-    public DefaultPlayerUIController(@NonNull YouTubePlayerView youTubePlayerView, @NonNull View controlsView) {
+    public DefaultPlayerUIController(@NonNull YouTubePlayerView youTubePlayerView, @NonNull YouTubePlayer youTubePlayer, @NonNull View controlsView) {
         this.youTubePlayerView = youTubePlayerView;
+        this.youTubePlayer = youTubePlayer;
 
         panel = controlsView.findViewById(R.id.panel);
 
@@ -154,9 +156,9 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
     private void onPlayButtonPressed() {
         if(isPlaying)
-            youTubePlayerView.pause();
+            youTubePlayer.pause();
         else
-            youTubePlayerView.play();
+            youTubePlayer.play();
     }
 
     private void updatePlayPauseButtonIcon(boolean playing) {
@@ -361,7 +363,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
         if(isPlaying)
             newSeekBarProgress = seekBar.getProgress();
 
-        youTubePlayerView.seekTo(seekBar.getProgress());
+        youTubePlayer.seekTo(seekBar.getProgress());
         seekBarTouchStarted = false;
     }
 
