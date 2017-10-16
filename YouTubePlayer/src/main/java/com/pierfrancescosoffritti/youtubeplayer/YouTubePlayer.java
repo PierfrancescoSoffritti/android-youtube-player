@@ -26,7 +26,7 @@ import java.util.Set;
  */
 public class YouTubePlayer extends WebView implements YouTubePlayerActions {
 
-    @NonNull private Set<YouTubePlayerListener> youTubePlayerListeners;
+    @NonNull private final Set<YouTubePlayerListener> youTubePlayerListeners;
     @NonNull private final Handler mainThreadHandler;
 
     private YouTubePlayerInitListener youTubePlayerInitListener;
@@ -47,8 +47,10 @@ public class YouTubePlayer extends WebView implements YouTubePlayerActions {
         youTubePlayerListeners = new HashSet<>();
     }
 
-    protected void initialize(@NonNull YouTubePlayerInitListener youTubePlayerInitListener) {
-        this.youTubePlayerInitListener = youTubePlayerInitListener;
+    protected void initialize(@NonNull YouTubePlayerInitListener initListener) {
+        youTubePlayerListeners.clear();
+
+        youTubePlayerInitListener = initListener;
 
         playerStateTracker = new PlayerStateTracker();
         youTubePlayerListeners.add(playerStateTracker);

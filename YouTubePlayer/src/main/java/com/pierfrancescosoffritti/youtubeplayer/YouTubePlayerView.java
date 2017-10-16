@@ -50,9 +50,6 @@ public class YouTubePlayerView extends FrameLayout implements YouTubePlayerActio
         fullScreenHelper = new FullScreenHelper();
 
         addFullScreenListener(playerUIControls);
-
-        youTubePlayer.addListener(playerUIControls);
-        youTubePlayer.addListener(playbackResumer);
     }
 
     @Override
@@ -77,20 +74,11 @@ public class YouTubePlayerView extends FrameLayout implements YouTubePlayerActio
         asyncInitialization = new Callable() {
             @Override
             public void call() {
-                if(!Utils.isOnline(getContext()))
-                    return;
-
                 youTubePlayer.initialize(new YouTubePlayer.YouTubePlayerInitListener() {
                     @Override
                     public void onInitSuccess(YouTubePlayer youTubePlayer) {
+                        addYouTubePlayerInternalListeners(youTubePlayer);
                         youTubePlayerInitListener.onInitSuccess(youTubePlayer);
-
-                        youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
-                            @Override
-                            public void onReady() {
-                                asyncInitialization = null;
-                            }
-                        });
                     }
                 });
             }
@@ -200,5 +188,17 @@ public class YouTubePlayerView extends FrameLayout implements YouTubePlayerActio
 
     public boolean removeFullScreenListener(@NonNull YouTubePlayerFullScreenListener fullScreenListener) {
         return fullScreenHelper.removeFullScreenListener(fullScreenListener);
+    }
+
+    private void addYouTubePlayerInternalListeners(YouTubePlayer youTubePlayer) {
+        youTubePlayer.addListener(playerUIControls);
+        youTubePlayer.addListener(playbackResumer);
+
+        youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady() {
+                asyncInitialization = null;
+            }
+        });
     }
 }
