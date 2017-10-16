@@ -56,7 +56,7 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        // if wrap content make the view 16:9
+        // if height == wrap content make the view 16:9
         if(getLayoutParams().height == ViewGroup.LayoutParams.WRAP_CONTENT) {
             int sixteenNineHeight = View.MeasureSpec.makeMeasureSpec(View.MeasureSpec.getSize(widthMeasureSpec) * 9 / 16, View.MeasureSpec.EXACTLY);
             super.onMeasure(widthMeasureSpec, sixteenNineHeight);
