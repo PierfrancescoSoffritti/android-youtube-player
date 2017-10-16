@@ -7,7 +7,7 @@ The AndroidYouTubePlayer is a simple View that can be easily integrated in every
 
 ## Why does this library exists?
 
-This library has been developed out of necessity. The official library provided by Google for the integration of YouTube videos into Android apps is the [YouTube Android Player API](https://developers.google.com/youtube/android/player/). Its many bugs and the total lack of support from Google made it impossible to use in production. I've tried and my app was crashing because of internal bugs in Google's player, ([sone bugs have 3 years old bug reports](https://code.google.com/p/gdata-issues/issues/detail?id=4395)) and, at the moment, no update has been released for almost a year. This library provides a stable and open source alternative to the official YouTube Player.
+This library has been developed out of necessity. The official library provided by Google for the integration of YouTube videos into Android apps is the [YouTube Android Player API](https://developers.google.com/youtube/android/player/). Its many bugs and the total lack of support from Google made it impossible to use in production. I've tried to use it but my app was crashing because of internal bugs in Google's player, ([sone bugs have 3+ years old bug reports](https://code.google.com/p/gdata-issues/issues/detail?id=4395)) and, at the moment, no update has been released for almost a year. This library provides a stable and open source alternative to the official YouTube Player.
 
 Download the sample app [here](https://github.com/PierfrancescoSoffritti/AndroidYouTubePlayer/blob/master/sample/sample-release.apk?raw=true)
 
