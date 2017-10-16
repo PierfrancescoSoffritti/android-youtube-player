@@ -5,14 +5,13 @@
 
 The AndroidYouTubePlayer is a simple View that can be easily integrated in every Activity/Fragment. The interaction with YouTube is based on the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference?hl=it), therefore the YouTube app is not required to use the player.
 
-This library has been developed out of necessity. At the time I was working on an app completely based on the fruition of YouTube videos.
-There's an official API provided by Google for the integration of YouTube videos in an Android app: the YouTube Android Player API. But its many bugs and the total lack of support from Google made it impossible to use in production. The app was crashing because of internal bugs of the player ([with 3 years old bug reports](https://code.google.com/p/gdata-issues/issues/detail?id=4395)) and no update has been released in almost a year.
+## Why does this library exists?
 
-So here it is, the AndroidYouTubePlayer.
+This library has been developed out of necessity. The official library provided by Google for the integration of YouTube videos into Android apps is the [YouTube Android Player API](https://developers.google.com/youtube/android/player/). Its many bugs and the total lack of support from Google made it impossible to use in production. I've tried to use it but my app was crashing because of internal bugs in Google's player, ([sone bugs have 3+ years old bug reports](https://code.google.com/p/gdata-issues/issues/detail?id=4395)) and, at the moment, no update has been released for almost a year. This library provides a stable and open source alternative to the official YouTube Player.
 
-Download the sample app [here](https://github.com/PierfrancescoSoffritti/AndroidYouTubePlayer/blob/master/sample/sample-release.apk?raw=true)
+Apps using this library: (send me an email if you want to add your app to the list)
 
-Apps using this library: [Shuffly](https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.shuffly)
+- [Shuffly](https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.shuffly)
 
 <img height="450" src="https://github.com/PierfrancescoSoffritti/AndroidYouTubePlayer/blob/master/pics/ayp.gif" />
 
@@ -29,7 +28,7 @@ allprojects {
 Add this to your module-level `build.gradle`:
 ```
 dependencies {
-  compile 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:0.7.8'
+  compile 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:1.0.0'
 }
 ```
 
@@ -44,7 +43,14 @@ If you are using ProGuard you might need to add the following option:
 ```
 
 ## Usage
-Add the YouTubePlayerView to your layout
+
+A sample project that shows how to use the library is available in the [sample module](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/tree/master/sample). You can also [download the sample apk here](https://github.com/PierfrancescoSoffritti/AndroidYouTubePlayer/blob/master/sample/sample-release.apk?raw=true).
+
+**Please refer to the [Wiki](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/Quick-start) of the library for a detailed description on how to use it.**
+
+### Quick start
+
+In order to start using the player you need to add the YouTubePlayerView to your layout
 ```
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -52,7 +58,7 @@ Add the YouTubePlayerView to your layout
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.YouTubePlayerView
+    <com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView
         android:id="@+id/youtube_player_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -60,26 +66,39 @@ Add the YouTubePlayerView to your layout
 ```
 Get a reference to the YouTubePlayerView in your code and initialize it
 ```
-YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_player_view);
-youTubePlayerView.initialize(new AbstractYouTubeListener() {
-  @Override
-  public void onReady() {
-    youTubePlayerView.loadVideo("6JYIGclVQdw", 0);
-  }
+YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
+youTubePlayerView.initialize(new YouTubePlayerInitListener() {
+    @Override
+    public void onInitSuccess(final YouTubePlayer initializedYouTubePlayer) {
+        initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady() {
+                String videoId = "6JYIGclVQdw";
+                initializedYouTubePlayer.loadVideo(videoId, 0);
+            }
+        });
+    }
 }, true);
 ```
-The `AbstractYouTubeListener` is just a convenience abstract class, the `initialize` method requires a `YouTubePlayer.YouTubeListener`.
 
-The second parameter is a `boolean`, set it to `true` if you want the `YouTubePlayerView` to handle network events, if you set it to `false` you should handle network events with your broadcast receiver. Reed the doc for more info.
+The second parameter of the `initialize` method is a `boolean`, set it to `true` if you want the `YouTubePlayerView` to handle network events, if you set it to `false` you should handle network events with your own broadcast receiver.
 
-Is possible to listen to specific events such as full-screen on/off, playback events etc.
+The `AbstractYouTubePlayerListener` is just a convenience abstract class implementing `YouTubePlayerListener`, so that is not necessary to implement all the methods of the interface.
 
-Use the methods `youTubePlayerView.setCustomActionRight` and `youTubePlayerView.setCustomActionLeft` to add/remove custom actions at the left and right of the play/pause button.
+The playback of the videos is handled by the `YouTubePlayer`. You must use that for everything concerning the playback.
+
+The UI of the player is handled by a `PlayerUIController`, in order to interact with it you must get its reference from the `YouTubePlayerView`
+
 ```
-youTubePlayerView.setCustomActionRight(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_pause_36dp), new View.OnClickListener() {
-  @Override
-  public void onClick(View view) {
-  }
+PlayerUIController uiController = youTubePlayerView.getPlayerUIController();
+```
+
+Use the methods `uiController.setCustomAction1` and `uiController.setCustomAction2` to add/remove custom actions at the left and right of the play/pause button.
+
+```
+uiController.setCustomAction1(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_pause_36dp), new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+    }
 });
 ```
-if the `OnClickListener` is `null` the custom action will be invisible.
