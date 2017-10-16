@@ -97,6 +97,24 @@
             android:layout_alignBottom="@+id/youtube_button"
             android:layout_alignTop="@+id/youtube_button" />
 
+        <TextView
+            android:id="@+id/live_video_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/live"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+
+            android:padding="8dp"
+            android:gravity="center_vertical"
+
+            android:visibility="gone"
+
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@+id/youtube_button"
+            android:layout_alignBottom="@+id/youtube_button"
+            android:layout_alignTop="@+id/youtube_button" />
+
         <ImageView
             android:id="@+id/youtube_button"
             android:layout_width="wrap_content"

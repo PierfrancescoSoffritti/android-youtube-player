@@ -34,6 +34,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     @NonNull private final TextView videoTitle;
     @NonNull private final TextView videoCurrentTime;
     @NonNull private final TextView videoDuration;
+    @NonNull private final TextView liveVideoIndicator;
 
     @NonNull private final ProgressBar progressBar;
     @NonNull private final ImageView playButton;
@@ -65,6 +66,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
         videoTitle = controlsView.findViewById(R.id.video_title);
         videoCurrentTime = controlsView.findViewById(R.id.video_current_time);
         videoDuration = controlsView.findViewById(R.id.video_duration);
+        liveVideoIndicator = controlsView.findViewById(R.id.live_video_indicator);
 
         progressBar = controlsView.findViewById(R.id.progress);
         playButton = controlsView.findViewById(R.id.play_button);
@@ -95,6 +97,17 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
             controlsRoot.setVisibility(View.INVISIBLE);
 
         showUI = show;
+    }
+
+    @Override
+    public void enableLiveVideoUI(boolean enable) {
+        if(enable) {
+            videoDuration.setVisibility(View.INVISIBLE);
+            liveVideoIndicator.setVisibility(View.VISIBLE);
+        } else {
+            videoDuration.setVisibility(View.VISIBLE);
+            liveVideoIndicator.setVisibility(View.GONE);
+        }
     }
 
     /**

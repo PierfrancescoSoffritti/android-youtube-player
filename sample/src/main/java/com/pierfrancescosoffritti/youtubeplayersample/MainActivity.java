@@ -35,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
                 initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
                     @Override
                     public void onReady() {
-                        initializedYouTubePlayer.loadVideo("6JYIGclVQdw", 0);
+                        initializedYouTubePlayer.loadVideo("AQBh9soLSkI", 0);
+                        youTubePlayerView.getPlayerUIController().enableLiveVideoUI(true);
                     }
 
                 });
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(youTubePlayer != null) youTubePlayer.loadVideo("LvetJ9U_tVY", 0);
+                youTubePlayerView.getPlayerUIController().enableLiveVideoUI(false);
             }
         });
     }
