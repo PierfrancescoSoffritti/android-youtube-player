@@ -11,7 +11,7 @@ This library has been developed out of necessity. The official library provided 
 
 Download the sample app [here](https://github.com/PierfrancescoSoffritti/AndroidYouTubePlayer/blob/master/sample/sample-release.apk?raw=true)
 
-Apps using this library: (just send me an email if you want to add your app to the list)
+Apps using this library: (send me an email if you want to add your app to the list)
 
 - [Shuffly](https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.shuffly)
 
