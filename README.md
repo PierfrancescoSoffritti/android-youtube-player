@@ -48,7 +48,7 @@ A sample project that shows how to use the library is available in the [sample m
 
 **Please refer to the [Wiki](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/Quick-start) of the library for a detailed description on how to use it.**
 
-# Quick start
+### Quick start
 
 In order to start using the player you need to add the YouTubePlayerView to your layout
 ```
