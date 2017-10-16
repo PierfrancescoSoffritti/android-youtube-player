@@ -24,10 +24,10 @@ import java.util.Set;
  */
 class WebViewYouTubePlayer extends WebView implements YouTubePlayer {
 
-    @NonNull private final Set<YouTubePlayer.YouTubePlayerListener> youTubePlayerListeners;
+    @NonNull private final Set<YouTubePlayerListener> youTubePlayerListeners;
     @NonNull private final Handler mainThreadHandler;
 
-    private YouTubePlayer.YouTubePlayerInitListener youTubePlayerInitListener;
+    private YouTubePlayerInitListener youTubePlayerInitListener;
     @Nullable private PlayerStateTracker playerStateTracker;
 
     protected WebViewYouTubePlayer(Context context) {
@@ -45,7 +45,7 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer {
         youTubePlayerListeners = new HashSet<>();
     }
 
-    protected void initialize(@NonNull YouTubePlayer.YouTubePlayerInitListener initListener) {
+    protected void initialize(@NonNull YouTubePlayerInitListener initListener) {
         youTubePlayerListeners.clear();
 
         youTubePlayerInitListener = initListener;
@@ -146,17 +146,17 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer {
     }
 
     @NonNull
-    protected Set<YouTubePlayer.YouTubePlayerListener> getListeners() {
+    protected Set<YouTubePlayerListener> getListeners() {
         return youTubePlayerListeners;
     }
 
     @Override
-    public boolean addListener(YouTubePlayer.YouTubePlayerListener listener) {
+    public boolean addListener(YouTubePlayerListener listener) {
         return youTubePlayerListeners.add(listener);
     }
 
     @Override
-    public boolean removeListener(YouTubePlayer.YouTubePlayerListener listener) {
+    public boolean removeListener(YouTubePlayerListener listener) {
         return youTubePlayerListeners.remove(listener);
     }
 

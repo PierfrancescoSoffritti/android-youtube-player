@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayer.player.ui;
+package com.pierfrancescosoffritti.youtubeplayer.ui;
 
 import android.animation.Animator;
 import android.content.Intent;
@@ -18,10 +18,11 @@ import com.pierfrancescosoffritti.youtubeplayer.R;
 import com.pierfrancescosoffritti.youtubeplayer.player.PlayerConstants;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenListener;
+import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
 
-public class DefaultPlayerUIController implements PlayerUIController, View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayer.YouTubePlayerListener, SeekBar.OnSeekBarChangeListener {
+public class DefaultPlayerUIController implements PlayerUIController, View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayerListener, SeekBar.OnSeekBarChangeListener {
     @NonNull private final YouTubePlayerView youTubePlayerView;
     @NonNull private final YouTubePlayer youTubePlayer;
 
@@ -100,7 +101,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     }
 
     @Override
-    public void enableLiveVideoUI(boolean enable) {
+    public void enableLiveVideoIndicator(boolean enable) {
         if(enable) {
             videoDuration.setVisibility(View.INVISIBLE);
             liveVideoIndicator.setVisibility(View.VISIBLE);
@@ -381,7 +382,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
         seekBarTouchStarted = false;
     }
 
-    public void resetUI() {
+    private void resetUI() {
         seekBar.setProgress(0);
         seekBar.setMax(0);
 

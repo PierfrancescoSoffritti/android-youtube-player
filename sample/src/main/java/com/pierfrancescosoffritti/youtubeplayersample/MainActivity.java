@@ -10,6 +10,7 @@ import android.view.View;
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenListener;
+import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerInitListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         fullScreenManager = new FullScreenManager(this);
 
         youTubePlayerView = findViewById(R.id.youtube_player_view);
-        youTubePlayerView.initialize(new YouTubePlayer.YouTubePlayerInitListener() {
+        youTubePlayerView.initialize(new YouTubePlayerInitListener() {
             @Override
             public void onInitSuccess(final YouTubePlayer initializedYouTubePlayer) {
 
@@ -35,8 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
                     @Override
                     public void onReady() {
-                        initializedYouTubePlayer.loadVideo("AQBh9soLSkI", 0);
-                        youTubePlayerView.getPlayerUIController().enableLiveVideoUI(true);
+                        initializedYouTubePlayer.loadVideo("6JYIGclVQdw", 0);
                     }
 
                 });
@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(youTubePlayer != null) youTubePlayer.loadVideo("LvetJ9U_tVY", 0);
-                youTubePlayerView.getPlayerUIController().enableLiveVideoUI(false);
             }
         });
     }

@@ -11,11 +11,11 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
-import com.pierfrancescosoffritti.youtubeplayer.utils.NetworkReceiver;
 import com.pierfrancescosoffritti.youtubeplayer.R;
+import com.pierfrancescosoffritti.youtubeplayer.utils.NetworkReceiver;
 import com.pierfrancescosoffritti.youtubeplayer.player.playerUtils.PlaybackResumer;
-import com.pierfrancescosoffritti.youtubeplayer.player.ui.DefaultPlayerUIController;
-import com.pierfrancescosoffritti.youtubeplayer.player.ui.PlayerUIController;
+import com.pierfrancescosoffritti.youtubeplayer.ui.DefaultPlayerUIController;
+import com.pierfrancescosoffritti.youtubeplayer.ui.PlayerUIController;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Callable;
 import com.pierfrancescosoffritti.youtubeplayer.player.playerUtils.FullScreenHelper;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
@@ -69,14 +69,14 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
      * @param youTubePlayerInitListener lister for player init events
      * @param handleNetworkEvents if <b>true</b> a broadcast receiver will be registered.<br/>If <b>false</b> you should handle network events with your own broadcast receiver. See {@link YouTubePlayerView#onNetworkAvailable()} and {@link YouTubePlayerView#onNetworkUnavailable()}
      */
-    public void initialize(@NonNull final WebViewYouTubePlayer.YouTubePlayerInitListener youTubePlayerInitListener, boolean handleNetworkEvents) {
+    public void initialize(@NonNull final YouTubePlayerInitListener youTubePlayerInitListener, boolean handleNetworkEvents) {
         if(handleNetworkEvents)
             getContext().registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
         asyncInitialization = new Callable() {
             @Override
             public void call() {
-                youTubePlayer.initialize(new WebViewYouTubePlayer.YouTubePlayerInitListener() {
+                youTubePlayer.initialize(new YouTubePlayerInitListener() {
                     @Override
                     public void onInitSuccess(YouTubePlayer youTubePlayer) {
                         addYouTubePlayerInternalListeners(youTubePlayer);
@@ -88,14 +88,6 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
 
         if(Utils.isOnline(getContext()))
             asyncInitialization.call();
-    }
-
-    public void addYouTubePlayerListener(WebViewYouTubePlayer.YouTubePlayerListener youTubePlayerListener) {
-        youTubePlayer.addListener(youTubePlayerListener);
-    }
-
-    public void removeYouTubePlayerListener(WebViewYouTubePlayer.YouTubePlayerListener youTubePlayerListener) {
-        youTubePlayer.removeListener(youTubePlayerListener);
     }
 
     /**

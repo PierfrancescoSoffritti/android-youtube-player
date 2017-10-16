@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayer.player.ui;
+package com.pierfrancescosoffritti.youtubeplayer.ui;
 
 import android.graphics.drawable.Drawable;
 import android.view.View;
@@ -6,7 +6,7 @@ import android.view.View;
 public interface PlayerUIController {
     void showTitle(boolean show);
     void showUI(boolean show);
-    void enableLiveVideoUI(boolean enable);
+    void enableLiveVideoIndicator(boolean enable);
 
     void setCustomAction1(Drawable icon, View.OnClickListener clickListener);
     void setCustomAction2(Drawable icon, View.OnClickListener clickListener);

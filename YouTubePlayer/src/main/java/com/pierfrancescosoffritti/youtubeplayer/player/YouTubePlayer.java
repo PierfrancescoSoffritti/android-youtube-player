@@ -1,8 +1,5 @@
 package com.pierfrancescosoffritti.youtubeplayer.player;
 
-/**
- * Interface used to enforce contract between YouTubePlayer and YouTubePlayerView
- */
 public interface YouTubePlayer {
     /**
      * Loads and automatically plays the specified video.
@@ -25,24 +22,6 @@ public interface YouTubePlayer {
     @PlayerConstants.PlayerState.State
     int getCurrentState();
 
-    boolean addListener(WebViewYouTubePlayer.YouTubePlayerListener listener);
-    boolean removeListener(WebViewYouTubePlayer.YouTubePlayerListener listener);
-
-    interface YouTubePlayerListener {
-        void onReady();
-        void onStateChange(@PlayerConstants.PlayerState.State int state);
-        void onPlaybackQualityChange(@PlayerConstants.PlaybackQuality.Quality int playbackQuality);
-        void onPlaybackRateChange(@PlayerConstants.PlaybackRate.Rate String playbackRate);
-        void onError(@PlayerConstants.PlayerError.Error int error);
-        void onApiChange();
-        void onCurrentSecond(float second);
-        void onVideoDuration(float duration);
-        void onMessage(String log);
-        void onVideoTitle(String videoTitle);
-        void onVideoId(String videoId);
-    }
-
-    interface YouTubePlayerInitListener {
-        void onInitSuccess(YouTubePlayer youTubePlayer);
-    }
+    boolean addListener(YouTubePlayerListener listener);
+    boolean removeListener(YouTubePlayerListener listener);
 }
