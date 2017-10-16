@@ -46,6 +46,10 @@ If you are using ProGuard you might need to add the following option:
 
 A sample project that shows how to use the library is available in the [sample module](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/tree/master/sample). You can also [download the sample apk here](https://github.com/PierfrancescoSoffritti/AndroidYouTubePlayer/blob/master/sample/sample-release.apk?raw=true).
 
+**Please refer to the [Wiki](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/Quick-start) of the library for a detailed description on how to use it.**
+
+# Quick start
+
 In order to start using the player you need to add the YouTubePlayerView to your layout
 ```
 <LinearLayout
@@ -98,5 +102,3 @@ uiController.setCustomAction1(ContextCompat.getDrawable(MainActivity.this, R.dra
     }
 });
 ```
-
-if the `OnClickListener` is `null` the custom action will be invisible.
