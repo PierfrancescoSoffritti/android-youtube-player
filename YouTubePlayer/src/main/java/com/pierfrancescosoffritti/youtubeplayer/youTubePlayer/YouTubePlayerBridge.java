@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayer;
+package com.pierfrancescosoffritti.youtubeplayer.youTubePlayer;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -40,10 +40,10 @@ public class YouTubePlayerBridge {
     private static final String ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER1 = "101";
     private static final String ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER2 = "150";
 
-    @NonNull private final YouTubePlayer youTubePlayer;
+    @NonNull private final WebViewYouTubePlayer youTubePlayer;
     @NonNull private final Handler mainThreadHandler;
 
-    public YouTubePlayerBridge(@NonNull YouTubePlayer youTubePlayer) {
+    public YouTubePlayerBridge(@NonNull WebViewYouTubePlayer youTubePlayer) {
         this.youTubePlayer = youTubePlayer;
         mainThreadHandler = new Handler(Looper.getMainLooper());
     }
@@ -67,12 +67,12 @@ public class YouTubePlayerBridge {
     @JavascriptInterface
     public void sendStateChange(final String state) {
 
-        @YouTubePlayer.PlayerState.State final int playerState = parsePlayerState(state);
+        @PlayerConstants.PlayerState.State final int playerState = parsePlayerState(state);
 
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
+                for(WebViewYouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
                     listener.onStateChange(playerState);
             }
         });
@@ -81,12 +81,12 @@ public class YouTubePlayerBridge {
     @JavascriptInterface
     public void sendPlaybackQualityChange(final String quality) {
 
-        @YouTubePlayer.PlaybackQuality.Quality final int playbackQuality = parsePlaybackQuality(quality);
+        @PlayerConstants.PlaybackQuality.Quality final int playbackQuality = parsePlaybackQuality(quality);
 
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
+                for(WebViewYouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
                     listener.onPlaybackQualityChange(playbackQuality);
             }
         });
@@ -95,12 +95,12 @@ public class YouTubePlayerBridge {
     @JavascriptInterface
     public void sendPlaybackRateChange(final String rate) {
 
-        @YouTubePlayer.PlaybackRate.Rate final String playbackRate = parsePlaybackRate(rate);
+        @PlayerConstants.PlaybackRate.Rate final String playbackRate = parsePlaybackRate(rate);
 
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for (YouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
+                for (WebViewYouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
                     listener.onPlaybackRateChange(playbackRate);
             }
         });
@@ -109,12 +109,12 @@ public class YouTubePlayerBridge {
     @JavascriptInterface
     public void sendError(final String error) {
 
-        @YouTubePlayer.PlayerError.Error final int playerError = parsePlayerError(error);
+        @PlayerConstants.PlayerError.Error final int playerError = parsePlayerError(error);
 
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
+                for(WebViewYouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
                     listener.onError(playerError);
             }
         });
@@ -125,7 +125,7 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
+                for(WebViewYouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
                     listener.onApiChange();
             }
         });
@@ -144,7 +144,7 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
+                for(WebViewYouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
                     listener.onCurrentSecond(currentTimeSeconds);
             }
         });
@@ -164,7 +164,7 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for (YouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
+                for (WebViewYouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
                     listener.onVideoDuration(videoDuration);
             }
         });
@@ -175,7 +175,7 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
+                for(WebViewYouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
                     listener.onVideoTitle(videoTitle);
             }
         });
@@ -186,7 +186,7 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
+                for(WebViewYouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
                     listener.onVideoId(videoId);
             }
         });
@@ -197,94 +197,94 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
+                for(WebViewYouTubePlayer.YouTubePlayerListener listener : youTubePlayer.getListeners())
                     listener.onMessage(message);
             }
         });
     }
 
     private int parsePlayerState(String state) {
-        @YouTubePlayer.PlayerState.State int playerState;
+        @PlayerConstants.PlayerState.State int playerState;
 
         if (state.equalsIgnoreCase(STATE_UNSTARTED))
-            playerState = YouTubePlayer.PlayerState.UNSTARTED;
+            playerState = PlayerConstants.PlayerState.UNSTARTED;
         else if (state.equalsIgnoreCase(STATE_ENDED))
-            playerState = YouTubePlayer.PlayerState.ENDED;
+            playerState = PlayerConstants.PlayerState.ENDED;
         else if (state.equalsIgnoreCase(STATE_PLAYING))
-            playerState =  YouTubePlayer.PlayerState.PLAYING;
+            playerState = PlayerConstants.PlayerState.PLAYING;
         else if (state.equalsIgnoreCase(STATE_PAUSED))
-            playerState = YouTubePlayer.PlayerState.PAUSED;
+            playerState = PlayerConstants.PlayerState.PAUSED;
         else if (state.equalsIgnoreCase(STATE_BUFFERING))
-            playerState = YouTubePlayer.PlayerState.BUFFERING;
+            playerState = PlayerConstants.PlayerState.BUFFERING;
         else if (state.equalsIgnoreCase(STATE_CUED))
-            playerState = YouTubePlayer.PlayerState.VIDEO_CUED;
+            playerState = PlayerConstants.PlayerState.VIDEO_CUED;
         else
-            playerState = YouTubePlayer.PlayerState.UNKNOWN;
+            playerState = PlayerConstants.PlayerState.UNKNOWN;
 
         return playerState;
     }
 
 
-    @YouTubePlayer.PlaybackQuality.Quality
+    @PlayerConstants.PlaybackQuality.Quality
     private int parsePlaybackQuality(String quality) {
-        @YouTubePlayer.PlaybackQuality.Quality int playbackQuality;
+        @PlayerConstants.PlaybackQuality.Quality int playbackQuality;
 
         if (quality.equalsIgnoreCase(QUALITY_SMALL))
-            playbackQuality = YouTubePlayer.PlaybackQuality.SMALL;
+            playbackQuality = PlayerConstants.PlaybackQuality.SMALL;
         else if (quality.equalsIgnoreCase(QUALITY_MEDIUM))
-            playbackQuality = YouTubePlayer.PlaybackQuality.MEDIUM;
+            playbackQuality = PlayerConstants.PlaybackQuality.MEDIUM;
         else if (quality.equalsIgnoreCase(QUALITY_LARGE))
-            playbackQuality = YouTubePlayer.PlaybackQuality.LARGE;
+            playbackQuality = PlayerConstants.PlaybackQuality.LARGE;
         else if (quality.equalsIgnoreCase(QUALITY_HD720))
-            playbackQuality = YouTubePlayer.PlaybackQuality.HD720;
+            playbackQuality = PlayerConstants.PlaybackQuality.HD720;
         else if (quality.equalsIgnoreCase(QUALITY_HD1080))
-            playbackQuality = YouTubePlayer.PlaybackQuality.HD1080;
+            playbackQuality = PlayerConstants.PlaybackQuality.HD1080;
         else if (quality.equalsIgnoreCase(QUALITY_HIGH_RES))
-            playbackQuality = YouTubePlayer.PlaybackQuality.HIGH_RES;
+            playbackQuality = PlayerConstants.PlaybackQuality.HIGH_RES;
         else if (quality.equalsIgnoreCase(QUALITY_DEFAULT))
-            playbackQuality = YouTubePlayer.PlaybackQuality.DEFAULT;
+            playbackQuality = PlayerConstants.PlaybackQuality.DEFAULT;
         else
-            playbackQuality = YouTubePlayer.PlaybackQuality.UNKNOWN;
+            playbackQuality = PlayerConstants.PlaybackQuality.UNKNOWN;
 
         return playbackQuality;
     }
 
-    @YouTubePlayer.PlaybackRate.Rate
+    @PlayerConstants.PlaybackRate.Rate
     private String parsePlaybackRate(String rate) {
-        @YouTubePlayer.PlaybackRate.Rate final String playbackRate;
+        @PlayerConstants.PlaybackRate.Rate final String playbackRate;
 
         if (rate.equalsIgnoreCase(RATE_0_25))
-            playbackRate = YouTubePlayer.PlaybackRate.RATE_0_25;
+            playbackRate = PlayerConstants.PlaybackRate.RATE_0_25;
         else if (rate.equalsIgnoreCase(RATE_0_5))
-            playbackRate = YouTubePlayer.PlaybackRate.RATE_0_5;
+            playbackRate = PlayerConstants.PlaybackRate.RATE_0_5;
         else if (rate.equalsIgnoreCase(RATE_1))
-            playbackRate =  YouTubePlayer.PlaybackRate.RATE_1;
+            playbackRate = PlayerConstants.PlaybackRate.RATE_1;
         else if (rate.equalsIgnoreCase(RATE_1_5))
-            playbackRate = YouTubePlayer.PlaybackRate.RATE_1_5;
+            playbackRate = PlayerConstants.PlaybackRate.RATE_1_5;
         else if (rate.equalsIgnoreCase(RATE_2))
-            playbackRate = YouTubePlayer.PlaybackRate.RATE_2;
+            playbackRate = PlayerConstants.PlaybackRate.RATE_2;
         else
-            playbackRate = YouTubePlayer.PlaybackRate.UNKNOWN;
+            playbackRate = PlayerConstants.PlaybackRate.UNKNOWN;
 
         return playbackRate;
     }
 
-    @YouTubePlayer.PlayerError.Error
+    @PlayerConstants.PlayerError.Error
     private int parsePlayerError(String error) {
-        @YouTubePlayer.PlayerError.Error int playerError;
+        @PlayerConstants.PlayerError.Error int playerError;
 
         if (error.equalsIgnoreCase(ERROR_INVALID_PARAMETER_IN_REQUEST))
-            playerError = YouTubePlayer.PlayerError.INVALID_PARAMETER_IN_REQUEST;
+            playerError = PlayerConstants.PlayerError.INVALID_PARAMETER_IN_REQUEST;
         else if (error.equalsIgnoreCase(ERROR_HTML_5_PLAYER))
-            playerError = YouTubePlayer.PlayerError.HTML_5_PLAYER;
+            playerError = PlayerConstants.PlayerError.HTML_5_PLAYER;
         else if (error.equalsIgnoreCase(ERROR_VIDEO_NOT_FOUND))
-            playerError = YouTubePlayer.PlayerError.VIDEO_NOT_FOUND;
+            playerError = PlayerConstants.PlayerError.VIDEO_NOT_FOUND;
         else if (error.equalsIgnoreCase(ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER1))
-            playerError = YouTubePlayer.PlayerError.VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER;
+            playerError = PlayerConstants.PlayerError.VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER;
         else if (error.equalsIgnoreCase(ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER2))
-            playerError = YouTubePlayer.PlayerError.VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER;
+            playerError = PlayerConstants.PlayerError.VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER;
         else
-            playerError = YouTubePlayer.PlayerError.UNKNOWN;
+            playerError = PlayerConstants.PlayerError.UNKNOWN;
 
         return playerError;
     }

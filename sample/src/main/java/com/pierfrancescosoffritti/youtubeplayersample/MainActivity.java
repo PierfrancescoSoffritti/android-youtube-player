@@ -5,13 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
-import com.pierfrancescosoffritti.youtubeplayer.AbstractYouTubePlayerListener;
-import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayer;
-import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerFullScreenListener;
-import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView;
+import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.YouTubePlayer;
+import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.YouTubePlayerFullScreenListener;
+import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.YouTubePlayerView;
 
 public class MainActivity extends AppCompatActivity {
 

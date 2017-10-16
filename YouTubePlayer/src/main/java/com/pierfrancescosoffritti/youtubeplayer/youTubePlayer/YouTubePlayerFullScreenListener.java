@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayer;
+package com.pierfrancescosoffritti.youtubeplayer.youTubePlayer;
 
 public interface YouTubePlayerFullScreenListener {
     void onYouTubePlayerEnterFullScreen();

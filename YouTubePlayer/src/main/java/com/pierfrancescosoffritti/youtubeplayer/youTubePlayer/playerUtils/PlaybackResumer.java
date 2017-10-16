@@ -1,10 +1,10 @@
-package com.pierfrancescosoffritti.youtubeplayer.playerUtils;
+package com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.playerUtils;
 
 import android.annotation.SuppressLint;
 
-import com.pierfrancescosoffritti.youtubeplayer.AbstractYouTubePlayerListener;
-import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayer;
-import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView;
+import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.PlayerConstants;
+import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.YouTubePlayer;
 
 /**
  * Class responsible for resuming the playback state in case of network problems.
@@ -20,16 +20,10 @@ public class PlaybackResumer extends AbstractYouTubePlayerListener {
     private String currentVideoId;
     private float currentSecond;
 
-    private YouTubePlayerView youTubePlayerView;
-
-    public PlaybackResumer(YouTubePlayerView youTubePlayerView) {
-        this.youTubePlayerView = youTubePlayerView;
-    }
-
     public  void resume(YouTubePlayer youTubePlayer) {
-        if(isPlaying && error == YouTubePlayer.PlayerError.HTML_5_PLAYER)
+        if(isPlaying && error == PlayerConstants.PlayerError.HTML_5_PLAYER)
             youTubePlayer.loadVideo(currentVideoId, currentSecond);
-        else if(!isPlaying && error == YouTubePlayer.PlayerError.HTML_5_PLAYER)
+        else if(!isPlaying && error == PlayerConstants.PlayerError.HTML_5_PLAYER)
             youTubePlayer.cueVideo(currentVideoId, currentSecond);
 
         error = NO_ERROR;
@@ -37,15 +31,15 @@ public class PlaybackResumer extends AbstractYouTubePlayerListener {
 
     @SuppressLint("SwitchIntDef")
     @Override
-    public void onStateChange(@YouTubePlayer.PlayerState.State int state) {
+    public void onStateChange(@PlayerConstants.PlayerState.State int state) {
         switch (state) {
-            case YouTubePlayer.PlayerState.ENDED:
+            case PlayerConstants.PlayerState.ENDED:
                 isPlaying = false;
                 return;
-            case YouTubePlayer.PlayerState.PAUSED:
+            case PlayerConstants.PlayerState.PAUSED:
                 isPlaying = false;
                 return;
-            case YouTubePlayer.PlayerState.PLAYING:
+            case PlayerConstants.PlayerState.PLAYING:
                 isPlaying = true;
                 return;
             default:
@@ -54,8 +48,8 @@ public class PlaybackResumer extends AbstractYouTubePlayerListener {
     }
 
     @Override
-    public void onError(@YouTubePlayer.PlayerError.Error int error) {
-        if(error == YouTubePlayer.PlayerError.HTML_5_PLAYER)
+    public void onError(@PlayerConstants.PlayerError.Error int error) {
+        if(error == PlayerConstants.PlayerError.HTML_5_PLAYER)
             this.error = error;
     }
 

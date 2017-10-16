@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayer;
+package com.pierfrancescosoffritti.youtubeplayer.youTubePlayer;
 
 import android.content.Context;
 import android.content.IntentFilter;
@@ -11,16 +11,18 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
-import com.pierfrancescosoffritti.youtubeplayer.playerUtils.PlaybackResumer;
-import com.pierfrancescosoffritti.youtubeplayer.ui.DefaultPlayerUIController;
-import com.pierfrancescosoffritti.youtubeplayer.ui.PlayerUIController;
+import com.pierfrancescosoffritti.youtubeplayer.utils.NetworkReceiver;
+import com.pierfrancescosoffritti.youtubeplayer.R;
+import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.playerUtils.PlaybackResumer;
+import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.ui.DefaultPlayerUIController;
+import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.ui.PlayerUIController;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Callable;
-import com.pierfrancescosoffritti.youtubeplayer.playerUtils.FullScreenHelper;
+import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.playerUtils.FullScreenHelper;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
 
 public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.NetworkListener {
 
-    @NonNull private final YouTubePlayer youTubePlayer;
+    @NonNull private final WebViewYouTubePlayer youTubePlayer;
     @NonNull private final DefaultPlayerUIController playerUIControls;
 
     @NonNull private final NetworkReceiver networkReceiver;
@@ -39,13 +41,13 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     public YouTubePlayerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        youTubePlayer = new YouTubePlayer(context);
+        youTubePlayer = new WebViewYouTubePlayer(context);
         addView(youTubePlayer, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         View playerControlsView = inflate(context, R.layout.player_controls, this);
         playerUIControls = new DefaultPlayerUIController(this, youTubePlayer, playerControlsView);
 
-        playbackResumer = new PlaybackResumer(this);
+        playbackResumer = new PlaybackResumer();
         networkReceiver = new NetworkReceiver(this);
         fullScreenHelper = new FullScreenHelper();
 
@@ -67,14 +69,14 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
      * @param youTubePlayerInitListener lister for player init events
      * @param handleNetworkEvents if <b>true</b> a broadcast receiver will be registered.<br/>If <b>false</b> you should handle network events with your own broadcast receiver. See {@link YouTubePlayerView#onNetworkAvailable()} and {@link YouTubePlayerView#onNetworkUnavailable()}
      */
-    public void initialize(@NonNull final YouTubePlayer.YouTubePlayerInitListener youTubePlayerInitListener, boolean handleNetworkEvents) {
+    public void initialize(@NonNull final WebViewYouTubePlayer.YouTubePlayerInitListener youTubePlayerInitListener, boolean handleNetworkEvents) {
         if(handleNetworkEvents)
             getContext().registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
         asyncInitialization = new Callable() {
             @Override
             public void call() {
-                youTubePlayer.initialize(new YouTubePlayer.YouTubePlayerInitListener() {
+                youTubePlayer.initialize(new WebViewYouTubePlayer.YouTubePlayerInitListener() {
                     @Override
                     public void onInitSuccess(YouTubePlayer youTubePlayer) {
                         addYouTubePlayerInternalListeners(youTubePlayer);
@@ -88,11 +90,11 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
             asyncInitialization.call();
     }
 
-    public void addYouTubePlayerListener(YouTubePlayer.YouTubePlayerListener youTubePlayerListener) {
+    public void addYouTubePlayerListener(WebViewYouTubePlayer.YouTubePlayerListener youTubePlayerListener) {
         youTubePlayer.addListener(youTubePlayerListener);
     }
 
-    public void removeYouTubePlayerListener(YouTubePlayer.YouTubePlayerListener youTubePlayerListener) {
+    public void removeYouTubePlayerListener(WebViewYouTubePlayer.YouTubePlayerListener youTubePlayerListener) {
         youTubePlayer.removeListener(youTubePlayerListener);
     }
 

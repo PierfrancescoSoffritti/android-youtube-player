@@ -52,7 +52,7 @@ Add the YouTubePlayerView to your layout
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView
+    <com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.YouTubePlayerView
         android:id="@+id/youtube_player_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

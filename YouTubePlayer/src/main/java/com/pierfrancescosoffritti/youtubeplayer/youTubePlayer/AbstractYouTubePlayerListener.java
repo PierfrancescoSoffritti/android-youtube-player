@@ -1,14 +1,14 @@
-package com.pierfrancescosoffritti.youtubeplayer;
+package com.pierfrancescosoffritti.youtubeplayer.youTubePlayer;
 
 /**
  * Extend this class if you don't want to implement all the method of {@link YouTubePlayer.YouTubePlayerListener}
  */
 public abstract class AbstractYouTubePlayerListener implements YouTubePlayer.YouTubePlayerListener {
     @Override public void onReady() { }
-    @Override public void onStateChange(@YouTubePlayer.PlayerState.State int state) { }
-    @Override public void onPlaybackQualityChange(@YouTubePlayer.PlaybackQuality.Quality int playbackQuality) { }
-    @Override public void onPlaybackRateChange(@YouTubePlayer.PlaybackRate.Rate String rate) { }
-    @Override public void onError(@YouTubePlayer.PlayerError.Error int error) { }
+    @Override public void onStateChange(@PlayerConstants.PlayerState.State int state) { }
+    @Override public void onPlaybackQualityChange(@PlayerConstants.PlaybackQuality.Quality int playbackQuality) { }
+    @Override public void onPlaybackRateChange(@PlayerConstants.PlaybackRate.Rate String rate) { }
+    @Override public void onError(@PlayerConstants.PlayerError.Error int error) { }
     @Override public void onApiChange() { }
     @Override public void onCurrentSecond(float second) { }
     @Override public void onVideoDuration(float duration) { }

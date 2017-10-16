@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayer;
+package com.pierfrancescosoffritti.youtubeplayer.utils;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayer.ui;
+package com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.ui;
 
 import android.animation.Animator;
 import android.content.Intent;
@@ -15,9 +15,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.pierfrancescosoffritti.youtubeplayer.R;
-import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayer;
-import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerFullScreenListener;
-import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView;
+import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.PlayerConstants;
+import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.YouTubePlayer;
+import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.YouTubePlayerFullScreenListener;
+import com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.YouTubePlayerView;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
 
 public class DefaultPlayerUIController implements PlayerUIController, View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayer.YouTubePlayerListener, SeekBar.OnSeekBarChangeListener {
@@ -232,20 +233,20 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
     // TODO refactor this method
     @Override
-    public void onStateChange(@YouTubePlayer.PlayerState.State int state) {
+    public void onStateChange(@PlayerConstants.PlayerState.State int state) {
         System.out.println("state: " +state);
         newSeekBarProgress = -1;
 
         updateControlsState(state);
 
-        if(state == YouTubePlayer.PlayerState.PLAYING || state == YouTubePlayer.PlayerState.PAUSED || state == YouTubePlayer.PlayerState.VIDEO_CUED) {
+        if(state == PlayerConstants.PlayerState.PLAYING || state == PlayerConstants.PlayerState.PAUSED || state == PlayerConstants.PlayerState.VIDEO_CUED) {
             panel.setBackgroundColor(ContextCompat.getColor(youTubePlayerView.getContext(), android.R.color.transparent));
             progressBar.setVisibility(View.GONE);
             playButton.setVisibility(View.VISIBLE);
 
 
             canFadeControls = true;
-            boolean playing = state == YouTubePlayer.PlayerState.PLAYING;
+            boolean playing = state == PlayerConstants.PlayerState.PLAYING;
             updatePlayPauseButtonIcon(playing);
 
             if(playing)
@@ -257,7 +258,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
             updatePlayPauseButtonIcon(false);
             fadeControls(1f);
 
-            if(state == YouTubePlayer.PlayerState.BUFFERING) {
+            if(state == PlayerConstants.PlayerState.BUFFERING) {
                 playButton.setVisibility(View.INVISIBLE);
 
                 customActionLeft.setVisibility(View.GONE);
@@ -267,7 +268,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
                 canFadeControls = false;
             }
 
-            if(state == YouTubePlayer.PlayerState.UNSTARTED) {
+            if(state == PlayerConstants.PlayerState.UNSTARTED) {
                 panel.setBackgroundColor(ContextCompat.getColor(youTubePlayerView.getContext(), android.R.color.black));
                 canFadeControls = false;
 
@@ -279,16 +280,16 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
     private void updateControlsState(int state) {
         switch (state) {
-            case YouTubePlayer.PlayerState.ENDED:
+            case PlayerConstants.PlayerState.ENDED:
                 isPlaying = false;
                 break;
-            case YouTubePlayer.PlayerState.PAUSED:
+            case PlayerConstants.PlayerState.PAUSED:
                 isPlaying = false;
                 break;
-            case YouTubePlayer.PlayerState.PLAYING:
+            case PlayerConstants.PlayerState.PLAYING:
                 isPlaying = true;
                 break;
-            case YouTubePlayer.PlayerState.UNSTARTED:
+            case PlayerConstants.PlayerState.UNSTARTED:
                 resetUI();
                 break;
             default:
@@ -337,9 +338,9 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
     @Override public void onReady() { }
     @Override public void onMessage(String log) { }
-    @Override public void onPlaybackQualityChange(@YouTubePlayer.PlaybackQuality.Quality int playbackQuality) { }
-    @Override public void onPlaybackRateChange(@YouTubePlayer.PlaybackRate.Rate String rate) { }
-    @Override public void onError(@YouTubePlayer.PlayerError.Error int error) { }
+    @Override public void onPlaybackQualityChange(@PlayerConstants.PlaybackQuality.Quality int playbackQuality) { }
+    @Override public void onPlaybackRateChange(@PlayerConstants.PlaybackRate.Rate String rate) { }
+    @Override public void onError(@PlayerConstants.PlayerError.Error int error) { }
     @Override public void onApiChange() { }
 
     // SeekBar callbacks
