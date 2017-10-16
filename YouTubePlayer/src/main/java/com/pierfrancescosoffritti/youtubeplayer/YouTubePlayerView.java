@@ -67,18 +67,32 @@ public class YouTubePlayerView extends FrameLayout implements YouTubePlayerActio
 
     /**
      * Initialize the player
-     * @param youTubePlayerListener lister for player events
+     * @param youTubePlayerInitListener lister for player init events
      * @param handleNetworkEvents if <b>true</b> a broadcast receiver will be registered.<br/>If <b>false</b> you should handle network events with your own broadcast receiver. See {@link YouTubePlayerView#onNetworkAvailable()} and {@link YouTubePlayerView#onNetworkUnavailable()}
      */
-    public void initialize(@Nullable final YouTubePlayer.YouTubePlayerListener youTubePlayerListener, boolean handleNetworkEvents) {
+    public void initialize(@NonNull final YouTubePlayer.YouTubePlayerInitListener youTubePlayerInitListener, boolean handleNetworkEvents) {
         if(handleNetworkEvents)
             getContext().registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
         asyncInitialization = new Callable() {
             @Override
             public void call() {
-                youTubePlayer.initialize(youTubePlayerListener);
-                asyncInitialization = null;
+                if(!Utils.isOnline(getContext()))
+                    return;
+
+                youTubePlayer.initialize(new YouTubePlayer.YouTubePlayerInitListener() {
+                    @Override
+                    public void onInitSuccess(YouTubePlayer youTubePlayer) {
+                        youTubePlayerInitListener.onInitSuccess(youTubePlayer);
+
+                        youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
+                            @Override
+                            public void onReady() {
+                                asyncInitialization = null;
+                            }
+                        });
+                    }
+                });
             }
         };
 

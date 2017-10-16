@@ -49,6 +49,11 @@ public class YouTubePlayerBridge {
     }
 
     @JavascriptInterface
+    public void sendYouTubeIframeAPIReady() {
+        youTubePlayer.onYouTubeIframeAPIReady();
+    }
+
+    @JavascriptInterface
     public void sendReady() {
         mainThreadHandler.post(new Runnable() {
             @Override

@@ -4,6 +4,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.pierfrancescosoffritti.youtubeplayer.AbstractYouTubePlayerListener;
@@ -24,69 +25,18 @@ public class MainActivity extends AppCompatActivity {
         fullScreenManager = new FullScreenManager(this);
 
         youTubePlayerView = findViewById(R.id.youtube_player_view);
-        youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
-
+        youTubePlayerView.initialize(new YouTubePlayer.YouTubePlayerInitListener() {
             @Override
-            public void onReady() {
-                youTubePlayerView.loadVideo("6JYIGclVQdw", 0);
-            }
+            public void onInitSuccess(YouTubePlayer youTubePlayer) {
+                youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
+                    @Override
+                    public void onReady() {
+                        youTubePlayerView.loadVideo("6JYIGclVQdw", 0);
+                    }
 
+                });
+            }
         }, true);
-
-        youTubePlayerView.addYouTubePlayerListener(new YouTubePlayer.YouTubePlayerListener() {
-            @Override
-            public void onReady() {
-            }
-
-            @Override
-            public void onStateChange(@YouTubePlayer.PlayerState.State int state) {
-
-            }
-
-            @Override
-            public void onPlaybackQualityChange(@YouTubePlayer.PlaybackQuality.Quality int playbackQuality) {
-
-            }
-
-            @Override
-            public void onPlaybackRateChange(String rate) {
-
-            }
-
-            @Override
-            public void onError(@YouTubePlayer.PlayerError.Error int error) {
-
-            }
-
-            @Override
-            public void onApiChange() {
-
-            }
-
-            @Override
-            public void onCurrentSecond(float second) {
-
-            }
-
-            @Override
-            public void onVideoDuration(float duration) {
-
-            }
-
-            @Override
-            public void onMessage(String log) {
-
-            }
-
-            @Override
-            public void onVideoTitle(String videoTitle) {
-            }
-
-            @Override
-            public void onVideoId(String videoId) {
-
-            }
-        });
 
         youTubePlayerView.addFullScreenListener(new YouTubePlayerFullScreenListener() {
             @Override

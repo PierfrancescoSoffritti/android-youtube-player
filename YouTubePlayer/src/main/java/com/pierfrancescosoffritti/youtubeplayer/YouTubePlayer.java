@@ -29,6 +29,7 @@ public class YouTubePlayer extends WebView implements YouTubePlayerActions {
     @NonNull private Set<YouTubePlayerListener> youTubePlayerListeners;
     @NonNull private final Handler mainThreadHandler;
 
+    private YouTubePlayerInitListener youTubePlayerInitListener;
     @Nullable private PlayerStateTracker playerStateTracker;
 
     protected YouTubePlayer(Context context) {
@@ -46,14 +47,17 @@ public class YouTubePlayer extends WebView implements YouTubePlayerActions {
         youTubePlayerListeners = new HashSet<>();
     }
 
-    protected void initialize(@Nullable YouTubePlayerListener youTubePlayerListener) {
-        if(youTubePlayerListener != null)
-            this.youTubePlayerListeners.add(youTubePlayerListener);
+    protected void initialize(@NonNull YouTubePlayerInitListener youTubePlayerInitListener) {
+        this.youTubePlayerInitListener = youTubePlayerInitListener;
 
         playerStateTracker = new PlayerStateTracker();
         youTubePlayerListeners.add(playerStateTracker);
 
         initWebView();
+    }
+
+    public void onYouTubeIframeAPIReady() {
+        youTubePlayerInitListener.onInitSuccess(this);
     }
 
     @Override
@@ -146,11 +150,11 @@ public class YouTubePlayer extends WebView implements YouTubePlayerActions {
         return youTubePlayerListeners;
     }
 
-    protected boolean addListener(YouTubePlayerListener listener) {
+    public boolean addListener(YouTubePlayerListener listener) {
         return youTubePlayerListeners.add(listener);
     }
 
-    protected boolean removeListener(YouTubePlayerListener listener) {
+    public boolean removeListener(YouTubePlayerListener listener) {
         return youTubePlayerListeners.remove(listener);
     }
 
@@ -222,6 +226,10 @@ public class YouTubePlayer extends WebView implements YouTubePlayerActions {
         void onMessage(String log);
         void onVideoTitle(String videoTitle);
         void onVideoId(String videoId);
+    }
+
+    public interface YouTubePlayerInitListener {
+        void onInitSuccess(YouTubePlayer youTubePlayer);
     }
 
     public static class PlayerState {
