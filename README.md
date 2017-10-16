@@ -28,7 +28,7 @@ allprojects {
 Add this to your module-level `build.gradle`:
 ```
 dependencies {
-  compile 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:0.7.8'
+  compile 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:1.0.0'
 }
 ```
 
@@ -51,7 +51,7 @@ Add the YouTubePlayerView to your layout
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.pierfrancescosoffritti.youtubeplayer.youTubePlayer.YouTubePlayerView
+    <com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView
         android:id="@+id/youtube_player_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -59,26 +59,40 @@ Add the YouTubePlayerView to your layout
 ```
 Get a reference to the YouTubePlayerView in your code and initialize it
 ```
-YouTubePlayerView youTubePlayerView = (YouTubePlayerView) findViewById(R.id.youtube_player_view);
-youTubePlayerView.initialize(new AbstractYouTubeListener() {
-  @Override
-  public void onReady() {
-    youTubePlayerView.loadVideo("6JYIGclVQdw", 0);
-  }
+youTubePlayerView = findViewById(R.id.youtube_player_view);
+youTubePlayerView.initialize(new YouTubePlayerInitListener() {
+    @Override
+    public void onInitSuccess(final YouTubePlayer initializedYouTubePlayer) {
+        initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady() {
+                initializedYouTubePlayer.loadVideo("6JYIGclVQdw", 0);
+            }
+        });
+    }
 }, true);
 ```
-The `AbstractYouTubeListener` is just a convenience abstract class, the `initialize` method requires a `YouTubePlayer.YouTubeListener`.
 
-The second parameter is a `boolean`, set it to `true` if you want the `YouTubePlayerView` to handle network events, if you set it to `false` you should handle network events with your broadcast receiver. Reed the doc for more info.
+The second parameter of the `initialize` method is a `boolean`, set it to `true` if you want the `YouTubePlayerView` to handle network events, if you set it to `false` you should handle network events with your own broadcast receiver.
 
-Is possible to listen to specific events such as full-screen on/off, playback events etc.
+The `AbstractYouTubePlayerListener` is just a convenience abstract class implementing `YouTubePlayerListener`, so that is not necessary to implement all the methods of the interface.
 
-Use the methods `youTubePlayerView.setCustomActionRight` and `youTubePlayerView.setCustomActionLeft` to add/remove custom actions at the left and right of the play/pause button.
+The playback of the videos is handled by the `YouTubePlayer`. You must use that for everything concerning the playback.
+
+The UI of the player is handled by a `PlayerUIController`, in order to interact with it you must get its reference from the `YouTubePlayerView`
+
 ```
-youTubePlayerView.setCustomActionRight(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_pause_36dp), new View.OnClickListener() {
-  @Override
-  public void onClick(View view) {
-  }
+PlayerUIController uiController = youTubePlayerView.getPlayerUIController();
+```
+
+Use the methods `uiController.setCustomAction1` and `uiController.setCustomAction2` to add/remove custom actions at the left and right of the play/pause button.
+
+```
+uiController.setCustomAction1(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_pause_36dp), new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+    }
 });
 ```
+
 if the `OnClickListener` is `null` the custom action will be invisible.
