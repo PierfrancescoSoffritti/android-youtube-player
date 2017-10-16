@@ -62,14 +62,15 @@ In order to start using the player you need to add the YouTubePlayerView to your
 ```
 Get a reference to the YouTubePlayerView in your code and initialize it
 ```
-youTubePlayerView = findViewById(R.id.youtube_player_view);
+YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
 youTubePlayerView.initialize(new YouTubePlayerInitListener() {
     @Override
     public void onInitSuccess(final YouTubePlayer initializedYouTubePlayer) {
         initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady() {
-                initializedYouTubePlayer.loadVideo("6JYIGclVQdw", 0);
+                String videoId = "6JYIGclVQdw";
+                initializedYouTubePlayer.loadVideo(videoId, 0);
             }
         });
     }
