@@ -168,23 +168,6 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer {
 
         this.addJavascriptInterface(new YouTubePlayerBridge(this), "YouTubePlayerBridge");
         this.loadDataWithBaseURL("https://www.youtube.com", readYouTubePlayerHTMLFromFile(), "text/html", "utf-8", null);
-
-        // apparently there's a bug in the ChromeClient
-        this.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public Bitmap getDefaultVideoPoster() {
-                Bitmap result = null;
-                try {
-                    result = super.getDefaultVideoPoster();
-                } catch (Exception ignore) {
-                }
-
-                if(result == null)
-                    return Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565);
-                else
-                    return result;
-            }
-        });
     }
 
     private String readYouTubePlayerHTMLFromFile() {
