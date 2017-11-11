@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
@@ -13,16 +14,23 @@ import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenLi
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerInitListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     private YouTubePlayerView youTubePlayerView;
-    @Nullable private YouTubePlayer youTubePlayer;
     private FullScreenManager fullScreenManager;
+
+    private Button nextVideo;
+
+    private String[] videoIds = {"6JYIGclVQdw", "LvetJ9U_tVY"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        nextVideo = findViewById(R.id.next_video_button);
 
         fullScreenManager = new FullScreenManager(this);
 
@@ -31,18 +39,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onInitSuccess(final YouTubePlayer initializedYouTubePlayer) {
 
-                youTubePlayer = initializedYouTubePlayer;
-
                 initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
                     @Override
                     public void onReady() {
-                        initializedYouTubePlayer.loadVideo("6JYIGclVQdw", 0);
+                        initializedYouTubePlayer.loadVideo(videoIds[0], 0);
                     }
 
                 });
+
+                initFullScreenListener(initializedYouTubePlayer);
+                initButtonClickListener(initializedYouTubePlayer);
+
             }
         }, true);
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        youTubePlayerView.release();
+    }
+
+    private void initFullScreenListener(final YouTubePlayer youTubePlayer) {
         youTubePlayerView.addFullScreenListener(new YouTubePlayerFullScreenListener() {
             @Override
             public void onYouTubePlayerEnterFullScreen() {
@@ -65,19 +84,15 @@ public class MainActivity extends AppCompatActivity {
                 youTubePlayerView.getPlayerUIController().showCustomAction1(false);
             }
         });
-
-        findViewById(R.id.next_video_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(youTubePlayer != null) youTubePlayer.loadVideo("LvetJ9U_tVY", 0);
-            }
-        });
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        youTubePlayerView.release();
+    private void initButtonClickListener(final YouTubePlayer youTubePlayer) {
+        nextVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String videoId = videoIds[new Random().nextInt(videoIds.length)];
+                youTubePlayer.loadVideo(videoId, 0);
+            }
+        });
     }
 }
