@@ -248,7 +248,6 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     // TODO refactor this method
     @Override
     public void onStateChange(@PlayerConstants.PlayerState.State int state) {
-        System.out.println("state: " +state);
         newSeekBarProgress = -1;
 
         updateControlsState(state);
