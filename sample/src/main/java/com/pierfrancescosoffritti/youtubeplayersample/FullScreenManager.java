@@ -10,7 +10,7 @@ import android.view.View;
  */
 public class FullScreenManager {
 
-    private Activity mContext;
+    private Activity context;
     private View[] views;
 
     /**
@@ -18,7 +18,7 @@ public class FullScreenManager {
      * @param views to hide/show
      */
     public FullScreenManager(Activity context, View ... views) {
-        mContext = context;
+        this.context = context;
         this.views = views;
     }
 
@@ -26,7 +26,7 @@ public class FullScreenManager {
      * call this method to enter full screen
      */
     public void enterFullScreen() {
-        View decorView = mContext.getWindow().getDecorView();
+        View decorView = context.getWindow().getDecorView();
 
         hideSystemUI(decorView);
 
@@ -40,7 +40,7 @@ public class FullScreenManager {
      * call this method to exit full screen
      */
     public void exitFullScreen() {
-        View decorView = mContext.getWindow().getDecorView();
+        View decorView = context.getWindow().getDecorView();
 
         showSystemUI(decorView);
 
