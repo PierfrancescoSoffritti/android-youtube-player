@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.youtubeplayer.player.PlayerConstants;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerInitListener;
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button nextVideo;
 
-    private String[] videoIds = {"6JYIGclVQdw", "LvetJ9U_tVY"};
+    private String[] videoIds = {"6JYIGclVQdw", "LvetJ9U_tVY", "sop2V_MREEI"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onReady() {
                         initializedYouTubePlayer.loadVideo(videoIds[0], 0);
+                    }
+
+                    @Override
+                    public void onStateChange(@PlayerConstants.PlayerState.State int state) {
+                        Log.d("current state", ""+state);
                     }
 
                 });

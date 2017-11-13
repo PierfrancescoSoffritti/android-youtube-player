@@ -272,6 +272,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
             fadeControls(1f);
 
             if(state == PlayerConstants.PlayerState.BUFFERING) {
+                panel.setBackgroundColor(ContextCompat.getColor(youTubePlayerView.getContext(), android.R.color.transparent));
                 playButton.setVisibility(View.INVISIBLE);
 
                 customActionLeft.setVisibility(View.GONE);
@@ -282,7 +283,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
             }
 
             if(state == PlayerConstants.PlayerState.UNSTARTED) {
-                panel.setBackgroundColor(ContextCompat.getColor(youTubePlayerView.getContext(), android.R.color.black));
+//                panel.setBackgroundColor(ContextCompat.getColor(youTubePlayerView.getContext(), android.R.color.black));
                 canFadeControls = false;
 
                 progressBar.setVisibility(View.GONE);

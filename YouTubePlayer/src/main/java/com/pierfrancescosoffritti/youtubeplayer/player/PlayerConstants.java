@@ -49,7 +49,7 @@ public final class PlayerConstants {
         @Retention(RetentionPolicy.SOURCE)
         public @interface Error {
         }
-    }// @param rate 0.25, 0.5, 1, 1.5, 2
+    }
 
     public static final class PlaybackRate {
         public final static String UNKNOWN = "-10";
