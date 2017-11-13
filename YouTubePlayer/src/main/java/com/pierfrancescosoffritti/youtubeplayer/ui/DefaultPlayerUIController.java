@@ -278,7 +278,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
                 customActionLeft.setVisibility(View.GONE);
                 customActionRight.setVisibility(View.GONE);
 
-                progressBar.setVisibility(View.VISIBLE);
+//                progressBar.setVisibility(View.VISIBLE);
                 canFadeControls = false;
             }
 
