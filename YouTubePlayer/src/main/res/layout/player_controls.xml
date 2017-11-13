@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"
+        android:focusable="true"
         android:background="@android:color/black" />
 
     <RelativeLayout
@@ -41,7 +42,24 @@
             android:lines="1"
             android:padding="8dp"
             android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/menu_button" />
+
+        <ImageView
+            android:id="@+id/menu_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_menu_24dp"
+            android:padding="8dp"
+
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/background_item_selected"
+
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+
+            android:contentDescription="@string/open_video_in_youtube" />
 
         <ImageView
             android:id="@+id/play_button"
@@ -53,6 +71,7 @@
 
             android:padding="8dp"
             android:clickable="true"
+            android:focusable="true"
             android:background="@drawable/background_item_selected"
 
             android:layout_centerInParent="true"
@@ -123,6 +142,7 @@
             android:padding="8dp"
 
             android:clickable="true"
+            android:focusable="true"
             android:background="@drawable/background_item_selected"
 
             android:layout_alignParentBottom="true"
@@ -137,6 +157,7 @@
             android:padding="8dp"
 
             android:clickable="true"
+            android:focusable="true"
             android:background="@drawable/background_item_selected"
 
             android:layout_alignParentBottom="true"
@@ -172,6 +193,7 @@
             android:layout_margin="32dp"
 
             android:clickable="true"
+            android:focusable="true"
             android:background="@drawable/background_item_selected"
 
             android:layout_centerVertical="true"
@@ -189,6 +211,7 @@
             android:layout_margin="32dp"
 
             android:clickable="true"
+            android:focusable="true"
             android:background="@drawable/background_item_selected"
 
             android:layout_centerVertical="true"
