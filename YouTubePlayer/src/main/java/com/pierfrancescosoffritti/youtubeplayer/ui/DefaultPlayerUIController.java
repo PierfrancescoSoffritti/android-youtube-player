@@ -38,6 +38,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     @NonNull private final TextView liveVideoIndicator;
 
     @NonNull private final ProgressBar progressBar;
+    @NonNull private final ImageView menuButton;
     @NonNull private final ImageView playButton;
     @NonNull private final ImageView youTubeButton;
     @NonNull private final ImageView fullScreenButton;
@@ -70,6 +71,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
         liveVideoIndicator = controlsView.findViewById(R.id.live_video_indicator);
 
         progressBar = controlsView.findViewById(R.id.progress);
+        menuButton = controlsView.findViewById(R.id.menu_button);
         playButton = controlsView.findViewById(R.id.play_button);
         youTubeButton = controlsView.findViewById(R.id.youtube_button);
         fullScreenButton = controlsView.findViewById(R.id.fullscreen_button);
@@ -82,6 +84,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
         seekBar.setOnSeekBarChangeListener(this);
         panel.setOnClickListener(this);
         playButton.setOnClickListener(this);
+        menuButton.setOnClickListener(this);
         fullScreenButton.setOnClickListener(this);
     }
 
@@ -142,6 +145,12 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     }
 
     @Override
+    public void showMenuButton(boolean show) {
+        int visibility = show ? View.VISIBLE : View.INVISIBLE;
+        menuButton.setVisibility(visibility);
+    }
+
+    @Override
     public void showFullscreenButton(boolean show) {
         int visibility = show ? View.VISIBLE : View.INVISIBLE;
         fullScreenButton.setVisibility(visibility);
@@ -160,6 +169,8 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
             onPlayButtonPressed();
         else if(view == fullScreenButton)
             onFullScreenPressed();
+        else if(view == menuButton)
+            youTubePlayerView.showMenu(menuButton);
     }
 
     private void onFullScreenPressed() {
