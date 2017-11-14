@@ -86,8 +86,13 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     }
 
     @Override
-    public void showTitle(boolean show) {
+    public void showVideoTitle(boolean show) {
         videoTitle.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void setVideoTitle(@NonNull String title) {
+        videoTitle.setText(title);
     }
 
     @Override
@@ -115,7 +120,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
      * Set custom action to the left of the Play/Pause button
      */
     @Override
-    public void setCustomAction1(Drawable icon, View.OnClickListener clickListener) {
+    public void setCustomAction1(@NonNull Drawable icon, View.OnClickListener clickListener) {
         customActionLeft.setImageDrawable(icon);
         customActionLeft.setOnClickListener(clickListener);
         showCustomAction1(clickListener != null);
@@ -125,7 +130,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
      * Set custom action to the right of the Play/Pause button
      */
     @Override
-    public void setCustomAction2(Drawable icon, View.OnClickListener clickListener) {
+    public void setCustomAction2(@NonNull Drawable icon, View.OnClickListener clickListener) {
         customActionRight.setImageDrawable(icon);
         customActionRight.setOnClickListener(clickListener);
         showCustomAction2(clickListener != null);
@@ -148,7 +153,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     }
 
     @Override
-    public void setCustomFullScreenButtonListener(View.OnClickListener customFullScreenButtonListener) {
+    public void setCustomFullScreenButtonListener(@NonNull View.OnClickListener customFullScreenButtonListener) {
         this.onFullScreenButtonListener = customFullScreenButtonListener;
     }
 
@@ -335,11 +340,6 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     }
 
     @Override
-    public void onVideoTitle(String title) {
-        videoTitle.setText(title);
-    }
-
-    @Override
     public void onVideoId(final String videoId) {
         youTubeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -385,21 +385,12 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     private void resetUI() {
         seekBar.setProgress(0);
         seekBar.setMax(0);
-
         videoDuration.post(new Runnable() {
             @Override
             public void run() {
                 videoDuration.setText("");
             }
         });
-
-        videoTitle.post(new Runnable() {
-            @Override
-            public void run() {
-                videoTitle.setText("");
-            }
-        });
-
         youTubeButton.setOnClickListener(null);
     }
 }

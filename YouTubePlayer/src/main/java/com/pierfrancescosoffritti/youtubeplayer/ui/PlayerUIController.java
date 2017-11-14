@@ -1,18 +1,23 @@
 package com.pierfrancescosoffritti.youtubeplayer.ui;
 
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 public interface PlayerUIController {
-    void showTitle(boolean show);
     void showUI(boolean show);
+
+    void showVideoTitle(boolean show);
+    void setVideoTitle(@NonNull String videoTitle);
+
     void enableLiveVideoIndicator(boolean enable);
 
-    void setCustomAction1(Drawable icon, View.OnClickListener clickListener);
-    void setCustomAction2(Drawable icon, View.OnClickListener clickListener);
+    void setCustomAction1(@NonNull Drawable icon, @Nullable View.OnClickListener clickListener);
+    void setCustomAction2(@NonNull Drawable icon, @Nullable View.OnClickListener clickListener);
     void showCustomAction1(boolean show);
     void showCustomAction2(boolean show);
 
     void showFullscreenButton(boolean show);
-    void setCustomFullScreenButtonListener(View.OnClickListener customFullScreenButtonListener);
+    void setCustomFullScreenButtonListener(@NonNull View.OnClickListener customFullScreenButtonListener);
 }

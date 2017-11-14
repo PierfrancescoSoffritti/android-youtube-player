@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -26,4 +31,13 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:27.0.0'
     implementation 'com.android.support:design:27.0.0'
     implementation project(':YouTubePlayer')
+
+    implementation "io.reactivex.rxjava2:rxjava:2.1.6"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile('com.google.api-client:google-api-client-android:1.23.0') {
+        exclude group: 'org.apache.httpcomponents'
+    }
+    compile('com.google.apis:google-api-services-youtube:v3-rev187-1.23.0') {
+        exclude group: 'org.apache.httpcomponents'
+    }
 }
