@@ -335,11 +335,6 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     }
 
     @Override
-    public void onVideoTitle(String title) {
-        videoTitle.setText(title);
-    }
-
-    @Override
     public void onVideoId(final String videoId) {
         youTubeButton.setOnClickListener(new View.OnClickListener() {
             @Override

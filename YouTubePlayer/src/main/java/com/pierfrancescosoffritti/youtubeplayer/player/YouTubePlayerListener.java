@@ -10,6 +10,6 @@ public interface YouTubePlayerListener {
     void onCurrentSecond(float second);
     void onVideoDuration(float duration);
     void onMessage(String log);
-    void onVideoTitle(String videoTitle);
+//    void onVideoTitle(String videoTitle);
     void onVideoId(String videoId);
 }

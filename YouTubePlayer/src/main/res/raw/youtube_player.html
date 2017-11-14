@@ -82,7 +82,7 @@
                 case YT.PlayerState.PLAYING:
                     sendStateChange(PLAYING);
                     timerTaskId = setInterval( () => YouTubePlayerBridge.sendVideoCurrentTime( player.getCurrentTime() ), 100 );
-                    sendVideoData(player.getVideoData());                
+                    sendVideoData(player);                
                     return;
 
                 case YT.PlayerState.PAUSED:
@@ -98,12 +98,12 @@
                     return;
             }
 
-            function sendVideoData(videoData) {
-                const { video_id, title } = videoData;
+            function sendVideoData(player) {
+                // const { video_id, title } = player.getVideoData();
                 const videoDuration = player.getDuration();
 
-                YouTubePlayerBridge.sendVideoId(video_id)
-                YouTubePlayerBridge.sendVideoTitle(title);
+                // YouTubePlayerBridge.sendVideoId(video_id)
+                // YouTubePlayerBridge.sendVideoTitle(title);
                 YouTubePlayerBridge.sendVideoDuration(videoDuration);
             }
 
@@ -134,10 +134,12 @@
 
         function loadVideo(videoId, startSeconds) {
             player.loadVideoById(videoId, startSeconds);
+            YouTubePlayerBridge.sendVideoId(videoId);
         }
 
         function cueVideo(videoId, startSeconds) {
             player.cueVideoById(videoId, startSeconds);
+            YouTubePlayerBridge.sendVideoId(videoId);
         }
 
         function mute() {

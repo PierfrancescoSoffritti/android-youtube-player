@@ -170,17 +170,17 @@ public class YouTubePlayerBridge {
         });
     }
 
-    @JavascriptInterface
-    public void sendVideoTitle(final String videoTitle) {
-        mainThreadHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                for(YouTubePlayerListener listener : youTubePlayer.getListeners())
-                    listener.onVideoTitle(videoTitle);
-            }
-        });
-    }
-
+//    @JavascriptInterface
+//    public void sendVideoTitle(final String videoTitle) {
+//        mainThreadHandler.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                for(YouTubePlayerListener listener : youTubePlayer.getListeners())
+//                    listener.onVideoTitle(videoTitle);
+//            }
+//        });
+//    }
+//
     @JavascriptInterface
     public void sendVideoId(final String videoId) {
         mainThreadHandler.post(new Runnable() {
