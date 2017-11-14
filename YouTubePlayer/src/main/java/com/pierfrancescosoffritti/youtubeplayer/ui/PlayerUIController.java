@@ -19,7 +19,8 @@ public interface PlayerUIController {
     void showCustomAction2(boolean show);
 
     void showFullscreenButton(boolean show);
-    void setCustomFullScreenButtonListener( @NonNull View.OnClickListener customFullScreenButtonListener);
+    void setCustomFullScreenButtonListener(@NonNull View.OnClickListener customFullScreenButtonListener);
 
     void showMenuButton(boolean show);
+    void setCustomMenuButtonListener(@NonNull View.OnClickListener customMenuButtonListener);
 }

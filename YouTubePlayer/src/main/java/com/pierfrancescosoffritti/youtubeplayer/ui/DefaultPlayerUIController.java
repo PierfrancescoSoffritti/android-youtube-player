@@ -1,20 +1,16 @@
 package com.pierfrancescosoffritti.youtubeplayer.ui;
 
 import android.animation.Animator;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -55,7 +51,8 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
     @NonNull private final SeekBar seekBar;
 
-    private View.OnClickListener onFullScreenButtonListener;
+    @Nullable private View.OnClickListener onFullScreenButtonListener;
+    @Nullable private View.OnClickListener onMenuButtonListener;
 
     // view state
     private boolean isPlaying = false;
@@ -165,6 +162,11 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     }
 
     @Override
+    public void setCustomMenuButtonListener(@NonNull View.OnClickListener customMenuButtonListener) {
+        this.onMenuButtonListener = customMenuButtonListener;
+    }
+
+    @Override
     public void showFullscreenButton(boolean show) {
         int visibility = show ? View.VISIBLE : View.INVISIBLE;
         fullScreenButton.setVisibility(visibility);
@@ -182,12 +184,19 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
         else if(view == playButton)
             onPlayButtonPressed();
         else if(view == fullScreenButton)
-            onFullScreenPressed();
+            onFullScreenButtonPressed();
         else if(view == menuButton)
-            menuHelper.showMenu(menuButton);
+            onMenuButtonPressed();
     }
 
-    private void onFullScreenPressed() {
+    private void onMenuButtonPressed() {
+        if(onMenuButtonListener == null)
+            menuHelper.showMenu(menuButton);
+        else
+            onMenuButtonListener.onClick(menuButton);
+    }
+
+    private void onFullScreenButtonPressed() {
         if(onFullScreenButtonListener == null)
             youTubePlayerView.toggleFullScreen();
         else
