@@ -146,29 +146,6 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         return fullScreenHelper.removeFullScreenListener(fullScreenListener);
     }
 
-    public void showMenu(View anchorView) {
-        PopupWindow window = createPopupDisplay();
-        window.showAsDropDown(anchorView, - getResources().getDimensionPixelSize(R.dimen._8dp) * 3, - getResources().getDimensionPixelSize(R.dimen._8dp) * 4);
-    }
-
-    public PopupWindow createPopupDisplay() {
-        final PopupWindow popupWindow = new PopupWindow(this);
-
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        if(inflater == null)
-            return null;
-
-        View view = inflater.inflate(R.layout.player_menu, null);
-
-        popupWindow.setFocusable(true);
-        popupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
-        popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-        popupWindow.setContentView(view);
-
-        return popupWindow;
-    }
-
     private void addYouTubePlayerInternalListeners(YouTubePlayer youTubePlayer) {
         youTubePlayer.addListener(playerUIControls);
         youTubePlayer.addListener(playbackResumer);

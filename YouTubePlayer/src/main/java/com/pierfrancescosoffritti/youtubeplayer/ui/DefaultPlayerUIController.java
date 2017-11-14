@@ -1,6 +1,7 @@
 package com.pierfrancescosoffritti.youtubeplayer.ui;
 
 import android.animation.Animator;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -8,8 +9,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -25,6 +30,8 @@ import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
 public class DefaultPlayerUIController implements PlayerUIController, View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayerListener, SeekBar.OnSeekBarChangeListener {
     @NonNull private final YouTubePlayerView youTubePlayerView;
     @NonNull private final YouTubePlayer youTubePlayer;
+
+    @NonNull private final MenuHelper menuHelper;
 
     // view responsible for intercepting clicks. Could have used controlsRoot view, but in this way I'm able to hide all the control at once by hiding controlsRoot
     @NonNull private final View panel;
@@ -60,6 +67,8 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     public DefaultPlayerUIController(@NonNull YouTubePlayerView youTubePlayerView, @NonNull YouTubePlayer youTubePlayer, @NonNull View controlsView) {
         this.youTubePlayerView = youTubePlayerView;
         this.youTubePlayer = youTubePlayer;
+
+        menuHelper = new MenuHelper(youTubePlayerView.getContext());
 
         panel = controlsView.findViewById(R.id.panel);
 
@@ -175,7 +184,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
         else if(view == fullScreenButton)
             onFullScreenPressed();
         else if(view == menuButton)
-            youTubePlayerView.showMenu(menuButton);
+            menuHelper.showMenu(menuButton);
     }
 
     private void onFullScreenPressed() {
