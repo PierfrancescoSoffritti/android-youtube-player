@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.pierfrancescosoffritti.youtubeplayer.R;
 
+import java.util.Arrays;
+
 class MenuHelper {
 
     private Context context;
@@ -25,11 +27,12 @@ class MenuHelper {
 
     void showMenu(View anchorView) {
         PopupWindow window = createPopupDisplay();
-        window.showAsDropDown(anchorView, - context.getResources().getDimensionPixelSize(R.dimen._8dp) * 3, - context.getResources().getDimensionPixelSize(R.dimen._8dp) * 4);
+        window.showAsDropDown(anchorView, - context.getResources().getDimensionPixelSize(R.dimen._8dp) * 0, - context.getResources().getDimensionPixelSize(R.dimen._8dp) * 4);
     }
 
     private PopupWindow createPopupDisplay() {
-        final PopupWindow popupWindow = new PopupWindow(context);
+//        final PopupWindow popupWindow = new PopupWindow(context);
+
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -41,6 +44,7 @@ class MenuHelper {
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         setUpRecyclerView(recyclerView);
 
+        final PopupWindow popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setFocusable(true);
         popupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
         popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
@@ -54,7 +58,7 @@ class MenuHelper {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         MenuItem[] dataset = new MenuItem[1];
-        dataset[0] = new MenuItem("fullscreen", R.drawable.ic_settings_24dp, new View.OnClickListener() {
+        dataset[0] = new MenuItem("Video quality", R.drawable.ic_settings_24dp, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

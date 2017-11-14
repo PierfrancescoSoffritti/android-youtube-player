@@ -2,5 +2,8 @@
 <resources>
     <color name="red">#F44336</color>
     <color name="item_selected">#90FFFFFF</color>
-    <color name="drop_shadow_color">#66000000</color>
+    <color name="drop_shadow">#66000000</color>
+
+    <color name="menu_icons">#757575</color>
+    <color name="menu_text">#222222</color>
 </resources>
