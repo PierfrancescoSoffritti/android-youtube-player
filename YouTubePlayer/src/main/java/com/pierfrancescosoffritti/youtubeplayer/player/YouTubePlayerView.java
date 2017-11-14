@@ -159,7 +159,7 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         if(inflater == null)
             return null;
 
-        View view = inflater.inflate(R.layout.mylayout, null);
+        View view = inflater.inflate(R.layout.player_menu, null);
 
         popupWindow.setFocusable(true);
         popupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
