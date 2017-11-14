@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Button;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -16,19 +15,13 @@ import com.google.api.services.youtube.model.VideoListResponse;
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenListener;
-import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerInitListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.youtubeplayer.ui.PlayerUIController;
 
 import java.io.IOException;
 import java.util.Random;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Scheduler;
 import io.reactivex.Single;
-import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -65,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            initFullScreenListener(initializedYouTubePlayer);
+            addFullScreenListenerToPlayer(initializedYouTubePlayer);
             initButtonClickListener(initializedYouTubePlayer);
 
         }, true);
@@ -78,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         youTubePlayerView.release();
     }
 
-    private void initFullScreenListener(final YouTubePlayer youTubePlayer) {
+    private void addFullScreenListenerToPlayer(final YouTubePlayer youTubePlayer) {
         youTubePlayerView.addFullScreenListener(new YouTubePlayerFullScreenListener() {
             @Override
             public void onYouTubePlayerEnterFullScreen() {
@@ -109,37 +102,17 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setVideoTitle(final PlayerUIController playerUIController, final String videoId) {
-        SingleOnSubscribe<String> onSubscribe = new SingleOnSubscribe<String>() {
-            @Override
-            public void subscribe(SingleEmitter<String> emitter) throws Exception {
-                try {
-                    YouTube youTubeDataAPIEndPoint = new YouTube
-                            .Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
-                            .setApplicationName(APP_NAME)
-                            .build();
+    /**
+     * This method is called every time a new video is being loaded/cued.
+     * It uses the YouTube Data APIs to get the video title from the video ID. You can learn more here https://developers.google.com/youtube/v3/docs/videos/list and here https://developers.google.com/apis-explorer/#p/youtube/v3/youtube.videos.list?part=snippet&id=6JYIGclVQdw&fields=items(snippet(title))&_h=9&
+     * The YouTube Data APIs are nothing more then a wrapper over the YouTube REST API.
+     *
+     * youTubeDataAPIEndPoint.execute() does network operations, therefore it cannot be executed on the main thread.
+     * For simplicity I have used RxJava to implement the asynchronous logic. You can you whatever you want: Threads, AsyncTask ecc.
+     */
+    private void setVideoTitle(PlayerUIController playerUIController, String videoId) {
 
-                    VideoListResponse videoListResponse = youTubeDataAPIEndPoint
-                            .videos()
-                            .list("snippet")
-                            .setFields("items(snippet(title))")
-                            .setId(videoId)
-                            .setKey(YOUTUBE_DATA_API_KEY)
-                            .execute();
-
-                    if(videoListResponse.getItems().size() != 1)
-                        throw new RuntimeException("There should be exactly one video with the provided id");
-
-                    Video video = videoListResponse.getItems().get(0);
-                    String videoTitle = video.getSnippet().getTitle();
-                    emitter.onSuccess(videoTitle);
-
-                } catch (IOException e) {
-                    emitter.onError(e);
-                }
-            }
-        };
-        Single<String> observable = Single.create(onSubscribe);
+        Single<String> observable = getVideoTitleFromYouTubeDataAPIs(videoId);
 
         observable
                 .subscribeOn(Schedulers.io())
@@ -148,5 +121,36 @@ public class MainActivity extends AppCompatActivity {
                         videoTitle -> playerUIController.setVideoTitle(videoTitle),
                         error -> { throw new RuntimeException(error); }
                 );
+    }
+
+    private Single<String> getVideoTitleFromYouTubeDataAPIs(String videoId) {
+        SingleOnSubscribe<String> onSubscribe = emitter -> {
+            try {
+                YouTube youTubeDataAPIEndPoint = new YouTube
+                        .Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
+                        .setApplicationName(APP_NAME)
+                        .build();
+
+                VideoListResponse videoListResponse = youTubeDataAPIEndPoint
+                        .videos()
+                        .list("snippet")
+                        .setFields("items(snippet(title))")
+                        .setId(videoId)
+                        .setKey(YOUTUBE_DATA_API_KEY)
+                        .execute();
+
+                if(videoListResponse.getItems().size() != 1)
+                    throw new RuntimeException("There should be exactly one video with the provided id");
+
+                Video video = videoListResponse.getItems().get(0);
+                String videoTitle = video.getSnippet().getTitle();
+                emitter.onSuccess(videoTitle);
+
+            } catch (IOException e) {
+                emitter.onError(e);
+            }
+        };
+
+        return Single.create(onSubscribe);
     }
 }
