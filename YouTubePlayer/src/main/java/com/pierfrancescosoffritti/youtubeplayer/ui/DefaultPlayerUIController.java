@@ -21,6 +21,9 @@ import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
+import com.pierfrancescosoffritti.youtubeplayer.ui.menu.defaultMenuHelper.DefaultMenuHelper;
+import com.pierfrancescosoffritti.youtubeplayer.ui.menu.MenuHelper;
+import com.pierfrancescosoffritti.youtubeplayer.ui.menu.defaultMenuHelper.DefaultMenuItems;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
 
 public class DefaultPlayerUIController implements PlayerUIController, View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayerListener, SeekBar.OnSeekBarChangeListener {
@@ -65,7 +68,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
         this.youTubePlayerView = youTubePlayerView;
         this.youTubePlayer = youTubePlayer;
 
-        menuHelper = new MenuHelper(youTubePlayerView.getContext());
+        menuHelper = new DefaultMenuHelper(youTubePlayerView.getContext(), new DefaultMenuItems(youTubePlayerView.getContext(), youTubePlayer).get());
 
         panel = controlsView.findViewById(R.id.panel);
 
