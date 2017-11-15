@@ -16,9 +16,14 @@ public interface YouTubePlayer {
     void cueVideo(final String videoId, final float startSeconds);
     void play();
     void pause();
+
     void mute();
     void unMute();
+
     void seekTo(final int time);
+
+    void setPlaybackQuality(@PlayerConstants.PlaybackQuality.Quality String suggestedQuality);
+
     @PlayerConstants.PlayerState.State
     int getCurrentState();
 

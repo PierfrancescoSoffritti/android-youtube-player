@@ -131,6 +131,16 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer {
     }
 
     @Override
+    public void setPlaybackQuality(@PlayerConstants.PlaybackQuality.Quality final String suggestedQuality) {
+        mainThreadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                loadUrl("javascript:setPlaybackQuality('" +suggestedQuality +"')");
+            }
+        });
+    }
+
+    @Override
     @PlayerConstants.PlayerState.State
     public int getCurrentState() {
         if(playerStateTracker == null)

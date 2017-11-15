@@ -384,7 +384,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
     @Override public void onReady() { }
     @Override public void onMessage(String log) { }
-    @Override public void onPlaybackQualityChange(@PlayerConstants.PlaybackQuality.Quality int playbackQuality) { }
+    @Override public void onPlaybackQualityChange(@PlayerConstants.PlaybackQuality.Quality String playbackQuality) { }
     @Override public void onPlaybackRateChange(@PlayerConstants.PlaybackRate.Rate String rate) { }
     @Override public void onError(@PlayerConstants.PlayerError.Error int error) { }
     @Override public void onApiChange() { }

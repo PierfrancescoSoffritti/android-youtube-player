@@ -81,7 +81,7 @@ public class YouTubePlayerBridge {
     @JavascriptInterface
     public void sendPlaybackQualityChange(final String quality) {
 
-        @PlayerConstants.PlaybackQuality.Quality final int playbackQuality = parsePlaybackQuality(quality);
+        @PlayerConstants.PlaybackQuality.Quality final String playbackQuality = parsePlaybackQuality(quality);
 
         mainThreadHandler.post(new Runnable() {
             @Override
@@ -226,8 +226,8 @@ public class YouTubePlayerBridge {
 
 
     @PlayerConstants.PlaybackQuality.Quality
-    private int parsePlaybackQuality(String quality) {
-        @PlayerConstants.PlaybackQuality.Quality int playbackQuality;
+    private String parsePlaybackQuality(String quality) {
+        @PlayerConstants.PlaybackQuality.Quality String playbackQuality;
 
         if (quality.equalsIgnoreCase(QUALITY_SMALL))
             playbackQuality = PlayerConstants.PlaybackQuality.SMALL;
