@@ -2,7 +2,6 @@ package com.pierfrancescosoffritti.youtubeplayer.ui.menu.defaultMenuHelper;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,36 +14,31 @@ import com.pierfrancescosoffritti.youtubeplayer.R;
 import com.pierfrancescosoffritti.youtubeplayer.ui.menu.MenuHelper;
 import com.pierfrancescosoffritti.youtubeplayer.ui.menu.MenuItem;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class DefaultMenuHelper implements MenuHelper {
 
     private final Context context;
-    private final List<MenuItem> menuItems;
+    private final DefaultMenuItems defaultMenuItems;
 
-    @Nullable private PopupWindow popupWindow;
-
-    public DefaultMenuHelper(@NonNull Context context, List<MenuItem> defaultMenuItems) {
+    public DefaultMenuHelper(@NonNull Context context, DefaultMenuItems defaultMenuItems) {
         this.context = context;
 
-        menuItems = new ArrayList<>(defaultMenuItems);
+        this.defaultMenuItems = defaultMenuItems;
     }
 
     @Override
     public void showMenu(View anchorView) {
-        PopupWindow window = popupWindow == null ? createPopupWindow() : popupWindow;
-        window.showAsDropDown(anchorView, - context.getResources().getDimensionPixelSize(R.dimen._8dp) * 0, - context.getResources().getDimensionPixelSize(R.dimen._8dp) * 4);
+        PopupWindow popupWindow = createPopupWindow();
+        popupWindow.showAsDropDown(anchorView, 0, - context.getResources().getDimensionPixelSize(R.dimen._8dp) * 4);
     }
 
     @Override
     public void addItem(MenuItem menuItem) {
-        menuItems.add(menuItem);
+        defaultMenuItems.get().add(menuItem);
     }
 
     @Override
     public void removeItem(int itemIndex) {
-        menuItems.remove(itemIndex);
+        defaultMenuItems.get().remove(itemIndex);
     }
 
     private PopupWindow createPopupWindow() {
@@ -58,11 +52,13 @@ public class DefaultMenuHelper implements MenuHelper {
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         setUpRecyclerView(recyclerView);
 
-        popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        PopupWindow popupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         popupWindow.setFocusable(true);
         popupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
         popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
         popupWindow.setContentView(view);
+
+        defaultMenuItems.setPopupWindow(popupWindow);
 
         return popupWindow;
     }
@@ -71,7 +67,7 @@ public class DefaultMenuHelper implements MenuHelper {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        MenuAdapter adapter = new MenuAdapter(context, menuItems);
+        MenuAdapter adapter = new MenuAdapter(context, defaultMenuItems.get());
         recyclerView.setAdapter(adapter);
     }
 }

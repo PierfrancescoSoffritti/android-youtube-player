@@ -68,7 +68,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
         this.youTubePlayerView = youTubePlayerView;
         this.youTubePlayer = youTubePlayer;
 
-        menuHelper = new DefaultMenuHelper(youTubePlayerView.getContext(), new DefaultMenuItems(youTubePlayerView.getContext(), youTubePlayer).get());
+        menuHelper = new DefaultMenuHelper(youTubePlayerView.getContext(), new DefaultMenuItems(youTubePlayerView.getContext(), youTubePlayer));
 
         panel = controlsView.findViewById(R.id.panel);
 
