@@ -18,6 +18,11 @@ public interface YouTubePlayer {
     void pause();
     void mute();
     void unMute();
+
+    /**
+     * @param volumePercent Integer between 0 and 100
+     */
+    void setVolume(final int volumePercent);
     void seekTo(final int time);
     @PlayerConstants.PlayerState.State
     int getCurrentState();
