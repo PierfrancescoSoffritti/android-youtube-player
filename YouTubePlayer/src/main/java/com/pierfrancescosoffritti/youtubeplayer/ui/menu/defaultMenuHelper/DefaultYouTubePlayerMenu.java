@@ -2,6 +2,7 @@ package com.pierfrancescosoffritti.youtubeplayer.ui.menu.defaultMenuHelper;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,9 +13,8 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 import com.pierfrancescosoffritti.youtubeplayer.R;
-import com.pierfrancescosoffritti.youtubeplayer.ui.PlayerUIController;
-import com.pierfrancescosoffritti.youtubeplayer.ui.menu.YouTubePlayerMenu;
 import com.pierfrancescosoffritti.youtubeplayer.ui.menu.MenuItem;
+import com.pierfrancescosoffritti.youtubeplayer.ui.menu.YouTubePlayerMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +24,8 @@ public class DefaultYouTubePlayerMenu implements YouTubePlayerMenu {
     private final Context context;
     private final List<MenuItem> menuItems;
 
+    @Nullable private PopupWindow popupWindow;
+
     public DefaultYouTubePlayerMenu(@NonNull Context context) {
         this.context = context;
 
@@ -31,12 +33,18 @@ public class DefaultYouTubePlayerMenu implements YouTubePlayerMenu {
     }
 
     @Override
-    public void showMenu(View anchorView) {
-        PopupWindow popupWindow = createPopupWindow();
+    public void show(View anchorView) {
+        popupWindow = createPopupWindow();
         popupWindow.showAsDropDown(anchorView, 0, - context.getResources().getDimensionPixelSize(R.dimen._8dp) * 4);
 
         if(menuItems.size() == 0)
-            Log.e(PlayerUIController.class.getName(), "The menu is empty");
+            Log.e(YouTubePlayerMenu.class.getName(), "The menu is empty");
+    }
+
+    @Override
+    public void dismiss() {
+        if (popupWindow != null)
+            popupWindow.dismiss();
     }
 
     @Override
@@ -54,6 +62,7 @@ public class DefaultYouTubePlayerMenu implements YouTubePlayerMenu {
         return menuItems.size();
     }
 
+    @NonNull
     private PopupWindow createPopupWindow() {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 

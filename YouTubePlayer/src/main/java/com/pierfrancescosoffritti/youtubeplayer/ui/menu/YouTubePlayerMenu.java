@@ -3,7 +3,9 @@ package com.pierfrancescosoffritti.youtubeplayer.ui.menu;
 import android.view.View;
 
 public interface YouTubePlayerMenu {
-    void showMenu(View anchorView);
+    void show(View anchorView);
+    void dismiss();
+
     void addItem(MenuItem menuItem);
     void removeItem(int itemIndex);
     int getItemCount();

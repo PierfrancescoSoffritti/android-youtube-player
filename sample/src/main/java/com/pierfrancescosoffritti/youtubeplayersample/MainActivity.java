@@ -1,6 +1,7 @@
 package com.pierfrancescosoffritti.youtubeplayersample;
 
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -74,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
 
         youTubePlayerView.release();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfiguration) {
+        super.onConfigurationChanged(newConfiguration);
+        youTubePlayerView.getPlayerUIController().getMenu().dismiss();
     }
 
     private void addFullScreenListenerToPlayer(final YouTubePlayer youTubePlayer) {

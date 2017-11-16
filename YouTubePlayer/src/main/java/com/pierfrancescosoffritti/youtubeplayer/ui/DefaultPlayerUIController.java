@@ -198,7 +198,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
     private void onMenuButtonPressed() {
         if(onMenuButtonClickListener == null)
-            youTubePlayerMenu.showMenu(menuButton);
+            youTubePlayerMenu.show(menuButton);
         else
             onMenuButtonClickListener.onClick(menuButton);
     }
