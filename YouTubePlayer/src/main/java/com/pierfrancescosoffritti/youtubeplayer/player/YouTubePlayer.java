@@ -23,7 +23,9 @@ public interface YouTubePlayer {
      * @param volumePercent Integer between 0 and 100
      */
     void setVolume(final int volumePercent);
+
     void seekTo(final int time);
+
     @PlayerConstants.PlayerState.State
     int getCurrentState();
 
