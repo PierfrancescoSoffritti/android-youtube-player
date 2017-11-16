@@ -122,9 +122,8 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer {
 
     @Override
     public void setVolume(final int volumePercent) {
-        if (volumePercent < 0 || volumePercent > 100) {
+        if (volumePercent < 0 || volumePercent > 100)
             throw new IllegalArgumentException("Volume must be between 0 and 100");
-        }
 
         mainThreadHandler.post(new Runnable() {
             @Override

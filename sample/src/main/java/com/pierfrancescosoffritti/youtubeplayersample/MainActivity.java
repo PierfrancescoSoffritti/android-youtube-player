@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
             initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
                 @Override
                 public void onReady() {
-                    initializedYouTubePlayer.setVolume(100);
                     initializedYouTubePlayer.loadVideo(videoIds[0], 0);
                     setVideoTitle(youTubePlayerView.getPlayerUIController(), videoIds[0]);
                 }
