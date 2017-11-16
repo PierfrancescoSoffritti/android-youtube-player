@@ -37,6 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
+            android:ellipsize="end"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             android:lines="1"
@@ -51,6 +52,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_menu_24dp"
             android:padding="8dp"
+
+            android:visibility="gone"
 
             android:clickable="true"
             android:focusable="true"

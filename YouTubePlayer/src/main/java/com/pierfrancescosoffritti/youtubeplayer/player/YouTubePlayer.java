@@ -22,8 +22,6 @@ public interface YouTubePlayer {
 
     void seekTo(final int time);
 
-    void setPlaybackQuality(@PlayerConstants.PlaybackQuality.Quality String suggestedQuality);
-
     @PlayerConstants.PlayerState.State
     int getCurrentState();
 

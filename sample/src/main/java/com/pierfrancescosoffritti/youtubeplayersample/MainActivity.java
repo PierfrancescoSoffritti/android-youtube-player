@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -14,11 +13,11 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoListResponse;
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
-import com.pierfrancescosoffritti.youtubeplayer.player.PlayerConstants;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.youtubeplayer.ui.PlayerUIController;
+import com.pierfrancescosoffritti.youtubeplayer.ui.menu.MenuItem;
 
 import java.io.IOException;
 import java.util.Random;
@@ -36,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private YouTubePlayerView youTubePlayerView;
     private FullScreenManager fullScreenManager;
 
-    private Button nextVideo;
+    private Button nextVideoButton;
 
     private String[] videoIds = {"6JYIGclVQdw", "LvetJ9U_tVY", "sop2V_MREEI"};
 
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        nextVideo = findViewById(R.id.next_video_button);
+        nextVideoButton = findViewById(R.id.next_video_button);
 
         fullScreenManager = new FullScreenManager(this);
 
@@ -58,17 +57,16 @@ public class MainActivity extends AppCompatActivity {
                     initializedYouTubePlayer.loadVideo(videoIds[0], 0);
                     setVideoTitle(youTubePlayerView.getPlayerUIController(), videoIds[0]);
                 }
-
-                @Override
-                public void onPlaybackQualityChange(@PlayerConstants.PlaybackQuality.Quality String playbackQuality) {
-                    Log.d("Playback Quality", playbackQuality);
-                }
             });
 
             addFullScreenListenerToPlayer(initializedYouTubePlayer);
             initButtonClickListener(initializedYouTubePlayer);
 
         }, true);
+
+        // menu
+        youTubePlayerView.getPlayerUIController().showMenuButton(true);
+        youTubePlayerView.getPlayerUIController().getMenu().addItem(new MenuItem("example", R.drawable.ic_settings_24dp, null));
     }
 
     @Override
@@ -102,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButtonClickListener(final YouTubePlayer youTubePlayer) {
-        nextVideo.setOnClickListener(view -> {
+        nextVideoButton.setOnClickListener(view -> {
             String videoId = videoIds[new Random().nextInt(videoIds.length)];
             youTubePlayer.loadVideo(videoId, 0);
             setVideoTitle(youTubePlayerView.getPlayerUIController(), videoId);

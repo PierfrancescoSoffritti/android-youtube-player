@@ -1,6 +1,8 @@
 package com.pierfrancescosoffritti.youtubeplayer.ui.menu;
 
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 public class MenuItem {
@@ -9,12 +11,13 @@ public class MenuItem {
     @DrawableRes private final int icon;
     private final View.OnClickListener onClickListener;
 
-    public MenuItem(String text, @DrawableRes final int icon, View.OnClickListener onClickListener) {
+    public MenuItem(@NonNull String text, @DrawableRes final int icon, @Nullable View.OnClickListener onClickListener) {
         this.text = text;
         this.icon = icon;
         this.onClickListener = onClickListener;
     }
 
+    @NonNull
     public String getText() {
         return text;
     }
@@ -23,6 +26,7 @@ public class MenuItem {
         return icon;
     }
 
+    @Nullable
     public View.OnClickListener getOnClickListener() {
         return onClickListener;
     }

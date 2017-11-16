@@ -21,16 +21,15 @@ import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
-import com.pierfrancescosoffritti.youtubeplayer.ui.menu.defaultMenuHelper.DefaultMenuHelper;
-import com.pierfrancescosoffritti.youtubeplayer.ui.menu.MenuHelper;
-import com.pierfrancescosoffritti.youtubeplayer.ui.menu.defaultMenuHelper.DefaultMenuItems;
+import com.pierfrancescosoffritti.youtubeplayer.ui.menu.YouTubePlayerMenu;
+import com.pierfrancescosoffritti.youtubeplayer.ui.menu.defaultMenuHelper.DefaultYouTubePlayerMenu;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
 
 public class DefaultPlayerUIController implements PlayerUIController, View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayerListener, SeekBar.OnSeekBarChangeListener {
     @NonNull private final YouTubePlayerView youTubePlayerView;
     @NonNull private final YouTubePlayer youTubePlayer;
 
-    @NonNull private final MenuHelper menuHelper;
+    @NonNull private final YouTubePlayerMenu youTubePlayerMenu;
 
     // view responsible for intercepting clicks. Could have used controlsRoot view, but in this way I'm able to hide all the control at once by hiding controlsRoot
     @NonNull private final View panel;
@@ -55,7 +54,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     @NonNull private final SeekBar seekBar;
 
     @Nullable private View.OnClickListener onFullScreenButtonListener;
-    @Nullable private View.OnClickListener onMenuButtonListener;
+    @Nullable private View.OnClickListener onMenuButtonClickListener;
 
     // view state
     private boolean isPlaying = false;
@@ -68,7 +67,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
         this.youTubePlayerView = youTubePlayerView;
         this.youTubePlayer = youTubePlayer;
 
-        menuHelper = new DefaultMenuHelper(youTubePlayerView.getContext(), new DefaultMenuItems(youTubePlayerView.getContext(), youTubePlayer));
+        youTubePlayerMenu = new DefaultYouTubePlayerMenu(youTubePlayerView.getContext());
 
         panel = controlsView.findViewById(R.id.panel);
 
@@ -160,13 +159,18 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
     @Override
     public void showMenuButton(boolean show) {
-        int visibility = show ? View.VISIBLE : View.INVISIBLE;
+        int visibility = show ? View.VISIBLE : View.GONE;
         menuButton.setVisibility(visibility);
     }
 
     @Override
-    public void setCustomMenuButtonListener(@NonNull View.OnClickListener customMenuButtonListener) {
-        this.onMenuButtonListener = customMenuButtonListener;
+    public void setCustomMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener) {
+        this.onMenuButtonClickListener = customMenuButtonClickListener;
+    }
+
+    @Override
+    public YouTubePlayerMenu getMenu() {
+        return youTubePlayerMenu;
     }
 
     @Override
@@ -176,8 +180,8 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     }
 
     @Override
-    public void setCustomFullScreenButtonListener(@NonNull View.OnClickListener customFullScreenButtonListener) {
-        this.onFullScreenButtonListener = customFullScreenButtonListener;
+    public void setCustomFullScreenButtonClickListener(@NonNull View.OnClickListener customFullScreenButtonClickListener) {
+        this.onFullScreenButtonListener = customFullScreenButtonClickListener;
     }
 
     @Override
@@ -193,10 +197,10 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     }
 
     private void onMenuButtonPressed() {
-        if(onMenuButtonListener == null)
-            menuHelper.showMenu(menuButton);
+        if(onMenuButtonClickListener == null)
+            youTubePlayerMenu.showMenu(menuButton);
         else
-            onMenuButtonListener.onClick(menuButton);
+            onMenuButtonClickListener.onClick(menuButton);
     }
 
     private void onFullScreenButtonPressed() {

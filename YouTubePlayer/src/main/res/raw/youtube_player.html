@@ -82,7 +82,9 @@
                 case YT.PlayerState.PLAYING:
                     sendStateChange(PLAYING);
                     timerTaskId = setInterval( () => YouTubePlayerBridge.sendVideoCurrentTime( player.getCurrentTime() ), 100 );
-                    sendVideoData(player);                
+                    sendVideoData(player);    
+
+                    player.setPlaybackRate(2);     
                     return;
 
                 case YT.PlayerState.PAUSED:
@@ -148,10 +150,6 @@
 
         function unMute() {
             player.unMute();
-        }
-
-        function setPlaybackQuality(suggestedQuality) {
-            player.setPlaybackQuality(suggestedQuality);
         }
 
     </script>
