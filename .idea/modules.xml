@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Android-YouTube-Player.iml" filepath="$PROJECT_DIR$/Android-YouTube-Player.iml" />
-      <module fileurl="file://C:\Users\Pierfrancesco\StudioProjects\Android-YouTube-Player\AndroidYouTubePlayer.iml" filepath="C:\Users\Pierfrancesco\StudioProjects\Android-YouTube-Player\AndroidYouTubePlayer.iml" />
       <module fileurl="file://$PROJECT_DIR$/YouTubePlayer/YouTubePlayer.iml" filepath="$PROJECT_DIR$/YouTubePlayer/YouTubePlayer.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
     </modules>
