@@ -31,7 +31,7 @@
         const CUED = "CUED";
         
         const YouTubePlayerBridge = window.YouTubePlayerBridge;
-    	let player;
+    	var player;
 
     	function onYouTubeIframeAPIReady() {
 
@@ -43,12 +43,12 @@
     			width: '100%',
     			
                 events: {
-    				onReady: event => YouTubePlayerBridge.sendReady(),
-    				onStateChange: event => sendPlayerStateChange(event.data),
-    				onPlaybackQualityChange: event => YouTubePlayerBridge.sendPlaybackQualityChange(event.data),
-    				onPlaybackRateChange: event => YouTubePlayerBridge.sendPlaybackRateChange(event.data),
-    				onError: event => YouTubePlayerBridge.sendError(error.data),
-    				onApiChange: event => YouTubePlayerBridge.sendApiChange()
+    				onReady: function(event) { YouTubePlayerBridge.sendReady() },
+    				onStateChange: function(event) { sendPlayerStateChange(event.data) },
+    				onPlaybackQualityChange: function(event) { YouTubePlayerBridge.sendPlaybackQualityChange(event.data) },
+    				onPlaybackRateChange: function(event) { YouTubePlayerBridge.sendPlaybackRateChange(event.data) },
+    				onError: function(error) { YouTubePlayerBridge.sendError(error.data) },
+    				onApiChange: function(event) { YouTubePlayerBridge.sendApiChange() }
     			},
 
     			playerVars: {
@@ -67,7 +67,7 @@
     	}
 
     	function sendPlayerStateChange(playerState) {
-            let timerTaskId;
+            var timerTaskId;
             clearTimeout(timerTaskId);
 
             switch (playerState) {
@@ -81,7 +81,9 @@
 
                 case YT.PlayerState.PLAYING:
                     sendStateChange(PLAYING);
-                    timerTaskId = setInterval( () => YouTubePlayerBridge.sendVideoCurrentTime( player.getCurrentTime() ), 100 );
+                    timerTaskId = setInterval(function() {
+                      YouTubePlayerBridge.sendVideoCurrentTime( player.getCurrentTime() )
+                    }, 100 );
                     sendVideoData(player);                
                     return;
 
