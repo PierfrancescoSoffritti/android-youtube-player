@@ -68,8 +68,6 @@ public class MainActivity extends AppCompatActivity {
         // menu
         youTubePlayerView.getPlayerUIController().showMenuButton(true);
         youTubePlayerView.getPlayerUIController().getMenu().addItem(new MenuItem("example", R.drawable.ic_settings_24dp, null));
-
-        youTubePlayerView.getPlayerUIController().showPlayPauseButton(false);
     }
 
     @Override
