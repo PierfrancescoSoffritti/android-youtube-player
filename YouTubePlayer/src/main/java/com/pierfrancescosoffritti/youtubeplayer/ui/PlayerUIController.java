@@ -9,6 +9,7 @@ import com.pierfrancescosoffritti.youtubeplayer.ui.menu.YouTubePlayerMenu;
 
 public interface PlayerUIController {
     void showUI(boolean show);
+    void showPlayPauseButton(boolean show);
 
     void showVideoTitle(boolean show);
     void setVideoTitle(@NonNull String videoTitle);

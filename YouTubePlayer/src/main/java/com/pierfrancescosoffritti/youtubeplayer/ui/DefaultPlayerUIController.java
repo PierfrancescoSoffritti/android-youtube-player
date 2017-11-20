@@ -44,7 +44,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
     @NonNull private final ProgressBar progressBar;
     @NonNull private final ImageView menuButton;
-    @NonNull private final ImageView playButton;
+    @NonNull private final ImageView playPauseButton;
     @NonNull private final ImageView youTubeButton;
     @NonNull private final ImageView fullScreenButton;
 
@@ -62,6 +62,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     private boolean canFadeControls = false;
 
     private boolean showUI = true;
+    private boolean showPlayPauseButton = true;
 
     public DefaultPlayerUIController(@NonNull YouTubePlayerView youTubePlayerView, @NonNull YouTubePlayer youTubePlayer, @NonNull View controlsView) {
         this.youTubePlayerView = youTubePlayerView;
@@ -80,7 +81,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
         progressBar = controlsView.findViewById(R.id.progress);
         menuButton = controlsView.findViewById(R.id.menu_button);
-        playButton = controlsView.findViewById(R.id.play_button);
+        playPauseButton = controlsView.findViewById(R.id.play_pause_button);
         youTubeButton = controlsView.findViewById(R.id.youtube_button);
         fullScreenButton = controlsView.findViewById(R.id.fullscreen_button);
 
@@ -91,14 +92,15 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
         seekBar.setOnSeekBarChangeListener(this);
         panel.setOnClickListener(this);
-        playButton.setOnClickListener(this);
+        playPauseButton.setOnClickListener(this);
         menuButton.setOnClickListener(this);
         fullScreenButton.setOnClickListener(this);
     }
 
     @Override
     public void showVideoTitle(boolean show) {
-        videoTitle.setVisibility(show ? View.VISIBLE : View.GONE);
+        int visibility = show ? View.VISIBLE : View.GONE;
+        videoTitle.setVisibility(visibility);
     }
 
     @Override
@@ -108,12 +110,18 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
     @Override
     public void showUI(boolean show) {
-        if(show)
-            controlsRoot.setVisibility(View.VISIBLE);
-        else
-            controlsRoot.setVisibility(View.INVISIBLE);
+        int visibility = show ? View.VISIBLE : View.INVISIBLE;
+        controlsRoot.setVisibility(visibility);
 
         showUI = show;
+    }
+
+    @Override
+    public void showPlayPauseButton(boolean show) {
+        int visibility = show ? View.VISIBLE : View.GONE;
+        playPauseButton.setVisibility(visibility);
+
+        showPlayPauseButton = show;
     }
 
     @Override
@@ -194,7 +202,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     public void onClick(View view) {
         if(view == panel)
             toggleControlsVisibility();
-        else if(view == playButton)
+        else if(view == playPauseButton)
             onPlayButtonPressed();
         else if(view == fullScreenButton)
             onFullScreenButtonPressed();
@@ -225,7 +233,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
     private void updatePlayPauseButtonIcon(boolean playing) {
         int img = playing ? R.drawable.ic_pause_36dp : R.drawable.ic_play_36dp;
-        playButton.setImageResource(img);
+        playPauseButton.setImageResource(img);
     }
 
     private void toggleControlsVisibility() {
@@ -302,7 +310,8 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
         if(state == PlayerConstants.PlayerState.PLAYING || state == PlayerConstants.PlayerState.PAUSED || state == PlayerConstants.PlayerState.VIDEO_CUED) {
             panel.setBackgroundColor(ContextCompat.getColor(youTubePlayerView.getContext(), android.R.color.transparent));
             progressBar.setVisibility(View.GONE);
-            playButton.setVisibility(View.VISIBLE);
+
+            if(showPlayPauseButton) playPauseButton.setVisibility(View.VISIBLE);
 
 
             canFadeControls = true;
@@ -320,21 +329,19 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
             if(state == PlayerConstants.PlayerState.BUFFERING) {
                 panel.setBackgroundColor(ContextCompat.getColor(youTubePlayerView.getContext(), android.R.color.transparent));
-                playButton.setVisibility(View.INVISIBLE);
+                if(showPlayPauseButton) playPauseButton.setVisibility(View.INVISIBLE);
 
                 customActionLeft.setVisibility(View.GONE);
                 customActionRight.setVisibility(View.GONE);
 
-//                progressBar.setVisibility(View.VISIBLE);
                 canFadeControls = false;
             }
 
             if(state == PlayerConstants.PlayerState.UNSTARTED) {
-//                panel.setBackgroundColor(ContextCompat.getColor(youTubePlayerView.getContext(), android.R.color.black));
                 canFadeControls = false;
 
                 progressBar.setVisibility(View.GONE);
-                playButton.setVisibility(View.VISIBLE);
+                if(showPlayPauseButton) playPauseButton.setVisibility(View.VISIBLE);
             }
         }
     }

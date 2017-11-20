@@ -65,7 +65,7 @@
             android:contentDescription="@string/open_video_in_youtube" />
 
         <ImageView
-            android:id="@+id/play_button"
+            android:id="@+id/play_pause_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_play_36dp"
@@ -200,7 +200,7 @@
             android:background="@drawable/background_item_selected"
 
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/play_button" />
+            android:layout_toStartOf="@+id/play_pause_button" />
 
         <ImageView
             android:id="@+id/custom_action_right_button"
@@ -218,7 +218,7 @@
             android:background="@drawable/background_item_selected"
 
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/play_button" />
+            android:layout_toEndOf="@+id/play_pause_button" />
 
     </RelativeLayout>
 
