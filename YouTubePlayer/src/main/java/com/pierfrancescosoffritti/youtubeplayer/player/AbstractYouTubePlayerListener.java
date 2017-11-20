@@ -6,7 +6,7 @@ package com.pierfrancescosoffritti.youtubeplayer.player;
 public abstract class AbstractYouTubePlayerListener implements YouTubePlayerListener {
     @Override public void onReady() { }
     @Override public void onStateChange(@PlayerConstants.PlayerState.State int state) { }
-    @Override public void onPlaybackQualityChange(@PlayerConstants.PlaybackQuality.Quality int playbackQuality) { }
+    @Override public void onPlaybackQualityChange(@PlayerConstants.PlaybackQuality.Quality String playbackQuality) { }
     @Override public void onPlaybackRateChange(@PlayerConstants.PlaybackRate.Rate String rate) { }
     @Override public void onError(@PlayerConstants.PlayerError.Error int error) { }
     @Override public void onApiChange() { }

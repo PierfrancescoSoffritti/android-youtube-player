@@ -23,16 +23,16 @@ public final class PlayerConstants {
     }
 
     public static final class PlaybackQuality {
-        public final static int UNKNOWN = -10;
-        public final static int SMALL = 0;
-        public final static int MEDIUM = 1;
-        public final static int LARGE = 2;
-        public final static int HD720 = 3;
-        public final static int HD1080 = 4;
-        public final static int HIGH_RES = 5;
-        public final static int DEFAULT = -1;
+        public final static String UNKNOWN = "unknown";
+        public final static String SMALL = "small";
+        public final static String MEDIUM = "medium";
+        public final static String LARGE = "large";
+        public final static String HD720 = "hd720";
+        public final static String HD1080 = "hd1080";
+        public final static String HIGH_RES = "highres";
+        public final static String DEFAULT = "default";
 
-        @IntDef({UNKNOWN, SMALL, MEDIUM, LARGE, HD720, HD1080, HIGH_RES, DEFAULT})
+        @StringDef({UNKNOWN, SMALL, MEDIUM, LARGE, HD720, HD1080, HIGH_RES, DEFAULT})
         @Retention(RetentionPolicy.SOURCE)
         public @interface Quality {
         }

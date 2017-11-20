@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,11 +21,15 @@ import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
+import com.pierfrancescosoffritti.youtubeplayer.ui.menu.YouTubePlayerMenu;
+import com.pierfrancescosoffritti.youtubeplayer.ui.menu.defaultMenu.DefaultYouTubePlayerMenu;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
 
 public class DefaultPlayerUIController implements PlayerUIController, View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayerListener, SeekBar.OnSeekBarChangeListener {
     @NonNull private final YouTubePlayerView youTubePlayerView;
     @NonNull private final YouTubePlayer youTubePlayer;
+
+    @NonNull private YouTubePlayerMenu youTubePlayerMenu;
 
     // view responsible for intercepting clicks. Could have used controlsRoot view, but in this way I'm able to hide all the control at once by hiding controlsRoot
     @NonNull private final View panel;
@@ -38,6 +43,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     @NonNull private final TextView liveVideoIndicator;
 
     @NonNull private final ProgressBar progressBar;
+    @NonNull private final ImageView menuButton;
     @NonNull private final ImageView playButton;
     @NonNull private final ImageView youTubeButton;
     @NonNull private final ImageView fullScreenButton;
@@ -47,7 +53,8 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
     @NonNull private final SeekBar seekBar;
 
-    private View.OnClickListener onFullScreenButtonListener;
+    @Nullable private View.OnClickListener onFullScreenButtonListener;
+    @Nullable private View.OnClickListener onMenuButtonClickListener;
 
     // view state
     private boolean isPlaying = false;
@@ -60,6 +67,8 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
         this.youTubePlayerView = youTubePlayerView;
         this.youTubePlayer = youTubePlayer;
 
+        youTubePlayerMenu = new DefaultYouTubePlayerMenu(youTubePlayerView.getContext());
+
         panel = controlsView.findViewById(R.id.panel);
 
         controlsRoot = controlsView.findViewById(R.id.controls_root);
@@ -70,6 +79,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
         liveVideoIndicator = controlsView.findViewById(R.id.live_video_indicator);
 
         progressBar = controlsView.findViewById(R.id.progress);
+        menuButton = controlsView.findViewById(R.id.menu_button);
         playButton = controlsView.findViewById(R.id.play_button);
         youTubeButton = controlsView.findViewById(R.id.youtube_button);
         fullScreenButton = controlsView.findViewById(R.id.fullscreen_button);
@@ -82,6 +92,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
         seekBar.setOnSeekBarChangeListener(this);
         panel.setOnClickListener(this);
         playButton.setOnClickListener(this);
+        menuButton.setOnClickListener(this);
         fullScreenButton.setOnClickListener(this);
     }
 
@@ -147,14 +158,36 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     }
 
     @Override
+    public void showMenuButton(boolean show) {
+        int visibility = show ? View.VISIBLE : View.GONE;
+        menuButton.setVisibility(visibility);
+    }
+
+    @Override
+    public void setCustomMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener) {
+        this.onMenuButtonClickListener = customMenuButtonClickListener;
+    }
+
+    @NonNull
+    @Override
+    public YouTubePlayerMenu getMenu() {
+        return youTubePlayerMenu;
+    }
+
+    @Override
+    public void setMenu(@NonNull YouTubePlayerMenu youTubePlayerMenu) {
+        this.youTubePlayerMenu = youTubePlayerMenu;
+    }
+
+    @Override
     public void showFullscreenButton(boolean show) {
         int visibility = show ? View.VISIBLE : View.INVISIBLE;
         fullScreenButton.setVisibility(visibility);
     }
 
     @Override
-    public void setCustomFullScreenButtonListener(@NonNull View.OnClickListener customFullScreenButtonListener) {
-        this.onFullScreenButtonListener = customFullScreenButtonListener;
+    public void setCustomFullScreenButtonClickListener(@NonNull View.OnClickListener customFullScreenButtonClickListener) {
+        this.onFullScreenButtonListener = customFullScreenButtonClickListener;
     }
 
     @Override
@@ -164,10 +197,19 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
         else if(view == playButton)
             onPlayButtonPressed();
         else if(view == fullScreenButton)
-            onFullScreenPressed();
+            onFullScreenButtonPressed();
+        else if(view == menuButton)
+            onMenuButtonPressed();
     }
 
-    private void onFullScreenPressed() {
+    private void onMenuButtonPressed() {
+        if(onMenuButtonClickListener == null)
+            youTubePlayerMenu.show(menuButton);
+        else
+            onMenuButtonClickListener.onClick(menuButton);
+    }
+
+    private void onFullScreenButtonPressed() {
         if(onFullScreenButtonListener == null)
             youTubePlayerView.toggleFullScreen();
         else
@@ -352,7 +394,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
     @Override public void onReady() { }
     @Override public void onMessage(String log) { }
-    @Override public void onPlaybackQualityChange(@PlayerConstants.PlaybackQuality.Quality int playbackQuality) { }
+    @Override public void onPlaybackQualityChange(@PlayerConstants.PlaybackQuality.Quality String playbackQuality) { }
     @Override public void onPlaybackRateChange(@PlayerConstants.PlaybackRate.Rate String rate) { }
     @Override public void onError(@PlayerConstants.PlayerError.Error int error) { }
     @Override public void onApiChange() { }

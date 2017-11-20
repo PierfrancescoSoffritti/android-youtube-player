@@ -12,12 +12,12 @@ import android.webkit.WebView;
 import android.widget.FrameLayout;
 
 import com.pierfrancescosoffritti.youtubeplayer.R;
-import com.pierfrancescosoffritti.youtubeplayer.utils.NetworkReceiver;
+import com.pierfrancescosoffritti.youtubeplayer.player.playerUtils.FullScreenHelper;
 import com.pierfrancescosoffritti.youtubeplayer.player.playerUtils.PlaybackResumer;
 import com.pierfrancescosoffritti.youtubeplayer.ui.DefaultPlayerUIController;
 import com.pierfrancescosoffritti.youtubeplayer.ui.PlayerUIController;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Callable;
-import com.pierfrancescosoffritti.youtubeplayer.player.playerUtils.FullScreenHelper;
+import com.pierfrancescosoffritti.youtubeplayer.utils.NetworkReceiver;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
 
 public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.NetworkListener {

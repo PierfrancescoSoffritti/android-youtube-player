@@ -164,12 +164,12 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer {
     }
 
     @Override
-    public boolean addListener(YouTubePlayerListener listener) {
+    public boolean addListener(@NonNull YouTubePlayerListener listener) {
         return youTubePlayerListeners.add(listener);
     }
 
     @Override
-    public boolean removeListener(YouTubePlayerListener listener) {
+    public boolean removeListener(@NonNull YouTubePlayerListener listener) {
         return youTubePlayerListeners.remove(listener);
     }
 

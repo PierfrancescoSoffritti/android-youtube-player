@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="_8dp">8dp</dimen>
+    <dimen name="menu_dialog_container_margin">8dp</dimen>
+    <dimen name="menu_item_padding">12dp</dimen>
+    <dimen name="menu_item_text_size">16sp</dimen>
+</resources>

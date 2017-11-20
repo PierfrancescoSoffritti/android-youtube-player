@@ -84,7 +84,7 @@
                     timerTaskId = setInterval(function() {
                       YouTubePlayerBridge.sendVideoCurrentTime( player.getCurrentTime() )
                     }, 100 );
-                    sendVideoData(player);                
+                    sendVideoData(player);
                     return;
 
                 case YT.PlayerState.PAUSED:

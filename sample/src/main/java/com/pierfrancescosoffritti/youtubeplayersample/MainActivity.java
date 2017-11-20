@@ -1,6 +1,7 @@
 package com.pierfrancescosoffritti.youtubeplayersample;
 
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -17,6 +18,7 @@ import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.youtubeplayer.ui.PlayerUIController;
+import com.pierfrancescosoffritti.youtubeplayer.ui.menu.MenuItem;
 
 import java.io.IOException;
 import java.util.Random;
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private YouTubePlayerView youTubePlayerView;
     private FullScreenManager fullScreenManager;
 
-    private Button nextVideo;
+    private Button nextVideoButton;
 
     private String[] videoIds = {"6JYIGclVQdw", "LvetJ9U_tVY", "sop2V_MREEI"};
 
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        nextVideo = findViewById(R.id.next_video_button);
+        nextVideoButton = findViewById(R.id.next_video_button);
 
         fullScreenManager = new FullScreenManager(this);
 
@@ -62,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
             initButtonClickListener(initializedYouTubePlayer);
 
         }, true);
+
+        // menu
+        youTubePlayerView.getPlayerUIController().showMenuButton(true);
+        youTubePlayerView.getPlayerUIController().getMenu().addItem(new MenuItem("example", R.drawable.ic_settings_24dp, null));
     }
 
     @Override
@@ -69,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
 
         youTubePlayerView.release();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfiguration) {
+        super.onConfigurationChanged(newConfiguration);
+        youTubePlayerView.getPlayerUIController().getMenu().dismiss();
     }
 
     private void addFullScreenListenerToPlayer(final YouTubePlayer youTubePlayer) {
@@ -95,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initButtonClickListener(final YouTubePlayer youTubePlayer) {
-        nextVideo.setOnClickListener(view -> {
+        nextVideoButton.setOnClickListener(view -> {
             String videoId = videoIds[new Random().nextInt(videoIds.length)];
             youTubePlayer.loadVideo(videoId, 0);
             setVideoTitle(youTubePlayerView.getPlayerUIController(), videoId);

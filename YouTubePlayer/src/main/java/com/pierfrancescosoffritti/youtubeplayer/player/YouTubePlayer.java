@@ -1,5 +1,7 @@
 package com.pierfrancescosoffritti.youtubeplayer.player;
 
+import android.support.annotation.NonNull;
+
 public interface YouTubePlayer {
     /**
      * Loads and automatically plays the specified video.
@@ -16,6 +18,7 @@ public interface YouTubePlayer {
     void cueVideo(final String videoId, final float startSeconds);
     void play();
     void pause();
+
     void mute();
     void unMute();
 
@@ -29,6 +32,6 @@ public interface YouTubePlayer {
     @PlayerConstants.PlayerState.State
     int getCurrentState();
 
-    boolean addListener(YouTubePlayerListener listener);
-    boolean removeListener(YouTubePlayerListener listener);
+    boolean addListener(@NonNull YouTubePlayerListener listener);
+    boolean removeListener(@NonNull YouTubePlayerListener listener);
 }
