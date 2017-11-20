@@ -22,14 +22,14 @@ import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenLi
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.youtubeplayer.ui.menu.YouTubePlayerMenu;
-import com.pierfrancescosoffritti.youtubeplayer.ui.menu.defaultMenuHelper.DefaultYouTubePlayerMenu;
+import com.pierfrancescosoffritti.youtubeplayer.ui.menu.defaultMenu.DefaultYouTubePlayerMenu;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
 
 public class DefaultPlayerUIController implements PlayerUIController, View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayerListener, SeekBar.OnSeekBarChangeListener {
     @NonNull private final YouTubePlayerView youTubePlayerView;
     @NonNull private final YouTubePlayer youTubePlayer;
 
-    @NonNull private final YouTubePlayerMenu youTubePlayerMenu;
+    @NonNull private YouTubePlayerMenu youTubePlayerMenu;
 
     // view responsible for intercepting clicks. Could have used controlsRoot view, but in this way I'm able to hide all the control at once by hiding controlsRoot
     @NonNull private final View panel;
@@ -168,9 +168,15 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
         this.onMenuButtonClickListener = customMenuButtonClickListener;
     }
 
+    @NonNull
     @Override
     public YouTubePlayerMenu getMenu() {
         return youTubePlayerMenu;
+    }
+
+    @Override
+    public void setMenu(@NonNull YouTubePlayerMenu youTubePlayerMenu) {
+        this.youTubePlayerMenu = youTubePlayerMenu;
     }
 
     @Override

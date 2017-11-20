@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayer.ui.menu.defaultMenuHelper;
+package com.pierfrancescosoffritti.youtubeplayer.ui.menu.defaultMenu;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
