@@ -22,7 +22,7 @@ import java.util.Set;
 /**
  * WebView implementing the actual YouTube Player
  */
-class WebViewYouTubePlayer extends WebView implements YouTubePlayer {
+class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlayerBridge.YouTubePlayerBridgeCallbacks {
 
     @NonNull private final Set<YouTubePlayerListener> youTubePlayerListeners;
     @NonNull private final Handler mainThreadHandler;
@@ -56,7 +56,8 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer {
         initWebView();
     }
 
-    protected void onYouTubeIframeAPIReady() {
+    @Override
+    public void onYouTubeIframeAPIReady() {
         youTubePlayerInitListener.onInitSuccess(this);
     }
 
@@ -159,7 +160,7 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer {
     }
 
     @NonNull
-    protected Set<YouTubePlayerListener> getListeners() {
+    public Set<YouTubePlayerListener> getListeners() {
         return youTubePlayerListeners;
     }
 

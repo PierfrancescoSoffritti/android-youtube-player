@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.webkit.JavascriptInterface;
 
+import java.util.Collection;
+
 /**
  * Bridge used to communicate from Javascript to Java.
  */
@@ -40,10 +42,15 @@ public class YouTubePlayerBridge {
     private static final String ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER1 = "101";
     private static final String ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER2 = "150";
 
-    @NonNull private final WebViewYouTubePlayer youTubePlayer;
+    @NonNull private final YouTubePlayerBridgeCallbacks youTubePlayer;
     @NonNull private final Handler mainThreadHandler;
 
-    public YouTubePlayerBridge(@NonNull WebViewYouTubePlayer youTubePlayer) {
+    public interface YouTubePlayerBridgeCallbacks {
+        void onYouTubeIframeAPIReady();
+        Collection<YouTubePlayerListener> getListeners();
+    }
+
+    public YouTubePlayerBridge(@NonNull YouTubePlayerBridgeCallbacks youTubePlayer) {
         this.youTubePlayer = youTubePlayer;
         mainThreadHandler = new Handler(Looper.getMainLooper());
     }
