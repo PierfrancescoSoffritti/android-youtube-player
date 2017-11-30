@@ -11,7 +11,7 @@ android {
         minSdkVersion 17
         targetSdkVersion 27
         versionCode 1
-        versionName "2.0.0"
+        versionName "3.0.2"
     }
     buildTypes {
         release {
@@ -24,8 +24,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:appcompat-v7:27.0.1'
-    implementation 'com.android.support:recyclerview-v7:27.0.1'
+    implementation 'com.android.support:appcompat-v7:27.0.2'
+    implementation 'com.android.support:recyclerview-v7:27.0.2'
 }
 
 // build a jar with source files

@@ -44,7 +44,7 @@
             android:padding="8dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:layout_toStartOf="@id/menu_button" />
+            android:layout_toStartOf="@+id/menu_button" />
 
         <ImageView
             android:id="@+id/menu_button"
