@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button nextVideoButton;
 
+    // the last video is not playable in some countries. It's here to test what happens for non-playable videos.
     private String[] videoIds = {"6JYIGclVQdw", "LvetJ9U_tVY", "sop2V_MREEI"};
 
     @Override
