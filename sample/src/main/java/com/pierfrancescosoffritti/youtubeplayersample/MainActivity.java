@@ -23,6 +23,8 @@ import com.pierfrancescosoffritti.youtubeplayer.ui.menu.MenuItem;
 import java.io.IOException;
 import java.util.Random;
 
+import javax.annotation.Nullable;
+
 import io.reactivex.Single;
 import io.reactivex.SingleOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
     private YouTubePlayerView youTubePlayerView;
     private FullScreenManager fullScreenManager;
+
+    private @Nullable YouTubePlayer initializedYouTubePlayer;
 
     private Button nextVideoButton;
 
@@ -56,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
             initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
                 @Override
                 public void onReady() {
+                    MainActivity.this.initializedYouTubePlayer = initializedYouTubePlayer;
+
                     initializedYouTubePlayer.loadVideo(videoIds[0], 0);
                     setVideoTitle(youTubePlayerView.getPlayerUIController(), videoIds[0]);
                 }
@@ -76,6 +82,13 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
 
         youTubePlayerView.release();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (initializedYouTubePlayer != null)
+            initializedYouTubePlayer.pause();
     }
 
     @Override
