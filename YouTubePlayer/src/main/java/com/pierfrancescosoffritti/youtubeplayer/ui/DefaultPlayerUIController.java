@@ -125,12 +125,18 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     }
 
     @Override
-    public void enableLiveVideoIndicator(boolean enable) {
+    public void enableLiveVideoUI(boolean enable) {
         if(enable) {
             videoDuration.setVisibility(View.INVISIBLE);
+            seekBar.setVisibility(View.INVISIBLE);
+            videoCurrentTime.setVisibility(View.INVISIBLE);
+
             liveVideoIndicator.setVisibility(View.VISIBLE);
         } else {
             videoDuration.setVisibility(View.VISIBLE);
+            seekBar.setVisibility(View.VISIBLE);
+            videoCurrentTime.setVisibility(View.VISIBLE);
+
             liveVideoIndicator.setVisibility(View.GONE);
         }
     }

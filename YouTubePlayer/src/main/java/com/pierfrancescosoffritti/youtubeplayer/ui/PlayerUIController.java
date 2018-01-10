@@ -14,7 +14,7 @@ public interface PlayerUIController {
     void showVideoTitle(boolean show);
     void setVideoTitle(@NonNull String videoTitle);
 
-    void enableLiveVideoIndicator(boolean enable);
+    void enableLiveVideoUI(boolean enable);
 
     void setCustomAction1(@NonNull Drawable icon, @Nullable View.OnClickListener clickListener);
     void setCustomAction2(@NonNull Drawable icon, @Nullable View.OnClickListener clickListener);
