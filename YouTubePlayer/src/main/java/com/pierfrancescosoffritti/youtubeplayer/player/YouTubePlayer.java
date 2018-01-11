@@ -27,6 +27,10 @@ public interface YouTubePlayer {
      */
     void setVolume(final int volumePercent);
 
+    /**
+     *
+     * @param time The absolute time in seconds to seek to
+     */
     void seekTo(final int time);
 
     @PlayerConstants.PlayerState.State
