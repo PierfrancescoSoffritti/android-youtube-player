@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
         fullScreenManager = new FullScreenManager(this);
 
         youTubePlayerView = findViewById(R.id.youtube_player_view);
+
+        this.getLifecycle().addObserver(youTubePlayerView);
+
         youTubePlayerView.initialize(initializedYouTubePlayer -> {
 
             initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
@@ -81,7 +84,8 @@ public class MainActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
 
-        youTubePlayerView.release();
+        // It's not necessary to call release if you register youTubePlayerView as a lifecycle observer of this Activity
+//        youTubePlayerView.release();
     }
 
     @Override
