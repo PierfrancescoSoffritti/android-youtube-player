@@ -27,7 +27,16 @@ public interface PlayerUIController {
     void showMenuButton(boolean show);
     void setCustomMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener);
 
+    /**
+     * Adds a View to the top of the player
+     * @param view View to be added
+     */
     void addView(@NonNull View view);
+
+    /**
+     * Removes a View added with {@link #addView addView}
+     * @param view View to be removed
+     */
     void removeView(@NonNull View view);
 
     @NonNull YouTubePlayerMenu getMenu();
