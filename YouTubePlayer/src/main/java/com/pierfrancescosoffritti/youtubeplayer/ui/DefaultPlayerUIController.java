@@ -191,6 +191,11 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
         extraViewsContainer.addView(view, 0);
     }
 
+    @Override
+    public void removeView(@NonNull View view) {
+        extraViewsContainer.removeView(view);
+    }
+
     @NonNull
     @Override
     public YouTubePlayerMenu getMenu() {

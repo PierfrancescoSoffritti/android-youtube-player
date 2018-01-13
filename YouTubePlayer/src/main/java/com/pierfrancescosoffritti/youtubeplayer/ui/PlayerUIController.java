@@ -28,6 +28,7 @@ public interface PlayerUIController {
     void setCustomMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener);
 
     void addView(@NonNull View view);
+    void removeView(@NonNull View view);
 
     @NonNull YouTubePlayerMenu getMenu();
     void setMenu(@NonNull YouTubePlayerMenu youTubePlayerMenu);
