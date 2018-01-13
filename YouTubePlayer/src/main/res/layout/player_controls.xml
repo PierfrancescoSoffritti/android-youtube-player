@@ -44,25 +44,33 @@
             android:padding="8dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/menu_button" />
+            android:layout_toStartOf="@+id/extra_views_container" />
 
-        <ImageView
-            android:id="@+id/menu_button"
+        <LinearLayout
+            android:id="@+id/extra_views_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_menu_24dp"
-            android:padding="8dp"
-
-            android:visibility="gone"
-
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/background_item_selected"
+            android:orientation="horizontal"
 
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
+            android:layout_alignParentEnd="true" >
 
-            android:contentDescription="@string/open_video_in_youtube" />
+            <ImageView
+                android:id="@+id/menu_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_menu_24dp"
+                android:padding="8dp"
+
+                android:visibility="gone"
+
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/background_item_selected"
+
+                android:contentDescription="@string/open_video_in_youtube" />
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/play_pause_button"

@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -36,6 +37,8 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
     // view containing the controls
     @NonNull private final View controlsRoot;
+
+    @NonNull private final LinearLayout extraViewsContainer;
 
     @NonNull private final TextView videoTitle;
     @NonNull private final TextView videoCurrentTime;
@@ -73,6 +76,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
         panel = controlsView.findViewById(R.id.panel);
 
         controlsRoot = controlsView.findViewById(R.id.controls_root);
+        extraViewsContainer = controlsView.findViewById(R.id.extra_views_container);
 
         videoTitle = controlsView.findViewById(R.id.video_title);
         videoCurrentTime = controlsView.findViewById(R.id.video_current_time);
@@ -180,6 +184,11 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     @Override
     public void setCustomMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener) {
         this.onMenuButtonClickListener = customMenuButtonClickListener;
+    }
+
+    @Override
+    public void addView(@NonNull View view) {
+        extraViewsContainer.addView(view, 0);
     }
 
     @NonNull
