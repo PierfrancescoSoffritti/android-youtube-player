@@ -18,6 +18,12 @@ Apps using this library: (send me an email if you want to add your app to the li
 
 <img height="450" src="https://github.com/PierfrancescoSoffritti/AndroidYouTubePlayer/blob/master/pics/ayp.gif" />
 
+## Usage
+
+A sample project that shows how to use the library is available in the [sample module](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/tree/master/sample). You can also [download the sample apk here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/tree/master/sample/apk).
+
+**Please refer to the [Wiki](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/Quick-start) of the library for a detailed description on how to use it.**
+
 ## Download
 Add this to your project-level `build.gradle`:
 ```
@@ -44,13 +50,6 @@ If you are using ProGuard you might need to add the following option:
 
 -keepnames class com.pierfrancescosoffritti.youtubeplayer.*
 ```
-
-## Usage
-
-A sample project that shows how to use the library is available in the [sample module](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/tree/master/sample). You can also [download the sample apk here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/tree/master/sample/apk).
-
-**Please refer to the [Wiki](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/Quick-start) of the library for a detailed description on how to use it.**
-
 ### Quick start
 
 In order to start using the player you need to add the YouTubePlayerView to your layout
