@@ -12,17 +12,13 @@ When I have tried to use it, my app was crashing because of internal bugs in Goo
 
 More reasons why you could consider using an alternative to the official YouTube player are written in [this post](https://medium.com/@soffritti.pierfrancesco/how-to-play-youtube-videos-in-your-android-app-c40427215230).
 
+**This library has a [Wiki](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/Quick-start).**
+
 Apps using this library: (send me an email if you want to add your app to the list)
 
 - [Shuffly](https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.shuffly)
 
 <img height="450" src="https://github.com/PierfrancescoSoffritti/AndroidYouTubePlayer/blob/master/pics/ayp.gif" />
-
-## Usage
-
-A sample project that shows how to use the library is available in the [sample module](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/tree/master/sample). You can also [download the sample apk here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/tree/master/sample/apk).
-
-**Please refer to the [Wiki](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/Quick-start) of the library for a detailed description on how to use it.**
 
 ## Download
 Add this to your project-level `build.gradle`:
@@ -50,6 +46,12 @@ If you are using ProGuard you might need to add the following option:
 
 -keepnames class com.pierfrancescosoffritti.youtubeplayer.*
 ```
+## Usage
+
+A sample project that shows how to use the library is available in the [sample module](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/tree/master/sample). You can also [download the sample apk here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/tree/master/sample/apk).
+
+**Please refer to the [Wiki](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/Quick-start) of the library for a detailed description on how to use it.**
+
 ### Quick start
 
 In order to start using the player you need to add the YouTubePlayerView to your layout
