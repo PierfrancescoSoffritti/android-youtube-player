@@ -26,6 +26,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:appcompat-v7:27.0.2'
     implementation 'com.android.support:recyclerview-v7:27.0.2'
+
+    implementation "android.arch.lifecycle:runtime:1.0.3"
+    annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
 }
 
 // build a jar with source files

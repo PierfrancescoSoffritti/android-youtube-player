@@ -1,5 +1,8 @@
 package com.pierfrancescosoffritti.youtubeplayer.player;
 
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
+import android.arch.lifecycle.OnLifecycleEvent;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
@@ -20,7 +23,7 @@ import com.pierfrancescosoffritti.youtubeplayer.utils.Callable;
 import com.pierfrancescosoffritti.youtubeplayer.utils.NetworkReceiver;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
 
-public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.NetworkListener {
+public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.NetworkListener, LifecycleObserver {
 
     @NonNull private final WebViewYouTubePlayer youTubePlayer;
     @NonNull private final DefaultPlayerUIController playerUIControls;
@@ -92,8 +95,9 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
 
     /**
      * Calls {@link WebView#destroy()} on the player. And unregisters the broadcast receiver (for network events), if registered.
-     * Call this method before destroying the host Fragment/Activity
+     * Call this method before destroying the host Fragment/Activity, or register this View as an observer of its host lifcecycle
      */
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void release() {
         youTubePlayer.destroy();
         try {
