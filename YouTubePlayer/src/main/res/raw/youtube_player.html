@@ -23,14 +23,14 @@
 
     <script type="text/javascript">
         
-        const UNSTARTED = "UNSTARTED";
-        const ENDED = "ENDED";
-        const PLAYING = "PLAYING";
-        const PAUSED = "PAUSED";
-        const BUFFERING = "BUFFERING";
-        const CUED = "CUED";
+        var UNSTARTED = "UNSTARTED";
+        var ENDED = "ENDED";
+        var PLAYING = "PLAYING";
+        var PAUSED = "PAUSED";
+        var BUFFERING = "BUFFERING";
+        var CUED = "CUED";
         
-        const YouTubePlayerBridge = window.YouTubePlayerBridge;
+        var YouTubePlayerBridge = window.YouTubePlayerBridge;
     	var player;
 
     	function onYouTubeIframeAPIReady() {
@@ -101,8 +101,8 @@
             }
 
             function sendVideoData(player) {
-                // const { video_id, title } = player.getVideoData();
-                const videoDuration = player.getDuration();
+                // var { video_id, title } = player.getVideoData();
+                var videoDuration = player.getDuration();
 
                 // YouTubePlayerBridge.sendVideoId(video_id)
                 // YouTubePlayerBridge.sendVideoTitle(title);
