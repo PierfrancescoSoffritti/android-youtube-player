@@ -102,6 +102,14 @@ public class MainActivity extends AppCompatActivity {
         youTubePlayerView.getPlayerUIController().getMenu().dismiss();
     }
 
+    @Override
+    public void onBackPressed() {
+        if (youTubePlayerView.isFullScreen())
+            youTubePlayerView.exitFullScreen();
+        else
+            super.onBackPressed();
+    }
+
     private void addFullScreenListenerToPlayer(final YouTubePlayer youTubePlayer) {
         youTubePlayerView.addFullScreenListener(new YouTubePlayerFullScreenListener() {
             @Override
