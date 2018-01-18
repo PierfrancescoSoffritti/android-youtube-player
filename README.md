@@ -57,7 +57,7 @@ A sample project that shows how to use the library is available in the [sample m
 
 ### Quick start
 
-In order to start using the player you need to add the `YouTubePlayerView` to your layout
+In order to start using the player you need to add the [YouTubePlayerView](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/YouTubePlayerView) to your layout
 ```
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -92,7 +92,7 @@ More info on the initialization method can be found [here](https://github.com/Pi
 
 The [AbstractYouTubePlayerListener](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/player/AbstractYouTubePlayerListener.java) is just a convenience abstract class that implements `YouTubePlayerListener`, so that is not necessary to always implement all the methods of the interface.
 
-The playback of the videos is handled by the `YouTubePlayer`. You must use that for everything concerning video playback.
+The playback of the videos is handled by the [YouTubePlayer](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/YouTubePlayer). You must use that for everything concerning video playback.
 
 The UI of the player is handled by a [PlayerUIController](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/PlayerUIController), in order to interact with it you must get its reference from the `YouTubePlayerView`
 
