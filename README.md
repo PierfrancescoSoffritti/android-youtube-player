@@ -88,7 +88,7 @@ youTubePlayerView.initialize(new YouTubePlayerInitListener() {
 }, true);
 ```
 
-More info on the initialization method can be found [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/YouTubePlayerView).
+More info on the initialization method can be found [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/YouTubePlayerView#initialization).
 
 The [AbstractYouTubePlayerListener](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/player/AbstractYouTubePlayerListener.java) is just a convenience abstract class that implements `YouTubePlayerListener`, so that is not necessary to always implement all the methods of the interface.
 
