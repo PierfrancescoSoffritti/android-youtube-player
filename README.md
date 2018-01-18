@@ -55,7 +55,7 @@ A sample project that shows how to use the library is available in the [sample m
 
 ### Quick start
 
-In order to start using the player you need to add the YouTubePlayerView to your layout
+In order to start using the player you need to add the `YouTubePlayerView` to your layout
 ```
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -69,7 +69,7 @@ In order to start using the player you need to add the YouTubePlayerView to your
         android:layout_height="wrap_content"/>
 </LinearLayout>
 ```
-Get a reference to the YouTubePlayerView in your code and initialize it
+Get a reference to the `YouTubePlayerView` in your code and initialize it
 ```
 YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
 youTubePlayerView.initialize(new YouTubePlayerInitListener() {
