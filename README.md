@@ -11,7 +11,9 @@ The web UI of the IFrame Player player is hidden, instead a native UI built on t
 This library has been developed out of necessity. The official library provided by Google for the integration of YouTube videos into Android apps is the [YouTube Android Player API](https://developers.google.com/youtube/android/player/). Its many bugs and the total lack of support from Google made it impossible to use in production.
 Originally I have tried to use the official library, but my app was crashing because of internal bugs in Google's player, ([some bugs have 3+ years old bug reports](https://code.google.com/p/gdata-issues/issues/detail?id=4395)) those bugs haven't been fixed for years. From there I decided to build my own player.
 
-More reasons why you could consider using an alternative to the official YouTube player are written in [this post](https://medium.com/@soffritti.pierfrancesco/how-to-play-youtube-videos-in-your-android-app-c40427215230).
+More reasons why you may want to consider using an alternative to the official YouTube player are written in [this post](https://medium.com/@soffritti.pierfrancesco/how-to-play-youtube-videos-in-your-android-app-c40427215230).
+
+---
 
 **This library has a [Wiki](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/Quick-start), check it out!**
 
