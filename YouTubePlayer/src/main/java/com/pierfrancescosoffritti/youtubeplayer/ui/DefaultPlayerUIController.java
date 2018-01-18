@@ -460,6 +460,6 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
                 videoDuration.setText("");
             }
         });
-        youTubeButton.setOnClickListener(null);
+//        youTubeButton.setOnClickListener(null);
     }
 }
