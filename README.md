@@ -17,6 +17,8 @@ More reasons why you may want to consider using an alternative to the official Y
 
 **This library has a [Wiki](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/Quick-start), check it out!**
 
+If this library is useful to you, **consider leaving a star on GitHub** :)
+
 A list of published apps that are using this library: ([let me know](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/issues) if you want to add your app to this list)
 
 - [Shuffly](https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.shuffly)
