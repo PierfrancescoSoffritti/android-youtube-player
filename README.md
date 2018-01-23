@@ -76,9 +76,11 @@ In order to start using the player you need to add the [YouTubePlayerView](https
 Get a reference to the `YouTubePlayerView` in your code and initialize it
 ```
 YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
+
 youTubePlayerView.initialize(new YouTubePlayerInitListener() {
     @Override
     public void onInitSuccess(final YouTubePlayer initializedYouTubePlayer) {
+    
         initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady() {
@@ -86,6 +88,7 @@ youTubePlayerView.initialize(new YouTubePlayerInitListener() {
                 initializedYouTubePlayer.loadVideo(videoId, 0);
             }
         });
+        
     }
 }, true);
 ```
