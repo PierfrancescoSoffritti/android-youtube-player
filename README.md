@@ -43,7 +43,7 @@ dependencies {
 ```
 
 ## Proguard
-If you are using ProGuard you might need to add the following option:
+If you are using ProGuard you might need to add the following options:
 ```
 -keep public class com.pierfrancescosoffritti.youtubeplayer.** {
    public *;
