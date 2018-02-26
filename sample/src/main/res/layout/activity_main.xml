@@ -17,5 +17,5 @@
         android:layout_height="wrap_content"
         android:padding="26dp"
         android:backgroundTint="@color/colorAccent"
-        android:text="nextVideo" />
+        android:text="Next Video" />
 </LinearLayout>
