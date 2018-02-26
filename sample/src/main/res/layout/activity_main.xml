@@ -16,6 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="26dp"
-        android:backgroundTint="@color/colorAccent"
-        android:text="Next Video" />
+        android:backgroundTint="@android:color/white"
+        android:text="Play Next Video" />
 </LinearLayout>
