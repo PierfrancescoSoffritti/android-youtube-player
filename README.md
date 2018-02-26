@@ -5,7 +5,7 @@
 
 The Android-YouTube-Player library provides a simple View that can be easily integrated in every Activity/Fragment.
 
-The interaction with YouTube is based on the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference?hl=it), running inside of a WebView, therefore the YouTube app is not required to be installed on the user's device to use this player.
+The interaction with YouTube is based on the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference?hl=it), running inside of a WebView, therefore the YouTube app is not required to be installed on the user's device.
 
 The web UI of the IFrame Player player is hidden, instead a native UI built on top of Android is used to interact with the player, providing a native experience to the users.
 
