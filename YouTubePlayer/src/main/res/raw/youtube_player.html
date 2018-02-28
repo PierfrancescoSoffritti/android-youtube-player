@@ -33,6 +33,8 @@
         var YouTubePlayerBridge = window.YouTubePlayerBridge;
     	var player;
 
+        var timerTaskId;
+
     	function onYouTubeIframeAPIReady() {
 
             YouTubePlayerBridge.sendYouTubeIframeAPIReady();
@@ -67,7 +69,6 @@
     	}
 
     	function sendPlayerStateChange(playerState) {
-            var timerTaskId;
             clearTimeout(timerTaskId);
 
             switch (playerState) {
@@ -81,9 +82,8 @@
 
                 case YT.PlayerState.PLAYING:
                     sendStateChange(PLAYING);
-                    timerTaskId = setInterval(function() {
-                      YouTubePlayerBridge.sendVideoCurrentTime( player.getCurrentTime() )
-                    }, 100 );
+                    
+                    startSendCurrentTimeInterval();
                     sendVideoData(player);
                     return;
 
@@ -111,6 +111,12 @@
 
             function sendStateChange(newState) {
                 YouTubePlayerBridge.sendStateChange(newState)
+            }
+
+            function startSendCurrentTimeInterval() {
+                timerTaskId = setInterval(function() {
+                    YouTubePlayerBridge.sendVideoCurrentTime( player.getCurrentTime() )
+                }, 100 );
             }
         }
 
