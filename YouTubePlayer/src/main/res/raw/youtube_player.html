@@ -67,9 +67,6 @@
     	}
 
     	function sendPlayerStateChange(playerState) {
-            var timerTaskId;
-            clearTimeout(timerTaskId);
-
             switch (playerState) {
             	case YT.PlayerState.UNSTARTED:
                     sendStateChange(UNSTARTED);
@@ -81,9 +78,7 @@
 
                 case YT.PlayerState.PLAYING:
                     sendStateChange(PLAYING);
-                    timerTaskId = setInterval(function() {
-                      YouTubePlayerBridge.sendVideoCurrentTime( player.getCurrentTime() )
-                    }, 100 );
+                    updateCurrentSecond();
                     sendVideoData(player);
                     return;
 
@@ -98,6 +93,16 @@
                 case YT.PlayerState.CUED:
                     sendStateChange(CUED);
                     return;
+            }
+            function updateCurrentSecond() {
+                onCurrentSeconds();
+        	    if(playerState==PLAYING){
+        	       setTimeout(updateCurrentSecond, 100);
+        	    }
+            }
+            //updates the current time in java code
+            function onCurrentSeconds() {
+        	    YouTubePlayerBridge.sendVideoCurrentTime(player.getCurrentTime());
             }
 
             function sendVideoData(player) {

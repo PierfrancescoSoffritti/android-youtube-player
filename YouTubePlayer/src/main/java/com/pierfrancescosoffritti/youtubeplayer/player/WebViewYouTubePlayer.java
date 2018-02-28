@@ -143,6 +143,15 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
             }
         });
     }
+    @Override
+    public void sendCurrentSeconds() {
+        mainThreadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                loadUrl("javascript:onCurrentSeconds()");
+            }
+        });
+    }
 
     @Override
     @PlayerConstants.PlayerState.State

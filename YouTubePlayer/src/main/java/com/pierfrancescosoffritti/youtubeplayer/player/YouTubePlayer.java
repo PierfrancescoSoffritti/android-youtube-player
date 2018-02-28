@@ -32,6 +32,11 @@ public interface YouTubePlayer {
      * @param time The absolute time in seconds to seek to
      */
     void seekTo(final int time);
+    /**
+     * trigger the {@link YouTubePlayerListener#onCurrentSecond(float)}  callback
+     * with the video current playing time in second
+     */
+    void sendCurrentSeconds();
 
     @PlayerConstants.PlayerState.State
     int getCurrentState();
