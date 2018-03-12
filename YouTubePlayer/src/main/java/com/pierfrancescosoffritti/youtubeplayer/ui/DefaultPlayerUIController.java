@@ -209,7 +209,7 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
 
     @Override
     public void showFullscreenButton(boolean show) {
-        int visibility = show ? View.VISIBLE : View.INVISIBLE;
+        int visibility = show ? View.VISIBLE : View.GONE;
         fullScreenButton.setVisibility(visibility);
     }
 

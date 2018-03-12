@@ -95,102 +95,91 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true" />
 
-        <TextView
-            android:id="@+id/video_current_time"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/null_time"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"
+            android:orientation="horizontal"
 
-            android:padding="8dp"
             android:gravity="center_vertical"
 
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_alignBottom="@+id/youtube_button"
-            android:layout_alignTop="@+id/youtube_button" />
+            android:layout_alignParentEnd="true" >
 
-        <TextView
-            android:id="@+id/video_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/null_time"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"
+            <TextView
+                android:id="@+id/video_current_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/null_time"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
 
-            android:padding="8dp"
-            android:gravity="center_vertical"
+                android:padding="8dp"
+                android:gravity="center_vertical" />
 
-            android:layout_alignParentBottom="true"
-            android:layout_toStartOf="@+id/youtube_button"
-            android:layout_alignBottom="@+id/youtube_button"
-            android:layout_alignTop="@+id/youtube_button" />
+            <SeekBar
+                android:id="@+id/seek_bar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
 
-        <TextView
-            android:id="@+id/live_video_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/live"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"
+                android:thumbTint="@color/red"
+                android:progressTint="@color/red"
+                android:progressBackgroundTint="@color/red"
 
-            android:padding="8dp"
-            android:gravity="center_vertical"
+                android:maxHeight="100dp" />
 
-            android:visibility="gone"
+            <TextView
+                android:id="@+id/video_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/null_time"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
 
-            android:layout_alignParentBottom="true"
-            android:layout_toStartOf="@+id/youtube_button"
-            android:layout_alignBottom="@+id/youtube_button"
-            android:layout_alignTop="@+id/youtube_button" />
+                android:padding="8dp"
+                android:gravity="center_vertical" />
 
-        <ImageView
-            android:id="@+id/youtube_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_youtube_24dp"
-            android:padding="8dp"
+            <TextView
+                android:id="@+id/live_video_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/live"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
 
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/background_item_selected"
+                android:padding="8dp"
+                android:gravity="center_vertical"
 
-            android:layout_alignParentBottom="true"
-            android:layout_toStartOf="@+id/fullscreen_button"
-            android:contentDescription="@string/open_video_in_youtube" />
+                android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/fullscreen_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_fullscreen_24dp"
-            android:padding="8dp"
+            <ImageView
+                android:id="@+id/youtube_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_youtube_24dp"
+                android:padding="8dp"
 
-            android:clickable="true"
-            android:focusable="true"
-            android:background="@drawable/background_item_selected"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/background_item_selected"
 
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
+                android:contentDescription="@string/open_video_in_youtube" />
 
-            android:contentDescription="@string/full_screen_button" />
+            <ImageView
+                android:id="@+id/fullscreen_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_fullscreen_24dp"
+                android:padding="8dp"
 
-        <SeekBar
-            android:id="@+id/seek_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:thumbTint="@color/red"
-            android:progressTint="@color/red"
-            android:progressBackgroundTint="@color/red"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/background_item_selected"
 
-            android:maxHeight="100dp"
+                android:contentDescription="@string/full_screen_button" />
 
-            android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@+id/video_current_time"
-            android:layout_toStartOf="@+id/video_duration"
-            android:layout_alignTop="@+id/youtube_button"
-            android:layout_alignBottom="@+id/youtube_button" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/custom_action_left_button"
