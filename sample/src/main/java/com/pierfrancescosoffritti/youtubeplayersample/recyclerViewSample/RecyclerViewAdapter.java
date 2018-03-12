@@ -22,6 +22,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         YouTubePlayerView youTubePlayerView = (YouTubePlayerView) LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item, parent, false);
         youTubePlayerView.getPlayerUIController().showFullscreenButton(false);
+
         return new ViewHolder(youTubePlayerView);
     }
 
@@ -31,20 +32,19 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
 
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return videoIds.length;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        YouTubePlayerView youTubePlayerView;
-        YouTubePlayer youTubePlayer;
-        String currentVideoId;
+        private YouTubePlayerView youTubePlayerView;
+        private YouTubePlayer youTubePlayer;
+        private String currentVideoId;
 
-        ViewHolder(YouTubePlayerView ypw) {
-            super(ypw);
-            youTubePlayerView = ypw;
+        ViewHolder(YouTubePlayerView playerView) {
+            super(playerView);
+            youTubePlayerView = playerView;
 
             youTubePlayerView.initialize(initializedYouTubePlayer -> {
                 initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
