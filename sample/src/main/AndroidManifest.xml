@@ -22,7 +22,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_nav_drawer"
+            android:label="@string/title_main_activity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
             <intent-filter>

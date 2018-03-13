@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">YouTubePlayerSample</string>
     <string name="title_activity_recycler_view">RecyclerViewActivity</string>
-    <string name="title_activity_nav_drawer">NavDrawerActivity</string>
+    <string name="title_main_activity">Android-YouTube-Player</string>
 </resources>
