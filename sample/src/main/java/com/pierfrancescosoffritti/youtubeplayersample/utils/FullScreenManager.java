@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayersample;
+package com.pierfrancescosoffritti.youtubeplayersample.utils;
 
 import android.app.Activity;
 import android.view.View;

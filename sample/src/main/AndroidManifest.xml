@@ -10,15 +10,9 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".BaseExampleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
-            android:hardwareAccelerated="true">
-
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
+            android:hardwareAccelerated="true" />
 
         <activity
             android:name=".recyclerViewSample.RecyclerViewActivity"
@@ -27,7 +21,7 @@
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name=".navDrawerIntegration.NavDrawerActivity"
+            android:name=".MainActivity"
             android:label="@string/title_activity_nav_drawer"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 

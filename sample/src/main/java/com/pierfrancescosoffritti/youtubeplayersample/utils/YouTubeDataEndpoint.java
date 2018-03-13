@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayersample;
+package com.pierfrancescosoffritti.youtubeplayersample.utils;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -11,12 +11,12 @@ import java.io.IOException;
 import io.reactivex.Single;
 import io.reactivex.SingleOnSubscribe;
 
-class YouTubeDataEndpoint {
+public class YouTubeDataEndpoint {
 
     private static final String APP_NAME = "YouTubePlayer_SampleApp";
     private static final String YOUTUBE_DATA_API_KEY = "AIzaSyAVeTsyAjfpfBBbUQq4E7jooWwtV2D_tjE";
 
-    static Single<String> getVideoTitleFromYouTubeDataAPIs(String videoId) {
+    public static Single<String> getVideoTitleFromYouTubeDataAPIs(String videoId) {
         SingleOnSubscribe<String> onSubscribe = emitter -> {
             try {
 
