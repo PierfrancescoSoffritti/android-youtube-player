@@ -17,6 +17,7 @@ import com.pierfrancescosoffritti.youtubeplayersample.recyclerViewSample.Recycle
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
+    private MenuItem selectedMenuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(
                 menuItem -> {
                     menuItem.setChecked(true);
+                    selectedMenuItem = menuItem;
+
                     drawerLayout.closeDrawers();
 
                     if(menuItem.getItemId() == R.id.open_base_example_menu_item) {
@@ -48,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
 
                     return true;
                 });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(selectedMenuItem != null)
+            selectedMenuItem.setChecked(false);
     }
 
     @Override
