@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/open_base_example_menu_item"
+            android:title="Base example" />
+        <item
+            android:id="@+id/open_recycler_view_example_menu_item"
+            android:title="RecyclerView example" />
+    </group>
+</menu>

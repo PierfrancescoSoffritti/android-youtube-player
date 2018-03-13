@@ -22,7 +22,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
         String[] videoIds = {"6JYIGclVQdw", "LvetJ9U_tVY", "6JYIGclVQdw", "LvetJ9U_tVY", "6JYIGclVQdw", "LvetJ9U_tVY", "6JYIGclVQdw", "LvetJ9U_tVY", "6JYIGclVQdw", "LvetJ9U_tVY", "6JYIGclVQdw", "LvetJ9U_tVY"};
 
-        RecyclerView.Adapter recyclerViewAdapter = new RecyclerViewAdapter(videoIds);
+        RecyclerView.Adapter recyclerViewAdapter = new RecyclerViewAdapter(videoIds, this.getLifecycle());
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 

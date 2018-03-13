@@ -1,5 +1,7 @@
 package com.pierfrancescosoffritti.youtubeplayersample.recyclerViewSample;
 
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,9 +14,11 @@ import com.pierfrancescosoffritti.youtubeplayersample.R;
 
 class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private String[] videoIds;
+    private Lifecycle lifecycle;
 
-    RecyclerViewAdapter(String[] videoIds) {
+    RecyclerViewAdapter(String[] videoIds, Lifecycle lifecycle) {
         this.videoIds = videoIds;
+        this.lifecycle = lifecycle;
     }
 
     @NonNull
@@ -22,6 +26,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         YouTubePlayerView youTubePlayerView = (YouTubePlayerView) LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item, parent, false);
         youTubePlayerView.getPlayerUIController().showFullscreenButton(false);
+        lifecycle.addObserver(youTubePlayerView);
 
         return new ViewHolder(youTubePlayerView);
     }

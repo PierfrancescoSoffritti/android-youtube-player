@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         }, true);
 
-        // menu
+        // drawer_menu
         youTubePlayerView.getPlayerUIController().showMenuButton(true);
         youTubePlayerView.getPlayerUIController().getMenu().addItem(
                 new MenuItem("example", R.drawable.ic_settings_24dp, (view) -> Toast.makeText(this, "item clicked", Toast.LENGTH_SHORT).show())
