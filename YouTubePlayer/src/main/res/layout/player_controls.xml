@@ -123,6 +123,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
 
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+
                 android:thumbTint="@color/red"
                 android:progressTint="@color/red"
                 android:progressBackgroundTint="@color/red"

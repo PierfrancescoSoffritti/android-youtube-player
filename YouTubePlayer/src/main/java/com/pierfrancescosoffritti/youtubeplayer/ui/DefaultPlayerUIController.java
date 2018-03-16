@@ -187,6 +187,30 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     }
 
     @Override
+    public void showCurrentTime(boolean show) {
+        int visibility = show ? View.VISIBLE : View.GONE;
+        videoCurrentTime.setVisibility(visibility);
+    }
+
+    @Override
+    public void showDuration(boolean show) {
+        int visibility = show ? View.VISIBLE : View.GONE;
+        videoDuration.setVisibility(visibility);
+    }
+
+    @Override
+    public void showSeekBar(boolean show) {
+        int visibility = show ? View.VISIBLE : View.INVISIBLE;
+        seekBar.setVisibility(visibility);
+    }
+
+    @Override
+    public void showYouTubeButton(boolean show) {
+        int visibility = show ? View.VISIBLE : View.GONE;
+        youTubeButton.setVisibility(visibility);
+    }
+
+    @Override
     public void addView(@NonNull View view) {
         extraViewsContainer.addView(view, 0);
     }

@@ -27,6 +27,11 @@ public interface PlayerUIController {
     void showMenuButton(boolean show);
     void setCustomMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener);
 
+    void showCurrentTime(boolean show);
+    void showDuration(boolean show);
+    void showSeekBar(boolean show);
+    void showYouTubeButton(boolean show);
+
     /**
      * Adds a View to the top of the player
      * @param view View to be added
