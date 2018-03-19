@@ -10,7 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.pierfrancescosoffritti.youtubeplayersample.recyclerViewSample.RecyclerViewActivity;
+import com.pierfrancescosoffritti.youtubeplayersample.baseExample.BaseExampleActivity;
+import com.pierfrancescosoffritti.youtubeplayersample.customUIExample.CustomUIExampleActivity;
+import com.pierfrancescosoffritti.youtubeplayersample.recyclerViewExample.RecyclerViewActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                     } else if(menuItem.getItemId() == R.id.open_recycler_view_example_menu_item) {
                         Intent intent = new Intent(this, RecyclerViewActivity.class);
+                        startActivity(intent);
+                    } else if(menuItem.getItemId() == R.id.open_custom_ui_example_menu_item) {
+                        Intent intent = new Intent(this, CustomUIExampleActivity.class);
                         startActivity(intent);
                     }
 

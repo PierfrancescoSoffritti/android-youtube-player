@@ -10,14 +10,20 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".BaseExampleActivity"
+            android:name=".baseExample.BaseExampleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true" />
 
         <activity
-            android:name=".recyclerViewSample.RecyclerViewActivity"
+            android:name=".recyclerViewExample.RecyclerViewActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:label="@string/title_activity_recycler_view"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".customUIExample.CustomUIExampleActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:label="@string/title_activity_custom_ui_view"
             android:theme="@style/AppTheme" />
 
         <activity

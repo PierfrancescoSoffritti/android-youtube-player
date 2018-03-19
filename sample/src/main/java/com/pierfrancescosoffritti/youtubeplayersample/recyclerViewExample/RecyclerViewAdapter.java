@@ -1,7 +1,6 @@
-package com.pierfrancescosoffritti.youtubeplayersample.recyclerViewSample;
+package com.pierfrancescosoffritti.youtubeplayersample.recyclerViewExample;
 
 import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleObserver;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

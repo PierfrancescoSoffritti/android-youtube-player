@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayersample.recyclerViewSample;
+package com.pierfrancescosoffritti.youtubeplayersample.recyclerViewExample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

@@ -26,35 +26,35 @@ import com.pierfrancescosoffritti.youtubeplayer.ui.menu.YouTubePlayerMenu;
 import com.pierfrancescosoffritti.youtubeplayer.ui.menu.defaultMenu.DefaultYouTubePlayerMenu;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
 
-public class DefaultPlayerUIController implements PlayerUIController, View.OnClickListener, YouTubePlayerFullScreenListener, YouTubePlayerListener, SeekBar.OnSeekBarChangeListener {
+public class DefaultPlayerUIController extends  AbstractPlayerUIController implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     @NonNull private final YouTubePlayerView youTubePlayerView;
     @NonNull private final YouTubePlayer youTubePlayer;
 
     @NonNull private YouTubePlayerMenu youTubePlayerMenu;
 
     // view responsible for intercepting clicks. Could have used controlsRoot view, but in this way I'm able to hide all the control at once by hiding controlsRoot
-    @NonNull private final View panel;
+    private View panel;
 
     // view containing the controls
-    @NonNull private final View controlsRoot;
+    private View controlsRoot;
 
-    @NonNull private final LinearLayout extraViewsContainer;
+    private LinearLayout extraViewsContainer;
 
-    @NonNull private final TextView videoTitle;
-    @NonNull private final TextView videoCurrentTime;
-    @NonNull private final TextView videoDuration;
-    @NonNull private final TextView liveVideoIndicator;
+    private TextView videoTitle;
+    private TextView videoCurrentTime;
+    private TextView videoDuration;
+    private TextView liveVideoIndicator;
 
-    @NonNull private final ProgressBar progressBar;
-    @NonNull private final ImageView menuButton;
-    @NonNull private final ImageView playPauseButton;
-    @NonNull private final ImageView youTubeButton;
-    @NonNull private final ImageView fullScreenButton;
+    private ProgressBar progressBar;
+    private ImageView menuButton;
+    private ImageView playPauseButton;
+    private ImageView youTubeButton;
+    private ImageView fullScreenButton;
 
-    @NonNull private final ImageView customActionLeft;
-    @NonNull private final ImageView customActionRight;
+    private ImageView customActionLeft;
+    private ImageView customActionRight;
 
-    @NonNull private final SeekBar seekBar;
+    private SeekBar seekBar;
 
     @Nullable private View.OnClickListener onFullScreenButtonListener;
     @Nullable private View.OnClickListener onMenuButtonClickListener;
@@ -67,12 +67,15 @@ public class DefaultPlayerUIController implements PlayerUIController, View.OnCli
     private boolean showUI = true;
     private boolean showPlayPauseButton = true;
 
-    public DefaultPlayerUIController(@NonNull YouTubePlayerView youTubePlayerView, @NonNull YouTubePlayer youTubePlayer, @NonNull View controlsView) {
+    public DefaultPlayerUIController(@NonNull YouTubePlayerView youTubePlayerView, @NonNull YouTubePlayer youTubePlayer) {
         this.youTubePlayerView = youTubePlayerView;
         this.youTubePlayer = youTubePlayer;
 
         youTubePlayerMenu = new DefaultYouTubePlayerMenu(youTubePlayerView.getContext());
+    }
 
+    @Override
+    public void onControlsViewInflated(View controlsView) {
         panel = controlsView.findViewById(R.id.panel);
 
         controlsRoot = controlsView.findViewById(R.id.controls_root);
