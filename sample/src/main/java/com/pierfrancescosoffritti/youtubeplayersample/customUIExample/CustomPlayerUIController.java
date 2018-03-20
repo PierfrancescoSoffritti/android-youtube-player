@@ -1,10 +1,13 @@
 package com.pierfrancescosoffritti.youtubeplayersample.customUIExample;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 
+import com.pierfrancescosoffritti.youtubeplayer.player.PlayerConstants;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.youtubeplayer.ui.AbstractPlayerUIController;
 import com.pierfrancescosoffritti.youtubeplayer.ui.menu.YouTubePlayerMenu;
@@ -12,13 +15,16 @@ import com.pierfrancescosoffritti.youtubeplayersample.R;
 
 class CustomPlayerUIController extends AbstractPlayerUIController {
 
-    CustomPlayerUIController() {
+    private final Context context;
+    private View panel;
 
+    CustomPlayerUIController(Context context) {
+        this.context = context;
     }
 
     @Override
     public void onControlsViewInflated(View controlsView) {
-
+        panel = controlsView.findViewById(com.pierfrancescosoffritti.youtubeplayer.R.id.panel);
     }
 
     @Override
@@ -27,8 +33,12 @@ class CustomPlayerUIController extends AbstractPlayerUIController {
     }
 
     @Override
-    public void onStateChange(int state) {
-
+    public void onStateChange(@PlayerConstants.PlayerState.State int state) {
+        if(state == PlayerConstants.PlayerState.PLAYING || state == PlayerConstants.PlayerState.PAUSED || state == PlayerConstants.PlayerState.VIDEO_CUED)
+            panel.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent));
+        else
+            if(state == PlayerConstants.PlayerState.BUFFERING)
+                panel.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent));
     }
 
     @Override

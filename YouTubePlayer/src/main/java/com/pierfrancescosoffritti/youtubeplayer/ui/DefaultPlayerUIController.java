@@ -32,7 +32,10 @@ public class DefaultPlayerUIController extends  AbstractPlayerUIController imple
 
     @NonNull private YouTubePlayerMenu youTubePlayerMenu;
 
-    // view responsible for intercepting clicks. Could have used controlsRoot view, but in this way I'm able to hide all the control at once by hiding controlsRoot
+    /**
+     * View used for for intercepting clicks and for drawing a black background.
+     * Could have used controlsRoot view, but in this way I'm able to hide all the control at once by hiding controlsRoot
+     */
     private View panel;
 
     // view containing the controls

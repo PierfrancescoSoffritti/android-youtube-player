@@ -126,16 +126,21 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         return playerUIControls;
     }
 
-    public void setPlayerUIControls(@NonNull AbstractPlayerUIController newPlayerUIController, @LayoutRes int controlsLayout) {
+    /**
+     * Call this method to use custom UI controls for the player. The default controls will be removed and replaced with the one you provide.
+     * @param playerUIController a {@link AbstractPlayerUIController} used to control the new controls view.
+     * @param controlsLayout the layout of the new controls. The layout will be inflated and the result View injected into the provided {@link AbstractPlayerUIController}.
+     */
+    public void setPlayerUIControls(@NonNull AbstractPlayerUIController playerUIController, @LayoutRes int controlsLayout) {
         removeViews(1, this.getChildCount()-1);
 
         View controlsView = View.inflate(getContext(), controlsLayout, this);
-        newPlayerUIController.onControlsViewInflated(controlsView);
+        playerUIController.onControlsViewInflated(controlsView);
 
         internalYouTubePlayerListener.removeListener(playerUIControls);
         fullScreenHelper.removeFullScreenListener(playerUIControls);
 
-        playerUIControls = newPlayerUIController;
+        playerUIControls = playerUIController;
 
         internalYouTubePlayerListener.addListener(playerUIControls);
         fullScreenHelper.addFullScreenListener(playerUIControls);

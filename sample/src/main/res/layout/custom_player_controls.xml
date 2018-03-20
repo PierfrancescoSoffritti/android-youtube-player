@@ -4,20 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <View
+        android:id="@+id/panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@android:color/black" />
+
     <TextView
         android:id="@+id/text_text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test"
-        android:textSize="40dp"
+        android:text="custom controls layout"
+        android:textSize="20sp"
         android:textColor="@android:color/white"/>
-
-    <TextView
-        android:id="@+id/text_text2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test"
-        android:textSize="40dp"
-        android:textColor="@android:color/black"/>
 
 </FrameLayout>

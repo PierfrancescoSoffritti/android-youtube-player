@@ -54,7 +54,7 @@ public class CustomUIExampleActivity extends AppCompatActivity {
 
         this.getLifecycle().addObserver(youTubePlayerView);
 
-        youTubePlayerView.setPlayerUIControls(new CustomPlayerUIController(), R.layout.custom_player_controls);
+        youTubePlayerView.setPlayerUIControls(new CustomPlayerUIController(this), R.layout.custom_player_controls);
 
         youTubePlayerView.initialize(initializedYouTubePlayer -> {
 
