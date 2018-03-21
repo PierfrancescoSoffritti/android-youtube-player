@@ -1,34 +1,22 @@
 package com.pierfrancescosoffritti.youtubeplayersample.customUIExample;
 
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
-import com.pierfrancescosoffritti.youtubeplayer.ui.PlayerUIController;
-import com.pierfrancescosoffritti.youtubeplayer.ui.menu.MenuItem;
 import com.pierfrancescosoffritti.youtubeplayersample.R;
 import com.pierfrancescosoffritti.youtubeplayersample.utils.FullScreenManager;
-import com.pierfrancescosoffritti.youtubeplayersample.utils.YouTubeDataEndpoint;
 
 import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-
-public class CustomUIExampleActivity extends AppCompatActivity {
+public class CustomUIActivity extends AppCompatActivity {
 
     private YouTubePlayerView youTubePlayerView;
     private FullScreenManager fullScreenManager;
@@ -61,7 +49,7 @@ public class CustomUIExampleActivity extends AppCompatActivity {
             initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
                 @Override
                 public void onReady() {
-                    CustomUIExampleActivity.this.initializedYouTubePlayer = initializedYouTubePlayer;
+                    CustomUIActivity.this.initializedYouTubePlayer = initializedYouTubePlayer;
 
                     initializedYouTubePlayer.loadVideo(videoIds[0], 0);
                 }

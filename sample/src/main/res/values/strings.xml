@@ -3,4 +3,5 @@
     <string name="title_activity_recycler_view">RecyclerViewActivity</string>
     <string name="title_main_activity">Android-YouTube-Player</string>
     <string name="title_activity_custom_ui_view">CustomUI Activity</string>
+    <string name="title_activity_view_pager">ViewPagerActivity</string>
 </resources>

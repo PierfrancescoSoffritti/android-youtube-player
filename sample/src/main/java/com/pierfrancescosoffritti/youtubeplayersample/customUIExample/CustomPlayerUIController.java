@@ -8,10 +8,8 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.pierfrancescosoffritti.youtubeplayer.player.PlayerConstants;
-import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.youtubeplayer.ui.AbstractPlayerUIController;
 import com.pierfrancescosoffritti.youtubeplayer.ui.menu.YouTubePlayerMenu;
-import com.pierfrancescosoffritti.youtubeplayersample.R;
 
 class CustomPlayerUIController extends AbstractPlayerUIController {
 
