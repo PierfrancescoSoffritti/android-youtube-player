@@ -45,7 +45,7 @@ public class BaseExampleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_base_example);
 
         fullScreenManager = new FullScreenManager(this);
 

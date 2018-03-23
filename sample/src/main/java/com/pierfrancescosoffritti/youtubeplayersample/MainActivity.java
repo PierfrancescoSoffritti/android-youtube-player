@@ -1,5 +1,6 @@
 package com.pierfrancescosoffritti.youtubeplayersample;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -8,7 +9,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.pierfrancescosoffritti.youtubeplayersample.baseExample.BaseExampleActivity;
 import com.pierfrancescosoffritti.youtubeplayersample.customUIExample.CustomUIActivity;
@@ -23,8 +30,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nav_drawer);
+        setContentView(R.layout.activity_main);
 
+        initWebView();
         initToolbar();
         initNavDrawer();
     }
@@ -45,6 +53,12 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initWebView() {
+        WebView webview = findViewById(R.id.main_activity_webview);
+        webview.getSettings().setJavaScriptEnabled(true);
+        webview.loadUrl("https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/README.md");
     }
 
     private void initToolbar() {
