@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.viewPagerExample;
+package com.pierfrancescosoffritti.youtubeplayersample.examples.viewPagerExample;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

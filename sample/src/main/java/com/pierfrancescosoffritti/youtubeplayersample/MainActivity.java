@@ -14,14 +14,14 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.basicExample.BasicExampleActivity;
-import com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.customUIExample.CustomUIActivity;
-import com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.recyclerViewExample.RecyclerViewActivity;
-import com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.viewPagerExample.ViewPagerActivity;
+import com.pierfrancescosoffritti.youtubeplayersample.examples.basicExample.BasicExampleActivity;
+import com.pierfrancescosoffritti.youtubeplayersample.examples.customUIExample.CustomUIActivity;
+import com.pierfrancescosoffritti.youtubeplayersample.examples.recyclerViewExample.RecyclerViewActivity;
+import com.pierfrancescosoffritti.youtubeplayersample.examples.viewPagerExample.ViewPagerActivity;
 
 /**
  * This Activity is used as a starting point for all the sample Activities.
- * You won't find any code example for the library here. You can find those in the "youtubePlayerLibraryExamples" package.
+ * You won't find any code example for the library here. You can find those in the "examples" package.
  */
 public class MainActivity extends AppCompatActivity {
 

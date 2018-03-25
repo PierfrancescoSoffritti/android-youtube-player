@@ -20,25 +20,25 @@
         </activity>
 
         <activity
-            android:name=".youtubePlayerLibraryExamples.basicExample.BasicExampleActivity"
+            android:name=".examples.basicExample.BasicExampleActivity"
             android:label="@string/basic_example"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true" />
 
         <activity
-            android:name=".youtubePlayerLibraryExamples.recyclerViewExample.RecyclerViewActivity"
+            android:name=".examples.recyclerViewExample.RecyclerViewActivity"
             android:label="@string/recycler_view_example"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true" />
 
         <activity
-            android:name=".youtubePlayerLibraryExamples.viewPagerExample.ViewPagerActivity"
+            android:name=".examples.viewPagerExample.ViewPagerActivity"
             android:label="@string/view_pager_example"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true" />
 
         <activity
-            android:name=".youtubePlayerLibraryExamples.customUIExample.CustomUIActivity"
+            android:name=".examples.customUIExample.CustomUIActivity"
             android:label="@string/custom_ui_example"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true" />

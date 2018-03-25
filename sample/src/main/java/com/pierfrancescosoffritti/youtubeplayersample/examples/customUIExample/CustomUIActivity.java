@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.customUIExample;
+package com.pierfrancescosoffritti.youtubeplayersample.examples.customUIExample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.basicExample;
+package com.pierfrancescosoffritti.youtubeplayersample.examples.basicExample;
 
 import android.arch.lifecycle.Lifecycle;
 import android.content.pm.ActivityInfo;
