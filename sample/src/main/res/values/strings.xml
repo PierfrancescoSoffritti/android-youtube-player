@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">YouTubePlayerSample</string>
-    <string name="title_activity_recycler_view">RecyclerViewActivity</string>
-    <string name="title_main_activity">Android-YouTube-Player</string>
-    <string name="title_activity_custom_ui_view">CustomUI Activity</string>
-    <string name="title_activity_view_pager">ViewPagerActivity</string>
+    <string name="app_name">Android-YouTube-Player</string>
+    <string name="basic_example">Basic example</string>
+    <string name="recycler_view_example">RecyclerView example</string>
+    <string name="custom_ui_example">Custom UI example</string>
+    <string name="view_pager_example">ViewPager example</string>
 </resources>

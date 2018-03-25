@@ -8,34 +8,41 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".baseExample.BaseExampleActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
-            android:hardwareAccelerated="true" />
-        <activity
-            android:name=".recyclerViewExample.RecyclerViewActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
-            android:label="@string/title_activity_recycler_view"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".customUIExample.CustomUIActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
-            android:label="@string/title_activity_custom_ui_view"
-            android:theme="@style/AppTheme" />
+
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_main_activity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:label="@string/app_name"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".viewPagerSample.ViewPagerActivity"
-            android:label="@string/title_activity_view_pager"
-            android:theme="@style/AppTheme"></activity>
+            android:name=".youtubePlayerLibraryExamples.baseExample.BasicExampleActivity"
+            android:label="@string/basic_example"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:hardwareAccelerated="true" />
+
+        <activity
+            android:name=".youtubePlayerLibraryExamples.recyclerViewExample.RecyclerViewActivity"
+            android:label="@string/recycler_view_example"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:hardwareAccelerated="true" />
+
+        <activity
+            android:name=".youtubePlayerLibraryExamples.viewPagerExample.ViewPagerActivity"
+            android:label="@string/view_pager_example"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:hardwareAccelerated="true" />
+
+        <activity
+            android:name=".youtubePlayerLibraryExamples.customUIExample.CustomUIActivity"
+            android:label="@string/custom_ui_example"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:hardwareAccelerated="true" />
+
     </application>
 
 </manifest>

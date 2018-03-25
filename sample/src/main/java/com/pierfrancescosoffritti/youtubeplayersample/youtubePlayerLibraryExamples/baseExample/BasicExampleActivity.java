@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayersample.baseExample;
+package com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.baseExample;
 
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -28,10 +28,10 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class BaseExampleActivity extends AppCompatActivity {
+public class BasicExampleActivity extends AppCompatActivity {
 
     private YouTubePlayerView youTubePlayerView;
-    private FullScreenManager fullScreenManager;
+    private FullScreenManager fullScreenManager = new FullScreenManager(this);
 
     private @Nullable YouTubePlayer initializedYouTubePlayer;
 
@@ -40,57 +40,17 @@ public class BaseExampleActivity extends AppCompatActivity {
     private String[] videoIds = {"6JYIGclVQdw", "LvetJ9U_tVY"};
 
     // a list of videos not available in some countries, to test if they're handled gracefully.
-    private String[] nonPlayableVideoIds = { "sop2V_MREEI" };
+    // private String[] nonPlayableVideoIds = { "sop2V_MREEI" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_example);
 
-        fullScreenManager = new FullScreenManager(this);
-
         nextVideoButton = findViewById(R.id.next_video_button);
         youTubePlayerView = findViewById(R.id.youtube_player_view);
 
-        this.getLifecycle().addObserver(youTubePlayerView);
-
-        youTubePlayerView.initialize(initializedYouTubePlayer -> {
-
-            initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
-                @Override
-                public void onReady() {
-                    BaseExampleActivity.this.initializedYouTubePlayer = initializedYouTubePlayer;
-
-                    initializedYouTubePlayer.loadVideo(videoIds[0], 0);
-                    setVideoTitle(youTubePlayerView.getPlayerUIController(), videoIds[0]);
-                }
-            });
-
-            addFullScreenListenerToPlayer(initializedYouTubePlayer);
-            setNextVideoButtonClickListener(initializedYouTubePlayer);
-
-        }, true);
-
-        // drawer_menu
-        youTubePlayerView.getPlayerUIController().showMenuButton(true);
-        youTubePlayerView.getPlayerUIController().getMenu().addItem(
-                new MenuItem("example", R.drawable.ic_settings_24dp, (view) -> Toast.makeText(this, "item clicked", Toast.LENGTH_SHORT).show())
-        );
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        // It's not necessary to call release if you register youTubePlayerView as a lifecycle observer of this Activity.
-//        youTubePlayerView.release();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (initializedYouTubePlayer != null)
-            initializedYouTubePlayer.pause();
+        initYouTubePlayerView();
     }
 
     @Override
@@ -105,6 +65,42 @@ public class BaseExampleActivity extends AppCompatActivity {
             youTubePlayerView.exitFullScreen();
         else
             super.onBackPressed();
+    }
+
+    private void initYouTubePlayerView() {
+        initPlayerMenu();
+
+        // The player will automatically release itself when the activity is destroyed.
+        // The player will automatically pause when the activity is paused
+        // If you don't add YouTubePlayerView as a lifecycle observer, you will have to release it manually.
+        getLifecycle().addObserver(youTubePlayerView);
+
+        youTubePlayerView.initialize(initializedYouTubePlayer -> {
+
+            initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
+                @Override
+                public void onReady() {
+                    BasicExampleActivity.this.initializedYouTubePlayer = initializedYouTubePlayer;
+                    loadVideo(initializedYouTubePlayer, videoIds[0]);
+                }
+            });
+
+            addFullScreenListenerToPlayer(initializedYouTubePlayer);
+            setNextVideoButtonClickListener(initializedYouTubePlayer);
+
+        }, true);
+    }
+
+    private void initPlayerMenu() {
+        youTubePlayerView.getPlayerUIController().showMenuButton(true);
+        youTubePlayerView.getPlayerUIController().getMenu().addItem(
+                new MenuItem("example", R.drawable.ic_settings_24dp, (view) -> Toast.makeText(this, "item clicked", Toast.LENGTH_SHORT).show())
+        );
+    }
+
+    private void loadVideo(YouTubePlayer youTubePlayer, String videoId) {
+        youTubePlayer.loadVideo(videoId, 0);
+        setVideoTitle(youTubePlayerView.getPlayerUIController(), videoIds[0]);
     }
 
     private void addFullScreenListenerToPlayer(final YouTubePlayer youTubePlayer) {
@@ -128,7 +124,7 @@ public class BaseExampleActivity extends AppCompatActivity {
     }
 
     private void addCustomActionToPlayer(YouTubePlayer youTubePlayer) {
-        Drawable icon = ContextCompat.getDrawable(BaseExampleActivity.this, R.drawable.ic_pause_36dp);
+        Drawable icon = ContextCompat.getDrawable(BasicExampleActivity.this, R.drawable.ic_pause_36dp);
 
         youTubePlayerView.getPlayerUIController().setCustomAction1(icon, view -> {
             if(youTubePlayer != null) youTubePlayer.pause();
@@ -143,8 +139,7 @@ public class BaseExampleActivity extends AppCompatActivity {
         nextVideoButton.setOnClickListener(view -> {
             String videoId = videoIds[new Random().nextInt(videoIds.length)];
 
-            youTubePlayer.loadVideo(videoId, 0);
-            setVideoTitle(youTubePlayerView.getPlayerUIController(), videoId);
+            loadVideo(youTubePlayer, videoId);
         });
     }
 

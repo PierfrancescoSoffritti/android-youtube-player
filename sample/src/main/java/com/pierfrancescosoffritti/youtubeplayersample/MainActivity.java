@@ -1,6 +1,6 @@
 package com.pierfrancescosoffritti.youtubeplayersample;
 
-import android.annotation.TargetApi;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,20 +9,20 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
-import com.pierfrancescosoffritti.youtubeplayersample.baseExample.BaseExampleActivity;
-import com.pierfrancescosoffritti.youtubeplayersample.customUIExample.CustomUIActivity;
-import com.pierfrancescosoffritti.youtubeplayersample.recyclerViewExample.RecyclerViewActivity;
-import com.pierfrancescosoffritti.youtubeplayersample.viewPagerSample.ViewPagerActivity;
+import com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.baseExample.BasicExampleActivity;
+import com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.customUIExample.CustomUIActivity;
+import com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.recyclerViewExample.RecyclerViewActivity;
+import com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.viewPagerExample.ViewPagerActivity;
 
+/**
+ * This Activity is used as a starting point for all the sample Activities.
+ * You won't find any code example for the library here. You can find those in the "youtubePlayerLibraryExamples" package.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void initWebView() {
         WebView webview = findViewById(R.id.main_activity_webview);
         webview.getSettings().setJavaScriptEnabled(true);
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressWarnings("ConstantConditions")
     private void initToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     drawerLayout.closeDrawers();
 
                     if(menuItem.getItemId() == R.id.open_base_example_menu_item) {
-                        Intent intent = new Intent(this, BaseExampleActivity.class);
+                        Intent intent = new Intent(this, BasicExampleActivity.class);
                         startActivity(intent);
                     } else if(menuItem.getItemId() == R.id.open_recycler_view_example_menu_item) {
                         Intent intent = new Intent(this, RecyclerViewActivity.class);

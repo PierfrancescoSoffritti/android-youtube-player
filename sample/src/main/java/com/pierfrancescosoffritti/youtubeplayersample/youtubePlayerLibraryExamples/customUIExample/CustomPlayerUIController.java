@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayersample.customUIExample;
+package com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.customUIExample;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

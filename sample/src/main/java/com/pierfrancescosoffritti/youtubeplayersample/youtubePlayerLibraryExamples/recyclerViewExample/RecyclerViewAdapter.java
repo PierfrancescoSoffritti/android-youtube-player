@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayersample.recyclerViewExample;
+package com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.recyclerViewExample;
 
 import android.arch.lifecycle.Lifecycle;
 import android.support.annotation.NonNull;
