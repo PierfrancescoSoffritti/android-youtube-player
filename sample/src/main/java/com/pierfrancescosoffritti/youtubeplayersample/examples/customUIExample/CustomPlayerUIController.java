@@ -33,13 +33,13 @@ class CustomPlayerUIController extends AbstractYouTubePlayerListener implements 
     private boolean playing = true;
     private boolean fullscreen = false;
 
-    CustomPlayerUIController(Context context, YouTubePlayer youTubePlayer, YouTubePlayerView youTubePlayerView, View playerUI) {
-        this.playerUI = playerUI;
+    CustomPlayerUIController(Context context, View customPlayerUI, YouTubePlayer youTubePlayer, YouTubePlayerView youTubePlayerView) {
+        this.playerUI = customPlayerUI;
         this.context = context;
         this.youTubePlayer = youTubePlayer;
         this.youTubePlayerView = youTubePlayerView;
 
-        initViews(playerUI);
+        initViews(customPlayerUI);
     }
 
     private void initViews(View playerUI) {

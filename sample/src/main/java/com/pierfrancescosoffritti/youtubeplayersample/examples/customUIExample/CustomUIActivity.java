@@ -25,8 +25,9 @@ public class CustomUIActivity extends AppCompatActivity {
 
         youTubePlayerView.initialize(youTubePlayer -> {
 
-            CustomPlayerUIController customPlayerUIController = new CustomPlayerUIController(this, youTubePlayer, youTubePlayerView, customPlayerUI);
+            CustomPlayerUIController customPlayerUIController = new CustomPlayerUIController(this, customPlayerUI, youTubePlayer, youTubePlayerView);
             youTubePlayer.addListener(customPlayerUIController);
+            youTubePlayerView.addFullScreenListener(customPlayerUIController);
 
             youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
                 @Override
