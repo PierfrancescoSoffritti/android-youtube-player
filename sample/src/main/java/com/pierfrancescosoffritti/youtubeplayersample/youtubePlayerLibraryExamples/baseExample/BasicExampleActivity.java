@@ -1,5 +1,6 @@
 package com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.baseExample;
 
+import android.arch.lifecycle.Lifecycle;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
@@ -99,7 +100,11 @@ public class BasicExampleActivity extends AppCompatActivity {
     }
 
     private void loadVideo(YouTubePlayer youTubePlayer, String videoId) {
-        youTubePlayer.loadVideo(videoId, 0);
+        if(getLifecycle().getCurrentState() == Lifecycle.State.RESUMED)
+            youTubePlayer.loadVideo(videoId, 0);
+        else
+            youTubePlayer.cueVideo(videoId, 0);
+
         setVideoTitle(youTubePlayerView.getPlayerUIController(), videoIds[0]);
     }
 
