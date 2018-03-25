@@ -33,9 +33,6 @@ public interface YouTubePlayer {
      */
     void seekTo(final int time);
 
-    @PlayerConstants.PlayerState.State
-    int getCurrentState();
-
     boolean addListener(@NonNull YouTubePlayerListener listener);
     boolean removeListener(@NonNull YouTubePlayerListener listener);
 }

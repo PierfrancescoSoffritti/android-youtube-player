@@ -1,5 +1,6 @@
 package com.pierfrancescosoffritti.youtubeplayer.player;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
@@ -28,7 +29,6 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
     @NonNull private final Handler mainThreadHandler;
 
     private YouTubePlayerInitListener youTubePlayerInitListener;
-    @Nullable private PlayerStateTracker playerStateTracker;
 
     protected WebViewYouTubePlayer(Context context) {
         this(context, null);
@@ -49,9 +49,6 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
         youTubePlayerListeners.clear();
 
         youTubePlayerInitListener = initListener;
-
-        playerStateTracker = new PlayerStateTracker();
-        youTubePlayerListeners.add(playerStateTracker);
 
         initWebView();
     }
@@ -145,15 +142,6 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
     }
 
     @Override
-    @PlayerConstants.PlayerState.State
-    public int getCurrentState() {
-        if(playerStateTracker == null)
-            throw new RuntimeException("Player not initialized.");
-
-        return playerStateTracker.currentState;
-    }
-
-    @Override
     public void destroy() {
         mainThreadHandler.removeCallbacksAndMessages(null);
         super.destroy();
@@ -174,6 +162,7 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
         return youTubePlayerListeners.remove(listener);
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void initWebView() {
         WebSettings settings = this.getSettings();
         settings.setJavaScriptEnabled(true);
@@ -214,15 +203,6 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
             return sb.toString();
         } catch (Exception e) {
             throw new RuntimeException("Can't parse HTML file containing the player.");
-        }
-    }
-
-    private class PlayerStateTracker extends AbstractYouTubePlayerListener {
-        @PlayerConstants.PlayerState.State private int currentState;
-
-        @Override
-        public void onStateChange(@PlayerConstants.PlayerState.State int state) {
-            this.currentState = state;
         }
     }
 }
