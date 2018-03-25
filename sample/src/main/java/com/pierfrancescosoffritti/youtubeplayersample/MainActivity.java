@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -59,6 +60,14 @@ public class MainActivity extends AppCompatActivity {
         WebView webview = findViewById(R.id.main_activity_webview);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.loadUrl("https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/README.md");
+
+        webview.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageCommitVisible(WebView view, String url) {
+                super.onPageCommitVisible(view, url);
+                findViewById(R.id.progressbar).setVisibility(View.GONE);
+            }
+        });
     }
 
     private void initToolbar() {
