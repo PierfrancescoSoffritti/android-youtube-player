@@ -26,7 +26,7 @@ import com.pierfrancescosoffritti.youtubeplayer.ui.menu.YouTubePlayerMenu;
 import com.pierfrancescosoffritti.youtubeplayer.ui.menu.defaultMenu.DefaultYouTubePlayerMenu;
 import com.pierfrancescosoffritti.youtubeplayer.utils.Utils;
 
-public class DefaultPlayerUIController extends  AbstractPlayerUIController implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
+public class DefaultPlayerUIController implements PlayerUIController, YouTubePlayerListener, YouTubePlayerFullScreenListener, View.OnClickListener, SeekBar.OnSeekBarChangeListener {
     @NonNull private final YouTubePlayerView youTubePlayerView;
     @NonNull private final YouTubePlayer youTubePlayer;
 
@@ -74,11 +74,13 @@ public class DefaultPlayerUIController extends  AbstractPlayerUIController imple
         this.youTubePlayerView = youTubePlayerView;
         this.youTubePlayer = youTubePlayer;
 
+        View defaultPlayerUI = View.inflate(youTubePlayerView.getContext(), R.layout.default_player_ui, youTubePlayerView);
+        initViews(defaultPlayerUI);
+
         youTubePlayerMenu = new DefaultYouTubePlayerMenu(youTubePlayerView.getContext());
     }
 
-    @Override
-    public void onControlsViewInflated(View controlsView) {
+    private void initViews(View controlsView) {
         panel = controlsView.findViewById(R.id.panel);
 
         controlsRoot = controlsView.findViewById(R.id.controls_root);

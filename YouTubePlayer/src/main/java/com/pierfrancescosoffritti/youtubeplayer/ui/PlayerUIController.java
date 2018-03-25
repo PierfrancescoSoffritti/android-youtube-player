@@ -44,6 +44,6 @@ public interface PlayerUIController {
      */
     void removeView(@NonNull View view);
 
-    @NonNull YouTubePlayerMenu getMenu();
+    @Nullable YouTubePlayerMenu getMenu();
     void setMenu(@NonNull YouTubePlayerMenu youTubePlayerMenu);
 }
