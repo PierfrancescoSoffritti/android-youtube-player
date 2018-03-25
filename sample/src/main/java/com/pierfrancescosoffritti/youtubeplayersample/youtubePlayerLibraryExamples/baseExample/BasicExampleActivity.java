@@ -23,8 +23,6 @@ import com.pierfrancescosoffritti.youtubeplayersample.utils.YouTubeDataEndpoint;
 
 import java.util.Random;
 
-import javax.annotation.Nullable;
-
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -33,10 +31,6 @@ public class BasicExampleActivity extends AppCompatActivity {
 
     private YouTubePlayerView youTubePlayerView;
     private FullScreenManager fullScreenManager = new FullScreenManager(this);
-
-    private @Nullable YouTubePlayer initializedYouTubePlayer;
-
-    private Button nextVideoButton;
 
     private String[] videoIds = {"6JYIGclVQdw", "LvetJ9U_tVY"};
 
@@ -48,7 +42,6 @@ public class BasicExampleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_example);
 
-        nextVideoButton = findViewById(R.id.next_video_button);
         youTubePlayerView = findViewById(R.id.youtube_player_view);
 
         initYouTubePlayerView();
@@ -76,22 +69,24 @@ public class BasicExampleActivity extends AppCompatActivity {
         // If you don't add YouTubePlayerView as a lifecycle observer, you will have to release it manually.
         getLifecycle().addObserver(youTubePlayerView);
 
-        youTubePlayerView.initialize(initializedYouTubePlayer -> {
+        youTubePlayerView.initialize(youTubePlayer -> {
 
-            initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
+            youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
                 @Override
                 public void onReady() {
-                    BasicExampleActivity.this.initializedYouTubePlayer = initializedYouTubePlayer;
-                    loadVideo(initializedYouTubePlayer, videoIds[0]);
+                    loadVideo(youTubePlayer, videoIds[0]);
                 }
             });
 
-            addFullScreenListenerToPlayer(initializedYouTubePlayer);
-            setNextVideoButtonClickListener(initializedYouTubePlayer);
+            addFullScreenListenerToPlayer(youTubePlayer);
+            setPlayNextVideoButtonClickListener(youTubePlayer);
 
         }, true);
     }
 
+    /**
+     * Shows the menu button in the player and adds an item to it.
+     */
     private void initPlayerMenu() {
         youTubePlayerView.getPlayerUIController().showMenuButton(true);
         youTubePlayerView.getPlayerUIController().getMenu().addItem(
@@ -99,6 +94,15 @@ public class BasicExampleActivity extends AppCompatActivity {
         );
     }
 
+    /**
+     * Load a video if the activity is resumed, cue it otherwise.
+     * See difference between {@link YouTubePlayer#cueVideo(String, float)} and {@link YouTubePlayer#loadVideo(String, float)}
+     *
+     * With this library is possible to play videos even if the player is not visible.
+     * But this goes against YouTube's terms of service therefore,
+     * if you plan to publish your app on the Play Store, always pause the video when the player is not visible.
+     * If you don't intend to publish your app on the Play Store you can play and pause whenever you want.
+     */
     private void loadVideo(YouTubePlayer youTubePlayer, String videoId) {
         if(getLifecycle().getCurrentState() == Lifecycle.State.RESUMED)
             youTubePlayer.loadVideo(videoId, 0);
@@ -128,10 +132,14 @@ public class BasicExampleActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method adds a new custom action to the player.
+     * Custom actions are shown next to the Play/Pause button in the middle of the player.
+     */
     private void addCustomActionToPlayer(YouTubePlayer youTubePlayer) {
-        Drawable icon = ContextCompat.getDrawable(BasicExampleActivity.this, R.drawable.ic_pause_36dp);
+        Drawable customActionIcon = ContextCompat.getDrawable(this, R.drawable.ic_pause_36dp);
 
-        youTubePlayerView.getPlayerUIController().setCustomAction1(icon, view -> {
+        youTubePlayerView.getPlayerUIController().setCustomAction1(customActionIcon, view -> {
             if(youTubePlayer != null) youTubePlayer.pause();
         });
     }
@@ -140,10 +148,14 @@ public class BasicExampleActivity extends AppCompatActivity {
         youTubePlayerView.getPlayerUIController().showCustomAction1(false);
     }
 
-    private void setNextVideoButtonClickListener(final YouTubePlayer youTubePlayer) {
-        nextVideoButton.setOnClickListener(view -> {
-            String videoId = videoIds[new Random().nextInt(videoIds.length)];
+    /**
+     * Set a click listener on the "Play next video" button
+     */
+    private void setPlayNextVideoButtonClickListener(final YouTubePlayer youTubePlayer) {
+        Button playNextVideoButton = findViewById(R.id.next_video_button);
 
+        playNextVideoButton.setOnClickListener(view -> {
+            String videoId = videoIds[new Random().nextInt(videoIds.length)];
             loadVideo(youTubePlayer, videoId);
         });
     }
