@@ -131,11 +131,13 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     }
 
     /**
-     *
-     * @param customPlayerUILayout
-     * @return
+     * Replaces the default UI of the player with a custom UI.<br/>
+     * You will have to control the custom UI in your application,
+     * the default controller obtained through {@link YouTubePlayerView#getPlayerUIController()} won't be available anymore.
+     * @param customPlayerUILayoutID the ID of the layout defining the custom UI.
+     * @return The inflated View
      */
-    public View inflateCustomPlayerUI(@LayoutRes int customPlayerUILayout) {
+    public View inflateCustomPlayerUI(@LayoutRes int customPlayerUILayoutID) {
         removeViews(1, this.getChildCount()-1);
 
         if (defaultPlayerUIController != null) {
@@ -145,7 +147,7 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
 
         defaultPlayerUIController = null;
 
-        return View.inflate(getContext(), customPlayerUILayout, this);
+        return View.inflate(getContext(), customPlayerUILayoutID, this);
     }
 
     public void enterFullScreen() {
