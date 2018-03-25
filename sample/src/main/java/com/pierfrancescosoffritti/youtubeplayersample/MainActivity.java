@@ -14,7 +14,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.baseExample.BasicExampleActivity;
+import com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.basicExample.BasicExampleActivity;
 import com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.customUIExample.CustomUIActivity;
 import com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.recyclerViewExample.RecyclerViewActivity;
 import com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.viewPagerExample.ViewPagerActivity;

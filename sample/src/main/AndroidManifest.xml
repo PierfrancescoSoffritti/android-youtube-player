@@ -20,7 +20,7 @@
         </activity>
 
         <activity
-            android:name=".youtubePlayerLibraryExamples.baseExample.BasicExampleActivity"
+            android:name=".youtubePlayerLibraryExamples.basicExample.BasicExampleActivity"
             android:label="@string/basic_example"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true" />

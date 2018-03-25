@@ -22,6 +22,8 @@ public class ViewPagerFragment extends Fragment {
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_view_pager, container, false);
 
         YouTubePlayerView youTubePlayerView = view.findViewById(R.id.youtube_player_view);
+
+        getLifecycle().addObserver(youTubePlayerView);
         youTubePlayerView.getPlayerUIController().showFullscreenButton(false);
 
         youTubePlayerView.initialize(initializedYouTubePlayer -> {
@@ -41,13 +43,6 @@ public class ViewPagerFragment extends Fragment {
     public void setMenuVisibility(final boolean visible) {
         super.setMenuVisibility(visible);
         if (!visible && initializedYouTubePlayer != null)
-            initializedYouTubePlayer.pause();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (initializedYouTubePlayer != null)
             initializedYouTubePlayer.pause();
     }
 }

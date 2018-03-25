@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.baseExample;
+package com.pierfrancescosoffritti.youtubeplayersample.youtubePlayerLibraryExamples.basicExample;
 
 import android.arch.lifecycle.Lifecycle;
 import android.content.pm.ActivityInfo;
@@ -40,7 +40,7 @@ public class BasicExampleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base_example);
+        setContentView(R.layout.activity_basic_example);
 
         youTubePlayerView = findViewById(R.id.youtube_player_view);
 

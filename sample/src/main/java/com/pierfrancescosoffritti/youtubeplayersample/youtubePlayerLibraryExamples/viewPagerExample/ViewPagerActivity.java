@@ -17,7 +17,7 @@ public class ViewPagerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_pager);
+        setContentView(R.layout.activity_view_pager_example);
 
         ViewPager viewPager = findViewById(R.id.view_pager);
         PagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -37,6 +37,11 @@ public class ViewPagerActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             return NUM_PAGES;
+        }
+
+        @Override
+        public CharSequence getPageTitle (int position) {
+            return "Page " +position;
         }
     }
 }

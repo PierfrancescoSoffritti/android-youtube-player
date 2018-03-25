@@ -6,4 +6,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="viewPagerTitleStrip">
+        <item name="android:textColor">#FFF</item>
+        <item name="android:background">#000</item>
+    </style>
+
 </resources>
