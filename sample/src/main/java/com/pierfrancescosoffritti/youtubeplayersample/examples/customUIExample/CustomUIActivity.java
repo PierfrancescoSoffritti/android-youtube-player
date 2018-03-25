@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.youtubeplayersample.R;
 
@@ -20,11 +21,11 @@ public class CustomUIActivity extends AppCompatActivity {
         YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
         getLifecycle().addObserver(youTubePlayerView);
 
-        View customPlayerUI = youTubePlayerView.inflateCustomPlayerUI(R.layout.custom_player_controls);
-        CustomPlayerUIController customPlayerUIController = new CustomPlayerUIController(this, customPlayerUI);
+        View customPlayerUI = youTubePlayerView.inflateCustomPlayerUI(R.layout.custom_player_ui);
 
         youTubePlayerView.initialize(youTubePlayer -> {
 
+            CustomPlayerUIController customPlayerUIController = new CustomPlayerUIController(this, youTubePlayer, youTubePlayerView, customPlayerUI);
             youTubePlayer.addListener(customPlayerUIController);
 
             youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
