@@ -109,7 +109,7 @@ public class BasicExampleActivity extends AppCompatActivity {
         else
             youTubePlayer.cueVideo(videoId, 0);
 
-        setVideoTitle(youTubePlayerView.getPlayerUIController(), videoIds[0]);
+        setVideoTitle(youTubePlayerView.getPlayerUIController(), videoId);
     }
 
     private void addFullScreenListenerToPlayer(final YouTubePlayer youTubePlayer) {

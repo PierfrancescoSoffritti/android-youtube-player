@@ -25,6 +25,7 @@ import com.pierfrancescosoffritti.youtubeplayersample.examples.viewPagerExample.
  */
 public class MainActivity extends AppCompatActivity {
 
+    private WebView webview;
     private DrawerLayout drawerLayout;
     private MenuItem selectedMenuItem;
 
@@ -56,9 +57,17 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (webview.canGoBack())
+            webview.goBack();
+        else
+            super.onBackPressed();
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
     private void initWebView() {
-        WebView webview = findViewById(R.id.main_activity_webview);
+        webview = findViewById(R.id.main_activity_webview);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.loadUrl("https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/README.md");
 
