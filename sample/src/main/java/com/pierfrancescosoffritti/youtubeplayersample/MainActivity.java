@@ -1,7 +1,9 @@
 package com.pierfrancescosoffritti.youtubeplayersample;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +16,8 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.pierfrancescosoffritti.youtubeplayersample.examples.basicExample.BasicExampleActivity;
 import com.pierfrancescosoffritti.youtubeplayersample.examples.customUIExample.CustomUIActivity;
 import com.pierfrancescosoffritti.youtubeplayersample.examples.recyclerViewExample.RecyclerViewActivity;
@@ -37,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         initWebView();
         initToolbar();
         initNavDrawer();
+
+        showFeatureDiscovery();
     }
 
     @Override
@@ -118,5 +124,36 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
         );
+    }
+
+    private void showFeatureDiscovery() {
+        String prefKey = "featureDiscoveryShown";
+        SharedPreferences prefs = getSharedPreferences("sampleApp_MainActivity", Context.MODE_PRIVATE);
+        boolean featureDiscoveryShown = prefs.getBoolean(prefKey, false);
+
+        if(featureDiscoveryShown)
+            return;
+        else
+            prefs.edit().putBoolean(prefKey, true).apply();
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        View target = toolbar.getChildAt(1);
+
+        TapTargetView.showFor(
+            this,
+            TapTarget.forView(target, "Explore examples", "click here to see all the examples")
+                    .outerCircleColor(R.color.github_black)
+                    .outerCircleAlpha(1)
+                    .targetCircleColor(android.R.color.white)
+                    .titleTextColor(android.R.color.white)
+                    .drawShadow(true)
+                    .transparentTarget(true)
+            , new TapTargetView.Listener() {
+                @Override
+                public void onTargetClick(TapTargetView view) {
+                    super.onTargetClick(view);
+                    target.performClick();
+                }
+            });
     }
 }
