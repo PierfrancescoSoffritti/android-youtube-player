@@ -127,14 +127,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showFeatureDiscovery() {
-        String prefKey = "featureDiscoveryShown";
-        SharedPreferences prefs = getSharedPreferences("sampleApp_MainActivity", Context.MODE_PRIVATE);
-        boolean featureDiscoveryShown = prefs.getBoolean(prefKey, false);
+        String preferenceKey = "featureDiscoveryShown";
+        String sharedPreferencesKey = "sampleApp_MainActivity_SharedPreferences";
+        SharedPreferences prefs = getSharedPreferences(sharedPreferencesKey, Context.MODE_PRIVATE);
+        boolean featureDiscoveryShown = prefs.getBoolean(preferenceKey, false);
 
         if(featureDiscoveryShown)
             return;
         else
-            prefs.edit().putBoolean(prefKey, true).apply();
+            prefs.edit().putBoolean(preferenceKey, true).apply();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         View target = toolbar.getChildAt(1);
