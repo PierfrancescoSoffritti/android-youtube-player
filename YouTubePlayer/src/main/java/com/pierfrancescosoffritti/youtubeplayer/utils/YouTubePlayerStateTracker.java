@@ -7,7 +7,7 @@ import com.pierfrancescosoffritti.youtubeplayer.player.PlayerConstants;
  * Utility class responsible for tracking the state of YouTubePlayer.
  * This is a YouTubePlayerListener, therefore is responsibility of the user to add and remove it as a listener on the YouTubePlayer object.
  */
-public class PlayerStateTracker extends AbstractYouTubePlayerListener{
+public class YouTubePlayerStateTracker extends AbstractYouTubePlayerListener{
     @PlayerConstants.PlayerState.State private int currentState;
     private float currentSecond;
     private float videoDuration;
