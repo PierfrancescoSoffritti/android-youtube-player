@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayersample.examples.recyclerViewExample;
+package com.pierfrancescosoffritti.androidyoutubeplayersample.examples.recyclerViewExample;
 
 import android.arch.lifecycle.Lifecycle;
 import android.support.annotation.NonNull;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
-import com.pierfrancescosoffritti.youtubeplayersample.R;
+import com.pierfrancescosoffritti.androidyoutubeplayersample.R;
 
 class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private String[] videoIds;

@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayersample.examples.viewPagerExample;
+package com.pierfrancescosoffritti.androidyoutubeplayersample.examples.viewPagerExample;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
-import com.pierfrancescosoffritti.youtubeplayersample.R;
+import com.pierfrancescosoffritti.androidyoutubeplayersample.R;
 
 public class ViewPagerFragment extends Fragment {
 

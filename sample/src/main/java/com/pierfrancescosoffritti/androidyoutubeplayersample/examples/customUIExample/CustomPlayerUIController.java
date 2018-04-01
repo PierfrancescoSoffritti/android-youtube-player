@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayersample.examples.customUIExample;
+package com.pierfrancescosoffritti.androidyoutubeplayersample.examples.customUIExample;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,7 +13,7 @@ import com.pierfrancescosoffritti.youtubeplayer.player.PlayerConstants;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
-import com.pierfrancescosoffritti.youtubeplayersample.R;
+import com.pierfrancescosoffritti.androidyoutubeplayersample.R;
 
 class CustomPlayerUIController extends AbstractYouTubePlayerListener implements YouTubePlayerFullScreenListener {
 

@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayersample.examples.basicExample;
+package com.pierfrancescosoffritti.androidyoutubeplayersample.examples.basicExample;
 
 import android.arch.lifecycle.Lifecycle;
 import android.content.pm.ActivityInfo;
@@ -17,9 +17,9 @@ import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenLi
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.youtubeplayer.ui.PlayerUIController;
 import com.pierfrancescosoffritti.youtubeplayer.ui.menu.MenuItem;
-import com.pierfrancescosoffritti.youtubeplayersample.R;
-import com.pierfrancescosoffritti.youtubeplayersample.utils.FullScreenManager;
-import com.pierfrancescosoffritti.youtubeplayersample.utils.YouTubeDataEndpoint;
+import com.pierfrancescosoffritti.androidyoutubeplayersample.R;
+import com.pierfrancescosoffritti.androidyoutubeplayersample.utils.FullScreenManager;
+import com.pierfrancescosoffritti.androidyoutubeplayersample.utils.YouTubeDataEndpoint;
 
 import java.util.Random;
 

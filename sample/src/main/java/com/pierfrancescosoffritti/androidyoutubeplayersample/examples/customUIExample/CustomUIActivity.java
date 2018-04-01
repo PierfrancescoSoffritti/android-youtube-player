@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayersample.examples.customUIExample;
+package com.pierfrancescosoffritti.androidyoutubeplayersample.examples.customUIExample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +7,7 @@ import android.view.View;
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
-import com.pierfrancescosoffritti.youtubeplayersample.R;
+import com.pierfrancescosoffritti.androidyoutubeplayersample.R;
 
 public class CustomUIActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.youtubeplayersample;
+package com.pierfrancescosoffritti.androidyoutubeplayersample;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -21,10 +21,10 @@ import android.webkit.WebViewClient;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
-import com.pierfrancescosoffritti.youtubeplayersample.examples.basicExample.BasicExampleActivity;
-import com.pierfrancescosoffritti.youtubeplayersample.examples.customUIExample.CustomUIActivity;
-import com.pierfrancescosoffritti.youtubeplayersample.examples.recyclerViewExample.RecyclerViewActivity;
-import com.pierfrancescosoffritti.youtubeplayersample.examples.viewPagerExample.ViewPagerActivity;
+import com.pierfrancescosoffritti.androidyoutubeplayersample.examples.basicExample.BasicExampleActivity;
+import com.pierfrancescosoffritti.androidyoutubeplayersample.examples.customUIExample.CustomUIActivity;
+import com.pierfrancescosoffritti.androidyoutubeplayersample.examples.recyclerViewExample.RecyclerViewActivity;
+import com.pierfrancescosoffritti.androidyoutubeplayersample.examples.viewPagerExample.ViewPagerActivity;
 
 /**
  * This Activity is used as a starting point for all the sample Activities.
