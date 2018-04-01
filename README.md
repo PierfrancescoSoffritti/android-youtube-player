@@ -20,7 +20,7 @@ A list of published apps that are using this library: ([let me know](https://git
 
 - [Shuffly](https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.shuffly)
 
-<img height="450" width="225" src="https://raw.githubusercontent.com/PierfrancescoSoffritti/Android-YouTube-Player/gh-pages/pics/android-youtube-player.gif" /> <img height="450" width="225" src="https://raw.githubusercontent.com/PierfrancescoSoffritti/Android-YouTube-Player/gh-pages/pics/android-youtube-player.png" />
+<img src="https://raw.githubusercontent.com/PierfrancescoSoffritti/Android-YouTube-Player/gh-pages/pics/showcase.jpg"/>
 
 ## Download
 Add this to your project-level `build.gradle`:
