@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,8 +12,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -29,6 +32,7 @@ import com.pierfrancescosoffritti.youtubeplayersample.examples.viewPagerExample.
  */
 public class MainActivity extends AppCompatActivity {
 
+    private Toolbar toolbar;
     private WebView webview;
     private DrawerLayout drawerLayout;
     private MenuItem selectedMenuItem;
@@ -75,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private void initWebView() {
         webview = findViewById(R.id.main_activity_webview);
         webview.getSettings().setJavaScriptEnabled(true);
-        webview.loadUrl("https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/README.md");
+        webview.loadUrl("https://pierfrancescosoffritti.github.io/Android-YouTube-Player/");
 
         webview.setWebViewClient(new WebViewClient() {
             @Override
@@ -88,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressWarnings("ConstantConditions")
     private void initToolbar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActionBar actionbar = getSupportActionBar();
@@ -98,8 +102,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void initNavDrawer() {
         drawerLayout = findViewById(R.id.drawer_layout);
-
         NavigationView navigationView = findViewById(R.id.navigation_view);
+
+        setNavigationViewWidth(navigationView);
+
         navigationView.setNavigationItemSelectedListener(
                 menuItem -> {
                     menuItem.setChecked(true);
@@ -126,6 +132,26 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
+    private void setNavigationViewWidth(NavigationView navigationView) {
+        ViewGroup.LayoutParams params = navigationView.getLayoutParams();
+        int width = getScreenWidth() - getToolbarHeight();
+        int _320dp = getResources().getDimensionPixelSize(R.dimen._320dp);
+        params.width = width > _320dp ? _320dp : width;
+        navigationView.setLayoutParams(params);
+    }
+
+    private int getToolbarHeight() {
+        return toolbar.getLayoutParams().height;
+    }
+
+    private int getScreenWidth() {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size.x;
+    }
+
+
     private void showFeatureDiscovery() {
         String preferenceKey = "featureDiscoveryShown";
         String sharedPreferencesKey = "sampleApp_MainActivity_SharedPreferences";
@@ -142,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
         TapTargetView.showFor(
             this,
-            TapTarget.forView(target, "Explore examples", "click here to see all the examples")
+            TapTarget.forView(target, getString(R.string.explore_examples), getString(R.string.explore_examples_description))
                     .outerCircleColor(R.color.github_black)
                     .outerCircleAlpha(1)
                     .targetCircleColor(android.R.color.white)
