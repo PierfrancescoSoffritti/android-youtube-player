@@ -106,5 +106,5 @@ You can use the `PlayerUIController` to customize the UI of the player. You can 
 
 If you need even more control over the UI and you want to design it specifically for your app, you have the freedom to do it. You can completly replace the default UI with your own. Simply call the method `View YouTubePlayerView.inflateCustomPlayerUI(@LayoutRes int customPlayerUILayoutID)`.
 
-This method takes in the id of a layout resource. The method returns the View object corresponding to the inflated layout. The default UI of the player gets removed and replaced with the new UI, giving you all the freedom you want. You can read more [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/Replace-the-player%27s-UI).
+This method takes in the id of a layout resource. The method returns the View object corresponding to the inflated layout. The default UI of the player gets removed and replaced with the new UI, giving you all the freedom you want. You can read more [in the Wiki](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/Replace-the-player%27s-UI) and in [this blog post](https://medium.com/@soffritti.pierfrancesco/customize-android-youtube-players-ui-9f32da9e8505).
 
