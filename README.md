@@ -8,7 +8,6 @@ The interaction with YouTube is based on the [IFrame Player API](https://develop
 The web UI of the IFrame Player player is hidden, instead a native UI built on top of Android is used to interact with the player, providing a native experience to the users.
 
 ## Why does this library exists?
-
 This library has been developed out of necessity. The official library provided by Google for the integration of YouTube videos into Android apps is the [YouTube Android Player API](https://developers.google.com/youtube/android/player/). Its many bugs ([some are 5+ years old](https://code.google.com/p/gdata-issues/issues/detail?id=4395)) and the lack of support from Google made it impossible to use in production.
 
 A lengthier explanation to why you may want to consider using an alternative to the official YouTube player is written in [this Medium post](https://medium.com/@soffritti.pierfrancesco/how-to-play-youtube-videos-in-your-android-app-c40427215230).
@@ -50,13 +49,13 @@ If you are using ProGuard you might need to add the following options:
 -keepnames class com.pierfrancescosoffritti.youtubeplayer.*
 ```
 ## Usage
+A sample project that shows how to use the library is available in the [sample module](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/tree/master/sample). You can also [download the sample apk here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/tree/master/sample/apk), or on the PlayStore.
 
-A sample project that shows how to use the library is available in the [sample module](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/tree/master/sample). You can also [download the sample apk here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/tree/master/sample/apk).
+<a href='https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.androidyoutubeplayersample&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img width='200px' alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
 
 **Please refer to the [Wiki](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/Quick-start) of the library for a detailed description on how to use it.**
 
 ### Quick start
-
 In order to start using the player you need to add the [YouTubePlayerView](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/YouTubePlayerView) to your layout
 ```
 <LinearLayout
@@ -95,8 +94,14 @@ The [AbstractYouTubePlayerListener](https://github.com/PierfrancescoSoffritti/An
 
 The playback of the videos is handled by the [YouTubePlayer](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/YouTubePlayer). You must use that for everything concerning video playback.
 
+#### Customize player UI
 The UI of the player is handled by a [PlayerUIController](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/PlayerUIController), in order to interact with it you must get its reference from the `YouTubePlayerView`
 
 ```
 PlayerUIController uiController = youTubePlayerView.getPlayerUIController();
 ```
+You can use the `PlayerUIController` to customize the UI of the player. You can show or hide Views in it, add your own Views and icons, remap click listeners etc. Read more about it [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/PlayerUIController).
+
+If you need even more control over the UI and you want to design it specifically for your app, you have the freedom to do it. You can completly replace the default UI with your own. Simply call the method `View YouTubePlayerView.inflateCustomPlayerUI(@LayoutRes int customPlayerUILayoutID)`.
+
+This method takes in the id of a layout resource. The method returns the View object corresponding to the inflated layout. The default UI of the player gets removed and replaced with the new UI, giving you all the freedom you want. You can read more [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/Replace-the-player%27s-UI).
