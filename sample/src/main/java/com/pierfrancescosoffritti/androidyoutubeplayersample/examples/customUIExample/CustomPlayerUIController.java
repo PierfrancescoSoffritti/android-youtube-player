@@ -23,10 +23,11 @@ class CustomPlayerUIController extends AbstractYouTubePlayerListener implements 
     private YouTubePlayer youTubePlayer;
     private YouTubePlayerView youTubePlayerView;
 
+    // panel is used to intercept clicks on the WebView, I don't want the user to be able to click the WebView directly.
     private View panel;
     private View progressbar;
-    private TextView videoCurrentTime;
-    private TextView videoDuration;
+    private TextView videoCurrentTimeTextView;
+    private TextView videoDurationTextView;
     private Button playPauseButton;
     private Button enterExitFullscreenButton;
 
@@ -45,8 +46,8 @@ class CustomPlayerUIController extends AbstractYouTubePlayerListener implements 
     private void initViews(View playerUI) {
         panel = playerUI.findViewById(R.id.panel);
         progressbar = playerUI.findViewById(R.id.progressbar);
-        videoCurrentTime = playerUI.findViewById(R.id.video_current_time);
-        videoDuration = playerUI.findViewById(R.id.video_duration);
+        videoCurrentTimeTextView = playerUI.findViewById(R.id.video_current_time);
+        videoDurationTextView = playerUI.findViewById(R.id.video_duration);
         playPauseButton = playerUI.findViewById(R.id.play_pause_button);
         enterExitFullscreenButton = playerUI.findViewById(R.id.enter_exit_fullscreen_button);
 
@@ -82,13 +83,13 @@ class CustomPlayerUIController extends AbstractYouTubePlayerListener implements 
     @SuppressLint("SetTextI18n")
     @Override
     public void onCurrentSecond(float second) {
-        videoCurrentTime.setText(second+"");
+        videoCurrentTimeTextView.setText(second+"");
     }
 
     @SuppressLint("SetTextI18n")
     @Override
     public void onVideoDuration(float duration) {
-        videoDuration.setText(duration+"");
+        videoDurationTextView.setText(duration+"");
     }
 
     @Override
