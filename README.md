@@ -96,7 +96,7 @@ The [AbstractYouTubePlayerListener](https://github.com/PierfrancescoSoffritti/An
 
 The playback of the videos is handled by the [YouTubePlayer](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/YouTubePlayer). You must use that for everything concerning video playback.
 
-#### Customize player UI
+### Customize player UI
 The UI of the player is handled by a [PlayerUIController](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/PlayerUIController), in order to interact with it you must get its reference from the `YouTubePlayerView`
 
 ```
