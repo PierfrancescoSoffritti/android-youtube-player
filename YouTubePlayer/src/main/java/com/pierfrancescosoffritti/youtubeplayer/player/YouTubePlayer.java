@@ -19,7 +19,16 @@ public interface YouTubePlayer {
     void play();
     void pause();
 
+    /**
+     * This method is deprecated. Use {@link YouTubePlayer#setVolume(int)} instead.
+     */
+    @Deprecated
     void mute();
+
+    /**
+     * This method is deprecated. Use {@link YouTubePlayer#setVolume(int)} instead.
+     */
+    @Deprecated
     void unMute();
 
     /**
