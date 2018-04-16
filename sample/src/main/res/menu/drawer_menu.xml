@@ -15,5 +15,9 @@
         <item
             android:id="@+id/open_custom_ui_example_menu_item"
             android:title="@string/custom_ui_example" />
+
+        <item
+            android:id="@+id/open_live_video_example_menu_item"
+            android:title="@string/live_video_example" />
     </group>
 </menu>

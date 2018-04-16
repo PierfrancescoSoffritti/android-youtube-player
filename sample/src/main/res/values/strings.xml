@@ -5,5 +5,6 @@
     <string name="custom_ui_example">Custom UI example</string>
     <string name="view_pager_example">ViewPager example</string>
     <string name="explore_examples">Explore examples</string>
+    <string name="live_video_example">LiveVideo example</string>
     <string name="explore_examples_description">Click here to see all the examples</string>
 </resources>

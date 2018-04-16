@@ -23,6 +23,7 @@ import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
 import com.pierfrancescosoffritti.androidyoutubeplayersample.examples.basicExample.BasicExampleActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayersample.examples.customUIExample.CustomUIActivity;
+import com.pierfrancescosoffritti.androidyoutubeplayersample.examples.liveVideoExample.LiveVideoActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayersample.examples.recyclerViewExample.RecyclerViewActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayersample.examples.viewPagerExample.ViewPagerActivity;
 
@@ -124,6 +125,9 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                     } else if(menuItem.getItemId() == R.id.open_custom_ui_example_menu_item) {
                         Intent intent = new Intent(this, CustomUIActivity.class);
+                        startActivity(intent);
+                    } else if(menuItem.getItemId() == R.id.open_live_video_example_menu_item) {
+                        Intent intent = new Intent(this, LiveVideoActivity.class);
                         startActivity(intent);
                     }
 

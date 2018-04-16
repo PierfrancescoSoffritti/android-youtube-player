@@ -8,41 +8,40 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout" >
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".examples.basicExample.BasicExampleActivity"
-            android:label="@string/basic_example"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
-            android:hardwareAccelerated="true" />
-
+            android:hardwareAccelerated="true"
+            android:label="@string/basic_example" />
         <activity
             android:name=".examples.recyclerViewExample.RecyclerViewActivity"
-            android:label="@string/recycler_view_example"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
-            android:hardwareAccelerated="true" />
-
+            android:hardwareAccelerated="true"
+            android:label="@string/recycler_view_example" />
         <activity
             android:name=".examples.viewPagerExample.ViewPagerActivity"
-            android:label="@string/view_pager_example"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
-            android:hardwareAccelerated="true" />
-
+            android:hardwareAccelerated="true"
+            android:label="@string/view_pager_example" />
         <activity
             android:name=".examples.customUIExample.CustomUIActivity"
-            android:label="@string/custom_ui_example"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
-            android:hardwareAccelerated="true" />
-
+            android:hardwareAccelerated="true"
+            android:label="@string/custom_ui_example" />
+        <activity
+            android:name=".examples.liveVideoExample.LiveVideoActivity"
+            android:label="@string/live_video_example"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
