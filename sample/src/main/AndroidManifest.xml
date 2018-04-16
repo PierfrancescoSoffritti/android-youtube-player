@@ -40,8 +40,9 @@
             android:label="@string/custom_ui_example" />
         <activity
             android:name=".examples.liveVideoExample.LiveVideoActivity"
-            android:label="@string/live_video_example"
-            android:theme="@style/AppTheme"></activity>
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:hardwareAccelerated="true"
+            android:label="@string/live_video_example" />
     </application>
 
 </manifest>
