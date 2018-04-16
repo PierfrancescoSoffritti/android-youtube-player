@@ -105,8 +105,8 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         }
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    void onPause() {
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    void onStop() {
         youTubePlayer.pause();
     }
 
