@@ -16,6 +16,8 @@ import com.pierfrancescosoffritti.youtubeplayer.R;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -146,8 +148,8 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
     }
 
     @NonNull
-    public Set<YouTubePlayerListener> getListeners() {
-        return youTubePlayerListeners;
+    public Collection<YouTubePlayerListener> getListeners() {
+        return Collections.unmodifiableCollection(new HashSet<>(youTubePlayerListeners));
     }
 
     @Override
