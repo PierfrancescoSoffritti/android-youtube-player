@@ -29,7 +29,10 @@ public interface PlayerUIController {
 
     void showCurrentTime(boolean show);
     void showDuration(boolean show);
+
     void showSeekBar(boolean show);
+    void showBufferingProgress(boolean show);
+
     void showYouTubeButton(boolean show);
 
     /**

@@ -69,6 +69,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
 
     private boolean showUI = true;
     private boolean showPlayPauseButton = true;
+    private boolean showBufferingProgress = true;
 
     public DefaultPlayerUIController(@NonNull YouTubePlayerView youTubePlayerView, @NonNull YouTubePlayer youTubePlayer) {
         this.youTubePlayerView = youTubePlayerView;
@@ -210,6 +211,11 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     public void showSeekBar(boolean show) {
         int visibility = show ? View.VISIBLE : View.INVISIBLE;
         seekBar.setVisibility(visibility);
+    }
+
+    @Override
+    public void showBufferingProgress(boolean show) {
+        showBufferingProgress = show;
     }
 
     @Override
@@ -442,7 +448,10 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
 
     @Override
     public void onVideoLoadedFraction(float loadedFraction) {
-        seekBar.setSecondaryProgress( (int) (loadedFraction*seekBar.getMax()) );
+        if(showBufferingProgress)
+            seekBar.setSecondaryProgress( (int) (loadedFraction*seekBar.getMax()) );
+        else
+            seekBar.setSecondaryProgress(0);
     }
 
     @Override
