@@ -16,6 +16,15 @@ public final class PlayerConstants {
         public final static int BUFFERING = 3;
         public final static int VIDEO_CUED = 5;
 
+        /**
+         * UNKNOWN = -10 <br/>
+         * UNSTARTED = -1 <br/>
+         * ENDED = 0 <br/>
+         * PLAYING = 1 <br/>
+         * PAUSED = 2 <br/>
+         * BUFFERING = 3 <br/>
+         * VIDEO_CUED = 5
+         */
         @IntDef({UNKNOWN, UNSTARTED, ENDED, PLAYING, PAUSED, BUFFERING, VIDEO_CUED})
         @Retention(RetentionPolicy.SOURCE)
         public @interface State {
@@ -32,6 +41,16 @@ public final class PlayerConstants {
         public final static String HIGH_RES = "highres";
         public final static String DEFAULT = "default";
 
+        /**
+         * UNKNOWN = "unknown" <br/>
+         * SMALL = "small" <br/>
+         * MEDIUM = "medium" <br/>
+         * LARGE = "large" <br/>
+         * HD720 = "hd720" <br/>
+         * HD1080 = "hd1080" <br/>
+         * HIGH_RES = "highres" <br/>
+         * DEFAULT = "default"
+         */
         @StringDef({UNKNOWN, SMALL, MEDIUM, LARGE, HD720, HD1080, HIGH_RES, DEFAULT})
         @Retention(RetentionPolicy.SOURCE)
         public @interface Quality {
@@ -45,6 +64,13 @@ public final class PlayerConstants {
         public final static int VIDEO_NOT_FOUND = 2;
         public final static int VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER = 3;
 
+        /**
+         * UNKNOWN = -10 <br/>
+         * INVALID_PARAMETER_IN_REQUEST = 0 <br/>
+         * HTML_5_PLAYER = 1 <br/>
+         * VIDEO_NOT_FOUND = 2 <br/>
+         * VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER = 3 <br/>
+         */
         @IntDef({UNKNOWN, INVALID_PARAMETER_IN_REQUEST, HTML_5_PLAYER, VIDEO_NOT_FOUND, VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER})
         @Retention(RetentionPolicy.SOURCE)
         public @interface Error {
@@ -59,6 +85,14 @@ public final class PlayerConstants {
         public final static String RATE_1_5 = "1.5";
         public final static String RATE_2 = "2";
 
+        /**
+         * UNKNOWN = "-10" <br/>
+         * RATE_0_25 = "0.25" <br/>
+         * RATE_0_5 = "0.5" <br/>
+         * RATE_1 = "1" <br/>
+         * RATE_1_5 = "1.5" <br/>
+         * RATE_2 = "2"
+         */
         @StringDef({UNKNOWN, RATE_0_25, RATE_0_5, RATE_1, RATE_1_5, RATE_2})
         @Retention(RetentionPolicy.SOURCE)
         public @interface Rate {
