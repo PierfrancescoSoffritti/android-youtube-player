@@ -98,26 +98,6 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
     }
 
     @Override
-    public void mute() {
-        mainThreadHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                loadUrl("javascript:mute()");
-            }
-        });
-    }
-
-    @Override
-    public void unMute() {
-        mainThreadHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                loadUrl("javascript:unMute()");
-            }
-        });
-    }
-
-    @Override
     public void setVolume(final int volumePercent) {
         if (volumePercent < 0 || volumePercent > 100)
             throw new IllegalArgumentException("Volume must be between 0 and 100");
