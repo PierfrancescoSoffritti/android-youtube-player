@@ -15,6 +15,5 @@ public abstract class AbstractYouTubePlayerListener implements YouTubePlayerList
     @Override public void onCurrentSecond(float second) { }
     @Override public void onVideoDuration(float duration) { }
     @Override public void onVideoLoadedFraction(float fraction) { }
-    @Override public void onMessage(@NonNull String log) { }
     @Override public void onVideoId(@NonNull String videoId) { }
 }

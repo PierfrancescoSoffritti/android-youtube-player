@@ -53,9 +53,6 @@ public interface YouTubePlayerListener {
      */
     void onVideoLoadedFraction(float loadedFraction);
 
-
-    void onMessage(@NonNull String message);
-
     /**
      * Use this method to know the id of the video being played.
      * @param videoId the id of the video being played

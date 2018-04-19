@@ -207,17 +207,6 @@ public class YouTubePlayerBridge {
         });
     }
 
-    @JavascriptInterface
-    public void sendMessage(final String message) {
-        mainThreadHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                for(YouTubePlayerListener listener : youTubePlayer.getListeners())
-                    listener.onMessage(message);
-            }
-        });
-    }
-
     private int parsePlayerState(String state) {
         @PlayerConstants.PlayerState.State int playerState;
 

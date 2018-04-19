@@ -466,7 +466,6 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     }
 
     @Override public void onReady() { }
-    @Override public void onMessage(@NonNull String log) { }
     @Override public void onPlaybackQualityChange(@NonNull @PlayerConstants.PlaybackQuality.Quality String playbackQuality) { }
     @Override public void onPlaybackRateChange(@NonNull @PlayerConstants.PlaybackRate.Rate String rate) { }
     @Override public void onError(@PlayerConstants.PlayerError.Error int error) { }
