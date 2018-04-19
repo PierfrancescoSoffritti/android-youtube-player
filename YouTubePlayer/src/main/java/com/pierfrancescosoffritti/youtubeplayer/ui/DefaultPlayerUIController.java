@@ -441,7 +441,12 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     }
 
     @Override
-    public void onVideoId(final String videoId) {
+    public void onVideoLoadedFraction(float loadedFraction) {
+        seekBar.setSecondaryProgress( (int) (loadedFraction*seekBar.getMax()) );
+    }
+
+    @Override
+    public void onVideoId(@NonNull final String videoId) {
         youTubeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -452,9 +457,9 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     }
 
     @Override public void onReady() { }
-    @Override public void onMessage(String log) { }
-    @Override public void onPlaybackQualityChange(@PlayerConstants.PlaybackQuality.Quality String playbackQuality) { }
-    @Override public void onPlaybackRateChange(@PlayerConstants.PlaybackRate.Rate String rate) { }
+    @Override public void onMessage(@NonNull String log) { }
+    @Override public void onPlaybackQualityChange(@NonNull @PlayerConstants.PlaybackQuality.Quality String playbackQuality) { }
+    @Override public void onPlaybackRateChange(@NonNull @PlayerConstants.PlaybackRate.Rate String rate) { }
     @Override public void onError(@PlayerConstants.PlayerError.Error int error) { }
     @Override public void onApiChange() { }
 

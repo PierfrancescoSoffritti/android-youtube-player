@@ -177,17 +177,25 @@ public class YouTubePlayerBridge {
         });
     }
 
-//    @JavascriptInterface
-//    public void sendVideoTitle(final String videoTitle) {
-//        mainThreadHandler.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                for(YouTubePlayerListener listener : youTubePlayer.getListeners())
-//                    listener.onVideoTitle(videoTitle);
-//            }
-//        });
-//    }
-//
+    @JavascriptInterface
+    public void sendVideoLoadedFraction(final String fraction) {
+        final float loadedFraction;
+        try {
+            loadedFraction = Float.parseFloat(fraction);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        mainThreadHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                for(YouTubePlayerListener listener : youTubePlayer.getListeners())
+                    listener.onVideoLoadedFraction(loadedFraction);
+            }
+        });
+    }
+
     @JavascriptInterface
     public void sendVideoId(final String videoId) {
         mainThreadHandler.post(new Runnable() {

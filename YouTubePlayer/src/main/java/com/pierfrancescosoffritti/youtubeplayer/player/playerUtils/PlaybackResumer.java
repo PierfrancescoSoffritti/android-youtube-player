@@ -1,6 +1,7 @@
 package com.pierfrancescosoffritti.youtubeplayer.player.playerUtils;
 
 import android.annotation.SuppressLint;
+import android.support.annotation.NonNull;
 
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.PlayerConstants;
@@ -59,7 +60,7 @@ public class PlaybackResumer extends AbstractYouTubePlayerListener {
     }
 
     @Override
-    public void onVideoId(String videoId) {
+    public void onVideoId(@NonNull String videoId) {
         this.currentVideoId = videoId;
     }
 }

@@ -33,7 +33,7 @@
         var YouTubePlayerBridge = window.YouTubePlayerBridge;
     	var player;
 
-        var timerTaskId;
+        var timerId;
 
     	function onYouTubeIframeAPIReady() {
 
@@ -69,7 +69,7 @@
     	}
 
     	function sendPlayerStateChange(playerState) {
-            clearTimeout(timerTaskId);
+            clearTimeout(timerId);
 
             switch (playerState) {
             	case YT.PlayerState.UNSTARTED:
@@ -101,11 +101,8 @@
             }
 
             function sendVideoData(player) {
-                // var { video_id, title } = player.getVideoData();
                 var videoDuration = player.getDuration();
 
-                // YouTubePlayerBridge.sendVideoId(video_id)
-                // YouTubePlayerBridge.sendVideoTitle(title);
                 YouTubePlayerBridge.sendVideoDuration(videoDuration);
             }
 
@@ -114,8 +111,9 @@
             }
 
             function startSendCurrentTimeInterval() {
-                timerTaskId = setInterval(function() {
+                timerId = setInterval(function() {
                     YouTubePlayerBridge.sendVideoCurrentTime( player.getCurrentTime() )
+                    YouTubePlayerBridge.sendVideoLoadedFraction( player.getVideoLoadedFraction() )
                 }, 100 );
             }
         }

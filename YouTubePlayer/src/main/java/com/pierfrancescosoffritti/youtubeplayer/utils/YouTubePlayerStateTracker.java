@@ -1,5 +1,7 @@
 package com.pierfrancescosoffritti.youtubeplayer.utils;
 
+import android.support.annotation.NonNull;
+
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.PlayerConstants;
 
@@ -29,7 +31,7 @@ public class YouTubePlayerStateTracker extends AbstractYouTubePlayerListener{
     }
 
     @Override
-    public void onVideoId(String videoId) {
+    public void onVideoId(@NonNull String videoId) {
         this.videoId = videoId;
     }
 

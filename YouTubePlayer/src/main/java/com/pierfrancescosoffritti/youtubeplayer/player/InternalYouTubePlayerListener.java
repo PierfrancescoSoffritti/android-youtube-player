@@ -37,13 +37,13 @@ public class InternalYouTubePlayerListener implements YouTubePlayerListener {
     }
 
     @Override
-    public void onPlaybackQualityChange(String playbackQuality) {
+    public void onPlaybackQualityChange(@NonNull String playbackQuality) {
         for(int i = 0; i< youTubePlayerListeners.size(); i++)
             youTubePlayerListeners.get(i).onPlaybackQualityChange(playbackQuality);
     }
 
     @Override
-    public void onPlaybackRateChange(String playbackRate) {
+    public void onPlaybackRateChange(@NonNull String playbackRate) {
         for(int i = 0; i< youTubePlayerListeners.size(); i++)
             youTubePlayerListeners.get(i).onPlaybackRateChange(playbackRate);
     }
@@ -73,13 +73,19 @@ public class InternalYouTubePlayerListener implements YouTubePlayerListener {
     }
 
     @Override
-    public void onMessage(String message) {
+    public void onVideoLoadedFraction(float loadedFraction) {
+        for(int i = 0; i< youTubePlayerListeners.size(); i++)
+            youTubePlayerListeners.get(i).onVideoLoadedFraction(loadedFraction);
+    }
+
+    @Override
+    public void onMessage(@NonNull String message) {
         for(int i = 0; i< youTubePlayerListeners.size(); i++)
             youTubePlayerListeners.get(i).onMessage(message);
     }
 
     @Override
-    public void onVideoId(String videoId) {
+    public void onVideoId(@NonNull String videoId) {
         for(int i = 0; i< youTubePlayerListeners.size(); i++)
             youTubePlayerListeners.get(i).onVideoId(videoId);
     }
