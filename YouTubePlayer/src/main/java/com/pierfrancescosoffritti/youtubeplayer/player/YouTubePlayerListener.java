@@ -35,20 +35,20 @@ public interface YouTubePlayerListener {
     void onApiChange();
 
     /**
-     * Use this method to know at which second (of the video duration) the playback is.
+     * Use this method to know at which second (of the video duration) the the currently playing video is.
      * @param second current second of the playback
      */
     void onCurrentSecond(float second);
 
     /**
-     * Use this method to know the duration in seconds of the currently playing video.
+     * Use this method to know the duration in seconds of the currently playing video. <br/><br/>
      * Note that getDuration() will return 0 until the video's metadata is loaded, which normally happens just after the video starts playing.
      * @param duration total duration of the video
      */
     void onVideoDuration(float duration);
 
     /**
-     * Use this method to know the percentage of the video that the player shows as buffered.
+     * Use this method to know the percentage of the video that the player shows as already buffered.
      * @param loadedFraction a number between 0 and 1 that specifies the percentage of the video that the player shows as buffered
      */
     void onVideoLoadedFraction(float loadedFraction);

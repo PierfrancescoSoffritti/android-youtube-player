@@ -3,7 +3,7 @@ package com.pierfrancescosoffritti.youtubeplayer.player;
 import android.support.annotation.NonNull;
 
 /**
- * Extend this class if you don't want to implement all the method of {@link YouTubePlayerListener}
+ * Extend this class if you want to implement only some of the methods of {@link YouTubePlayerListener}
  */
 public abstract class AbstractYouTubePlayerListener implements YouTubePlayerListener {
     @Override public void onReady() { }

@@ -35,6 +35,9 @@ public class YouTubePlayerStateTracker extends AbstractYouTubePlayerListener{
         this.videoId = videoId;
     }
 
+    /**
+     * @return the player state. Which is a value from {@link PlayerConstants.PlayerState.State}
+     */
     public int getCurrentState() {
         return currentState;
     }
