@@ -38,7 +38,7 @@ allprojects {
 Add this to your module-level `build.gradle`:
 ```
 dependencies {
-  implementation 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:5.0.1'
+  implementation 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:6.0.0'
 }
 ```
 
