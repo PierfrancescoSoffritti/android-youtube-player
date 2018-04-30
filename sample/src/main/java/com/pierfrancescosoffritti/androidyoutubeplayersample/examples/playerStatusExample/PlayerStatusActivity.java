@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.pierfrancescosoffritti.androidyoutubeplayersample.R;
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.youtubeplayer.player.PlayerConstants;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerInitListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
@@ -22,8 +23,6 @@ public class PlayerStatusActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_status_example);
-
-        TextView playerStatusTextView = findViewById(R.id.player_status_text_view);
 
         initYouTubePlayerView();
     }
@@ -45,11 +44,34 @@ public class PlayerStatusActivity extends AppCompatActivity {
 
                 @Override
                 public void onStateChange(int state) {
-
+                    TextView playerStatusTextView = findViewById(R.id.player_status_text_view);
+                    String playerState = playerStateToString(state);
+                    playerStatusTextView.setText(playerState);
                 }
             });
 
         }, true);
+    }
+
+    private String playerStateToString(@PlayerConstants.PlayerState.State int state) {
+        switch (state) {
+            case PlayerConstants.PlayerState.UNKNOWN:
+                return "UNKNOWN";
+            case PlayerConstants.PlayerState.UNSTARTED:
+                return "UNSTARTED";
+            case PlayerConstants.PlayerState.ENDED:
+                return "ENDED";
+            case PlayerConstants.PlayerState.PLAYING:
+                return "PLAYING";
+            case PlayerConstants.PlayerState.PAUSED:
+                return "PAUSED";
+            case PlayerConstants.PlayerState.BUFFERING:
+                    return "BUFFERING";
+            case PlayerConstants.PlayerState.VIDEO_CUED:
+                return "VIDEO_CUED";
+            default:
+                return "status unknown";
+        }
     }
 
     private void loadVideo(YouTubePlayer youTubePlayer, String videoId) {
