@@ -43,6 +43,11 @@
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/live_video_example" />
+        <activity
+            android:name=".examples.playerStatusExample.PlayerStatusExampleActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:hardwareAccelerated="true"
+            android:label="@string/player_status_example" />
     </application>
 
 </manifest>
