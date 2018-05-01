@@ -2,6 +2,7 @@ package com.pierfrancescosoffritti.androidyoutubeplayersample.examples.playerSta
 
 import android.arch.lifecycle.Lifecycle;
 import android.os.Bundle;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
@@ -10,14 +11,19 @@ import com.pierfrancescosoffritti.androidyoutubeplayersample.R;
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.PlayerConstants;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
-import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerInitListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class PlayerStatusActivity extends AppCompatActivity {
 
     private String[] videoIds = {"6JYIGclVQdw", "LvetJ9U_tVY"};
+    private List<Pair<Date, String>> playerStatesHistory = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +50,39 @@ public class PlayerStatusActivity extends AppCompatActivity {
 
                 @Override
                 public void onStateChange(int state) {
-                    TextView playerStatusTextView = findViewById(R.id.player_status_text_view);
-                    String playerState = playerStateToString(state);
-                    playerStatusTextView.setText(playerState);
+                    onNewState(state);
                 }
             });
 
         }, true);
+    }
+
+    private void onNewState(int newState) {
+        TextView playerStatusTextView = findViewById(R.id.player_status_text_view);
+        String playerState = playerStateToString(newState);
+
+        addToList(playerState, playerStatesHistory);
+        printStates(playerStatesHistory, playerStatusTextView);
+    }
+
+    private void addToList(String playerState, List<Pair<Date, String>> stateHistory) {
+        if(stateHistory.size() >= 10)
+            stateHistory.remove(0);
+        stateHistory.add(new Pair<>(new Date(), playerState));
+    }
+
+    private void printStates(List<Pair<Date, String>> states, TextView playerStatusTextView) {
+        SimpleDateFormat dt = new SimpleDateFormat("MM-dd hh:mm:ss.SSS", Locale.US);
+
+        StringBuilder sb = new StringBuilder();
+        for(int i=0; i<states.size(); i++) {
+            Pair<Date, String> pair = states.get(i);
+            sb.append(dt.format(pair.first)).append(": ").append(pair.second);
+            if(i != states.size()-1)
+                sb.append("\n");
+        }
+
+        playerStatusTextView.setText(sb.toString());
     }
 
     private String playerStateToString(@PlayerConstants.PlayerState.State int state) {

@@ -14,7 +14,9 @@
     <TextView
         android:id="@+id/player_status_text_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_8dp"
+        android:text="Player states"/>
 
     <Button
         android:id="@+id/next_video_button"
