@@ -29,7 +29,7 @@ public interface YouTubePlayer {
      *
      * @param time The absolute time in seconds to seek to
      */
-    void seekTo(final int time);
+    void seekTo(final float time);
 
     boolean addListener(@NonNull YouTubePlayerListener listener);
     boolean removeListener(@NonNull YouTubePlayerListener listener);

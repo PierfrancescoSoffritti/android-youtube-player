@@ -111,7 +111,7 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
     }
 
     @Override
-    public void seekTo(final int time) {
+    public void seekTo(final float time) {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
