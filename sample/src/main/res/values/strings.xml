@@ -7,5 +7,6 @@
     <string name="explore_examples">Explore examples</string>
     <string name="live_video_example">LiveVideo example</string>
     <string name="explore_examples_description">Click here to see all the examples</string>
-    <string name="player_status_example">PlayerStatus Example</string>
+    <string name="player_status_example">PlayerStatus example</string>
+    <string name="picture_in_picture_example">PictureInPicture example</string>
 </resources>

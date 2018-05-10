@@ -48,6 +48,14 @@
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/player_status_example" />
+        <activity
+            android:name=".examples.pictureInPictureExample.PictureInPictureActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:hardwareAccelerated="true"
+            android:label="@string/picture_in_picture_example"
+
+            android:resizeableActivity="true"
+            android:supportsPictureInPicture="true" />
     </application>
 
 </manifest>

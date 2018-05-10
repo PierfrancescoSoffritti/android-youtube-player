@@ -1,5 +1,6 @@
 package com.pierfrancescosoffritti.androidyoutubeplayersample.examples.basicExample;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.Lifecycle;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -171,6 +172,7 @@ public class BasicExampleActivity extends AppCompatActivity {
      * This method does network operations, therefore it cannot be executed on the main thread.
      * For simplicity I have used RxJava to implement the asynchronous logic. You can use whatever you want: Threads, AsyncTask ecc.
      */
+    @SuppressLint("CheckResult")
     private void setVideoTitle(PlayerUIController playerUIController, String videoId) {
 
         Single<String> observable = YouTubeDataEndpoint.getVideoTitleFromYouTubeDataAPIs(videoId);
