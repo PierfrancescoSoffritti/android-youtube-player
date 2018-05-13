@@ -52,6 +52,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
 
+            android:padding="8dp"
+
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true" >
 
@@ -60,7 +62,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_menu_24dp"
-                android:padding="8dp"
 
                 android:visibility="gone"
 
