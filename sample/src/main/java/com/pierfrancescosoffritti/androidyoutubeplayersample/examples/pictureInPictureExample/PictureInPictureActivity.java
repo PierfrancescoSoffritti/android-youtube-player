@@ -1,6 +1,7 @@
 package com.pierfrancescosoffritti.androidyoutubeplayersample.examples.pictureInPictureExample;
 
 import android.arch.lifecycle.Lifecycle;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
@@ -50,9 +51,11 @@ public class PictureInPictureActivity extends AppCompatActivity {
         pictureInPictureView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_picture_in_picture_24dp));
 
         pictureInPictureView.setOnClickListener( view -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                enterPictureInPictureMode();
-            else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                boolean supportsPIP = getPackageManager().hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE);
+                if(supportsPIP)
+                    enterPictureInPictureMode();
+            } else {
                 new AlertDialog.Builder(this)
                         .setTitle("Can't enter picture in picture mode")
                         .setMessage("In order to enter picture in picture mode you need a SDK version >= N.")
