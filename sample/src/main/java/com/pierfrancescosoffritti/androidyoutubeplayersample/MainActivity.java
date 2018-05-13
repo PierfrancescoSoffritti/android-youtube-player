@@ -1,10 +1,12 @@
 package com.pierfrancescosoffritti.androidyoutubeplayersample;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -90,6 +92,14 @@ public class MainActivity extends AppCompatActivity {
                 super.onPageCommitVisible(view, url);
                 findViewById(R.id.progressbar).setVisibility(View.GONE);
             }
+
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                    return true;
+                } else
+                    return false;
+            }
         });
     }
 
@@ -137,6 +147,17 @@ public class MainActivity extends AppCompatActivity {
                     }  else if(menuItem.getItemId() == R.id.open_picture_in_picture_example_menu_item) {
                         Intent intent = new Intent(this, PictureInPictureActivity.class);
                         startActivity(intent);
+                    }
+
+                    else if(menuItem.getItemId() == R.id.star_on_github)
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/stargazers")));
+                    else if(menuItem.getItemId() == R.id.rate_on_playstore) {
+                        final String appPackageName = getPackageName();
+                        try {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                        } catch (ActivityNotFoundException exception) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                        }
                     }
 
                     return true;
