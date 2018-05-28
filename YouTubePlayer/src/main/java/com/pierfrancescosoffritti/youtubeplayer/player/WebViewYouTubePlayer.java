@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -134,6 +135,11 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
 
     @Override
     public boolean addListener(@NonNull YouTubePlayerListener listener) {
+        if(listener == null) {
+            Log.e("YouTubePlayer", "null YouTubePlayerListener not allowed.");
+            return false;
+        }
+
         return youTubePlayerListeners.add(listener);
     }
 
