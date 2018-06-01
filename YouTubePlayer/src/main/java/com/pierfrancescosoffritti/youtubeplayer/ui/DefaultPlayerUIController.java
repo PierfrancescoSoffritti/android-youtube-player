@@ -459,7 +459,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
         youTubeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + videoId));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + videoId + "#t=" + seekBar.getProgress()));
                 controlsRoot.getContext().startActivity(intent);
             }
         });
