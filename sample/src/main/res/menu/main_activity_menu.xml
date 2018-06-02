@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group
+        android:id="@+id/toolbar_menu"
+        android:checkableBehavior="single" >
+
+        <item
+            android:id="@+id/open_on_github"
+            android:title="@string/open_on_github"
+            android:icon="@drawable/ic_github_24dp"
+            app:showAsAction="always" />
+
+    </group>
+
+</menu>

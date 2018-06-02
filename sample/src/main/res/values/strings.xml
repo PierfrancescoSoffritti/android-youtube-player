@@ -11,4 +11,5 @@
     <string name="picture_in_picture_example">PictureInPicture example</string>
     <string name="star_on_github">Star on GitHub</string>
     <string name="rate_on_playstore">Rate on PlayStore</string>
+    <string name="open_on_github">Open on GitHub</string>
 </resources>

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,9 +16,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Display;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -48,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initWebView();
+
+        adjustStatusBarTranslucency();
         initToolbar();
         initNavDrawer();
 
@@ -63,10 +69,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_activity_menu, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+            case R.id.open_on_github:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/PierfrancescoSoffritti/Android-YouTube-Player")));
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -101,6 +116,15 @@ public class MainActivity extends AppCompatActivity {
                     return false;
             }
         });
+    }
+
+    private void adjustStatusBarTranslucency() {
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            WindowManager.LayoutParams windowParams = window.getAttributes();
+            windowParams.flags |= WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+            window.setAttributes(windowParams);
+        }
     }
 
     @SuppressWarnings("ConstantConditions")
