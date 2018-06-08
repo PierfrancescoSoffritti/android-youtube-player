@@ -35,7 +35,7 @@ public interface YouTubePlayerListener {
     void onApiChange();
 
     /**
-     * Use this method to know at which second (of the video duration) the the currently playing video is.
+     * This methods is called periodically by the player, the argument is the number of seconds that have been played.
      * @param second current second of the playback
      */
     void onCurrentSecond(float second);
@@ -48,8 +48,8 @@ public interface YouTubePlayerListener {
     void onVideoDuration(float duration);
 
     /**
-     * Use this method to know the percentage of the video that the player shows as already buffered.
-     * @param loadedFraction a number between 0 and 1 that specifies the percentage of the video that the player shows as buffered
+     * This methods is called periodically by the player, the argument is the percentage of the video that has been buffered.
+     * @param loadedFraction a number between 0 and 1 that represents the percentage of the video that has been buffered.
      */
     void onVideoLoadedFraction(float loadedFraction);
 
