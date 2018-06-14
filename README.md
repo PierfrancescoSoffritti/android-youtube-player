@@ -13,7 +13,7 @@ The interaction with YouTube is based on the [IFrame Player API](https://develop
 The web UI of the IFrame Player player is hidden, instead a native UI built on top of Android is used to interact with the player, providing a native experience to the users.
 
 ## Why does this library exists?
-This library has been developed out of necessity. The official library provided by Google for the integration of YouTube videos into Android apps is the [YouTube Android Player API](https://developers.google.com/youtube/android/player/). Its many bugs ([some are 5+ years old](https://code.google.com/p/gdata-issues/issues/detail?id=4395)) and the lack of support from Google made it impossible to use in production.
+This library has been developed out of necessity. The official library provided by Google to integrate YouTube videos in Android apps is the [YouTube Android Player API](https://developers.google.com/youtube/android/player/). I've found the official library to be quite buggy ([some bugs are 5+ years old](https://code.google.com/p/gdata-issues/issues/detail?id=4395)) and lacking in terms of support from Google. It was quite unreliable and unusable in production.
 
 A lengthier explanation to why you may want to consider using an alternative to the official YouTube player is written in [this Medium post](https://medium.com/@soffritti.pierfrancesco/how-to-play-youtube-videos-in-your-android-app-c40427215230).
 
@@ -40,7 +40,7 @@ allprojects {
 Add this to your module-level `build.gradle`:
 ```
 dependencies {
-  implementation 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:7.0.0'
+  implementation 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:7.0.1'
 }
 ```
 
