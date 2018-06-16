@@ -1,11 +1,11 @@
-package com.pierfrancescosoffritti.androidyoutubeplayersample.examples.recyclerViewExample;
+package com.pierfrancescosoffritti.aytplayersample.examples.recyclerViewExample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.pierfrancescosoffritti.androidyoutubeplayersample.R;
+import com.pierfrancescosoffritti.aytplayersample.R;
 
 public class RecyclerViewActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayersample.utils;
+package com.pierfrancescosoffritti.aytplayersample.utils;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;

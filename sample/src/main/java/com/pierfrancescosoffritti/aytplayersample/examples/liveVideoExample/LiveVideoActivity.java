@@ -1,9 +1,9 @@
-package com.pierfrancescosoffritti.androidyoutubeplayersample.examples.liveVideoExample;
+package com.pierfrancescosoffritti.aytplayersample.examples.liveVideoExample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.pierfrancescosoffritti.androidyoutubeplayersample.R;
+import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 

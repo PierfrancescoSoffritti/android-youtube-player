@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayersample;
+package com.pierfrancescosoffritti.aytplayersample;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
@@ -27,13 +27,13 @@ import android.webkit.WebViewClient;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
-import com.pierfrancescosoffritti.androidyoutubeplayersample.examples.basicExample.BasicExampleActivity;
-import com.pierfrancescosoffritti.androidyoutubeplayersample.examples.customUIExample.CustomUIActivity;
-import com.pierfrancescosoffritti.androidyoutubeplayersample.examples.liveVideoExample.LiveVideoActivity;
-import com.pierfrancescosoffritti.androidyoutubeplayersample.examples.pictureInPictureExample.PictureInPictureActivity;
-import com.pierfrancescosoffritti.androidyoutubeplayersample.examples.playerStatusExample.PlayerStatusActivity;
-import com.pierfrancescosoffritti.androidyoutubeplayersample.examples.recyclerViewExample.RecyclerViewActivity;
-import com.pierfrancescosoffritti.androidyoutubeplayersample.examples.viewPagerExample.ViewPagerActivity;
+import com.pierfrancescosoffritti.aytplayersample.examples.basicExample.BasicExampleActivity;
+import com.pierfrancescosoffritti.aytplayersample.examples.customUIExample.CustomUIActivity;
+import com.pierfrancescosoffritti.aytplayersample.examples.liveVideoExample.LiveVideoActivity;
+import com.pierfrancescosoffritti.aytplayersample.examples.pictureInPictureExample.PictureInPictureActivity;
+import com.pierfrancescosoffritti.aytplayersample.examples.playerStatusExample.PlayerStatusActivity;
+import com.pierfrancescosoffritti.aytplayersample.examples.recyclerViewExample.RecyclerViewActivity;
+import com.pierfrancescosoffritti.aytplayersample.examples.viewPagerExample.ViewPagerActivity;
 
 /**
  * This Activity is used as a starting point for all the sample Activities.

@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayersample;
+package com.pierfrancescosoffritti.aytplayersample;
 
 import org.junit.Test;
 

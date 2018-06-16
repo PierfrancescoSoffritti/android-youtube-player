@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayersample.examples.basicExample;
+package com.pierfrancescosoffritti.aytplayersample.examples.basicExample;
 
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.Lifecycle;
@@ -18,9 +18,9 @@ import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenLi
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.youtubeplayer.ui.PlayerUIController;
 import com.pierfrancescosoffritti.youtubeplayer.ui.menu.MenuItem;
-import com.pierfrancescosoffritti.androidyoutubeplayersample.R;
-import com.pierfrancescosoffritti.androidyoutubeplayersample.utils.FullScreenManager;
-import com.pierfrancescosoffritti.androidyoutubeplayersample.utils.YouTubeDataEndpoint;
+import com.pierfrancescosoffritti.aytplayersample.R;
+import com.pierfrancescosoffritti.aytplayersample.utils.FullScreenManager;
+import com.pierfrancescosoffritti.aytplayersample.utils.YouTubeDataEndpoint;
 
 import java.util.Random;
 

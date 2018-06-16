@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayersample.examples.pictureInPictureExample;
+package com.pierfrancescosoffritti.aytplayersample.examples.pictureInPictureExample;
 
 import android.arch.lifecycle.Lifecycle;
 import android.content.pm.PackageManager;
@@ -8,10 +8,9 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ImageView;
 
-import com.pierfrancescosoffritti.androidyoutubeplayersample.R;
+import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;

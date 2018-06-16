@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayersample.examples.playerStatusExample;
+package com.pierfrancescosoffritti.aytplayersample.examples.playerStatusExample;
 
 import android.arch.lifecycle.Lifecycle;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.pierfrancescosoffritti.androidyoutubeplayersample.R;
+import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.PlayerConstants;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
