@@ -81,7 +81,7 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
             public void call() {
                 youTubePlayer.initialize(new YouTubePlayerInitListener() {
                     @Override
-                    public void onInitSuccess(YouTubePlayer youTubePlayer) {
+                    public void onInitSuccess(@NonNull YouTubePlayer youTubePlayer) {
                         youTubePlayerInitListener.onInitSuccess(youTubePlayer);
                     }
                 });

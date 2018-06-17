@@ -59,7 +59,7 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
     }
 
     @Override
-    public void loadVideo(final String videoId, final float startSeconds) {
+    public void loadVideo(@NonNull final String videoId, final float startSeconds) {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -69,7 +69,7 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
     }
 
     @Override
-    public void cueVideo(final String videoId, final float startSeconds) {
+    public void cueVideo(@NonNull final String videoId, final float startSeconds) {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
