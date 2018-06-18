@@ -98,6 +98,8 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
      */
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void release() {
+        removeView(youTubePlayer);
+        youTubePlayer.removeAllViews();
         youTubePlayer.destroy();
         try {
             getContext().unregisterReceiver(networkReceiver);
