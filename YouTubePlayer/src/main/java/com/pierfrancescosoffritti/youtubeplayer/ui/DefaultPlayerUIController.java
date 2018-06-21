@@ -573,7 +573,6 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     private void resetUI() {
         seekBar.setProgress(0);
         seekBar.setMax(0);
-        enableLiveVideoUI(false);
         videoDuration.post(new Runnable() {
             @Override
             public void run() {
