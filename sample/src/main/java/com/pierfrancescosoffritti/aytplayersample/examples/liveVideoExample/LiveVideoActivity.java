@@ -21,7 +21,7 @@ public class LiveVideoActivity extends AppCompatActivity {
 
     private void initYouTubePlayerView() {
         YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
-        youTubePlayerView.getPlayerUIController().showFullscreenButton(false);
+        youTubePlayerView.getPlayerUIController().showFullscreenButton(true);
         youTubePlayerView.getPlayerUIController().enableLiveVideoUI(true);
 
         getLifecycle().addObserver(youTubePlayerView);
