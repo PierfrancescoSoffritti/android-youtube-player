@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">android-youtube-player</string>
+    <string name="basic_example">Basic example</string>
+    <string name="recycler_view_example">RecyclerView example</string>
+    <string name="custom_ui_example">Custom UI example</string>
+    <string name="view_pager_example">ViewPager example</string>
+    <string name="explore_examples">Explore examples</string>
+    <string name="live_video_example">LiveVideo example</string>
+    <string name="explore_examples_description">Click here to see all the examples</string>
+    <string name="player_status_example">PlayerStatus example</string>
+    <string name="picture_in_picture_example">PictureInPicture example</string>
+    <string name="star_on_github">Star on GitHub</string>
+    <string name="rate_on_playstore">Rate on PlayStore</string>
+    <string name="open_on_github">Open on GitHub</string>
+    <string name="chromecast_example">Chromecast example</string>
+</resources>

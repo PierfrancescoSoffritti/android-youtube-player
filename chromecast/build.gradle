@@ -1,0 +1,67 @@
+apply plugin: 'com.android.library'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.jetbrains.dokka-android'
+
+ext {
+    bintrayRepo = 'android-youtube-player'
+    bintrayName = 'chromecast-sender'
+
+    publishedGroupId = 'com.pierfrancescosoffritti.androidyoutubeplayer'
+    libraryName = 'chromecast-youtube-player'
+    artifact = 'chromecast-sender'
+
+    libraryDescription = 'Extension for the android-youtube-player library, that enables Chromecast compatibility.'
+
+    siteUrl = 'https://github.com/PierfrancescoSoffritti/chromecast-youtube-player'
+    gitUrl = 'https://github.com/PierfrancescoSoffritti/chromecast-youtube-player.git'
+
+    libraryVersion = '0.9'
+
+    developerId = 'PierfrancescoSoffritti'
+    developerName = 'Pierfrancesco Soffritti'
+    developerEmail = 'soffritti.pierfrancesco@gmail.com'
+
+    licenseName = 'MIT License'
+    licenseUrl = 'https://github.com/PierfrancescoSoffritti/chromecast-youtube-player/blob/master/LICENSE'
+    allLicenses = ["MIT"]
+}
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+
+    api project(':core')
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:mediarouter-v7:27.1.1'
+    implementation 'com.google.android.gms:play-services-cast-framework:15.0.1'
+}
+
+apply from: 'installAndDeployConfigFiles/install_v1.gradle'
+apply from: 'installAndDeployConfigFiles/bintray_v1.gradle'

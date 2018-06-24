@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">chromecast-youtube-player</string>
+
+    <string name="basic_example">Basic example</string>
+    <string name="player_controls_example">Player Controls example</string>
+    <string name="notification_example">Notification example</string>
+    <string name="local_player_example">Local Player example</string>
+
+    <string name="explore_examples">Explore examples</string>
+    <string name="explore_examples_description">Click here to see all the examples</string>
+    <string name="star_on_github">Star on GitHub</string>
+    <string name="rate_on_playstore">Rate on PlayStore</string>
+    <string name="open_on_github">Open on GitHub</string>
+</resources>

@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Android-YouTube-Player.iml" filepath="$PROJECT_DIR$/Android-YouTube-Player.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android-youtube-player/android-youtube-player.iml" filepath="$PROJECT_DIR$/android-youtube-player/android-youtube-player.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sample-app/sample-app.iml" filepath="$PROJECT_DIR$/sample-app/sample-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-youtube-player.iml" filepath="$PROJECT_DIR$/android-youtube-player.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chromecast/chromecast.iml" filepath="$PROJECT_DIR$/chromecast/chromecast.iml" />
+      <module fileurl="file://$PROJECT_DIR$/chromecast-sample-app/chromecast-sample-app.iml" filepath="$PROJECT_DIR$/chromecast-sample-app/chromecast-sample-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core-sample-app/core-sample-app.iml" filepath="$PROJECT_DIR$/core-sample-app/core-sample-app.iml" />
     </modules>
   </component>
 </project>

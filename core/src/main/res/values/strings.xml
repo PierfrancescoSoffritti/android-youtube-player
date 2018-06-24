@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">android-youtube-player</string>
+    <string name="play_button">Play button</string>
+    <string name="null_time">0:00</string>
+    <string name="open_video_in_youtube">Open video in YouTube</string>
+    <string name="full_screen_button">Full screen button</string>
+    <string name="live">LIVE</string>
+</resources>
