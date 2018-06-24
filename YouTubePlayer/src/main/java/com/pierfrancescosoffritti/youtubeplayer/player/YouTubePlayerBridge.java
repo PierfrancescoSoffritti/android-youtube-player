@@ -6,10 +6,12 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.webkit.JavascriptInterface;
 
+import com.pierfrancescosoffritti.youtubeplayer.player.listeners.YouTubePlayerListener;
+
 import java.util.Collection;
 
 /**
- * Bridge used to communicate from Javascript to Java.
+ * Bridge used for Javascript-Java communication.
  */
 public class YouTubePlayerBridge {
 

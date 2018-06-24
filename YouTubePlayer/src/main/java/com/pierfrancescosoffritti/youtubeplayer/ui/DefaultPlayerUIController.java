@@ -19,8 +19,8 @@ import android.widget.TextView;
 import com.pierfrancescosoffritti.youtubeplayer.R;
 import com.pierfrancescosoffritti.youtubeplayer.player.PlayerConstants;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
-import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenListener;
-import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerListener;
+import com.pierfrancescosoffritti.youtubeplayer.player.listeners.YouTubePlayerFullScreenListener;
+import com.pierfrancescosoffritti.youtubeplayer.player.listeners.YouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.youtubeplayer.ui.menu.YouTubePlayerMenu;
 import com.pierfrancescosoffritti.youtubeplayer.ui.menu.defaultMenu.DefaultYouTubePlayerMenu;
@@ -191,7 +191,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     }
 
     @Override
-    public void setCustomMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener) {
+    public void setMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener) {
         this.onMenuButtonClickListener = customMenuButtonClickListener;
     }
 
@@ -252,7 +252,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     }
 
     @Override
-    public void setCustomFullScreenButtonClickListener(@NonNull View.OnClickListener customFullScreenButtonClickListener) {
+    public void setFullScreenButtonClickListener(@NonNull View.OnClickListener customFullScreenButtonClickListener) {
         this.onFullScreenButtonListener = customFullScreenButtonClickListener;
     }
 

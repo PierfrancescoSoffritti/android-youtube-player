@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.utils;
+package com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.notifications;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

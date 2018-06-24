@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenListener;
+import com.pierfrancescosoffritti.youtubeplayer.player.listeners.YouTubePlayerFullScreenListener;
 
 import java.util.HashSet;
 import java.util.Set;

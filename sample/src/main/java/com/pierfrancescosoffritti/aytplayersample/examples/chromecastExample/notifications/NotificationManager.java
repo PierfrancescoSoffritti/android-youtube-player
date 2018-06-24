@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.utils;
+package com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.notifications;
 
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
@@ -17,7 +17,7 @@ import android.util.Log;
 import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.aytplayersample.utils.VideoInfo;
 import com.pierfrancescosoffritti.aytplayersample.utils.YouTubeDataEndpoint;
-import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.youtubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.PlayerConstants;
 
 import io.reactivex.Single;

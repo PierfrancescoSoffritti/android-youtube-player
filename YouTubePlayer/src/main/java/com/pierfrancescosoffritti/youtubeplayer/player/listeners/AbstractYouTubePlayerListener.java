@@ -1,6 +1,9 @@
-package com.pierfrancescosoffritti.youtubeplayer.player;
+package com.pierfrancescosoffritti.youtubeplayer.player.listeners;
 
 import android.support.annotation.NonNull;
+
+import com.pierfrancescosoffritti.youtubeplayer.player.PlayerConstants;
+import com.pierfrancescosoffritti.youtubeplayer.player.listeners.YouTubePlayerListener;
 
 /**
  * Extend this class if you want to implement only some of the methods of {@link YouTubePlayerListener}

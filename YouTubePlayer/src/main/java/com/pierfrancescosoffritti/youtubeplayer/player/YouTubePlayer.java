@@ -2,6 +2,8 @@ package com.pierfrancescosoffritti.youtubeplayer.player;
 
 import android.support.annotation.NonNull;
 
+import com.pierfrancescosoffritti.youtubeplayer.player.listeners.YouTubePlayerListener;
+
 public interface YouTubePlayer {
     /**
      * Loads and automatically plays the specified video.

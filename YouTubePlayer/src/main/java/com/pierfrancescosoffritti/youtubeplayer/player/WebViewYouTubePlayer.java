@@ -13,6 +13,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.pierfrancescosoffritti.youtubeplayer.R;
+import com.pierfrancescosoffritti.youtubeplayer.player.listeners.YouTubePlayerInitListener;
+import com.pierfrancescosoffritti.youtubeplayer.player.listeners.YouTubePlayerListener;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

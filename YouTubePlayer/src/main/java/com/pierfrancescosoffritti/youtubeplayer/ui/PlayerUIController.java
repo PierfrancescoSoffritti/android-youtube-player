@@ -22,10 +22,10 @@ public interface PlayerUIController {
     void showCustomAction2(boolean show);
 
     void showFullscreenButton(boolean show);
-    void setCustomFullScreenButtonClickListener(@NonNull View.OnClickListener customFullScreenButtonClickListener);
+    void setFullScreenButtonClickListener(@NonNull View.OnClickListener customFullScreenButtonClickListener);
 
     void showMenuButton(boolean show);
-    void setCustomMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener);
+    void setMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener);
 
     void showCurrentTime(boolean show);
     void showDuration(boolean show);

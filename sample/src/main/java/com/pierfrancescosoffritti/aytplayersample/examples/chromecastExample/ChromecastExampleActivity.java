@@ -12,9 +12,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsend
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.infrastructure.ChromecastConnectionListener;
 import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.utils.MediaRouteButtonUtils;
-import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.utils.NotificationManager;
+import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.notifications.NotificationManager;
 import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.utils.PlayServicesUtils;
-import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.utils.PlaybackControllerBroadcastReceiver;
+import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.notifications.PlaybackControllerBroadcastReceiver;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 
 /**
