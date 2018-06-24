@@ -17,6 +17,10 @@ import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.uti
 import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.utils.PlaybackControllerBroadcastReceiver;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView;
 
+/**
+ * Example Activity used to showcase how to use the chromecast-youtube-library extension to cast videos to a Chromecast device.
+ * See documentation here: <a href="https://github.com/PierfrancescoSoffritti/chromecast-youtube-player">chromecast-youtube-player</a>
+ */
 public class ChromecastExampleActivity extends AppCompatActivity implements YouTubePlayersManager.LocalYouTubePlayerInitListener, ChromecastConnectionListener {
 
     private int googlePlayServicesAvailabilityRequestCode = 1;
@@ -77,7 +81,6 @@ public class ChromecastExampleActivity extends AppCompatActivity implements YouT
 
     @Override
     public void onChromecastConnecting() {
-
     }
 
     @Override
@@ -85,7 +88,6 @@ public class ChromecastExampleActivity extends AppCompatActivity implements YouT
         connectedToChromecast = true;
 
         updateUI(true);
-
         notificationManager.showNotification();
     }
 
@@ -94,7 +96,6 @@ public class ChromecastExampleActivity extends AppCompatActivity implements YouT
         connectedToChromecast = false;
 
         updateUI(false);
-
         notificationManager.dismissNotification();
     }
 
@@ -110,14 +111,13 @@ public class ChromecastExampleActivity extends AppCompatActivity implements YouT
     }
 
     private void registerBroadcastReceiver() {
-        playbackControllerBroadcastReceiver = new PlaybackControllerBroadcastReceiver(() -> youTubePlayersManager.togglePlayback() );
+        playbackControllerBroadcastReceiver = new PlaybackControllerBroadcastReceiver(youTubePlayersManager::togglePlayback);
         IntentFilter filter = new IntentFilter(PlaybackControllerBroadcastReceiver.TOGGLE_PLAYBACK);
         filter.addAction(PlaybackControllerBroadcastReceiver.STOP_CAST_SESSION);
         getApplicationContext().registerReceiver(playbackControllerBroadcastReceiver, filter);
     }
 
     private void updateUI(boolean connected) {
-
         MediaRouteButtonContainer disabledContainer = connected ? localPlayerUIMediaRouteButtonContainer : chromecastPlayerUIMediaRouteButtonContainer;
         MediaRouteButtonContainer enabledContainer = connected ? chromecastPlayerUIMediaRouteButtonContainer : localPlayerUIMediaRouteButtonContainer;
         int mediaRouteButtonColor = connected ? android.R.color.black : android.R.color.white;
@@ -134,12 +134,17 @@ public class ChromecastExampleActivity extends AppCompatActivity implements YouT
     }
 
     private MediaRouteButtonContainer chromecastPlayerUIMediaRouteButtonContainer = new MediaRouteButtonContainer() {
-        public void addMediaRouteButton(MediaRouteButton mediaRouteButton) { youTubePlayersManager.chromecastUIController.addView(mediaRouteButton); }
-        public void removeMediaRouteButton(MediaRouteButton mediaRouteButton) { youTubePlayersManager.chromecastUIController.removeView(mediaRouteButton); }
+        public void addMediaRouteButton(MediaRouteButton mediaRouteButton) { youTubePlayersManager.getChromecastUIController().addView(mediaRouteButton); }
+        public void removeMediaRouteButton(MediaRouteButton mediaRouteButton) { youTubePlayersManager.getChromecastUIController().removeView(mediaRouteButton); }
     };
 
     private MediaRouteButtonContainer localPlayerUIMediaRouteButtonContainer = new MediaRouteButtonContainer() {
         public void addMediaRouteButton(MediaRouteButton mediaRouteButton) { youTubePlayerView.getPlayerUIController().addView(mediaRouteButton); }
         public void removeMediaRouteButton(MediaRouteButton mediaRouteButton) { youTubePlayerView.getPlayerUIController().removeView(mediaRouteButton); }
     };
+
+    public interface MediaRouteButtonContainer {
+        void addMediaRouteButton(MediaRouteButton mediaRouteButton);
+        void removeMediaRouteButton(MediaRouteButton mediaRouteButton);
+    }
 }

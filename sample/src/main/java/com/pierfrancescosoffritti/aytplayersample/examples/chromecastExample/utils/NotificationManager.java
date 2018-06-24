@@ -108,15 +108,15 @@ public class NotificationManager extends AbstractYouTubePlayerListener implement
         observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe( videoInfo -> {
-                                notificationBuilder.setContentTitle(videoInfo.getVideoTitle());
-                                notificationBuilder.setContentText(videoInfo.getChannelTitle());
-                                notificationBuilder.setLargeIcon(videoInfo.getThumbnail());
+                .subscribe(
+                        videoInfo -> {
+                            notificationBuilder.setContentTitle(videoInfo.getVideoTitle());
+                            notificationBuilder.setContentText(videoInfo.getChannelTitle());
+                            notificationBuilder.setLargeIcon(videoInfo.getThumbnail());
 
-                                int color = Palette.from(videoInfo.getThumbnail()).generate().getDominantColor(ContextCompat.getColor(context, android.R.color.black));
-                                notificationBuilder.setColor(color);
-
-                                showNotification();
+                            int color = Palette.from(videoInfo.getThumbnail()).generate().getDominantColor(ContextCompat.getColor(context, android.R.color.black));
+                            notificationBuilder.setColor(color);
+                            showNotification();
                         },
                         error -> Log.e(getClass().getSimpleName(), "Can't retrieve video title, are you connected to the internet?")
                 );

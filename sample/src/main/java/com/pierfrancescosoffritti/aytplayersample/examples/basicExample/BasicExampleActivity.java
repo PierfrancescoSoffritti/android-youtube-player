@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.pierfrancescosoffritti.aytplayersample.utils.VideoInfo;
 import com.pierfrancescosoffritti.youtubeplayer.player.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerFullScreenListener;
@@ -175,13 +176,13 @@ public class BasicExampleActivity extends AppCompatActivity {
     @SuppressLint("CheckResult")
     private void setVideoTitle(PlayerUIController playerUIController, String videoId) {
 
-        Single<String> observable = YouTubeDataEndpoint.getVideoInfoFromYouTubeDataAPIs(videoId);
+        Single<VideoInfo> observable = YouTubeDataEndpoint.getVideoInfoFromYouTubeDataAPIs(videoId);
 
         observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        videoTitle -> playerUIController.setVideoTitle(videoTitle),
+                        videoInfo -> playerUIController.setVideoTitle(videoInfo.getVideoTitle()),
                         error -> { Log.e(getClass().getSimpleName(), "Can't retrieve video title, are you connected to the internet?"); }
                 );
     }

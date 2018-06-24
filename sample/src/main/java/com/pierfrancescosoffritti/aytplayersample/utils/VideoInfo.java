@@ -8,9 +8,9 @@ import javax.annotation.Nullable;
 public class VideoInfo {
     @NonNull private final String videoTitle;
     @NonNull private final String channelTitle;
-    @Nullable private final Bitmap thumbnail;
+    @NonNull private final Bitmap thumbnail;
 
-    public VideoInfo(@NonNull String videoTitle, @NonNull String channelTitle, @Nullable Bitmap thumbnail) {
+    public VideoInfo(@NonNull String videoTitle, @NonNull String channelTitle, @NonNull Bitmap thumbnail) {
         this.videoTitle = videoTitle;
         this.channelTitle = channelTitle;
         this.thumbnail = thumbnail;
@@ -26,7 +26,7 @@ public class VideoInfo {
         return channelTitle;
     }
 
-    @Nullable
+    @NonNull
     public Bitmap getThumbnail() {
         return thumbnail;
     }
@@ -40,14 +40,14 @@ public class VideoInfo {
 
         if (!videoTitle.equals(videoInfo.videoTitle)) return false;
         if (!channelTitle.equals(videoInfo.channelTitle)) return false;
-        return thumbnail != null ? thumbnail.equals(videoInfo.thumbnail) : videoInfo.thumbnail == null;
+        return thumbnail.equals(videoInfo.thumbnail);
     }
 
     @Override
     public int hashCode() {
         int result = videoTitle.hashCode();
         result = 31 * result + channelTitle.hashCode();
-        result = 31 * result + (thumbnail != null ? thumbnail.hashCode() : 0);
+        result = 31 * result + thumbnail.hashCode();
         return result;
     }
 }

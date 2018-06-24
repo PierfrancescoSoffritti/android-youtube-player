@@ -11,6 +11,9 @@ import com.pierfrancescosoffritti.youtubeplayer.utils.Callable;
 
 import java.util.Objects;
 
+/**
+ * This broadcast receiver is used to react to notification actions.
+ */
 public class PlaybackControllerBroadcastReceiver extends BroadcastReceiver implements ChromecastConnectionListener {
 
     public static final String TOGGLE_PLAYBACK = "com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.example.TOGGLE_PLAYBACK";
