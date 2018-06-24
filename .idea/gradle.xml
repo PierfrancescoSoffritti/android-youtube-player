@@ -9,8 +9,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/YouTubePlayer" />
-            <option value="$PROJECT_DIR$/sample" />
+            <option value="$PROJECT_DIR$/android-youtube-player" />
+            <option value="$PROJECT_DIR$/sample-app" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

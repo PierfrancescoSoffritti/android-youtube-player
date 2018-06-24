@@ -1,1 +1,1 @@
-include ':YouTubePlayer', ':sample'
+include ':android-youtube-player', ':sample-app'
