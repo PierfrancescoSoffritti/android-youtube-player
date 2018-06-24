@@ -26,12 +26,17 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
 
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation project(':YouTubePlayer')
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.3'
+
+    implementation 'com.android.support:mediarouter-v7:27.1.1'
+    implementation 'com.google.android.gms:play-services-cast-framework:15.0.1'
 
     implementation "io.reactivex.rxjava2:rxjava:2.1.6"
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'

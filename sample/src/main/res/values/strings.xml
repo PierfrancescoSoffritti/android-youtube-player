@@ -12,4 +12,5 @@
     <string name="star_on_github">Star on GitHub</string>
     <string name="rate_on_playstore">Rate on PlayStore</string>
     <string name="open_on_github">Open on GitHub</string>
+    <string name="chromecast_example">Chromecast example</string>
 </resources>

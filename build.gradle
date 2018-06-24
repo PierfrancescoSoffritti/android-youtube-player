@@ -15,6 +15,9 @@ allprojects {
         maven {
             url "https://maven.google.com"
         }
+        maven {
+            url 'https://dl.bintray.com/pierfrancescosoffritti/android-youtube-player/'
+        }
     }
 }
 

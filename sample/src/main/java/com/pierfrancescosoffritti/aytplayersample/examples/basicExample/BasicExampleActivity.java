@@ -175,7 +175,7 @@ public class BasicExampleActivity extends AppCompatActivity {
     @SuppressLint("CheckResult")
     private void setVideoTitle(PlayerUIController playerUIController, String videoId) {
 
-        Single<String> observable = YouTubeDataEndpoint.getVideoTitleFromYouTubeDataAPIs(videoId);
+        Single<String> observable = YouTubeDataEndpoint.getVideoInfoFromYouTubeDataAPIs(videoId);
 
         observable
                 .subscribeOn(Schedulers.io())
