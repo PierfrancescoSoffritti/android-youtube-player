@@ -4,18 +4,24 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion compileSdk
+    buildToolsVersion buildTools
+
     defaultConfig {
         applicationId "com.pierfrancescosoffritti.cyplayersample"
-        minSdkVersion 17
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion minSdk
+        targetSdkVersion targetSdk
+        versionCode versionCode_chromecast
+        versionName versionName_chromecast
     }
     buildTypes {
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -30,14 +36,14 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support:palette-v7:27.1.1'
+    implementation "com.android.support:appcompat-v7:$supportLibrary_version"
+    implementation "com.android.support:design:$supportLibrary_version"
+    implementation "com.android.support:palette-v7:$supportLibrary_version"
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
 
     implementation 'com.getkeepsafe.taptargetview:taptargetview:1.11.0'
 
-    implementation 'com.android.support:mediarouter-v7:27.1.1'
+    implementation "com.android.support:mediarouter-v7:$supportLibrary_version"
     implementation 'com.google.android.gms:play-services-cast-framework:15.0.1'
 
     implementation "io.reactivex.rxjava2:rxjava:2.1.6"

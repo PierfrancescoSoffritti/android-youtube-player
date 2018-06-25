@@ -1,17 +1,38 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
 
-group = 'com.github.PierfrancescoSoffritti'
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'android-youtube-player'
+
+    publishedGroupId = 'com.pierfrancescosoffritti.androidyoutubeplayer'
+    libraryName = 'android-youtube-player'
+    artifact = 'core'
+
+    libraryDescription = 'YouTube Player library for Android, stable and customizable.'
+
+    siteUrl = 'https://github.com/PierfrancescoSoffritti/Android-YouTube-Player'
+    gitUrl = 'https://github.com/PierfrancescoSoffritti/Android-YouTube-Player.git'
+
+    libraryVersion = versionName_core
+
+    developerId = 'PierfrancescoSoffritti'
+    developerName = 'Pierfrancesco Soffritti'
+    developerEmail = 'soffritti.pierfrancesco@gmail.com'
+
+    licenseName = 'MIT License'
+    licenseUrl = 'https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/LICENSE'
+    allLicenses = ["MIT"]
+}
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion compileSdk
+    buildToolsVersion buildTools
 
     defaultConfig {
-        minSdkVersion 17
-        targetSdkVersion 27
-        versionCode 1
-        versionName "7.0.1"
+        minSdkVersion minSdk
+        targetSdkVersion targetSdk
+        versionCode versionCode_core
+        versionName versionName_core
     }
     buildTypes {
         release {
@@ -21,33 +42,19 @@ android {
     }
 }
 
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation "com.android.support:support-annotations:$supportLibrary_version"
+    implementation "com.android.support:appcompat-v7:$supportLibrary_version"
+    implementation "com.android.support:recyclerview-v7:$supportLibrary_version"
 }
 
-// build a jar with source files
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-task javadoc(type: Javadoc) {
-    failOnError  false
-    source = android.sourceSets.main.java.sourceFiles
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    classpath += configurations.compile
-}
-
-// build a jar with javadoc
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
-}
+apply from: 'installAndDeployConfigFiles/install_v1.gradle'
+apply from: 'installAndDeployConfigFiles/bintray_v1.gradle'

@@ -16,8 +16,8 @@
 #   public *;
 #}
 
--keep public class com.pierfrancescosoffritti.youtubeplayer.** {
+-keep public class com.pierfrancescosoffritti.androidyoutubeplayer.** {
    public *;
 }
 
--keepnames class com.pierfrancescosoffritti.youtubeplayer.*
+-keepnames class com.pierfrancescosoffritti.androidyoutubeplayer.*
