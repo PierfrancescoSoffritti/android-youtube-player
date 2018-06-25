@@ -360,7 +360,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
 
     // TODO refactor this method
     @Override
-    public void onStateChange(@PlayerConstants.PlayerState.State int state) {
+    public void onStateChange(@NonNull PlayerConstants.PlayerState state) {
         newSeekBarProgress = -1;
 
         updateControlsState(state);
@@ -404,18 +404,18 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
         }
     }
 
-    private void updateControlsState(int state) {
+    private void updateControlsState(PlayerConstants.PlayerState state) {
         switch (state) {
-            case PlayerConstants.PlayerState.ENDED:
+            case ENDED:
                 isPlaying = false;
                 break;
-            case PlayerConstants.PlayerState.PAUSED:
+            case PAUSED:
                 isPlaying = false;
                 break;
-            case PlayerConstants.PlayerState.PLAYING:
+            case PLAYING:
                 isPlaying = true;
                 break;
-            case PlayerConstants.PlayerState.UNSTARTED:
+            case UNSTARTED:
                 resetUI();
                 break;
             default:
@@ -466,9 +466,9 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     }
 
     @Override public void onReady() { }
-    @Override public void onPlaybackQualityChange(@NonNull @PlayerConstants.PlaybackQuality.Quality String playbackQuality) { }
-    @Override public void onPlaybackRateChange(@NonNull @PlayerConstants.PlaybackRate.Rate String rate) { }
-    @Override public void onError(@PlayerConstants.PlayerError.Error int error) { }
+    @Override public void onPlaybackQualityChange(@NonNull PlayerConstants.PlaybackQuality playbackQuality) { }
+    @Override public void onPlaybackRateChange(@NonNull PlayerConstants.PlaybackRate rate) { }
+    @Override public void onError(@NonNull PlayerConstants.PlayerError error) { }
     @Override public void onApiChange() { }
 
     // SeekBar callbacks

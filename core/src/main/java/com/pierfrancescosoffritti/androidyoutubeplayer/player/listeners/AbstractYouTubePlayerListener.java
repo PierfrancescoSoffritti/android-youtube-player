@@ -9,10 +9,10 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants;
  */
 public abstract class AbstractYouTubePlayerListener implements YouTubePlayerListener {
     @Override public void onReady() { }
-    @Override public void onStateChange(@PlayerConstants.PlayerState.State int state) { }
-    @Override public void onPlaybackQualityChange(@NonNull @PlayerConstants.PlaybackQuality.Quality String playbackQuality) { }
-    @Override public void onPlaybackRateChange(@NonNull @PlayerConstants.PlaybackRate.Rate String rate) { }
-    @Override public void onError(@PlayerConstants.PlayerError.Error int error) { }
+    @Override public void onStateChange(@NonNull PlayerConstants.PlayerState state) { }
+    @Override public void onPlaybackQualityChange(@NonNull PlayerConstants.PlaybackQuality playbackQuality) { }
+    @Override public void onPlaybackRateChange(@NonNull PlayerConstants.PlaybackRate rate) { }
+    @Override public void onError(@NonNull PlayerConstants.PlayerError error) { }
     @Override public void onApiChange() { }
     @Override public void onCurrentSecond(float second) { }
     @Override public void onVideoDuration(float duration) { }

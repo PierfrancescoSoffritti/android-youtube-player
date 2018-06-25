@@ -11,13 +11,13 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.Abstract
  * This is a YouTubePlayerListener, therefore is responsibility of the user to add and remove it as a listener on the YouTubePlayer object.
  */
 public class YouTubePlayerStateTracker extends AbstractYouTubePlayerListener {
-    @PlayerConstants.PlayerState.State private int currentState = PlayerConstants.PlayerState.UNKNOWN;
+    private PlayerConstants.PlayerState currentState = PlayerConstants.PlayerState.UNKNOWN;
     private float currentSecond;
     private float videoDuration;
     private String videoId;
 
     @Override
-    public void onStateChange(@PlayerConstants.PlayerState.State int state) {
+    public void onStateChange(@NonNull PlayerConstants.PlayerState state) {
         this.currentState = state;
     }
 
@@ -37,9 +37,9 @@ public class YouTubePlayerStateTracker extends AbstractYouTubePlayerListener {
     }
 
     /**
-     * @return the player state. A value from {@link PlayerConstants.PlayerState.State}
+     * @return the player state. A value from {@link PlayerConstants.PlayerState}
      */
-    public int getCurrentState() {
+    public PlayerConstants.PlayerState getCurrentState() {
         return currentState;
     }
 

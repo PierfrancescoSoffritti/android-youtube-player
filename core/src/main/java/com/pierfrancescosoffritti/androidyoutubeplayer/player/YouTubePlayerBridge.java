@@ -77,7 +77,7 @@ public class YouTubePlayerBridge {
     @JavascriptInterface
     public void sendStateChange(final String state) {
 
-        @PlayerConstants.PlayerState.State final int playerState = parsePlayerState(state);
+        final PlayerConstants.PlayerState playerState = parsePlayerState(state);
 
         mainThreadHandler.post(new Runnable() {
             @Override
@@ -91,7 +91,7 @@ public class YouTubePlayerBridge {
     @JavascriptInterface
     public void sendPlaybackQualityChange(final String quality) {
 
-        @PlayerConstants.PlaybackQuality.Quality final String playbackQuality = parsePlaybackQuality(quality);
+        final PlayerConstants.PlaybackQuality playbackQuality = parsePlaybackQuality(quality);
 
         mainThreadHandler.post(new Runnable() {
             @Override
@@ -105,7 +105,7 @@ public class YouTubePlayerBridge {
     @JavascriptInterface
     public void sendPlaybackRateChange(final String rate) {
 
-        @PlayerConstants.PlaybackRate.Rate final String playbackRate = parsePlaybackRate(rate);
+        final PlayerConstants.PlaybackRate playbackRate = parsePlaybackRate(rate);
 
         mainThreadHandler.post(new Runnable() {
             @Override
@@ -119,7 +119,7 @@ public class YouTubePlayerBridge {
     @JavascriptInterface
     public void sendError(final String error) {
 
-        @PlayerConstants.PlayerError.Error final int playerError = parsePlayerError(error);
+        final PlayerConstants.PlayerError playerError = parsePlayerError(error);
 
         mainThreadHandler.post(new Runnable() {
             @Override
@@ -210,8 +210,9 @@ public class YouTubePlayerBridge {
         });
     }
 
-    private int parsePlayerState(String state) {
-        @PlayerConstants.PlayerState.State int playerState;
+    @NonNull
+    private PlayerConstants.PlayerState parsePlayerState(String state) {
+        PlayerConstants.PlayerState playerState;
 
         if (state.equalsIgnoreCase(STATE_UNSTARTED))
             playerState = PlayerConstants.PlayerState.UNSTARTED;
@@ -232,9 +233,9 @@ public class YouTubePlayerBridge {
     }
 
 
-    @PlayerConstants.PlaybackQuality.Quality
-    private String parsePlaybackQuality(String quality) {
-        @PlayerConstants.PlaybackQuality.Quality String playbackQuality;
+    @NonNull
+    private PlayerConstants.PlaybackQuality parsePlaybackQuality(String quality) {
+        PlayerConstants.PlaybackQuality playbackQuality;
 
         if (quality.equalsIgnoreCase(QUALITY_SMALL))
             playbackQuality = PlayerConstants.PlaybackQuality.SMALL;
@@ -256,9 +257,9 @@ public class YouTubePlayerBridge {
         return playbackQuality;
     }
 
-    @PlayerConstants.PlaybackRate.Rate
-    private String parsePlaybackRate(String rate) {
-        @PlayerConstants.PlaybackRate.Rate final String playbackRate;
+    @NonNull
+    private PlayerConstants.PlaybackRate parsePlaybackRate(String rate) {
+        PlayerConstants.PlaybackRate playbackRate;
 
         if (rate.equalsIgnoreCase(RATE_0_25))
             playbackRate = PlayerConstants.PlaybackRate.RATE_0_25;
@@ -276,9 +277,9 @@ public class YouTubePlayerBridge {
         return playbackRate;
     }
 
-    @PlayerConstants.PlayerError.Error
-    private int parsePlayerError(String error) {
-        @PlayerConstants.PlayerError.Error int playerError;
+    @NonNull
+    private PlayerConstants.PlayerError parsePlayerError(String error) {
+        PlayerConstants.PlayerError playerError;
 
         if (error.equalsIgnoreCase(ERROR_INVALID_PARAMETER_IN_REQUEST))
             playerError = PlayerConstants.PlayerError.INVALID_PARAMETER_IN_REQUEST;

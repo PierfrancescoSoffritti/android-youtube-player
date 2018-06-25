@@ -72,7 +72,7 @@ class NotificationManager(private val context: Context, private val notification
     }
 
     @SuppressLint("SwitchIntDef")
-    override fun onStateChange(state: Int) {
+    override fun onStateChange(state: PlayerConstants.PlayerState) {
         when(state) {
             PlayerConstants.PlayerState.PLAYING -> notificationBuilder.mActions[0].icon = R.drawable.ic_pause_24dp
             else -> notificationBuilder.mActions[0].icon = R.drawable.ic_play_arrow_24dp

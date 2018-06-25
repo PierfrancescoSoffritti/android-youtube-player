@@ -13,10 +13,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.Abstract
  */
 public class PlaybackResumer extends AbstractYouTubePlayerListener {
 
-    private static final int NO_ERROR = Integer.MIN_VALUE;
-
     private boolean isPlaying = false;
-    private int error = NO_ERROR;
+    private PlayerConstants.PlayerError error = null;
 
     private String currentVideoId;
     private float currentSecond;
@@ -27,20 +25,20 @@ public class PlaybackResumer extends AbstractYouTubePlayerListener {
         else if(!isPlaying && error == PlayerConstants.PlayerError.HTML_5_PLAYER)
             youTubePlayer.cueVideo(currentVideoId, currentSecond);
 
-        error = NO_ERROR;
+        error = null;
     }
 
     @SuppressLint("SwitchIntDef")
     @Override
-    public void onStateChange(@PlayerConstants.PlayerState.State int state) {
+    public void onStateChange(@NonNull PlayerConstants.PlayerState state) {
         switch (state) {
-            case PlayerConstants.PlayerState.ENDED:
+            case ENDED:
                 isPlaying = false;
                 return;
-            case PlayerConstants.PlayerState.PAUSED:
+            case PAUSED:
                 isPlaying = false;
                 return;
-            case PlayerConstants.PlayerState.PLAYING:
+            case PLAYING:
                 isPlaying = true;
                 return;
             default:
@@ -49,7 +47,7 @@ public class PlaybackResumer extends AbstractYouTubePlayerListener {
     }
 
     @Override
-    public void onError(@PlayerConstants.PlayerError.Error int error) {
+    public void onError(@NonNull PlayerConstants.PlayerError error) {
         if(error == PlayerConstants.PlayerError.HTML_5_PLAYER)
             this.error = error;
     }

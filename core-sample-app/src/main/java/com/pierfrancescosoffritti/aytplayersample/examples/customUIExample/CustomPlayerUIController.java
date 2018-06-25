@@ -2,6 +2,7 @@ package com.pierfrancescosoffritti.aytplayersample.examples.customUIExample;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +74,7 @@ class CustomPlayerUIController extends AbstractYouTubePlayerListener implements 
     }
 
     @Override
-    public void onStateChange(@PlayerConstants.PlayerState.State int state) {
+    public void onStateChange(@NonNull PlayerConstants.PlayerState state) {
         if(state == PlayerConstants.PlayerState.PLAYING || state == PlayerConstants.PlayerState.PAUSED || state == PlayerConstants.PlayerState.VIDEO_CUED)
             panel.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent));
         else

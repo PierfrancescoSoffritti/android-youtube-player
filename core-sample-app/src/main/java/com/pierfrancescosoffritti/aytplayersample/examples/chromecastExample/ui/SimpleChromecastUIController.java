@@ -55,7 +55,7 @@ public class SimpleChromecastUIController extends AbstractYouTubePlayerListener 
         this.youTubePlayer = youTubePlayer;
     }
 
-    public void onStateChange(int state) {
+    public void onStateChange(@NonNull PlayerConstants.PlayerState state) {
         newSeekBarProgress = -1;
 
         updateControlsState(state);
@@ -113,13 +113,13 @@ public class SimpleChromecastUIController extends AbstractYouTubePlayerListener 
         newViewsContainer.removeView(view);
     }
 
-    private void updateControlsState(int state) {
+    private void updateControlsState(PlayerConstants.PlayerState state) {
         switch (state) {
-            case PlayerConstants.PlayerState.ENDED: isPlaying = false; break;
-            case PlayerConstants.PlayerState.PAUSED: isPlaying = false; break;
-            case PlayerConstants.PlayerState.PLAYING: isPlaying = true; break;
-            case PlayerConstants.PlayerState.BUFFERING: isPlaying = false; break;
-            case PlayerConstants.PlayerState.UNSTARTED: resetUI();
+            case ENDED: isPlaying = false; break;
+            case PAUSED: isPlaying = false; break;
+            case PLAYING: isPlaying = true; break;
+            case BUFFERING: isPlaying = false; break;
+            case UNSTARTED: resetUI();
         }
 
         updatePlayPauseButtonIcon(!isPlaying);

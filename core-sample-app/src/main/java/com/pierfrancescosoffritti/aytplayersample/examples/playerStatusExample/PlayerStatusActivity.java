@@ -2,6 +2,7 @@ package com.pierfrancescosoffritti.aytplayersample.examples.playerStatusExample;
 
 import android.arch.lifecycle.Lifecycle;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
@@ -49,7 +50,7 @@ public class PlayerStatusActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onStateChange(int state) {
+                public void onStateChange(@NonNull PlayerConstants.PlayerState state) {
                     onNewState(state);
                 }
             });
@@ -57,7 +58,7 @@ public class PlayerStatusActivity extends AppCompatActivity {
         }, true);
     }
 
-    private void onNewState(int newState) {
+    private void onNewState(PlayerConstants.PlayerState newState) {
         TextView playerStatusTextView = findViewById(R.id.player_status_text_view);
         String playerState = playerStateToString(newState);
 
@@ -85,21 +86,21 @@ public class PlayerStatusActivity extends AppCompatActivity {
         playerStatusTextView.setText(sb.toString());
     }
 
-    private String playerStateToString(@PlayerConstants.PlayerState.State int state) {
+    private String playerStateToString(PlayerConstants.PlayerState state) {
         switch (state) {
-            case PlayerConstants.PlayerState.UNKNOWN:
+            case UNKNOWN:
                 return "UNKNOWN";
-            case PlayerConstants.PlayerState.UNSTARTED:
+            case UNSTARTED:
                 return "UNSTARTED";
-            case PlayerConstants.PlayerState.ENDED:
+            case ENDED:
                 return "ENDED";
-            case PlayerConstants.PlayerState.PLAYING:
+            case PLAYING:
                 return "PLAYING";
-            case PlayerConstants.PlayerState.PAUSED:
+            case PAUSED:
                 return "PAUSED";
-            case PlayerConstants.PlayerState.BUFFERING:
+            case BUFFERING:
                     return "BUFFERING";
-            case PlayerConstants.PlayerState.VIDEO_CUED:
+            case VIDEO_CUED:
                 return "VIDEO_CUED";
             default:
                 return "status unknown";

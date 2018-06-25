@@ -86,9 +86,9 @@ public class NotificationManager extends AbstractYouTubePlayerListener implement
 
     @SuppressLint("SwitchIntDef")
     @Override
-    public void onStateChange(int state) {
+    public void onStateChange(@NonNull PlayerConstants.PlayerState state) {
         switch (state) {
-            case PlayerConstants.PlayerState.PLAYING:
+            case PLAYING:
                 notificationBuilder.mActions.get(0).icon = R.drawable.ic_pause_24dp;
                 break;
 

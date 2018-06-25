@@ -22,6 +22,10 @@
 
 -keepnames class com.pierfrancescosoffritti.androidyoutubeplayer.*
 
+-keep public class com.pierfrancescosoffritti.cytplayersample.** {
+   public *;
+}
+
 # GoogleApiClient
 # Needed to keep generic types and @Key annotations accessed via reflection
 -keepattributes Signature,RuntimeVisibleAnnotations,AnnotationDefault

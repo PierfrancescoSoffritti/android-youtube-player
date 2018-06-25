@@ -11,28 +11,28 @@ public interface YouTubePlayerListener {
     void onReady();
 
     /**
-     * Use this method to track the state of the playback. Check {@link PlayerConstants.PlayerState.State} to see all the possible states.
-     * @param state a state from {@link PlayerConstants.PlayerState.State}
+     * Use this method to track the state of the playback. Check {@link PlayerConstants.PlayerState} to see all the possible states.
+     * @param state a state from {@link PlayerConstants.PlayerState}
      */
-    void onStateChange(@PlayerConstants.PlayerState.State int state);
+    void onStateChange(@NonNull PlayerConstants.PlayerState state);
 
     /**
-     * Use this method to be notified when the quality of the playback changes. Check {@link PlayerConstants.PlaybackQuality.Quality} to see all the possible values.
-     * @param playbackQuality a state from {@link PlayerConstants.PlaybackQuality.Quality}
+     * Use this method to be notified when the quality of the playback changes. Check {@link PlayerConstants.PlaybackQuality} to see all the possible values.
+     * @param playbackQuality a state from {@link PlayerConstants.PlaybackQuality}
      */
-    void onPlaybackQualityChange(@NonNull @PlayerConstants.PlaybackQuality.Quality String playbackQuality);
+    void onPlaybackQualityChange(@NonNull PlayerConstants.PlaybackQuality playbackQuality);
 
     /**
-     * Use this method to be notified when the speed of the playback changes. Check {@link PlayerConstants.PlaybackRate.Rate} to see all the possible values.
-     * @param playbackRate a state from {@link PlayerConstants.PlaybackRate.Rate}
+     * Use this method to be notified when the speed of the playback changes. Check {@link PlayerConstants.PlaybackRate} to see all the possible values.
+     * @param playbackRate a state from {@link PlayerConstants.PlaybackRate}
      */
-    void onPlaybackRateChange(@NonNull @PlayerConstants.PlaybackRate.Rate String playbackRate);
+    void onPlaybackRateChange(@NonNull PlayerConstants.PlaybackRate playbackRate);
 
     /**
-     * Use this method to be notified when an error occurs in the player. Check {@link PlayerConstants.PlayerError.Error} to see all the possible values.
-     * @param error a state from {@link PlayerConstants.PlayerError.Error}
+     * Use this method to be notified when an error occurs in the player. Check {@link PlayerConstants.PlayerError} to see all the possible values.
+     * @param error a state from {@link PlayerConstants.PlayerError}
      */
-    void onError(@PlayerConstants.PlayerError.Error int error);
+    void onError(@NonNull PlayerConstants.PlayerError error);
 
     void onApiChange();
 

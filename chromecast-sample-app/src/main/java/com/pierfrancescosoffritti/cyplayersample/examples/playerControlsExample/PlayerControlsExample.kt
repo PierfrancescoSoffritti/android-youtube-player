@@ -87,7 +87,7 @@ class PlayerControlsExample : AppCompatActivity() {
                 youtubePlayer.addListener(object: AbstractYouTubePlayerListener() {
                     override fun onReady() = youtubePlayer.loadVideo(PlaybackUtils.getNextVideoId(), 0f)
 
-                    override fun onStateChange(state: Int) {
+                    override fun onStateChange(state: PlayerConstants.PlayerState) {
                         when(state) {
                             PlayerConstants.PlayerState.UNSTARTED -> playerStatusTextView.text = "UNSTARTED"
                             PlayerConstants.PlayerState.BUFFERING -> playerStatusTextView.text = "BUFFERING"

@@ -35,7 +35,7 @@ class SimpleChromecastUIController(private val controls_view: View) : AbstractYo
         playPauseButton.setOnClickListener { onPlayButtonPressed() }
     }
 
-    override fun onStateChange(state: Int) {
+    override fun onStateChange(state: PlayerConstants.PlayerState) {
         newSeekBarProgress = -1
 
         updateControlsState(state)
@@ -90,7 +90,7 @@ class SimpleChromecastUIController(private val controls_view: View) : AbstractYo
         newViewsContainer.removeView(view)
     }
 
-    private fun updateControlsState(state: Int) {
+    private fun updateControlsState(state: PlayerConstants.PlayerState) {
         when (state) {
             PlayerConstants.PlayerState.ENDED -> isPlaying = false
             PlayerConstants.PlayerState.PAUSED -> isPlaying = false
