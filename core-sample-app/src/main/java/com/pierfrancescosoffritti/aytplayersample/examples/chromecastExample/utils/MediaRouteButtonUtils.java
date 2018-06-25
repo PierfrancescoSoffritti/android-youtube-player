@@ -3,6 +3,7 @@ package com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.ut
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.MediaRouteButton;
@@ -12,8 +13,6 @@ import android.util.Log;
 import com.google.android.gms.cast.framework.CastButtonFactory;
 import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.ChromecastExampleActivity;
-
-import javax.annotation.Nullable;
 
 public class MediaRouteButtonUtils {
     static public MediaRouteButton initMediaRouteButton(Context context) {

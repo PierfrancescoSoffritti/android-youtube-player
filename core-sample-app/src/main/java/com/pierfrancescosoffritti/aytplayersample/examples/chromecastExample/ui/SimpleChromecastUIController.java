@@ -3,6 +3,7 @@ package com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.ui
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -14,7 +15,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.utils.Utils;
 import com.pierfrancescosoffritti.aytplayersample.R;
-import javax.annotation.Nullable;
 
 /**
  * Class used to control a simple UI for the cast player.
@@ -23,7 +23,8 @@ public class SimpleChromecastUIController extends AbstractYouTubePlayerListener 
 
     private final View controls_view;
 
-    @Nullable private YouTubePlayer youTubePlayer;
+    @Nullable
+    private YouTubePlayer youTubePlayer;
 
     private boolean isPlaying = false;
 

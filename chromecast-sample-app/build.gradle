@@ -15,11 +15,6 @@ android {
         versionName versionName_chromecast
     }
     buildTypes {
-        debug {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -46,12 +41,19 @@ dependencies {
     implementation "com.android.support:mediarouter-v7:$supportLibrary_version"
     implementation 'com.google.android.gms:play-services-cast-framework:15.0.1'
 
-    implementation "io.reactivex.rxjava2:rxjava:2.1.6"
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation "io.reactivex.rxjava2:rxjava:2.1.15"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+
     implementation('com.google.api-client:google-api-client-android:1.23.0') {
+        exclude group: 'com.google.guava'
         exclude group: 'org.apache.httpcomponents'
+        exclude group: 'com.google.code.findbugs'
+        exclude group: 'com.google.http-client', module: 'google-http-client-jackson2'
     }
-    implementation('com.google.apis:google-api-services-youtube:v3-rev187-1.23.0') {
+    implementation('com.google.apis:google-api-services-youtube:v3-rev198-1.23.0') {
+        exclude group: 'com.google.guava'
         exclude group: 'org.apache.httpcomponents'
+        exclude group: 'com.google.code.findbugs'
+        exclude group: 'com.google.http-client', module: 'google-http-client-jackson2'
     }
 }

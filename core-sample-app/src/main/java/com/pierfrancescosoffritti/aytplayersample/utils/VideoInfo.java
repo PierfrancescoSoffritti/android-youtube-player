@@ -3,8 +3,6 @@ package com.pierfrancescosoffritti.aytplayersample.utils;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 
-import javax.annotation.Nullable;
-
 public class VideoInfo {
     @NonNull private final String videoTitle;
     @NonNull private final String channelTitle;
