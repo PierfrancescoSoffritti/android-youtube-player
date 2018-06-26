@@ -28,37 +28,37 @@ A list of published apps that are using this library: ([let me know](https://git
 <img src="https://raw.githubusercontent.com/PierfrancescoSoffritti/Android-YouTube-Player/master/pics/showcase.jpg" />
 
 # Table of Contents (Core)
-1. [Sample app](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#sample-app)
-2. [Download](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#download)
-    1. [Core](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#core)
-    2. [Chromecast](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#chromecast) 
-3. [Quick start](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#quick-start)
-4. [YouTubePlayerView]()
-    1. Initialization
-    2. Full screen
-    3. UI
-    4. Free resources
-5. YouTubePlayer
-    1. Events
-    2. Player state
-6. YouTubePlayerListener
-7. PlayerUIController
-    1. Show video title
-    2. Live videos UI
-    3. Custom actions
-8. Create your custom UI
-9. Menu
-    1. YouTubePlayerMenu
-    2. DefaultYouTubePlayerMenu
-    3. MenuItem
-10. Network events
-11. Chromecast
-12. Utilities
-    1. Track the state of a YouTubePlayer object
-13. Useful info
-    1. Hardware acceleration
-    2. Play YouTube videos in the background
-    3. minSdk
+1. [Sample app](#sample-app)
+2. [Download](#download)
+    1. [Core](#core)
+    2. [Chromecast](#chromecast) 
+3. [Quick start](#quick-start)
+4. [YouTubePlayerView](#YouTubePlayerView)
+    1. [Initialization](#initialization)
+    2. [Full screen](#full-screen)
+    3. [UI](#ui)
+    4. [Release the YouTubePlayerView](#release-the-youtubeplayerview)
+    5. [LifecycleObserver](#lifecycleobserver)
+5. [YouTubePlayer](#youtubeplayer)
+    1. [Events](#events)
+    2. [Player state](#player-state)
+    3. [YouTubePlayerTracker](#youtubeplayertracker)
+6. [YouTubePlayerListener](#youtubeplayerlistener)
+7. [PlayerUIController](#playeruicontroller)
+    1. [Show video title](#show-video-title)
+    2. [Live video UI](#live-video-ui)
+    3. [Custom actions](#custom-actions)
+8. [Menu](#menu)
+    1. [YouTubePlayerMenu](#youtubeplayermenu)
+    2. [DefaultYouTubePlayerMenu](#defaultyoutubeplayermenu)
+    3. [MenuItem](#menuitem)
+9. [Create your own custom UI](#create-your-own-custom-ui)
+10. [Network events](#network-events)
+11. [Chromecast support](#chromecast-support)
+12. [Useful info](#useful-info)
+    1. [Hardware acceleration](#hardware-acceleration)
+    2. [Play YouTube videos in the background](#play-youtube-videos-in-the-background)
+    3. [minSdk](#minSdk)
 
 # Table of Contents (Chromecast)
 
@@ -68,12 +68,14 @@ This repository has two sample modules to show how to use various functionalitie
 You can download the apks of the two sample app [here (core)]() and [here (chromecast)](), or on the PlayStore.
 
 core: 
+
 <a href='https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.aytplayersample&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
     <img width='200px' alt='Get it on Google Play'
          src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/>
 </a>
 
 chromecast:
+
 <a href='https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.aytplayersample&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
     <img width='200px' alt='Get it on Google Play'
          src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/>
@@ -120,9 +122,10 @@ In order to start using the player you need to add the [YouTubePlayerView](https
 ```
 Get a reference to the `YouTubePlayerView` in your code and initialize it
 ```
-YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
+YouTubePlayerView youtubePlayerView = findViewById(R.id.youtube_player_view);
+getLifecycle().addObserver(youtubePlayerView);
 
-youTubePlayerView.initialize(new YouTubePlayerInitListener() {
+youtubePlayerView.initialize(new YouTubePlayerInitListener() {
     @Override
     public void onInitSuccess(@NonNull final YouTubePlayer initializedYouTubePlayer) {    
         initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
@@ -135,3 +138,266 @@ youTubePlayerView.initialize(new YouTubePlayerInitListener() {
     }
 }, true);
 ```
+
+# YouTubePlayerView
+`YouTubePlayerView` is the access point to the library.
+
+You can add the View to your layout
+```
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView
+        android:id="@+id/youtube_player_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+```
+
+or you can initialize it programmatically and manually add it to a ViewGroup
+```
+YouTubePlayerView youtubePlayerView = new YouTubePlayerView(this);
+layout.addView(youtubePlayerView);
+```
+
+if the height of the view is set to `wrap_content`, the view will automatically have an aspect ratio of 16:9, so that videos don't look bad.
+
+### Initialization
+In order to use the YouTubePlayer you need to initialize it. Call `YouTubePlayerView.initialize(YouTubePlayerInitListener listener, boolean handleNetworkEvents)` to do so.
+
+This methods takes in a [YouTubePlayerInitListener](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/player/YouTubePlayerInitListener.java) and a boolean. The boolean parameter is used to tell the library whether it should handle network events or not, read more about network events [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#network-events).
+
+The callback `YouTubePlayerInitListener.onInitSuccess(YouTubePlayer)` will be called by the library. The argument is a reference to the initialized YouTubePlayer. The YouTubePlayer is the object responsible for handling the playback of YouTube videos, read more about it [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#YouTubePlayer).
+
+### Full screen
+You can use the `YouTubePlayerView` to set the player full screen or not, using these methods
+
+```
+youtubePlayerView.enterFullScreen();
+youtubePlayerView.exitFullScreen();
+youtubePlayerView.isFullScreen();
+youtubePlayerView.toggleFullScreen();
+```
+You can also add listeners to get notified when the `YouTubePlayerView` enters or exits full screen
+```
+youtubePlayerView.addFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
+youtubePlayerView.removeFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
+```
+It's important to keep in mind the the library is not responsible for changing the orientation of your Activity, that's up to you. The sample app contains an helper class that may help you handling orientation changes.
+
+### UI
+If you want to interact with the UI of the player you need to get a reference to the `PlayerUIController` from the `YouTubePlayerView` by calling this method
+```
+PlayerUIController YouTubePlayerView.getPlayerUIController();
+```
+You can read more about PlayerUIController [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#PlayerUIController).
+
+### Release the YouTubePlayerView
+Remember to release the `YouTubePlayerView` when you're done using it.
+```
+@Override
+public void onDestroy() {
+    super.onDestroy();
+    youtubePlayerView.release();
+}
+```
+
+### LifecycleObserver 
+`YouTubePlayerView` implements the `LifecycleObserver` interface. If added as an observer of your Activity/Fragment's lifecycle, the `release()` method will be called automatically.
+```
+lifecycleOwner.getLifecycle().addObserver(youTubePlayerView);
+```
+Adding `YouTubePlayerView` as an observer to a lifecycle will also automatically cause the player to pause the playback when the Activity/Fragment stops (not when it pauses, in order to support multi-window applications).
+
+If you want your app to keep playing even when the Activity/Fragment is paused (remember that this behaviour is not allowed, if you want to publish your app on the PlayStore), don't register the `YouTubePlayerView` as a lifecycle observer. But remember to manually call `release()` when the Activity/Fragment is destroyed.
+
+The `YouTubePlayer` is the component responsible for controlling the playback of YouTube videos. You can see its contract [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/player/YouTubePlayer.java).
+
+You can only get a reference to the `YouTubePlayer` when [initializing the YouTubePlayerView](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/YouTubePlayerView#initialization).
+
+# YouTubePlayer
+
+### Events
+During its existence the player will constantly emit events, you can easily listen to all of them by adding a [YouTubePlayerListener](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/player/YouTubePlayerListener.java) to it (or an `AbstractYouTubePlayerListener`, if you don't want to implement all the methods of the `YouTubePlayerListener` interface).
+
+### Player state
+The player has a state, that changes accordingly to the playback. The states in which the player can be are the same of the YouTube [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference#Playback_status).
+
+`UNKNOWN`
+`UNSTARTED`
+`ENDED`
+`PLAYING`
+`PAUSED`
+`BUFFERING`
+`VIDEO_CUED`
+
+### YouTubePlayerTracker
+`YouTubePlayerTracker` is an utility provided by the library to easily keep track of a `YouTubePlayer`'s state.
+
+`YouTubePlayerTracker` is a `YouTubePlayerListener`, in order to use it you need to add it as a listener to the `YouTubePlayer`
+
+You can then use it to get the player's state and various information about the video that is being played.
+
+```
+YouTubePlayerTracker tracker = new YouTubePlayerTracker();
+youtubePlayer.addListener(tracker);
+
+tracker.getState();
+tracker.getCurrentSecond();
+tracker.getVideoDuration();
+tracker.getVideoId();
+```
+
+# YouTubePlayerListener
+A `YouTubePlayerListener` is used to receive events from a `YouTubePlayer`.
+
+During its existence a `YouTubePlayer` will constantly emit events, you can listen to them by adding a `YouTubePlayerListener` to the `YouTubePlayer`.
+
+```
+youtubePlayer.addListener(YouTubePlayerListener listener);
+youtubePlayer.removeListener(YouTubePlayerListener listener);
+```
+
+If you don't want to implement all the methods from `YouTubePlayerListener`, you can extend `AbstractYouTubePlayerListener` instead of implementing `YouTubePlayerListener`.
+
+For more information on the methods defined in the `YouTubePlayerListener` interface, please refer to the documentation defined above each method [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/player/YouTubePlayerListener.java).
+
+# PlayerUIController
+The PlayerUIController is responsible for controlling the UI of a `YouTubePlayer`.
+
+You can get a reference to the `PlayerUIController` from the `YouTubePlayerView`
+```
+youtubePlayerView.getPlayerUIController();
+```
+
+### Show video title
+`PlayerUIController` exposes a method called `setVideoTitle(String videoTitle)`.
+
+If you want to use this method you need to find the title of the video. The recommended approach is to use the [YouTube Data API](https://developers.google.com/youtube/v3/docs/)  to fetch the video title from the video id. You can see an example in the method `setVideoTitle(PlayerUIController playerUIController, String videoId)` from the [sample app](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/sample/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayersample/examples/basicExample/BasicExampleActivity.java).
+
+### Live videos
+If you want to play live videos you must setup the UI accordingly, by calling this method
+```
+PlayerUIController.enableLiveVideoUI(boolean enable);
+```
+Unfortunately there is no way for the player to recognize if it is playing a live video or not, therefore is up to the developer to change the UI accordingly.
+
+### Custom actions
+You can set custom actions on the right and left side of the Play/Pause button of the player
+```
+PlayerUIController.setCustomAction1(Drawable icon, OnClickListener listener);
+PlayerUIController.setCustomAction2(Drawable icon, OnClickListener listener);
+PlayerUIController.showCustomAction1(boolean show);
+PlayerUIController.showCustomAction2(boolean show);
+```
+
+by default if you set a custom action with a null listener the icon won't be visible.
+
+You can also add any type of View to the UI, this can be useful if you want to add a new icon to the UI.
+```
+PlayerUIController.addView(View view);
+PlayerUIController.removeView(View view);
+```
+The View will be added to the top of the player.
+
+# Menu
+You can use these methods to control the menu's behavior:
+``` 
+PlayerUIController.showMenuButton(boolean show);
+PlayerUIController.setMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener);
+```
+By default the menu icon is not visible.
+
+The default `OnClickListener` shows the default menu.
+
+### YouTubePlayerMenu
+Internally the menu is represented by a `YouTubePlayerMenu`. You can see its contract [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/ui/menu/YouTubePlayerMenu.java).
+
+You can get a reference of the `YouTubePlayerMenu` from the `PlayerUIController`, using the method
+`PlayerUIController.getMenu()`.
+
+You can add your own implementation of `YouTubePlayerMenu` using `PlayerUIController.setMenu(YouTubePlayerMenu youTubePlayerMenu)`.
+
+### DefaultYouTubePlayerMenu
+The default implementation of `YouTubePlayerMenu` (provided by the library) shows a popup window when its `show()` method is called. The popup window contains a list of `MenuItem`s. You can see the default implementation [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/ui/menu/defaultMenu/DefaultYouTubePlayerMenu.java).
+
+Unless you want to provide a different UX to your users you can safely use the default implementation of `YouTubePlayerMenu`.
+
+Initially the menu doesn't contain any `MenuItem`. You need to add them, using the method `YouTubePlayerMenu.addItem(MenuItem menuItem)`.
+
+### MenuItem
+`MenuItem`s are the entries in the `YouTubePlayerMenu`. They are POJOs with a String of text, an icon and an OnClickListener. [Here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/ui/menu/MenuItem.java) is the implementation.
+
+# Create your own custom UI
+`YouTubePlayerView`'s method
+```
+View inflateCustomPlayerUI(@LayoutRes int customUILayoutID)
+```
+can be used to replace the default UI of the player.
+
+This method takes in the id of a layout resource. The method returns the View object corresponding to the inflated layout. The default UI of the player is removed and replaced with the new UI.
+
+After calling this method, the default [PlayerUIController](#PlayerUIController) won't be available anymore. Calling `YouTubePlayerView.getPlayerUIController()` will throw an exception.
+
+You are now required to manage your custom UI with your own code. Meaning: you should write your own class to manage the UI. A simple but complete example can be seen [here, in the sample app](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/tree/master/sample/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayersample/examples/customUIExample), I recommend you take a few minutes to read it, it should be trivial to understand.
+
+Example (taken from sample app):
+
+```
+View customPlayerUI = youTubePlayerView.inflateCustomPlayerUI(R.layout.custom_player_ui);
+
+youTubePlayerView.initialize(youTubePlayer -> {
+
+  CustomPlayerUIController customPlayerUIController = new CustomPlayerUIController(this, customPlayerUI, youTubePlayer, youTubePlayerView);
+  youTubePlayer.addListener(customPlayerUIController);
+  youTubePlayerView.addFullScreenListener(customPlayerUIController);
+
+  // ...
+}, true);
+```
+A post on this topic is available [here](https://medium.com/@soffritti.pierfrancesco/customize-android-youtube-players-ui-9f32da9e8505).
+
+Sample app example:
+
+![Sample app example](https://media.giphy.com/media/SradsoNdy1DNVGHGy5/giphy.gif)
+
+# Network events
+This library is capable of handling network events, using an internal BroadcastReceiver. You can choose to use it or not when you are initializing the player.
+
+Call `YouTubePlayerView.initialize(..., true)` to let the library register its BroadcastReceiver or call `YouTubePlayerView.initialize(..., false)` if you prefer to use your own.
+
+Using the internal BroadcastReceiver is the easiest and recommended way to handle network events. The library is capable of handling cases in which the connection goes off and the playback can't continue, or cases in which the connection goes off while the player is in the process of initialization.
+
+For example, if the player is playing but it has to stop because the connection is off, once the connection is back the player automatically resumes the playback from where it left off. Otherwise if the player was paused, when the connection is back it just stays paused while resuming the buffering of the video.
+
+If you want to use your own BroadcastReceiver make sure to cover all this scenarios, in order to provide a consistent user experience.
+
+# Chromecast
+If you need to cast YouTube videos to a Chromecast device you can use the *chromecast* extension library to add this functionality to the android-youtube-player. Read its documentation [here](#chromecast).
+
+# Useful info
+# Hardware acceleration
+Is important that the Activity containing the [YouTubePlayerView](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/YouTubePlayerView) is hardware accelerated. This option is enabled by default, you won't have to do any changes in your app, unless you manually disabled hardware acceleration.
+
+If you need to disable hardware acceleration in your application, you can enable it at the Activity level, as explained [here](https://developer.android.com/guide/topics/graphics/hardware-accel.html).
+
+Disabling hardware acceleration on the Activity containing `YouTubePlayerView` may result in some weird behavior. Those I have observed so far show a black image in the player, while the audio is playing normally.
+
+# Play YouTube videos in the background
+With this library is easy to play YouTube videos when the app is not visible. In order to do that you simply have to not call `youtubePlayer.pause()` when the Activity is being paused or stopped.
+
+Adding `YouTubePlayerView` as an observer to a lifecycle will automatically cause the player to pause the playback when the Activity/Fragment stops.
+
+Therefore if you want your app to keep playing even when the Activity/Fragment is paused/stopped, don't register it as a lifecycle observer. But remember to manually call `YouTubePlayerView.release()` when the Activity/Fragment is destroyed.
+
+Remember that this behavior is against [YouTube terms of service](https://developers.google.com/youtube/terms/api-services-terms-of-service), therefore if you decide to allow background playback you won't be able to publish your app on the Play Store.
+
+Use this functionality only if you plan to build the app for your self or if you plan to distribute it through different channels.
+
+# minSdk
+The minSdk of the library is 17. [At this point](https://developer.android.com/about/dashboards/index.html) it doesn't make much sense for new apps to support older versions of Android.
+
+I'm not sure how WebView will behave on older versions of Android, but technically it should be possible to lower the minSdk. If you absolutely need to support older devices, I suggest you fork the library and lower the minSdk yourself.
