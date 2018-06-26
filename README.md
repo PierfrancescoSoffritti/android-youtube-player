@@ -124,9 +124,10 @@ In order to start using the player you need to add the [YouTubePlayerView](https
 ```
 Get a reference to the `YouTubePlayerView` in your code and initialize it
 ```
-YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
+YouTubePlayerView youtubePlayerView = findViewById(R.id.youtube_player_view);
+getLifecycle().addObserver(youtubePlayerView);
 
-youTubePlayerView.initialize(new YouTubePlayerInitListener() {
+youtubePlayerView.initialize(new YouTubePlayerInitListener() {
     @Override
     public void onInitSuccess(@NonNull final YouTubePlayer initializedYouTubePlayer) {    
         initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
@@ -160,8 +161,8 @@ You can add the View to your layout
 
 or you can initialize it programmatically and manually add it to a ViewGroup
 ```
-YouTubePlayerView youTubePlayerView = new YouTubePlayerView(this);
-layout.addView(youTubePlayerView);
+YouTubePlayerView youtubePlayerView = new YouTubePlayerView(this);
+layout.addView(youtubePlayerView);
 ```
 
 if the height of the view is set to `wrap_content`, the view will automatically have an aspect ratio of 16:9, so that videos don't look bad.
@@ -177,15 +178,15 @@ The callback `YouTubePlayerInitListener.onInitSuccess(YouTubePlayer)` will be ca
 You can use the `YouTubePlayerView` to set the player full screen or not, using these methods
 
 ```
-YouTubePlayerView.enterFullScreen();
-YouTubePlayerView.exitFullScreen();
-YouTubePlayerView.isFullScreen();
-YouTubePlayerView.toggleFullScreen();
+youtubePlayerView.enterFullScreen();
+youtubePlayerView.exitFullScreen();
+youtubePlayerView.isFullScreen();
+youtubePlayerView.toggleFullScreen();
 ```
 You can also add listeners to get notified when the `YouTubePlayerView` enters or exits full screen
 ```
-YouTubePlayerView.addFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
-YouTubePlayerView.removeFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
+youtubePlayerView.addFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
+youtubePlayerView.removeFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
 ```
 It's important to keep in mind the the library is not responsible for changing the orientation of your Activity, that's up to you. The sample app contains an helper class that may help you handling orientation changes.
 
@@ -202,7 +203,7 @@ Remember to release the `YouTubePlayerView` when you're done using it.
 @Override
 public void onDestroy() {
     super.onDestroy();
-    youTubePlayerView.release();
+    youtubePlayerView.release();
 }
 ```
 
@@ -251,3 +252,17 @@ tracker.getCurrentSecond();
 tracker.getVideoDuration();
 tracker.getVideoId();
 ```
+
+# YouTubePlayerListener
+A `YouTubePlayerListener` is used to receive events from a `YouTubePlayer`.
+
+During its existence a `YouTubePlayer` will constantly emit events, you can listen to them by adding a `YouTubePlayerListener` to the `YouTubePlayer`.
+
+```
+youtubePlayer.addListener(YouTubePlayerListener listener);
+youtubePlayer.removeListener(YouTubePlayerListener listener);
+```
+
+If you don't want to implement all the methods from `YouTubePlayerListener`, you can extend `AbstractYouTubePlayerListener` instead of implementing `YouTubePlayerListener`.
+
+For more information on the methods defined in the `YouTubePlayerListener` interface, please refer to the documentation defined above each method [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/player/YouTubePlayerListener.java).
