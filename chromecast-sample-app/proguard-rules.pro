@@ -16,16 +16,6 @@
 #   public *;
 #}
 
--keep public class com.pierfrancescosoffritti.androidyoutubeplayer.** {
-   public *;
-}
-
--keepnames class com.pierfrancescosoffritti.androidyoutubeplayer.*
-
--keep public class com.pierfrancescosoffritti.cytplayersample.** {
-   public *;
-}
-
 # GoogleApiClient
 # Needed to keep generic types and @Key annotations accessed via reflection
 -keepattributes Signature,RuntimeVisibleAnnotations,AnnotationDefault
@@ -45,3 +35,6 @@
 # Suppress warnings on sun.misc.Unsafe
 -dontnote sun.misc.Unsafe
 -dontwarn sun.misc.Unsafe
+
+-dontwarn com.google.common.**
+-dontwarn com.google.api.client.json.**
