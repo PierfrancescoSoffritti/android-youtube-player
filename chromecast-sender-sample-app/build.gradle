@@ -27,7 +27,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     implementation project(':core')
-    implementation project(':chromecast')
+    implementation project(':chromecast-sender')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 

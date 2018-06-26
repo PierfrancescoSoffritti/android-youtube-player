@@ -1,19 +1,23 @@
 apply plugin: 'com.android.library'
 
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.jetbrains.dokka-android'
+
 //ext {
 //    bintrayRepo = 'maven'
-//    bintrayName = 'android-youtube-player:core'
+//    bintrayName = 'android-youtube-player:chromecast-sender'
 //
 //    publishedGroupId = 'com.pierfrancescosoffritti.androidyoutubeplayer'
 //    libraryName = 'android-youtube-player'
-//    artifact = 'core'
+//    artifact = 'chromecast-sender'
 //
-//    libraryDescription = 'YouTube Player library for Android, stable and customizable.'
+//    libraryDescription = 'Extension for the android-youtube-player library, that enables Chromecast compatibility.'
 //
 //    siteUrl = 'https://github.com/PierfrancescoSoffritti/Android-YouTube-Player'
 //    gitUrl = 'https://github.com/PierfrancescoSoffritti/Android-YouTube-Player.git'
 //
-//    libraryVersion = versionName_core
+//    libraryVersion = versionName_chromecast
 //
 //    developerId = 'PierfrancescoSoffritti'
 //    developerName = 'Pierfrancesco Soffritti'
@@ -31,8 +35,8 @@ android {
     defaultConfig {
         minSdkVersion minSdk
         targetSdkVersion targetSdk
-        versionCode versionCode_core
-        versionName versionName_core
+        versionCode versionCode_chromecast
+        versionName versionName_chromecast
     }
     buildTypes {
         release {
@@ -42,18 +46,25 @@ android {
     }
 }
 
-tasks.withType(Javadoc) {
-    options.addStringOption('Xdoclint:none', '-quiet')
-    options.addStringOption('encoding', 'UTF-8')
-    options.addStringOption('charSet', 'UTF-8')
+//dokka {
+//    outputFormat = 'html'
+//    outputDirectory = "$buildDir/javadoc"
+//}
+
+tasks.withType(Javadoc).all {
+    enabled = false
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    implementation "com.android.support:support-annotations:$supportLibrary_version"
+
+    api project(':core')
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
     implementation "com.android.support:appcompat-v7:$supportLibrary_version"
-    implementation "com.android.support:recyclerview-v7:$supportLibrary_version"
+    implementation "com.android.support:mediarouter-v7:$supportLibrary_version"
+    implementation 'com.google.android.gms:play-services-cast-framework:15.0.1'
 }
 
 //apply from: 'installAndDeployConfigFiles/install_v1.gradle'

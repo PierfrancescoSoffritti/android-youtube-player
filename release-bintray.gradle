@@ -1,0 +1,34 @@
+/**
+ * Bintray release configuration
+ * */
+
+ext {
+  bintrayRepo = 'maven'
+  bintrayName = POM_BINTRAY_NAME
+
+  publishedGroupId = 'com.pierfrancescosoffritti.androidyoutubeplayer'
+  libraryName = 'android-youtube-player'
+  artifact = POM_ARTIFACT_ID
+  packagingType = POM_PACKAGING
+
+  libraryDescription = POM_DESCRIPTION
+
+  siteUrl = 'https://github.com/PierfrancescoSoffritti/Android-YouTube-Player'
+  gitUrl = 'https://github.com/PierfrancescoSoffritti/Android-YouTube-Player.git'
+
+  libraryVersion = POM_VERSION
+
+  developerId = 'PierfrancescoSoffritti'
+  developerName = 'Pierfrancesco Soffritti'
+  developerEmail = 'soffritti.pierfrancesco@gmail.com'
+
+  licenseName = 'MIT License'
+  licenseUrl = 'https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/LICENSE'
+  allLicenses = ["MIT"]
+}
+
+// Set up the Android Maven publication.
+apply from: rootProject.file('jcenter/maven-install.gradle')
+
+// Publish on Bintray.
+apply from: rootProject.file('jcenter/bintray.gradle')

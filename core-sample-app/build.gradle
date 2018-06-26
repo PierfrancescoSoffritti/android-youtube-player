@@ -30,7 +30,7 @@ dependencies {
 
     implementation project(':core')
 //    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.50'
-    implementation project(':chromecast')
+    implementation project(':chromecast-sender')
 
     implementation "com.android.support:appcompat-v7:$supportLibrary_version"
     implementation "com.android.support:design:$supportLibrary_version"
@@ -60,10 +60,10 @@ dependencies {
     implementation 'com.getkeepsafe.taptargetview:taptargetview:1.11.0'
 }
 
-configurations {
-    custom
-}
-
-dependencies {
-    custom 'com.google.apis:google-api-services-youtube:v3-rev198-1.23.0'
-}
+//configurations {
+//    custom
+//}
+//
+//dependencies {
+//    custom 'com.google.apis:google-api-services-youtube:v3-rev198-1.23.0'
+//}
