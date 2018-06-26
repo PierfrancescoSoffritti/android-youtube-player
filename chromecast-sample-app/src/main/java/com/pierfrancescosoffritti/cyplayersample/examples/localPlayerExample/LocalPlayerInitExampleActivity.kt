@@ -11,7 +11,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsend
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.infrastructure.ChromecastConnectionListener
 import com.pierfrancescosoffritti.cyplayersample.R
 import com.pierfrancescosoffritti.cyplayersample.utils.MediaRouteButtonUtils
-import com.pierfrancescosoffritti.cyplayersample.utils.PlayServicesUtils
+import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.utils.PlayServicesUtils
 import com.pierfrancescosoffritti.cyplayersample.notifications.NotificationManager
 import com.pierfrancescosoffritti.cyplayersample.notifications.PlaybackControllerBroadcastReceiver
 import kotlinx.android.synthetic.main.local_and_cast_player_example.*

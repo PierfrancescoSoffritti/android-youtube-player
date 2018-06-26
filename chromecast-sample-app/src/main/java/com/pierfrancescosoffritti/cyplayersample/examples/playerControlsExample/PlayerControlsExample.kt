@@ -15,7 +15,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.Abstract
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener
 import com.pierfrancescosoffritti.cyplayersample.R
 import com.pierfrancescosoffritti.cyplayersample.utils.MediaRouteButtonUtils
-import com.pierfrancescosoffritti.cyplayersample.utils.PlayServicesUtils
+import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.utils.PlayServicesUtils
 import com.pierfrancescosoffritti.cyplayersample.utils.PlaybackUtils
 import com.pierfrancescosoffritti.cyplayersample.ui.SimpleChromecastUIController
 import kotlinx.android.synthetic.main.activity_player_controls_example.*

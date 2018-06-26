@@ -1,7 +1,6 @@
 package com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
 import com.google.android.gms.cast.framework.CastOptions;
 import com.google.android.gms.cast.framework.OptionsProvider;
