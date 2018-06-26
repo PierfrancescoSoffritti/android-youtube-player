@@ -10,7 +10,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.Abstract
  * Utility class responsible for tracking the state of YouTubePlayer.
  * This is a YouTubePlayerListener, therefore is responsibility of the user to add and remove it as a listener on the YouTubePlayer object.
  */
-public class YouTubePlayerStateTracker extends AbstractYouTubePlayerListener {
+public class YouTubePlayerTracker extends AbstractYouTubePlayerListener {
     private PlayerConstants.PlayerState currentState = PlayerConstants.PlayerState.UNKNOWN;
     private float currentSecond;
     private float videoDuration;
@@ -39,7 +39,7 @@ public class YouTubePlayerStateTracker extends AbstractYouTubePlayerListener {
     /**
      * @return the player state. A value from {@link PlayerConstants.PlayerState}
      */
-    public PlayerConstants.PlayerState getCurrentState() {
+    public PlayerConstants.PlayerState getState() {
         return currentState;
     }
 

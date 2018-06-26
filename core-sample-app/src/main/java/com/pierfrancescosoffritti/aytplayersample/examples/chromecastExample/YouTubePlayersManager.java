@@ -12,7 +12,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener;
-import com.pierfrancescosoffritti.androidyoutubeplayer.utils.YouTubePlayerStateTracker;
+import com.pierfrancescosoffritti.androidyoutubeplayer.utils.YouTubePlayerTracker;
 import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.ui.SimpleChromecastUIController;
 import com.pierfrancescosoffritti.aytplayersample.utils.PlaybackUtils;
@@ -33,8 +33,8 @@ public class YouTubePlayersManager implements ChromecastConnectionListener {
     @Nullable private YouTubePlayer localYouTubePlayer = null;
     @Nullable private YouTubePlayer chromecastYouTubePlayer = null;
 
-    private final YouTubePlayerStateTracker chromecastPlayerStateTracker = new YouTubePlayerStateTracker();
-    private final YouTubePlayerStateTracker localPlayerStateTracker = new YouTubePlayerStateTracker();
+    private final YouTubePlayerTracker chromecastPlayerStateTracker = new YouTubePlayerTracker();
+    private final YouTubePlayerTracker localPlayerStateTracker = new YouTubePlayerTracker();
 
     private boolean playingOnCastPlayer = false;
 
@@ -69,7 +69,7 @@ public class YouTubePlayersManager implements ChromecastConnectionListener {
     @Override
     public void onChromecastDisconnected() {
         if(localYouTubePlayer != null && chromecastPlayerStateTracker.getVideoId() != null) {
-            if (chromecastPlayerStateTracker.getCurrentState() == PlayerConstants.PlayerState.PLAYING)
+            if (chromecastPlayerStateTracker.getState() == PlayerConstants.PlayerState.PLAYING)
                 localYouTubePlayer.loadVideo(chromecastPlayerStateTracker.getVideoId(), chromecastPlayerStateTracker.getCurrentSecond());
             else
                 localYouTubePlayer.cueVideo(chromecastPlayerStateTracker.getVideoId(), chromecastPlayerStateTracker.getCurrentSecond());
@@ -85,12 +85,12 @@ public class YouTubePlayersManager implements ChromecastConnectionListener {
 
     public void togglePlayback() {
         if(playingOnCastPlayer && chromecastYouTubePlayer != null)
-            if(chromecastPlayerStateTracker.getCurrentState() == PlayerConstants.PlayerState.PLAYING)
+            if(chromecastPlayerStateTracker.getState() == PlayerConstants.PlayerState.PLAYING)
                 chromecastYouTubePlayer.pause();
             else
                 chromecastYouTubePlayer.play();
         else if(localYouTubePlayer != null)
-            if(localPlayerStateTracker.getCurrentState() == PlayerConstants.PlayerState.PLAYING)
+            if(localPlayerStateTracker.getState() == PlayerConstants.PlayerState.PLAYING)
                 localYouTubePlayer.pause();
             else
                 localYouTubePlayer.play();
@@ -110,7 +110,7 @@ public class YouTubePlayersManager implements ChromecastConnectionListener {
                 }
 
                 public void onCurrentSecond(float second){
-                    if (playingOnCastPlayer && localPlayerStateTracker.getCurrentState() == PlayerConstants.PlayerState.PLAYING)
+                    if (playingOnCastPlayer && localPlayerStateTracker.getState() == PlayerConstants.PlayerState.PLAYING)
                         youtubePlayer.pause();
                 }
             });

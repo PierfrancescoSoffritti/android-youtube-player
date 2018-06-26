@@ -12,7 +12,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.utils.YouTubePlayerStateTracker
+import com.pierfrancescosoffritti.androidyoutubeplayer.utils.YouTubePlayerTracker
 import com.pierfrancescosoffritti.cyplayersample.R
 import com.pierfrancescosoffritti.cyplayersample.notifications.NotificationManager
 import com.pierfrancescosoffritti.cyplayersample.notifications.PlaybackControllerBroadcastReceiver
@@ -89,7 +89,7 @@ class NotificationExampleActivity : AppCompatActivity() {
         private fun initializeCastPlayer(chromecastYouTubePlayerContext: ChromecastYouTubePlayerContext) {
             chromecastYouTubePlayerContext.initialize( YouTubePlayerInitListener { youtubePlayer ->
 
-                val playerStateTracker = YouTubePlayerStateTracker()
+                val playerStateTracker = YouTubePlayerTracker()
 
                 initBroadcastReceiver(youtubePlayer, playerStateTracker)
 
@@ -104,9 +104,9 @@ class NotificationExampleActivity : AppCompatActivity() {
             })
         }
 
-        private fun initBroadcastReceiver(youTubePlayer: YouTubePlayer, playerStateTracker: YouTubePlayerStateTracker) {
+        private fun initBroadcastReceiver(youTubePlayer: YouTubePlayer, playerTracker: YouTubePlayerTracker) {
             playbackControllerBroadcastReceiver.togglePlayback = {
-                if(playerStateTracker.currentState == PlayerConstants.PlayerState.PLAYING)
+                if(playerTracker.state == PlayerConstants.PlayerState.PLAYING)
                     youTubePlayer.pause()
                 else
                     youTubePlayer.play()

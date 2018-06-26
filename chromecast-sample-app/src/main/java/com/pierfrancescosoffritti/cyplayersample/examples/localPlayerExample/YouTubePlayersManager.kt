@@ -9,7 +9,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.utils.YouTubePlayerStateTracker
+import com.pierfrancescosoffritti.androidyoutubeplayer.utils.YouTubePlayerTracker
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView
 import com.pierfrancescosoffritti.cyplayersample.R
 import com.pierfrancescosoffritti.cyplayersample.ui.SimpleChromecastUIController
@@ -34,8 +34,8 @@ class YouTubePlayersManager(
     private var localYouTubePlayer: YouTubePlayer? = null
     private var chromecastYouTubePlayer: YouTubePlayer? = null
 
-    private val chromecastPlayerStateTracker = YouTubePlayerStateTracker()
-    private val localPlayerStateTracker = YouTubePlayerStateTracker()
+    private val chromecastPlayerStateTracker = YouTubePlayerTracker()
+    private val localPlayerStateTracker = YouTubePlayerTracker()
 
     private var playingOnCastPlayer = false
 
@@ -55,7 +55,7 @@ class YouTubePlayersManager(
     }
 
     override fun onChromecastDisconnected() {
-        if(chromecastPlayerStateTracker.currentState == PlayerConstants.PlayerState.PLAYING)
+        if(chromecastPlayerStateTracker.state == PlayerConstants.PlayerState.PLAYING)
             localYouTubePlayer?.loadVideo(chromecastPlayerStateTracker.videoId!!, chromecastPlayerStateTracker.currentSecond)
         else
             localYouTubePlayer?.cueVideo(chromecastPlayerStateTracker.videoId!!, chromecastPlayerStateTracker.currentSecond)
@@ -67,12 +67,12 @@ class YouTubePlayersManager(
 
     fun togglePlayback() {
         if(playingOnCastPlayer)
-            if(chromecastPlayerStateTracker.currentState == PlayerConstants.PlayerState.PLAYING)
+            if(chromecastPlayerStateTracker.state == PlayerConstants.PlayerState.PLAYING)
                 chromecastYouTubePlayer?.pause()
             else
                 chromecastYouTubePlayer?.play()
         else
-            if(localPlayerStateTracker.currentState == PlayerConstants.PlayerState.PLAYING)
+            if(localPlayerStateTracker.state == PlayerConstants.PlayerState.PLAYING)
                 localYouTubePlayer?.pause()
             else
                 localYouTubePlayer?.play()
@@ -93,7 +93,7 @@ class YouTubePlayersManager(
                 }
 
                 override fun onCurrentSecond(second: Float) {
-                    if(playingOnCastPlayer && localPlayerStateTracker.currentState == PlayerConstants.PlayerState.PLAYING)
+                    if(playingOnCastPlayer && localPlayerStateTracker.state == PlayerConstants.PlayerState.PLAYING)
                         youtubePlayer.pause()
                 }
             })
