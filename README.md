@@ -37,7 +37,8 @@ A list of published apps that are using this library: ([let me know](https://git
     1. Initialization
     2. Full screen
     3. UI
-    4. Free resources
+    4. Release the YouTubePlayerView
+    5. LifecycleObserver
 5. YouTubePlayer
     1. Events
     2. Player state
@@ -68,12 +69,14 @@ This repository has two sample modules to show how to use various functionalitie
 You can download the apks of the two sample app [here (core)]() and [here (chromecast)](), or on the PlayStore.
 
 core: 
+
 <a href='https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.aytplayersample&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
     <img width='200px' alt='Get it on Google Play'
          src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/>
 </a>
 
 chromecast:
+
 <a href='https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.aytplayersample&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
     <img width='200px' alt='Get it on Google Play'
          src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/>
@@ -135,3 +138,79 @@ youTubePlayerView.initialize(new YouTubePlayerInitListener() {
     }
 }, true);
 ```
+
+# YouTubePlayerView
+`YouTubePlayerView` is the access point to the library.
+
+You can add the View to your layout
+```
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView
+        android:id="@+id/youtube_player_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+```
+
+or you can initialize it programmatically and manually add it to a ViewGroup
+```
+YouTubePlayerView youTubePlayerView = new YouTubePlayerView(this);
+layout.addView(youTubePlayerView);
+```
+
+if the height of the view is set to `wrap_content`, the view will automatically have an aspect ratio of 16:9, so that videos don't look bad.
+
+### Initialization
+In order to use the YouTubePlayer you need to initialize it. Call `YouTubePlayerView.initialize(YouTubePlayerInitListener listener, boolean handleNetworkEvents)` to do so.
+
+This methods takes in a [YouTubePlayerInitListener](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/player/YouTubePlayerInitListener.java) and a boolean. The boolean parameter is used to tell the library whether it should handle network events or not, read more about network events [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#network-events).
+
+The callback `YouTubePlayerInitListener.onInitSuccess(YouTubePlayer)` will be called by the library. The argument is a reference to the initialized YouTubePlayer. The YouTubePlayer is the object responsible for handling the playback of YouTube videos, read more about it [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#YouTubePlayer).
+
+### Full screen
+You can use the `YouTubePlayerView` to set the player full screen or not, using these methods
+
+```
+YouTubePlayerView.enterFullScreen();
+YouTubePlayerView.exitFullScreen();
+YouTubePlayerView.isFullScreen();
+YouTubePlayerView.toggleFullScreen();
+```
+You can also add listeners to get notified when the `YouTubePlayerView` enters or exits full screen
+```
+YouTubePlayerView.addFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
+YouTubePlayerView.removeFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
+```
+It's important to keep in mind the the library is not responsible for changing the orientation of your Activity, that's up to you. The sample app contains an helper class that may help you handling orientation changes.
+
+### UI
+If you want to interact with the UI of the player you need to get a reference to the `PlayerUIController` from the `YouTubePlayerView` by calling this method
+```
+PlayerUIController YouTubePlayerView.getPlayerUIController();
+```
+You can read more about PlayerUIController [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#PlayerUIController).
+
+### Release the YouTubePlayerView
+Remember to release the `YouTubePlayerView` when you're done using it.
+```
+@Override
+public void onDestroy() {
+    super.onDestroy();
+    youTubePlayerView.release();
+}
+```
+
+### LifecycleObserver 
+`YouTubePlayerView` implements the `LifecycleObserver` interface. If added as an observer of your Activity/Fragment's lifecycle, the `release()` method will be called automatically.
+```
+lifecycleOwner.getLifecycle().addObserver(youTubePlayerView);
+```
+Adding `YouTubePlayerView` as an observer to a lifecycle will also automatically cause the player to pause the playback when the Activity/Fragment stops (not when it pauses, in order to support multi-window applications).
+
+If you want your app to keep playing even when the Activity/Fragment is paused (remember that this behaviour is not allowed, if you want to publish your app on the PlayStore), don't register the `YouTubePlayerView` as a lifecycle observer. But remember to manually call `release()` when the Activity/Fragment is destroyed.
+
