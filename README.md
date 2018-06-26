@@ -33,15 +33,16 @@ A list of published apps that are using this library: ([let me know](https://git
     1. [Core](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#core)
     2. [Chromecast](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#chromecast) 
 3. [Quick start](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#quick-start)
-4. [YouTubePlayerView]()
-    1. Initialization
-    2. Full screen
-    3. UI
-    4. Release the YouTubePlayerView
-    5. LifecycleObserver
+4. [YouTubePlayerView](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#YouTubePlayerView)
+    1. [Initialization](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#initialization)
+    2. [Full screen](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#full-screen)
+    3. [UI](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#ui)
+    4. [Release the YouTubePlayerView](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#release-the-youtubeplayerview)
+    5. [LifecycleObserver](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#lifecycleobserver)
 5. YouTubePlayer
     1. Events
     2. Player state
+    3. YouTubePlayerTracker
 6. YouTubePlayerListener
 7. PlayerUIController
     1. Show video title
@@ -214,3 +215,39 @@ Adding `YouTubePlayerView` as an observer to a lifecycle will also automatically
 
 If you want your app to keep playing even when the Activity/Fragment is paused (remember that this behaviour is not allowed, if you want to publish your app on the PlayStore), don't register the `YouTubePlayerView` as a lifecycle observer. But remember to manually call `release()` when the Activity/Fragment is destroyed.
 
+The `YouTubePlayer` is the component responsible for controlling the playback of YouTube videos. You can see its contract [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/player/YouTubePlayer.java).
+
+You can only get a reference to the `YouTubePlayer` when [initializing the YouTubePlayerView](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/YouTubePlayerView#initialization).
+
+# YouTubePlayer
+
+### Events
+During its existence the player will constantly emit events, you can easily listen to all of them by adding a [YouTubePlayerListener](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/player/YouTubePlayerListener.java) to it (or an `AbstractYouTubePlayerListener`, if you don't want to implement all the methods of the `YouTubePlayerListener` interface).
+
+### Player state
+The player has a state, that changes accordingly to the playback. The states in which the player can be are the same of the YouTube [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference#Playback_status).
+
+`UNKNOWN`
+`UNSTARTED`
+`ENDED`
+`PLAYING`
+`PAUSED`
+`BUFFERING`
+`VIDEO_CUED`
+
+### YouTubePlayerTracker
+`YouTubePlayerTracker` is an utility provided by the library to easily keep track of a `YouTubePlayer`'s state.
+
+`YouTubePlayerTracker` is a `YouTubePlayerListener`, in order to use it you need to add it as a listener to the `YouTubePlayer`
+
+You can then use it to get the player's state and various information about the video that is being played.
+
+```
+YouTubePlayerTracker tracker = new YouTubePlayerTracker();
+youtubePlayer.addListener(tracker);
+
+tracker.getState();
+tracker.getCurrentSecond();
+tracker.getVideoDuration();
+tracker.getVideoId();
+```
