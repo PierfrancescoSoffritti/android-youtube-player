@@ -27,6 +27,40 @@ A list of published apps that are using this library: ([let me know](https://git
 
 <img src="https://raw.githubusercontent.com/PierfrancescoSoffritti/Android-YouTube-Player/master/pics/showcase.jpg" />
 
+# Table of Contents (Core)
+1. Download
+    1. Proguard
+2. Sample app
+3. [Quick start](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#quick-start)
+4. [YouTubePlayerView]()
+    1. Initialization
+    2. Full screen
+    3. UI
+    4. Free resources
+5. YouTubePlayer
+    1. Events
+    2. Player state
+6. YouTubePlayerListener
+7. PlayerUIController
+    1. Show video title
+    2. Live videos UI
+    3. Custom actions
+8. Create your custom UI
+9. Menu
+    1. YouTubePlayerMenu
+    2. DefaultYouTubePlayerMenu
+    3. MenuItem
+10. Network events
+11. Chromecast
+12. Utilities
+    1. Track the state of a YouTubePlayer object
+13. Useful info
+    1. Hardware acceleration
+    2. Play YouTube videos in the background
+    3. minSdk
+
+# Table of Contents (Chromecast)
+
 ## Download
 Add this to your project-level `build.gradle`:
 ```
