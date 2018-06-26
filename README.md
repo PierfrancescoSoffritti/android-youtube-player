@@ -266,3 +266,41 @@ youtubePlayer.removeListener(YouTubePlayerListener listener);
 If you don't want to implement all the methods from `YouTubePlayerListener`, you can extend `AbstractYouTubePlayerListener` instead of implementing `YouTubePlayerListener`.
 
 For more information on the methods defined in the `YouTubePlayerListener` interface, please refer to the documentation defined above each method [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/player/YouTubePlayerListener.java).
+
+# PlayerUIController
+The PlayerUIController is responsible for controlling the UI of a `YouTubePlayer`.
+
+You can get a reference to the `PlayerUIController` from the `YouTubePlayerView`
+```
+youtubePlayerView.getPlayerUIController();
+```
+
+### Show video title
+`PlayerUIController` exposes a method called `setVideoTitle(String videoTitle)`.
+
+If you want to use this method you need to find the title of the video. The recommended approach is to use the [YouTube Data API](https://developers.google.com/youtube/v3/docs/)  to fetch the video title from the video id. You can see an example in the method `setVideoTitle(PlayerUIController playerUIController, String videoId)` from the [sample app](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/sample/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayersample/examples/basicExample/BasicExampleActivity.java).
+
+### Live videos
+If you want to play live videos you must setup the UI accordingly, by calling this method
+```
+PlayerUIController.enableLiveVideoUI(boolean enable);
+```
+Unfortunately there is no way for the player to recognize if it is playing a live video or not, therefore is up to the developer to change the UI accordingly.
+
+### Custom actions
+You can set custom actions on the right and left side of the Play/Pause button of the player
+```
+PlayerUIController.setCustomAction1(Drawable icon, OnClickListener listener );
+PlayerUIController.setCustomAction2(Drawable icon, OnClickListener listener );
+PlayerUIController.showCustomAction1(boolean show);
+PlayerUIController.showCustomAction2(boolean show);
+```
+
+by default if you set a custom action with a null listener the icon won't be visible.
+
+You can also add any type of View to the UI, this can be useful if you want to add a new icon to the UI.
+```
+PlayerUIController.addView(View view);
+PlayerUIController.removeView(View view);
+```
+The View will be added to the top of the player.
