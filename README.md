@@ -31,7 +31,7 @@ A list of published apps that are using this library: ([let me know](https://git
 1. [Sample app](#sample-app)
 2. [Download](#download)
     1. [Core](#core)
-    2. [Chromecast](#chromecast) 
+    2. [Chromecast extension](#chromecast-extension) 
 3. [Quick start](#quick-start)
 4. [YouTubePlayerView](#YouTubePlayerView)
     1. [Initialization](#initialization)
@@ -61,6 +61,8 @@ A list of published apps that are using this library: ([let me know](https://git
     3. [minSdk](#minSdk)
 
 # Table of Contents (Chromecast)
+1. [Chromecast](#chromecast)
+2. [Quick start](#quick-start-chromecast)
 
 # Sample app
 This repository has two sample modules to show how to use various functionalities of the library. One [sample module for the core library]() and [one sample module for the chromecast extension]().
@@ -101,6 +103,7 @@ The *chromecast* module is an extension library for the *core* module. Use this 
 ```
 dependencies {
   implementation 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:7.0.1'
+  // implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.50' // add this only if your project is not configured to use Kotlin
   implementation 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:7.0.1'
 }
 ```
@@ -401,3 +404,93 @@ Use this functionality only if you plan to build the app for your self or if you
 The minSdk of the library is 17. [At this point](https://developer.android.com/about/dashboards/index.html) it doesn't make much sense for new apps to support older versions of Android.
 
 I'm not sure how WebView will behave on older versions of Android, but technically it should be possible to lower the minSdk. If you absolutely need to support older devices, I suggest you fork the library and lower the minSdk yourself.
+
+---
+
+# Chromecast
+The *chromecast* extension library extends the *core* library with chromecast functionalities. It shares some interfaces with the *core* library, therefore they have to be used together.
+
+The scope of this library is to provide the basic framework and some basic utilities, needed for YouTube videos playback on a Chromecast device.
+
+<img align="right" width="180px" src="https://raw.githubusercontent.com/PierfrancescoSoffritti/Android-YouTube-Player/master/pics/Android-YouTube-Player_512x512.png" title="Android-YouTube-Player logo" />
+
+# Quick start Chromecast
+A Google Cast application is made of two components: a Sender and a Receiver.
+
+* Sender: is responsible for initiating the cast sessions. In our case the sender is our Android app.
+* Receiver: a web app that gets dowloaded on the Chromecast when a sender initiates a cast sessions.
+
+## Download extra dependencies
+To use Google Cast functionalities in your app you are going to need two extra libraries, other than the *chromecast* library
+
+```
+implementation com.pierfrances
+// implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.50' // add this only if your project is not configured to use Kotlin
+implementation com.pierfrances
+
+implementation 'com.android.support:mediarouter-v7:27.1.1'
+implementation 'com.google.android.gms:play-services-cast-framework:15.0.1'
+```
+
+## Sender
+In order to use the Google Cast framework an app has to declare a `OptionsProvider`, as described in the [Google Cast documentation](https://developers.google.com/cast/docs/android_sender_integrate#initialize_the_cast_context).
+
+Add this class to your project
+```
+public final class CastOptionsProvider implements OptionsProvider {
+  public CastOptions getCastOptions(Context appContext) {
+  
+  // Register you custom receiver on the Google Cast SDK Developer Console to get this ID.
+  String receiverId = "";
+
+  return new CastOptions.Builder()
+    .setReceiverApplicationId(receiverId)
+    .build();
+  }
+
+  public List<SessionProvider> getAdditionalSessionProviders(Context context) {
+    return null;
+  }
+}
+```
+You can read how to get a receiverId [here](#registration).
+
+
+Add the OptionsProvider to your `manifest.xml`
+```
+<meta-data
+  android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
+  android:value="yourpackagename.CastOptionsProvider" />
+```
+
+Add a MediaRouterButton to your layout, in your xml file or programmatically
+```
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <android.support.v7.app.MediaRouteButton
+        android:id="@+id/media_route_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+```
+
+```
+add example
+CastButtonFactory.setUpMediaRouteButton(mediaRouteButton.context, mediaRouteButton)
+```
+
+## Receiver
+This library requires a custom receiver, you can find the source code [here](./chromecast/chromecast-receiver).
+
+You don'y need to change anything here, it just works.
+Take this code and upload it, as it is, to your hosting provider (read [registration](#registration) to learn more about hosting).
+
+## Registration
+In order to use your receiver you need a receiverId. This is the ID of your receiver app. To get a receiver ID you need to register your receiver on the Google Cast SDK developer console, you can learn how to do it by reading the [official documentation](https://developers.google.com/cast/docs/registration). Rember to register a **Custom Receiver**, this is the type of receiver you need for this library.
+
+You will be required to host your receiver somewhere, host it where you prefer. Firebase free hosting may be a good option, for development.
