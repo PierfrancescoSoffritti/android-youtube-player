@@ -28,17 +28,17 @@ A list of published apps that are using this library: ([let me know](https://git
 <img src="https://raw.githubusercontent.com/PierfrancescoSoffritti/Android-YouTube-Player/master/pics/showcase.jpg" />
 
 # Table of Contents (Core)
-1. [Sample app](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#sample-app)
-2. [Download](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#download)
-    1. [Core](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#core)
-    2. [Chromecast](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#chromecast) 
-3. [Quick start](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#quick-start)
-4. [YouTubePlayerView](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#YouTubePlayerView)
-    1. [Initialization](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#initialization)
-    2. [Full screen](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#full-screen)
-    3. [UI](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#ui)
-    4. [Release the YouTubePlayerView](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#release-the-youtubeplayerview)
-    5. [LifecycleObserver](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#lifecycleobserver)
+1. [Sample app](#sample-app)
+2. [Download](#download)
+    1. [Core](#core)
+    2. [Chromecast](#chromecast) 
+3. [Quick start](#quick-start)
+4. [YouTubePlayerView](#YouTubePlayerView)
+    1. [Initialization](#initialization)
+    2. [Full screen](#full-screen)
+    3. [UI](#ui)
+    4. [Release the YouTubePlayerView](#release-the-youtubeplayerview)
+    5. [LifecycleObserver](#lifecycleobserver)
 5. YouTubePlayer
     1. Events
     2. Player state
