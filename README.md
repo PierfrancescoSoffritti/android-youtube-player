@@ -27,42 +27,84 @@ A list of published apps that are using this library: ([let me know](https://git
 
 <img src="https://raw.githubusercontent.com/PierfrancescoSoffritti/Android-YouTube-Player/master/pics/showcase.jpg" />
 
-## Download
-Add this to your project-level `build.gradle`:
-```
-allprojects {
-  repositories {
-    ...
-    maven { url "https://jitpack.io" }
-  }
-}
-```
-Add this to your module-level `build.gradle`:
+# Table of Contents (Core)
+1. [Sample app](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#sample-app)
+2. [Download](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#download)
+    1. [Core](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#core)
+    2. [Chromecast](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#chromecast) 
+3. [Quick start](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#quick-start)
+4. [YouTubePlayerView]()
+    1. Initialization
+    2. Full screen
+    3. UI
+    4. Free resources
+5. YouTubePlayer
+    1. Events
+    2. Player state
+6. YouTubePlayerListener
+7. PlayerUIController
+    1. Show video title
+    2. Live videos UI
+    3. Custom actions
+8. Create your custom UI
+9. Menu
+    1. YouTubePlayerMenu
+    2. DefaultYouTubePlayerMenu
+    3. MenuItem
+10. Network events
+11. Chromecast
+12. Utilities
+    1. Track the state of a YouTubePlayer object
+13. Useful info
+    1. Hardware acceleration
+    2. Play YouTube videos in the background
+    3. minSdk
+
+# Table of Contents (Chromecast)
+
+# Sample app
+This repository has two sample modules to show how to use various functionalities of the library. One [sample module for the core library]() and [one sample module for the chromecast extension]().
+
+You can download the apks of the two sample app [here (core)]() and [here (chromecast)](), or on the PlayStore.
+
+core: 
+<a href='https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.aytplayersample&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
+    <img width='200px' alt='Get it on Google Play'
+         src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/>
+</a>
+
+chromecast:
+<a href='https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.aytplayersample&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
+    <img width='200px' alt='Get it on Google Play'
+         src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/>
+</a>
+
+Having the sample apps installed is a good way to be notified of new releases. Although Watching this repository will allow GitHub to email you whenever I publish a release.
+
+# Download
+The Gradle dependency is available via jCenter. jCenter is the default Maven repository used by Android Studio.
+
+The minimum API level supported by this library is API 17.
+
+### Core
+The *core* module contains the YouTube Player. 
 ```
 dependencies {
   implementation 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:7.0.1'
 }
 ```
 
-## Proguard
-If you are using ProGuard you might need to add the following options:
+### Chromecast
+The *chromecast* module is an extension library for the *core* module. Use this if you need to cast videos from your app to a Chromecast device.
 ```
--keep public class com.pierfrancescosoffritti.youtubeplayer.** {
-   public *;
+dependencies {
+  implementation 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:7.0.1'
+  implementation 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:7.0.1'
 }
-
--keepnames class com.pierfrancescosoffritti.youtubeplayer.*
 ```
-## Usage
-A sample project that shows how to use the library is available in the [sample module](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/tree/master/sample). You can also [download the sample apk here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/tree/master/sample/apk), or on the PlayStore.
 
-<a href='https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.aytplayersample&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img width='200px' alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
-
-**Please refer to the [Wiki](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/Quick-start) of the library for a detailed description on how to use it.**
-
-### Quick start
-
-In order to start using the player you need to add the [YouTubePlayerView](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/YouTubePlayerView) to your layout
+# Quick start
+In order to start using the player you need to add the [YouTubePlayerView](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player#YouTubePlayerView) to your layout
 ```
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -82,7 +124,7 @@ YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
 
 youTubePlayerView.initialize(new YouTubePlayerInitListener() {
     @Override
-    public void onInitSuccess(final YouTubePlayer initializedYouTubePlayer) {    
+    public void onInitSuccess(@NonNull final YouTubePlayer initializedYouTubePlayer) {    
         initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady() {
@@ -93,22 +135,3 @@ youTubePlayerView.initialize(new YouTubePlayerInitListener() {
     }
 }, true);
 ```
-
-More info on the initialization method can be found [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/YouTubePlayerView#initialization).
-
-The [AbstractYouTubePlayerListener](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/player/AbstractYouTubePlayerListener.java) is just a convenience abstract class that implements `YouTubePlayerListener`, so that is not necessary to always implement all the methods of the interface.
-
-The playback of the videos is handled by the [YouTubePlayer](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/YouTubePlayer). You must use that for everything concerning video playback.
-
-### Customize player UI
-The UI of the player is handled by a [PlayerUIController](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/PlayerUIController), in order to interact with it you must get its reference from the `YouTubePlayerView`
-
-```
-PlayerUIController uiController = youTubePlayerView.getPlayerUIController();
-```
-You can use the `PlayerUIController` to customize the UI of the player. You can show or hide Views in it, add your own Views and icons, remap click listeners etc. Read more about it [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/PlayerUIController).
-
-If you need even more control over the UI and you want to design it specifically for your app, you have the freedom to do it. You can completly replace the default UI with your own. Simply call the method `View YouTubePlayerView.inflateCustomPlayerUI(@LayoutRes int customPlayerUILayoutID)`.
-
-This method takes in the id of a layout resource. The method returns the View object corresponding to the inflated layout. The default UI of the player gets removed and replaced with the new UI, giving you all the freedom you want. You can read more [in the Wiki](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/Replace-the-player%27s-UI) and in [this blog post](https://medium.com/@soffritti.pierfrancesco/customize-android-youtube-players-ui-9f32da9e8505).
-
