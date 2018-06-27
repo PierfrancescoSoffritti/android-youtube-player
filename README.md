@@ -64,10 +64,10 @@ A list of published apps that are using this library: ([let me know](https://git
 # Table of Contents (Chromecast)
 1. [Chromecast extension library](#chromecast-extension-library)
 2. [Quick start](#quick-start-chromecast)
-        1. [Download extra dependencies](#download-extra-dependencies)
-        2. [Sender](#sender)
-        3. [Receiver](#receiver)
-        4. [Registration](#registration)
+    1. [Download extra dependencies](#download-extra-dependencies)
+    2. [Sender](#sender)
+    3. [Receiver](#receiver)
+    4. [Registration](#registration)
         
 
 # Sample app
