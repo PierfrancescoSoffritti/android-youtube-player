@@ -97,7 +97,7 @@ The Gradle dependency is available via [jCenter](https://bintray.com/pierfrances
 The minimum API level supported by this library is API 17.
 
 ### Core
-The *core* module contains the YouTube Player. 
+The *core* module contains the YouTube Player. It's all you need to play YouTube videos in your app.
 ```
 dependencies {
   implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:8.0.0'
@@ -105,7 +105,7 @@ dependencies {
 ```
 
 ### Chromecast
-The *chromecast-sender* module is an extension library for the *core* module. Use this if you need to cast videos from your app to a Chromecast device.
+The *chromecast-sender* module is an optional extension library for the *core* module. Use this if you need to cast YouTube videos from your app to a Chromecast device.
 ```
 dependencies {
   implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:8.0.0'
