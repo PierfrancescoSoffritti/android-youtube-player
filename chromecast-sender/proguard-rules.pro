@@ -19,3 +19,20 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep public class com.pierfrancescosoffritti.androidyoutubeplayer.** {
+   public *;
+}
+-keepnames class com.pierfrancescosoffritti.androidyoutubeplayer.*
+
+-keep public class kotlin.jvm.internal.Intrinsics
+-keep public class kotlin.Pair
+-keep public class kotlin.TuplesKt
+-keep public class org.jetbrains.annotations.NotNull
+-keep public class kotlin.Metadata
+-keep public class kotlin.text.StringsKt
+-keep public class kotlin.collections.CollectionsKt
+-keep public class kotlin.TypeCastException
+-keep public class kotlin.jvm.functions.Function0
+-keep public class kotlin.Unit
+-keep public class kotlin.jvm.JvmStatic

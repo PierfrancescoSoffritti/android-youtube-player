@@ -13,6 +13,8 @@ android {
         targetSdkVersion targetSdk
         versionCode versionCode_chromecast
         versionName versionName_chromecast
+
+        consumerProguardFiles 'proguard-rules.pro'
     }
     buildTypes {
         release {

@@ -9,7 +9,7 @@ buildscript {
         versionName_core = '8.0.1'
 
         versionCode_chromecast = 1
-        versionName_chromecast = '0.14'
+        versionName_chromecast = '0.15'
 
         supportLibrary_version = '27.1.1'
         kotlin_version = '1.2.50'
@@ -35,6 +35,9 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            url 'https://dl.bintray.com/pierfrancescosoffritti/maven/'
+        }
     }
 
 
