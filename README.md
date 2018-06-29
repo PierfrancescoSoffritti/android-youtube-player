@@ -490,10 +490,86 @@ Add a MediaRouterButton to your layout, in your xml file or programmatically
 </LinearLayout>
 ```
 
+Then in your Activity/Fragment get a reference to the `MediaRouteButton` and check the status of the GooglePlayeServices on the user's phone.
 ```
-add example
-CastButtonFactory.setUpMediaRouteButton(mediaRouteButton.context, mediaRouteButton)
+private int googlePlayServicesAvailabilityRequestCode = 1;
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_main);
+
+  MediaRouteButton mediaRouteButton = findViewById(R.id.media_route_button);
+  CastButtonFactory.setUpMediaRouteButton(this, mediaRouteButton);
+
+  // can't use CastContext until I'm sure the user has GooglePlayServices
+  PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, this::initChromecast);
+}
+    
+@Override
+public void onActivityResult(int requestCode, int resultCode, Intent data) {
+  super.onActivityResult(requestCode, resultCode, data);
+
+  // can't use CastContext until I'm sure the user has GooglePlayServices
+  if(requestCode == googlePlayServicesAvailabilityRequestCode)
+    PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, this::initChromecast);
+ }
 ```
+You can easily check the status using an utility function provided by the *chromecast-sender* library.
+
+`PlayServicesUtils.checkGooglePlayServicesAvailability` is a simple way to do what is examplained [here, on the official doc](https://developers.google.com/android/guides/setup#ensure_devices_have_the_google_play_services_apk). It will check the status of GooglePlayServices and will show a dialog to the user if his intervention is required in order to fix a problem. It won't display anything if everything is ok (99% of the cases), in this case it will simply execute the function passed as third parameter.
+If there are some problems, the result of the operation is delivered through the `onActivityResult` callback.
+
+Once you're sure the user's GooglePlayServices is allright, we can initialize our ChromecastYouTubePlayer.
+
+*(For Java users: `PlayServicesUtils.checkGooglePlayServicesAvailability` expects a Kotlin function, therefore your Java function will have to return an `Unit`. This is the same as returning `void`. This ugly syntax will be fixed when Kotlin will have a better way to map its functions to Java)*
+```
+private Unit initChromecast() {
+  new ChromecastYouTubePlayerContext(
+    CastContext.getSharedInstance(this).getSessionManager(),
+    new SimpleChromecastConnectionListener()
+  );
+  
+  return Unit.INSTANCE;
+}
+```
+`ChromecastYouTubePlayerContext` is the entry point to the *chromecast-sender* library. Once it is created, it automatically starts listening for Chromecast connection events. The `ChromecastConnectionListener` you pass to the constructor will be used to do just that.
+
+When a user clicks the `MediaRouteButton` a series of events will be triggered in the framework, use `ChromecastConnectionListener`'s callbacks to be notified of these events.
+
+```
+private class SimpleChromecastConnectionListener implements ChromecastConnectionListener {
+
+  @Override
+  public void onChromecastConnecting() {
+    Log.d(getClass().getSimpleName(), "onChromecastConnecting");
+  }
+
+  @Override
+  public void onChromecastConnected(ChromecastYouTubePlayerContext chromecastYouTubePlayerContext) {
+    Log.d(getClass().getSimpleName(), "onChromecastConnected");
+    initializeCastPlayer(chromecastYouTubePlayerContext);
+  }
+
+  @Override
+  public void onChromecastDisconnected() {
+    Log.d(getClass().getSimpleName(), "onChromecastDisconnected");
+  }
+
+  private void initializeCastPlayer(ChromecastYouTubePlayerContext chromecastYouTubePlayerContext) {
+    chromecastYouTubePlayerContext.initialize(youtubePlayer -> {
+
+    youtubePlayer.addListener(new AbstractYouTubePlayerListener() {
+      @Override
+      public void onReady() {
+        youtubePlayer.loadVideo("6JYIGclVQdw", 0f);
+      }
+    });
+  });
+}
+```
+Only after a Chromecast connection has been established you can initialize the `ChromecastConnectionListener`.
+From now on it will be the same as using a local `YouTubePlayer`. You need to call initialize with a `YouTubePlayerInitListener` and from there you can add a `YouTubePlayerListener` to be notified of changes in the playback. For all this you can refer to the documentation for the *core* library.
 
 ### Receiver
 This library requires a custom receiver, you can find the source code [here](./chromecast/chromecast-receiver).
