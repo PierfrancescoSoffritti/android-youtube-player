@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
             case R.id.open_on_github:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/PierfrancescoSoffritti/Android-YouTube-Player")));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/PierfrancescoSoffritti/android-youtube-player")));
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     private void initWebView() {
         webview = findViewById(R.id.main_activity_webview);
         webview.getSettings().setJavaScriptEnabled(true);
-        webview.loadUrl("https://pierfrancescosoffritti.github.io/Android-YouTube-Player/");
+        webview.loadUrl("https://pierfrancescosoffritti.github.io/android-youtube-player/");
 
         webview.setWebViewClient(new WebViewClient() {
             @Override
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     else if(menuItem.getItemId() == R.id.star_on_github)
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/stargazers")));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/PierfrancescoSoffritti/android-youtube-player/stargazers")));
                     else if(menuItem.getItemId() == R.id.rate_on_playstore) {
                         final String appPackageName = getPackageName();
                         try {

@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.open_on_github -> {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/PierfrancescoSoffritti/chromecast-youtube-player")))
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/PierfrancescoSoffritti/android-youtube-player")))
                 return true
             }
         }
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetJavaScriptEnabled")
     private fun initWebView() {
         main_activity_webview.settings.javaScriptEnabled = true
-        main_activity_webview.loadUrl("https://pierfrancescosoffritti.github.io/Android-YouTube-Player/")
+        main_activity_webview.loadUrl("https://pierfrancescosoffritti.github.io/android-youtube-player/")
 
         main_activity_webview.webViewClient = object : WebViewClient() {
             override fun onPageCommitVisible(view: WebView, url: String) {
@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, LocalPlayerInitExampleActivity::class.java)
                 startActivity(intent)
             } else if (menuItem.itemId == R.id.star_on_github)
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/PierfrancescoSoffritti/chromecast-youtube-player/stargazers")))
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/PierfrancescoSoffritti/android-youtube-player/stargazers")))
 //                    else if (menuItem.getItemId() === R.id.rate_on_playstore) {
 //                        val appPackageName = packageName
 //                        try {

@@ -1,12 +1,13 @@
-# Android-YouTube-Player
-[![](https://jitpack.io/v/PierfrancescoSoffritti/AndroidYouTubePlayer.svg)](https://jitpack.io/#PierfrancescoSoffritti/AndroidYouTubePlayer)
-[![](https://img.shields.io/badge/Android%20Arsenal-Android--YouTube--Player-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/4322)
+# android-youtube-player
+[ ![core](https://api.bintray.com/packages/pierfrancescosoffritti/maven/android-youtube-player%3Acore/images/download.svg) ](https://bintray.com/pierfrancescosoffritti/maven/android-youtube-player%3Acore/_latestVersion)
+[ ![chromecast-sender](https://api.bintray.com/packages/pierfrancescosoffritti/maven/android-youtube-player%3Achromecast-sender/images/download.svg) ](https://bintray.com/pierfrancescosoffritti/maven/android-youtube-player%3Achromecast-sender/_latestVersion)
+[ ![](https://img.shields.io/badge/Android%20Arsenal-Android--YouTube--Player-brightgreen.svg?style=flat) ](https://android-arsenal.com/details/1/4322)
 
-[![](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=A%20new%20YouTube%20Player%20library%20for%20Android,%20stable%20and%20customizable&url=https://github.com/PierfrancescoSoffritti/Android-YouTube-Player&via=PierfrancescoSo&hashtags=opensource,youtubeplayer,androiddev)
+[![](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=A%20new%20YouTube%20Player%20library%20for%20Android,%20stable%20and%20customizable&url=https://github.com/PierfrancescoSoffritti/android-youtube-player&via=PierfrancescoSo&hashtags=opensource,youtubeplayer,androiddev)
 
-<img align="right" width="180px" src="https://raw.githubusercontent.com/PierfrancescoSoffritti/Android-YouTube-Player/master/pics/Android-YouTube-Player_512x512.png" title="Android-YouTube-Player logo" />
+<img align="right" width="180px" src="https://raw.githubusercontent.com/PierfrancescoSoffritti/android-youtube-player/master/pics/android-youtube-player_512x512.png" title="android-youtube-player logo" />
 
-The Android-YouTube-Player library is a stable and customizable open source YouTube player for Android. It provides a simple View that can be easily integrated in every Activity/Fragment.
+The android-youtube-player library is a stable and customizable open source YouTube player for Android. It provides a simple View that can be easily integrated in every Activity/Fragment.
 
 The interaction with YouTube is based on the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference), running inside of a WebView, therefore the YouTube app is not required on the user's device.
 
@@ -23,11 +24,11 @@ A lengthier explanation to why you may want to consider using an alternative to 
 
 ---
 
-A list of published apps that are using this library: ([let me know](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/issues) if you want to add your app to this list)
+A list of published apps that are using this library: ([let me know](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues) if you want to add your app to this list)
 
 - [Shuffly](https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.shuffly)
 
-<img src="https://raw.githubusercontent.com/PierfrancescoSoffritti/Android-YouTube-Player/master/pics/showcase.jpg" />
+<img src="https://raw.githubusercontent.com/PierfrancescoSoffritti/android-youtube-player/master/pics/showcase.jpg" />
 
 # Table of Contents (Core)
 1. [Sample app](#sample-app)
@@ -242,7 +243,7 @@ Adding `YouTubePlayerView` as an observer to a lifecycle will also automatically
 If you want your app to keep [playing when the Activity/Fragment is not visible](#play-youtube-videos-in-the-background) (remember that this behaviour is not allowed, if you want to publish your app on the PlayStore), don't register the `YouTubePlayerView` as a lifecycle observer. But remember to manually call `release()` when the Activity/Fragment is destroyed.
 
 # YouTubePlayer
-`YouTubePlayer` is the component responsible for controlling the playback of YouTube videos. You can see its contract [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/player/YouTubePlayer.java).
+`YouTubePlayer` is the component responsible for controlling the playback of YouTube videos. You can see its contract [here](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/player/YouTubePlayer.java).
 
 You can only get a reference to the `YouTubePlayer` when [initializing the YouTubePlayerView](#initialization).
 
@@ -447,7 +448,7 @@ I'm not sure how WebView will behave on older versions of Android, but technical
 
 # Chromecast extension library
 
-<img align="right" width="180px" src="https://raw.githubusercontent.com/PierfrancescoSoffritti/Android-YouTube-Player/dev/pics/chromecast-youtube-player-icon_512x512.png" title="chromecast-youtube-player logo" />
+<img align="right" width="180px" src="https://raw.githubusercontent.com/PierfrancescoSoffritti/android-youtube-player/dev/pics/chromecast-youtube-player-icon_512x512.png" title="chromecast-youtube-player logo" />
 
 The *chromecast-sender* extension library extends the *core* library with chromecast functionalities. It shares some interfaces with the *core* library, therefore they must be used together.
 
