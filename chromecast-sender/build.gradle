@@ -4,30 +4,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.jetbrains.dokka-android'
 
-//ext {
-//    bintrayRepo = 'maven'
-//    bintrayName = 'android-youtube-player:chromecast-sender'
-//
-//    publishedGroupId = 'com.pierfrancescosoffritti.androidyoutubeplayer'
-//    libraryName = 'android-youtube-player'
-//    artifact = 'chromecast-sender'
-//
-//    libraryDescription = 'Extension for the android-youtube-player library, that enables Chromecast compatibility.'
-//
-//    siteUrl = 'https://github.com/PierfrancescoSoffritti/Android-YouTube-Player'
-//    gitUrl = 'https://github.com/PierfrancescoSoffritti/Android-YouTube-Player.git'
-//
-//    libraryVersion = versionName_chromecast
-//
-//    developerId = 'PierfrancescoSoffritti'
-//    developerName = 'Pierfrancesco Soffritti'
-//    developerEmail = 'soffritti.pierfrancesco@gmail.com'
-//
-//    licenseName = 'MIT License'
-//    licenseUrl = 'https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/LICENSE'
-//    allLicenses = ["MIT"]
-//}
-
 android {
     compileSdkVersion compileSdk
     buildToolsVersion buildTools
@@ -46,13 +22,9 @@ android {
     }
 }
 
-//dokka {
-//    outputFormat = 'html'
-//    outputDirectory = "$buildDir/javadoc"
-//}
-
-tasks.withType(Javadoc).all {
-    enabled = false
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
 }
 
 dependencies {
@@ -66,8 +38,5 @@ dependencies {
     implementation "com.android.support:mediarouter-v7:$supportLibrary_version"
     implementation 'com.google.android.gms:play-services-cast-framework:15.0.1'
 }
-
-//apply from: 'installAndDeployConfigFiles/install_v1.gradle'
-//apply from: 'installAndDeployConfigFiles/bintray_v1.gradle'
 
 apply from: rootProject.file('release-bintray.gradle')

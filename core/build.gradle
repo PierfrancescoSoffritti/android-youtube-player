@@ -1,29 +1,5 @@
 apply plugin: 'com.android.library'
 
-//ext {
-//    bintrayRepo = 'maven'
-//    bintrayName = 'android-youtube-player:core'
-//
-//    publishedGroupId = 'com.pierfrancescosoffritti.androidyoutubeplayer'
-//    libraryName = 'android-youtube-player'
-//    artifact = 'core'
-//
-//    libraryDescription = 'YouTube Player library for Android, stable and customizable.'
-//
-//    siteUrl = 'https://github.com/PierfrancescoSoffritti/Android-YouTube-Player'
-//    gitUrl = 'https://github.com/PierfrancescoSoffritti/Android-YouTube-Player.git'
-//
-//    libraryVersion = versionName_core
-//
-//    developerId = 'PierfrancescoSoffritti'
-//    developerName = 'Pierfrancesco Soffritti'
-//    developerEmail = 'soffritti.pierfrancesco@gmail.com'
-//
-//    licenseName = 'MIT License'
-//    licenseUrl = 'https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/LICENSE'
-//    allLicenses = ["MIT"]
-//}
-
 android {
     compileSdkVersion compileSdk
     buildToolsVersion buildTools
@@ -55,8 +31,5 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$supportLibrary_version"
     implementation "com.android.support:recyclerview-v7:$supportLibrary_version"
 }
-
-//apply from: 'installAndDeployConfigFiles/install_v1.gradle'
-//apply from: 'installAndDeployConfigFiles/bintray_v1.gradle'
 
 apply from: rootProject.file('release-bintray.gradle')
