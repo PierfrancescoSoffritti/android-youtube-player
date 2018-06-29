@@ -8,18 +8,20 @@
 
 The Android-YouTube-Player library is a stable and customizable open source YouTube player for Android. It provides a simple View that can be easily integrated in every Activity/Fragment.
 
-The interaction with YouTube is based on the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference), running inside of a WebView, therefore the YouTube app is not required to be installed on the user's device.
+The interaction with YouTube is based on the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference), running inside of a WebView, therefore the YouTube app is not required on the user's device.
 
 The web UI of the IFrame Player player is hidden, instead a native UI built on top of Android is used to interact with the player, providing a native experience to the users.
+
+This library also provides a Chromecast YouTube player, that you can use to cast YouTube videos from your app to a Chromecast device.
 
 ## Why does this library exists?
 This library has been developed out of necessity. The official library provided by Google to integrate YouTube videos in Android apps is the [YouTube Android Player API](https://developers.google.com/youtube/android/player/). I've found the official library to be quite buggy ([some bugs are 5+ years old](https://code.google.com/p/gdata-issues/issues/detail?id=4395)) and lacking in terms of support from Google. It was quite unreliable and unusable in production.
 
+This, added to its limited options for customization and chromecast support, lead me to the development of this open source library.
+
 A lengthier explanation to why you may want to consider using an alternative to the official YouTube player is written in [this Medium post](https://medium.com/@soffritti.pierfrancesco/how-to-play-youtube-videos-in-your-android-app-c40427215230).
 
 ---
-
-**This library has a [Wiki](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/wiki/Quick-start), check it out!**
 
 A list of published apps that are using this library: ([let me know](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/issues) if you want to add your app to this list)
 
@@ -71,7 +73,7 @@ A list of published apps that are using this library: ([let me know](https://git
         
 
 # Sample app
-This repository has two sample modules to show how to use various functionalities of the library. One [sample module for the core library](./core-sample-app/) and [one sample module for the chromecast extension](./chromecast-sender-sample-app).
+This repository has two sample modules that show how to use different functionalities of the library. One [sample module for the core library](./core-sample-app/) and [one sample module for the chromecast extension](./chromecast-sender-sample-app).
 
 You can download the apks of the two sample app [here (core)](./core-sample-app/apk) and [here (chromecast)](./chromecast-sender-sample-app/apk), or on the PlayStore.
 
@@ -89,7 +91,7 @@ chromecast:
          src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/>
 </a>
 
-Having the sample apps installed is a good way to be notified of new releases. Although Watching this repository will allow GitHub to email you whenever I publish a release.
+Having the sample apps installed is a good way to be notified of new releases. Although watching this repository will allow GitHub to email you whenever a new release is published.
 
 # Download
 The Gradle dependency is available via [jCenter](https://bintray.com/pierfrancescosoffritti/maven). jCenter is the default Maven repository used by Android Studio.
@@ -100,7 +102,7 @@ The minimum API level supported by this library is API 17.
 The *core* module contains the YouTube Player. It's all you need to play YouTube videos in your app.
 ```
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:8.0.0'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:8.0.1'
 }
 ```
 
@@ -108,10 +110,11 @@ dependencies {
 The *chromecast-sender* module is an optional extension library for the *core* module. Use this if you need to cast YouTube videos from your app to a Chromecast device.
 ```
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:8.0.0'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:8.0.1'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.14'
   
-  // implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.50' // add this only if your project is not configured to use Kotlin
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.12'
+  // add this only if your project is not configured to use Kotlin
+  // implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.50'
 }
 ```
 
@@ -180,10 +183,10 @@ YouTubePlayerView youtubePlayerView = new YouTubePlayerView(this);
 layout.addView(youtubePlayerView);
 ```
 
-if the height of the view is set to `wrap_content`, the view will automatically have an aspect ratio of 16:9, so that videos don't look bad.
+if the height of the view is set to `wrap_content`, the view will automatically have an aspect ratio of 16:9, so that videos won't look bad.
 
 ### Initialization
-In order to use the YouTubePlayer you need to initialize it. Call `YouTubePlayerView.initialize(YouTubePlayerInitListener listener, boolean handleNetworkEvents)` to do so.
+In order to use the YouTube player you need to initialize it. Call `YouTubePlayerView.initialize(YouTubePlayerInitListener listener, boolean handleNetworkEvents)` to do so.
 
 This methods takes in a [YouTubePlayerInitListener](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/listeners/YouTubePlayerInitListener.java) and a boolean. The boolean parameter is used to tell the library whether it should handle network events or not, read more about network events [here](#network-events).
 
@@ -206,7 +209,7 @@ youtubePlayerView.addFullScreenListener(YouTubePlayerFullScreenListener fullScre
 youtubePlayerView.removeFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
 ```
 
-It's important to keep in mind the the library is not responsible for changing the orientation of your Activity, that's up to you. The sample app contains an helper class that may help you handling orientation changes.
+It's important to keep in mind the the library is not responsible for changing the orientation of your Activity, that's up to you. The sample app contains an [helper class](./core-sample-app/src/main/java/com/pierfrancescosoffritti/aytplayersample/utils/FullScreenHelper.java) that may help you handling orientation changes.
 
 ### UI
 If you want to interact with the UI of the player you need to get a reference to the `PlayerUIController` from the `YouTubePlayerView` by calling this method
@@ -227,6 +230,8 @@ public void onDestroy() {
 }
 ```
 
+You don't need to manually release the player if you register it as an observer of your lifecycle.
+
 ### LifecycleObserver 
 `YouTubePlayerView` implements the `LifecycleObserver` interface. If added as an observer of your Activity/Fragment's lifecycle, the `release()` method will be called automatically.
 
@@ -235,7 +240,7 @@ lifecycleOwner.getLifecycle().addObserver(youTubePlayerView);
 ```
 Adding `YouTubePlayerView` as an observer to a lifecycle will also automatically cause the player to pause the playback when the Activity/Fragment stops (not when it pauses, in order to support multi-window applications).
 
-If you want your app to keep playing even when the Activity/Fragment is paused (remember that this behaviour is not allowed, if you want to publish your app on the PlayStore), don't register the `YouTubePlayerView` as a lifecycle observer. But remember to manually call `release()` when the Activity/Fragment is destroyed.
+If you want your app to keep [playing when the Activity/Fragment is not visible](#play-youtube-videos-in-the-background) (remember that this behaviour is not allowed, if you want to publish your app on the PlayStore), don't register the `YouTubePlayerView` as a lifecycle observer. But remember to manually call `release()` when the Activity/Fragment is destroyed.
 
 # YouTubePlayer
 `YouTubePlayer` is the component responsible for controlling the playback of YouTube videos. You can see its contract [here](https://github.com/PierfrancescoSoffritti/Android-YouTube-Player/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/player/YouTubePlayer.java).
@@ -264,7 +269,7 @@ VIDEO_CUED
 ### YouTubePlayerTracker
 `YouTubePlayerTracker` is an utility provided by the library to easily keep track of a `YouTubePlayer`'s state.
 
-`YouTubePlayerTracker` is a `YouTubePlayerListener`, in order to use it you need to add it as a listener to the `YouTubePlayer`
+`YouTubePlayerTracker` is a `YouTubePlayerListener`, in order to use it you need to add it as a listener to the `YouTubePlayer`.
 
 You can then use it to get the player's state and various information about the video that is being played.
 
@@ -293,7 +298,7 @@ If you don't want to implement all the methods from `YouTubePlayerListener`, you
 For more information on the methods defined in the `YouTubePlayerListener` interface, please refer to the documentation defined above each method [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/listeners/YouTubePlayerListener.java).
 
 # PlayerUIController
-The PlayerUIController is responsible for controlling the UI of a `YouTubePlayer`.
+The `PlayerUIController` is responsible for controlling the UI of a `YouTubePlayer`.
 
 You can get a reference to the `PlayerUIController` from the `YouTubePlayerView`
 
@@ -346,7 +351,7 @@ PlayerUIController.setMenuButtonClickListener(@NonNull View.OnClickListener cust
 
 By default the menu icon is not visible.
 
-The default `OnClickListener` shows the default menu.
+The default `OnClickListener` opens the default menu.
 
 ### YouTubePlayerMenu
 Internally the menu is represented by a `YouTubePlayerMenu`. You can see its contract [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/ui/menu/YouTubePlayerMenu.java).
@@ -379,7 +384,7 @@ This method takes in the id of a layout resource. The method returns the View ob
 
 After calling this method, the default [PlayerUIController](#playeruicontroller) won't be available anymore. Calling `YouTubePlayerView.getPlayerUIController()` will throw an exception.
 
-You are now required to manage your custom UI with your own code. Meaning: you should write your own class to manage the UI. A simple but complete example can be seen [here, in the sample app](./core-sample-app/src/main/java/com/pierfrancescosoffritti/aytplayersample/examples/customUIExample), I recommend you take a few minutes to read it, it should be trivial to understand.
+You are now responsible for managing your custom UI with your own code. Meaning: you should write your own class to manage the UI. A simple but complete example can be seen [here, in the sample app](./core-sample-app/src/main/java/com/pierfrancescosoffritti/aytplayersample/examples/customUIExample), I recommend you take a few minutes to read it, it should be trivial to understand.
 
 Example (taken from sample app):
 
@@ -413,20 +418,20 @@ For example, if the player is playing but it has to stop because the connection 
 If you want to use your own BroadcastReceiver make sure to cover all this scenarios, in order to provide a consistent user experience.
 
 # Chromecast support
-If you need to cast YouTube videos to a Chromecast device you can use the *chromecast* extension library to add this functionality to the android-youtube-player. Read its documentation [here](#chromecast-extension-library).
+If you need to cast YouTube videos to a Chromecast device you can use the *chromecast-sender* extension library. Read its documentation [here](#chromecast-extension-library).
 
 # Useful info
-# Hardware acceleration
+### Hardware acceleration
 Is important that the Activity containing the [YouTubePlayerView](#youtubeplayerview) is hardware accelerated. This option is enabled by default, you won't have to do any changes in your app, unless you manually disabled hardware acceleration.
 
 If you need to disable hardware acceleration in your application, you can enable it at the Activity level, as explained [here](https://developer.android.com/guide/topics/graphics/hardware-accel.html).
 
 Disabling hardware acceleration on the Activity containing `YouTubePlayerView` may result in some weird behavior. Those I have observed so far show a black image in the player, while the audio is playing normally.
 
-# Play YouTube videos in the background
+### Play YouTube videos in the background
 With this library is easy to play YouTube videos when the app is not visible. In order to do that you simply have to not call `youtubePlayer.pause()` when the Activity is being paused or stopped.
 
-Adding `YouTubePlayerView` as an observer to a lifecycle will automatically cause the player to pause the playback when the Activity/Fragment stops.
+Adding `YouTubePlayerView` as an [observer to a lifecycle](#lifecycleobserver) will automatically cause the player to pause the playback when the Activity/Fragment stops.
 
 Therefore if you want your app to keep playing even when the Activity/Fragment is paused/stopped, don't register it as a lifecycle observer. But remember to manually call `YouTubePlayerView.release()` when the Activity/Fragment is destroyed.
 
@@ -434,7 +439,7 @@ Remember that this behavior is against [YouTube terms of service](https://develo
 
 Use this functionality only if you plan to build the app for your self or if you plan to distribute it through different channels.
 
-# minSdk
+### minSdk
 The minSdk of the library is 17. [At this point in time](https://developer.android.com/about/dashboards/index.html) it doesn't make much sense for new apps to support older versions of Android.
 
 I'm not sure how WebView will behave on older versions of Android, but technically it should be possible to lower the minSdk. If you absolutely need to support older devices, I suggest you fork the library and lower the minSdk yourself.
@@ -442,13 +447,16 @@ I'm not sure how WebView will behave on older versions of Android, but technical
 ---
 
 # Chromecast extension library
+
+<img align="right" width="180px" src="https://raw.githubusercontent.com/PierfrancescoSoffritti/Android-YouTube-Player/dev/pics/chromecast-youtube-player-icon_512x512.png" title="chromecast-youtube-player logo" />
+
 The *chromecast-sender* extension library extends the *core* library with chromecast functionalities. It shares some interfaces with the *core* library, therefore they must be used together.
 
 The scope of this library is to provide the basic framework and some basic utilities, needed to play YouTube videos on a Chromecast device.
 
-<img align="right" width="180px" src="https://raw.githubusercontent.com/PierfrancescoSoffritti/Android-YouTube-Player/master/pics/Android-YouTube-Player_512x512.png" title="Android-YouTube-Player logo" />
+**The api of this library is not 100% finalized yet, but is stable, you can use it in your apps.**
 
-# Quick start Chromecast
+# Quick start - Chromecast
 A Google Cast application is made of two components: a Sender and a Receiver.
 
 * Sender: is responsible for initiating the cast sessions. In our case the sender is our Android app.
@@ -503,16 +511,16 @@ Add the `OptionsProvider` to your `manifest.xml`
 Add a MediaRouterButton to your layout, in your xml file or programmatically.
 ```xml
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/root"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical" >
 
-    <android.support.v7.app.MediaRouteButton
-        android:id="@+id/media_route_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+  <android.support.v7.app.MediaRouteButton
+    android:id="@+id/media_route_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
 </LinearLayout>
 ```
 
@@ -600,6 +608,8 @@ From now on it will be the same as using a local `YouTubePlayer`. You need to ca
 You can call loadVideo, cueVideo, pause, play etc.. as expected, the library will take care of everything.
 
 For all this you can refer to the documentation for the *core* library.
+
+This example can also be found [in the sample app](#chromecast-sender-sample-app/src/main/java/com/pierfrancescosoffritti/cyplayersample/examples/basicExample/BasicExampleActivity.kt), in Kotlin.
 
 ### Receiver
 This library requires a custom receiver, you can find the source code [here](./chromecast-receiver).
