@@ -117,7 +117,8 @@ dependencies {
 
 # Quick start
 In order to start using the player you need to add a [YouTubePlayerView](#youtubeplayerview) to your layout
-```
+
+```xml
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -130,8 +131,10 @@ In order to start using the player you need to add a [YouTubePlayerView](#youtub
         android:layout_height="wrap_content"/>
 </LinearLayout>
 ```
+
 Get a reference to the `YouTubePlayerView` in your code and initialize it
-```
+
+```java
 YouTubePlayerView youtubePlayerView = findViewById(R.id.youtube_player_view);
 getLifecycle().addObserver(youtubePlayerView);
 
@@ -155,7 +158,8 @@ That's all you need.
 `YouTubePlayerView` is the access point to the library.
 
 You can add the View to your layout
-```
+
+```xml
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -170,7 +174,8 @@ You can add the View to your layout
 ```
 
 or you can initialize it programmatically and manually add it to a ViewGroup
-```
+
+```java
 YouTubePlayerView youtubePlayerView = new YouTubePlayerView(this);
 layout.addView(youtubePlayerView);
 ```
@@ -187,29 +192,34 @@ The callback `YouTubePlayerInitListener.onInitSuccess(YouTubePlayer)` will be ca
 ### Full screen
 You can use the `YouTubePlayerView` to set the player full screen or not, using these methods
 
-```
+```java
 youtubePlayerView.enterFullScreen();
 youtubePlayerView.exitFullScreen();
 youtubePlayerView.isFullScreen();
 youtubePlayerView.toggleFullScreen();
 ```
+
 You can also add listeners to get notified when the `YouTubePlayerView` enters or exits full screen
-```
+
+```java
 youtubePlayerView.addFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
 youtubePlayerView.removeFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
 ```
+
 It's important to keep in mind the the library is not responsible for changing the orientation of your Activity, that's up to you. The sample app contains an helper class that may help you handling orientation changes.
 
 ### UI
 If you want to interact with the UI of the player you need to get a reference to the `PlayerUIController` from the `YouTubePlayerView` by calling this method
-```
+
+```java
 PlayerUIController YouTubePlayerView.getPlayerUIController();
 ```
 You can read more about PlayerUIController [here](#playeruicontroller).
 
 ### Release the YouTubePlayerView
 Remember to release the `YouTubePlayerView` when you're done using it.
-```
+
+```java
 @Override
 public void onDestroy() {
     super.onDestroy();
@@ -219,7 +229,8 @@ public void onDestroy() {
 
 ### LifecycleObserver 
 `YouTubePlayerView` implements the `LifecycleObserver` interface. If added as an observer of your Activity/Fragment's lifecycle, the `release()` method will be called automatically.
-```
+
+```java
 lifecycleOwner.getLifecycle().addObserver(youTubePlayerView);
 ```
 Adding `YouTubePlayerView` as an observer to a lifecycle will also automatically cause the player to pause the playback when the Activity/Fragment stops (not when it pauses, in order to support multi-window applications).
@@ -240,13 +251,15 @@ The onReady callback of `YouTubePlayerListener` is called once, when the player 
 ### Player state
 The player has a state, that changes accordingly to the playback. The [list of possible states](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/PlayerConstants.java#L5) is the same of the YouTube [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference#Playback_status).
 
-`UNKNOWN`
-`UNSTARTED`
-`ENDED`
-`PLAYING`
-`PAUSED`
-`BUFFERING`
-`VIDEO_CUED`
+```
+UNKNOWN
+UNSTARTED
+ENDED
+PLAYING
+PAUSED
+BUFFERING
+VIDEO_CUED
+```
 
 ### YouTubePlayerTracker
 `YouTubePlayerTracker` is an utility provided by the library to easily keep track of a `YouTubePlayer`'s state.
@@ -255,7 +268,7 @@ The player has a state, that changes accordingly to the playback. The [list of p
 
 You can then use it to get the player's state and various information about the video that is being played.
 
-```
+```java
 YouTubePlayerTracker tracker = new YouTubePlayerTracker();
 youtubePlayer.addListener(tracker);
 
@@ -270,7 +283,7 @@ A `YouTubePlayerListener` is used to receive events from a `YouTubePlayer`.
 
 During its existence a `YouTubePlayer` will constantly emit events, you can listen to them by adding a `YouTubePlayerListener` to the `YouTubePlayer`.
 
-```
+```java
 youtubePlayer.addListener(YouTubePlayerListener listener);
 youtubePlayer.removeListener(YouTubePlayerListener listener);
 ```
@@ -283,7 +296,8 @@ For more information on the methods defined in the `YouTubePlayerListener` inter
 The PlayerUIController is responsible for controlling the UI of a `YouTubePlayer`.
 
 You can get a reference to the `PlayerUIController` from the `YouTubePlayerView`
-```
+
+```java
 youtubePlayerView.getPlayerUIController();
 ```
 
@@ -294,14 +308,17 @@ If you want to use this method you need to find the title of the video. The reco
 
 ### Live videos
 If you want to play live videos you must setup the UI accordingly, by calling this method
-```
+
+```java
 PlayerUIController.enableLiveVideoUI(boolean enable);
 ```
+
 Unfortunately there is no way for the player to recognize if it is playing a live video or not, therefore is up to the developer to change the UI accordingly.
 
 ### Custom actions
 You can set custom actions on the right and left side of the Play/Pause button of the player
-```
+
+```java
 PlayerUIController.setCustomAction1(Drawable icon, OnClickListener listener);
 PlayerUIController.setCustomAction2(Drawable icon, OnClickListener listener);
 PlayerUIController.showCustomAction1(boolean show);
@@ -311,18 +328,22 @@ PlayerUIController.showCustomAction2(boolean show);
 by default if you set a custom action with a null listener the icon won't be visible.
 
 You can also add any type of View to the UI, this can be useful if you want to add a new icon to the UI.
-```
+
+```java
 PlayerUIController.addView(View view);
 PlayerUIController.removeView(View view);
 ```
+
 The View will be added to the top of the player.
 
 # Menu
 You can use these methods to control the menu's behavior:
-``` 
+
+``` java
 PlayerUIController.showMenuButton(boolean show);
 PlayerUIController.setMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener);
 ```
+
 By default the menu icon is not visible.
 
 The default `OnClickListener` shows the default menu.
@@ -347,9 +368,11 @@ Initially the menu doesn't contain any `MenuItem`. You need to add them, using t
 
 # Create your own custom UI
 `YouTubePlayerView`'s method
-```
+
+```java
 View inflateCustomPlayerUI(@LayoutRes int customUILayoutID)
 ```
+
 can be used to replace the default UI of the player.
 
 This method takes in the id of a layout resource. The method returns the View object corresponding to the inflated layout. The default UI of the player is removed and replaced with the new UI.
@@ -360,7 +383,7 @@ You are now required to manage your custom UI with your own code. Meaning: you s
 
 Example (taken from sample app):
 
-```
+```java
 View customPlayerUI = youTubePlayerView.inflateCustomPlayerUI(R.layout.custom_player_ui);
 
 youTubePlayerView.initialize(youTubePlayer -> {
@@ -419,9 +442,9 @@ I'm not sure how WebView will behave on older versions of Android, but technical
 ---
 
 # Chromecast extension library
-The *chromecast* extension library extends the *core* library with chromecast functionalities. It shares some interfaces with the *core* library, therefore they have to be used together.
+The *chromecast-sender* extension library extends the *core* library with chromecast functionalities. It shares some interfaces with the *core* library, therefore they must be used together.
 
-The scope of this library is to provide the basic framework and some basic utilities, needed for YouTube videos playback on a Chromecast device.
+The scope of this library is to provide the basic framework and some basic utilities, needed to play YouTube videos on a Chromecast device.
 
 <img align="right" width="180px" src="https://raw.githubusercontent.com/PierfrancescoSoffritti/Android-YouTube-Player/master/pics/Android-YouTube-Player_512x512.png" title="Android-YouTube-Player logo" />
 
@@ -432,22 +455,25 @@ A Google Cast application is made of two components: a Sender and a Receiver.
 * Receiver: a web app that gets dowloaded on the Chromecast when a sender initiates a cast sessions.
 
 ### Download extra dependencies
-To use Google Cast functionalities in your app you are going to need two extra libraries, other than the *chromecast* library
+To use Google Cast functionalities in your app you are going to need two extra libraries, other than the *chromecast-sender* and the *core* libraries:
 
 ```
-implementation com.pierfrances
-// implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.50' // add this only if your project is not configured to use Kotlin
-implementation com.pierfrances
+implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:[last-version](#download)'
+implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:[last-version](#download)'
 
 implementation 'com.android.support:mediarouter-v7:27.1.1'
 implementation 'com.google.android.gms:play-services-cast-framework:15.0.1'
+
+// add this only if your project is not configured to use Kotlin
+// implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.50'
+
 ```
 
 ### Sender
 In order to use the Google Cast framework an app has to declare a `OptionsProvider`, as described in the [Google Cast documentation](https://developers.google.com/cast/docs/android_sender_integrate#initialize_the_cast_context).
 
-Add this class to your project
-```
+Add this class to your project:
+```java
 public final class CastOptionsProvider implements OptionsProvider {
   public CastOptions getCastOptions(Context appContext) {
   
@@ -464,18 +490,18 @@ public final class CastOptionsProvider implements OptionsProvider {
   }
 }
 ```
-You can read how to get a receiverId [here](#registration).
+You can read how to get a `receiverId` [here](#registration).
 
 
-Add the OptionsProvider to your `manifest.xml`
-```
+Add the `OptionsProvider` to your `manifest.xml`
+```xml
 <meta-data
   android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
   android:value="yourpackagename.CastOptionsProvider" />
 ```
 
-Add a MediaRouterButton to your layout, in your xml file or programmatically
-```
+Add a MediaRouterButton to your layout, in your xml file or programmatically.
+```xml
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root"
@@ -490,15 +516,95 @@ Add a MediaRouterButton to your layout, in your xml file or programmatically
 </LinearLayout>
 ```
 
+Then in your Activity/Fragment get a reference to the `MediaRouteButton` and check the status of the GooglePlayeServices on the user's phone.
+```java
+private int googlePlayServicesAvailabilityRequestCode = 1;
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.activity_main);
+
+  MediaRouteButton mediaRouteButton = findViewById(R.id.media_route_button);
+  CastButtonFactory.setUpMediaRouteButton(this, mediaRouteButton);
+
+  // can't use CastContext until I'm sure the user has GooglePlayServices
+  PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, this::initChromecast);
+}
+    
+@Override
+public void onActivityResult(int requestCode, int resultCode, Intent data) {
+  super.onActivityResult(requestCode, resultCode, data);
+
+  // can't use CastContext until I'm sure the user has GooglePlayServices
+  if(requestCode == googlePlayServicesAvailabilityRequestCode)
+    PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, this::initChromecast);
+ }
 ```
-add example
-CastButtonFactory.setUpMediaRouteButton(mediaRouteButton.context, mediaRouteButton)
+You can easily check the GooglePlayServices status using `PlayServicesUtils.checkGooglePlayServicesAvailability`, a utility function provided by the *chromecast-sender* library.
+
+`PlayServicesUtils.checkGooglePlayServicesAvailability` is a simple way to do what is examplained [here, on the official doc](https://developers.google.com/android/guides/setup#ensure_devices_have_the_google_play_services_apk). It will check the status of GooglePlayServices and will show a dialog to the user if some action is needed in order to fix the problem. It won't display anything if everything is ok (99% of the cases), in this case it will simply execute the function passed as third parameter.
+If there are some problems, the result of the operation is delivered through the `onActivityResult` callback.
+
+Once you're sure the user's GooglePlayServices is all right, we can create our `ChromecastYouTubePlayerContext`.
+
+*(For Java users: `PlayServicesUtils.checkGooglePlayServicesAvailability` expects a Kotlin function, therefore your Java function will have to return a `Unit` object. This is the same as returning `void`. This ugly syntax will be fixed when Kotlin will have a better way to map its functions to Java)*
+```java
+private Unit initChromecast() {
+  new ChromecastYouTubePlayerContext(
+    CastContext.getSharedInstance(this).getSessionManager(),
+    new SimpleChromecastConnectionListener()
+  );
+  
+  return Unit.INSTANCE;
+}
 ```
+`ChromecastYouTubePlayerContext` is the entry point to the *chromecast-sender* library. Once it is created, it automatically starts listening for Chromecast connection events. The `ChromecastConnectionListener` you pass to the constructor will be used to do just that.
+
+When a user clicks the `MediaRouteButton` a series of events will be triggered in the framework, use `ChromecastConnectionListener`'s callbacks to be notified of these events.
+
+```java
+private class SimpleChromecastConnectionListener implements ChromecastConnectionListener {
+
+  @Override
+  public void onChromecastConnecting() {
+    Log.d(getClass().getSimpleName(), "onChromecastConnecting");
+  }
+
+  @Override
+  public void onChromecastConnected(ChromecastYouTubePlayerContext chromecastYouTubePlayerContext) {
+    Log.d(getClass().getSimpleName(), "onChromecastConnected");
+    initializeCastPlayer(chromecastYouTubePlayerContext);
+  }
+
+  @Override
+  public void onChromecastDisconnected() {
+    Log.d(getClass().getSimpleName(), "onChromecastDisconnected");
+  }
+
+  private void initializeCastPlayer(ChromecastYouTubePlayerContext chromecastYouTubePlayerContext) {
+    chromecastYouTubePlayerContext.initialize(youtubePlayer -> {
+
+    youtubePlayer.addListener(new AbstractYouTubePlayerListener() {
+      @Override
+      public void onReady() {
+        youtubePlayer.loadVideo("6JYIGclVQdw", 0f);
+      }
+    });
+  });
+}
+```
+Only after a Chromecast connection has been established you can initialize the `ChromecastConnectionListener`.
+
+From now on it will be the same as using a local `YouTubePlayer`. You need to call initialize with a `YouTubePlayerInitListener` and from there you can add a `YouTubePlayerListener` to be notified of changes in the playback.
+You can call loadVideo, cueVideo, pause, play etc.. as expected, the library will take care of everything.
+
+For all this you can refer to the documentation for the *core* library.
 
 ### Receiver
-This library requires a custom receiver, you can find the source code [here](./chromecast/chromecast-receiver).
+This library requires a custom receiver, you can find the source code [here](./chromecast-receiver).
 
-You don'y need to change anything here, it just works.
+You don't need to change anything here, it just works.
 Take this code and upload it, as it is, to your hosting provider (read [registration](#registration) to learn more about hosting).
 
 ### Registration
