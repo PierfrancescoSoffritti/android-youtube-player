@@ -5,7 +5,7 @@
 
 [![](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=A%20new%20YouTube%20Player%20library%20for%20Android,%20stable%20and%20customizable&url=https://github.com/PierfrancescoSoffritti/android-youtube-player&via=PierfrancescoSo&hashtags=opensource,youtubeplayer,androiddev)
 
-<img align="right" width="180px" src="https://raw.githubusercontent.com/PierfrancescoSoffritti/android-youtube-player/master/pics/android-youtube-player_512x512.png" title="android-youtube-player logo" />
+<img align="right" width="180px" src="./pics/android-youtube-player_512x512.png" title="android-youtube-player logo" />
 
 The android-youtube-player library is a stable and customizable open source YouTube player for Android. It provides a simple View that can be easily integrated in every Activity/Fragment.
 
@@ -448,7 +448,7 @@ I'm not sure how WebView will behave on older versions of Android, but technical
 
 # Chromecast extension library
 
-<img align="right" width="180px" src="https://raw.githubusercontent.com/PierfrancescoSoffritti/android-youtube-player/dev/pics/chromecast-youtube-player-icon_512x512.png" title="chromecast-youtube-player logo" />
+<img align="right" width="180px" src="./pics/chromecast-youtube-player-icon_512x512.png" title="chromecast-youtube-player logo" />
 
 The *chromecast-sender* extension library extends the *core* library with chromecast functionalities. It shares some interfaces with the *core* library, therefore they must be used together.
 
