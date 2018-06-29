@@ -20,7 +20,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.ui.PlayerUIController;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.menu.MenuItem;
 import com.pierfrancescosoffritti.aytplayersample.utils.VideoInfo;
 import com.pierfrancescosoffritti.aytplayersample.R;
-import com.pierfrancescosoffritti.aytplayersample.utils.FullScreenManager;
+import com.pierfrancescosoffritti.aytplayersample.utils.FullScreenHelper;
 import com.pierfrancescosoffritti.aytplayersample.utils.YouTubeDataEndpoint;
 
 import java.util.Random;
@@ -32,7 +32,7 @@ import io.reactivex.schedulers.Schedulers;
 public class BasicExampleActivity extends AppCompatActivity {
 
     private YouTubePlayerView youTubePlayerView;
-    private FullScreenManager fullScreenManager = new FullScreenManager(this);
+    private FullScreenHelper fullScreenHelper = new FullScreenHelper(this);
 
     private String[] videoIds = {"6JYIGclVQdw", "LvetJ9U_tVY"};
 
@@ -119,7 +119,7 @@ public class BasicExampleActivity extends AppCompatActivity {
             @Override
             public void onYouTubePlayerEnterFullScreen() {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                fullScreenManager.enterFullScreen();
+                fullScreenHelper.enterFullScreen();
 
                 addCustomActionToPlayer(youTubePlayer);
             }
@@ -127,7 +127,7 @@ public class BasicExampleActivity extends AppCompatActivity {
             @Override
             public void onYouTubePlayerExitFullScreen() {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                fullScreenManager.exitFullScreen();
+                fullScreenHelper.exitFullScreen();
 
                 removeCustomActionFromPlayer();
             }

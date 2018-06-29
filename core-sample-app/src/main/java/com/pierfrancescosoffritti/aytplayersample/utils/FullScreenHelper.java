@@ -8,7 +8,7 @@ import android.view.View;
  *
  * @author Pierfrancesco Soffritti
  */
-public class FullScreenManager {
+public class FullScreenHelper {
 
     private Activity context;
     private View[] views;
@@ -17,7 +17,7 @@ public class FullScreenManager {
      * @param context
      * @param views to hide/show
      */
-    public FullScreenManager(Activity context, View ... views) {
+    public FullScreenHelper(Activity context, View ... views) {
         this.context = context;
         this.views = views;
     }
