@@ -28,7 +28,7 @@ A list of published apps that are using this library: ([let me know](https://git
 
 - [Shuffly](https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.shuffly)
 
-<img src="https://raw.githubusercontent.com/PierfrancescoSoffritti/android-youtube-player/master/pics/showcase.jpg" />
+<img src="./pics/showcase.jpg" />
 
 # Table of Contents (Core)
 1. [Sample app](#sample-app)
