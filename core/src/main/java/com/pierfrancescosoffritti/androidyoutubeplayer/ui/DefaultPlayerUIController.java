@@ -71,10 +71,6 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     private boolean showPlayPauseButton = true;
     private boolean showBufferingProgress = true;
 
-    private boolean isLive = false;
-    private boolean isLiveVOD = false;
-    private float videoDurationValue = 0;
-
     public DefaultPlayerUIController(@NonNull YouTubePlayerView youTubePlayerView, @NonNull YouTubePlayer youTubePlayer) {
         this.youTubePlayerView = youTubePlayerView;
         this.youTubePlayer = youTubePlayer;
@@ -112,7 +108,6 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
         playPauseButton.setOnClickListener(this);
         menuButton.setOnClickListener(this);
         fullScreenButton.setOnClickListener(this);
-        liveVideoIndicator.setOnClickListener(this);
     }
 
     @Override
@@ -144,39 +139,18 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
 
     @Override
     public void enableLiveVideoUI(boolean enable) {
-        isLive = enable;
-        enableLiveVODUI(false);
         if(enable) {
             videoDuration.setVisibility(View.INVISIBLE);
+            seekBar.setVisibility(View.INVISIBLE);
             videoCurrentTime.setVisibility(View.INVISIBLE);
 
             liveVideoIndicator.setVisibility(View.VISIBLE);
-            liveVideoIndicator.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_live_dot_red,0,0,0);
-            liveVideoIndicator.setCompoundDrawablePadding((int) youTubePlayerView.getContext().getResources().getDimension(R.dimen._8dp));
         } else {
             videoDuration.setVisibility(View.VISIBLE);
             seekBar.setVisibility(View.VISIBLE);
             videoCurrentTime.setVisibility(View.VISIBLE);
 
             liveVideoIndicator.setVisibility(View.GONE);
-        }
-    }
-
-    /**
-     * This is the case when user manually changes the seekbar position during a live stream.
-     * In this case, the player switches to a Live-VOD (Video-On-Demand) mode.
-     * UI changes are made on 1) Live video indicator tag, 2) Seekbar behaviour.
-     * This is in sync with the standard behaviour inside youtube app.
-     *
-     */
-    private void enableLiveVODUI(boolean enable) {
-        isLiveVOD = enable;
-        if (enable) {
-            liveVideoIndicator.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_live_dot_white,0,0,0);
-            videoCurrentTime.setVisibility(View.VISIBLE);
-        } else {
-            liveVideoIndicator.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_live_dot_red,0,0,0);
-            videoCurrentTime.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -292,20 +266,6 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
             onFullScreenButtonPressed();
         else if(view == menuButton)
             onMenuButtonPressed();
-        else if (view == liveVideoIndicator)
-            onLiveVideoIndicatorPressed();
-    }
-
-    /**
-     * During a live session when user switches to VOD mode by moving the seekbar,
-     * this allows the user to get back to the live mode instantly.
-     * This is in sync with the default youtube app behaviour
-     */
-    private void onLiveVideoIndicatorPressed() {
-        enableLiveVideoUI(true);
-        if (videoDurationValue != 0)
-            youTubePlayer.seekTo(videoDurationValue);
-        seekBar.setProgress(Math.round(videoDurationValue));
     }
 
     private void onMenuButtonPressed() {
@@ -482,7 +442,6 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
 
     @Override
     public void onVideoDuration(float duration) {
-        videoDurationValue = duration;
         videoDuration.setText(Utils.formatTime(duration));
         seekBar.setMax((int) duration);
     }
@@ -520,45 +479,13 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-        if (isLive) {
-            handleProgressChangedDuringLive(seekBar,i);
-        } else {
-            videoCurrentTime.setText(Utils.formatTime(i));
-        }
-    }
-
-    /**
-     * This handles the case when progress changes during Live stream.
-     * There are two scenarios being handled here a) Live b) Live-VOD.
-     * a) In case of Live, we maintain the seekbar to the value same same as duration.
-     * b) In case of Live-VOD, the current time is updated to show the negative value of
-     * current time, which lets user know how far they're behind the Live stream.
-     *
-     * Both a) & b) are in sync with default youtube app behaviour.
-     *
-     */
-    private void handleProgressChangedDuringLive(SeekBar seekBar, int i) {
-        // Can't do much without video duration value
-        if (videoDurationValue == 0)
-            return;
-
-        if (i == videoDurationValue) {
-            enableLiveVideoUI(true);
-            return;
-        }
-        if (isLiveVOD) {
-            String currentTime = "-" + Utils.formatTime(videoDurationValue - i);
-            videoCurrentTime.setText(currentTime);
-        } else {
-            seekBar.setProgress(Math.round(videoDurationValue));
-        }
+        videoCurrentTime.setText(Utils.formatTime(i));
     }
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-        if (isLive)
-            enableLiveVODUI(true);
-        seekBarTouchStarted = true;    }
+        seekBarTouchStarted = true;
+    }
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
