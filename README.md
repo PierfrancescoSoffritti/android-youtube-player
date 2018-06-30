@@ -4,7 +4,7 @@
 
 [![](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=A%20new%20YouTube%20Player%20library%20for%20Android,%20stable%20and%20customizable&url=https://github.com/PierfrancescoSoffritti/android-youtube-player&via=PierfrancescoSo&hashtags=opensource,youtubeplayer,androiddev)
 
-<img align="right" width="180px" src="./pics/android-youtube-player_512x512.png" title="android-youtube-player logo" />
+<img align="right" width="160px" src="./pics/android-youtube-player_512x512.png" title="android-youtube-player logo" />
 
 The android-youtube-player library is a stable and customizable open source YouTube player for Android. It provides a simple View that can be easily integrated in every Activity/Fragment.
 
@@ -127,7 +127,7 @@ In order to start using the player you need to add a [YouTubePlayerView](#youtub
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView
+    <com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView
         android:id="@+id/youtube_player_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -168,7 +168,7 @@ You can add the View to your layout
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView
+    <com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView
         android:id="@+id/youtube_player_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -447,7 +447,7 @@ I'm not sure how WebView will behave on older versions of Android, but technical
 
 # Chromecast extension library
 
-<img align="right" width="180px" src="./pics/chromecast-youtube-player-icon_512x512.png" title="chromecast-youtube-player logo" />
+<img align="right" width="160px" src="./pics/chromecast-youtube-player-icon_512x512.png" title="chromecast-youtube-player logo" />
 
 The *chromecast-sender* extension library extends the *core* library with chromecast functionalities. It shares some interfaces with the *core* library, therefore they must be used together.
 
@@ -464,9 +464,11 @@ A Google Cast application is made of two components: a Sender and a Receiver.
 ### Download extra dependencies
 To use Google Cast functionalities in your app you are going to need two extra libraries, other than the *chromecast-sender* and the *core* libraries:
 
+[last-version](#download).
+
 ```
-implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:[last-version](#download)'
-implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:[last-version](#download)'
+implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:last-version'
+implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:last-version'
 
 implementation 'com.android.support:mediarouter-v7:27.1.1'
 implementation 'com.google.android.gms:play-services-cast-framework:15.0.1'
