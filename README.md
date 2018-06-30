@@ -128,7 +128,7 @@ In order to start using the player you need to add a [YouTubePlayerView](#youtub
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView
+    <com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView
         android:id="@+id/youtube_player_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -169,7 +169,7 @@ You can add the View to your layout
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.pierfrancescosoffritti.youtubeplayer.player.YouTubePlayerView
+    <com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView
         android:id="@+id/youtube_player_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
