@@ -465,9 +465,11 @@ A Google Cast application is made of two components: a Sender and a Receiver.
 ### Download extra dependencies
 To use Google Cast functionalities in your app you are going to need two extra libraries, other than the *chromecast-sender* and the *core* libraries:
 
+[last-version](#download).
+
 ```
-implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:[last-version](#download)'
-implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:[last-version](#download)'
+implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:last-version'
+implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:last-version'
 
 implementation 'com.android.support:mediarouter-v7:27.1.1'
 implementation 'com.google.android.gms:play-services-cast-framework:15.0.1'
