@@ -79,12 +79,14 @@ This repository has two sample modules that show how to use different functional
 You can download the apks of the two sample app [here (core)](./core-sample-app/apk) and [here (chromecast)](./chromecast-sender-sample-app/apk), or on the PlayStore.
 
 core: 
+
 <a href='https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.aytplayersample&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
     <img width='200px' alt='Get it on Google Play'
          src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/>
 </a>
 
 chromecast:
+
 <a href='https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.cytplayersample&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
     <img width='200px' alt='Get it on Google Play'
          src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/>
