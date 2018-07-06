@@ -213,7 +213,21 @@ youtubePlayerView.addFullScreenListener(YouTubePlayerFullScreenListener fullScre
 youtubePlayerView.removeFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
 ```
 
-It's important to keep in mind the the library is not responsible for changing the orientation of your Activity, that's up to you. The sample app contains an [helper class](./core-sample-app/src/main/java/com/pierfrancescosoffritti/aytplayersample/utils/FullScreenHelper.java) that may help you handling orientation changes.
+The sample app contains an [helper class](./core-sample-app/src/main/java/com/pierfrancescosoffritti/aytplayersample/utils/FullScreenHelper.java) that can help you to update your UI when enter/exit fullscreen.
+
+
+It's important to keep in mind the the library is not responsible for changing the orientation of your Activity, that's up to you. 
+
+By default Android recreates Activities and Fragments when the orientation changes. Make sure that you manually handle orientation changes by adding the attribute `android:configChanges` to your Activity definition in the manifest.
+
+```xml
+<application >
+  <activity  
+    android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout" />
+</application>
+```
+
+If you don't do that the player will lose all the data it has buffered and re-start from zero after the orientation has changed.
 
 ### UI
 If you want to interact with the UI of the player you need to get a reference to the `PlayerUIController` from the `YouTubePlayerView` by calling this method
