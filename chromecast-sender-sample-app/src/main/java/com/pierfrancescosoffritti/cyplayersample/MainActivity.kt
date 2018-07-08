@@ -1,6 +1,7 @@
 package com.pierfrancescosoffritti.cyplayersample
 
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.Point
@@ -133,15 +134,15 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             } else if (menuItem.itemId == R.id.star_on_github)
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/PierfrancescoSoffritti/android-youtube-player/stargazers")))
-//                    else if (menuItem.getItemId() === R.id.rate_on_playstore) {
-//                        val appPackageName = packageName
-//                        try {
-//                            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
-//                        } catch (exception: ActivityNotFoundException) {
-//                            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
-//                        }
-//
-//                    }
+            else if (menuItem.itemId == R.id.rate_on_playstore) {
+                val appPackageName = packageName
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
+                } catch (exception: ActivityNotFoundException) {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
+                }
+
+            }
 
             true
         }
