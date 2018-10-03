@@ -32,6 +32,10 @@ A list of published apps that are using this library: ([let me know](https://git
 
 <img src="./pics/showcase.jpg" />
 
+- [Mobile Movie Database](https://play.google.com/store/apps/details?id=com.tmdb.themoviedatabase)
+
+<img src="./pics/mmdb.png" />
+
 # Table of Contents (Core)
 1. [Sample app](#sample-app)
 2. [Download](#download)
