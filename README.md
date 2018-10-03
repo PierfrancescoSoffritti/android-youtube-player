@@ -29,12 +29,11 @@ A lengthier explanation to why you may want to consider using an alternative to 
 A list of published apps that are using this library: ([let me know](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues) if you want to add your app to this list)
 
 - [Shuffly](https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.shuffly)
+- [Mobile Movie Database](https://play.google.com/store/apps/details?id=com.tmdb.themoviedatabase)
 
 <img src="./pics/showcase.jpg" />
 
-- [Mobile Movie Database](https://play.google.com/store/apps/details?id=com.tmdb.themoviedatabase)
 
-<img src="./pics/mmdb.png" />
 
 # Table of Contents (Core)
 1. [Sample app](#sample-app)
