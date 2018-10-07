@@ -29,6 +29,8 @@ A lengthier explanation to why you may want to consider using an alternative to 
 A list of published apps that are using this library: ([let me know](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues) if you want to add your app to this list)
 
 - [Shuffly](https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.shuffly)
+- [Mobile Movie Database](https://play.google.com/store/apps/details?id=com.tmdb.themoviedatabase)
+- [Curated](https://play.google.com/store/apps/details?id=com.rockspin.weaveapp)
 
 <img src="./pics/showcase.jpg" />
 
