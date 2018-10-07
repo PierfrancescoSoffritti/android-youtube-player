@@ -34,8 +34,6 @@ A list of published apps that are using this library: ([let me know](https://git
 
 <img src="./pics/showcase.jpg" />
 
-
-
 # Table of Contents (Core)
 1. [Sample app](#sample-app)
 2. [Download](#download)
