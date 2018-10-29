@@ -17,7 +17,7 @@ The UI of the player is 100% customizable. [The default UI can be changed](#play
 
 This library also provides a [Chromecast YouTube player](#chromecast-extension-library), that you can use to cast YouTube videos from your app to a Chromecast device.
 
-## Why does this library exists?
+## Why does this library exist?
 This library has been developed out of necessity. The official library provided by Google to integrate YouTube videos in Android apps is the [YouTube Android Player API](https://developers.google.com/youtube/android/player/). I've found the official library to be quite buggy ([some bugs are 5+ years old](https://code.google.com/p/gdata-issues/issues/detail?id=4395)) and lacking in support from Google. It was quite unreliable and therefore unusable in production.
 
 This, added to its limited options for customization and lack of Chromecast support, lead me to the development of this open source library.
@@ -39,7 +39,7 @@ A list of published apps that are using this library: ([let me know](https://git
 1. [Sample app](#sample-app)
 2. [Download](#download)
     1. [Core](#core)
-    2. [Chromecast](#chromecast) 
+    2. [Chromecast](#chromecast)
 3. [Quick start](#quick-start)
 4. [YouTubePlayerView](#youtubeplayerview)
     1. [Initialization](#initialization)
@@ -77,14 +77,14 @@ A list of published apps that are using this library: ([let me know](https://git
     3. [Receiver](#receiver)
     4. [Registration](#registration)
     5. [Hosting the Chromecast receiver](#hosting-the-chromecast-receiver)
-        
+
 
 # Sample app
 This repository has two sample modules that show how to use different functionalities of the library. One [sample module for the core library](./core-sample-app/) and [one sample module for the Chromecast extension](./chromecast-sender-sample-app).
 
 You can download the apks of the two sample app [here (core)](./core-sample-app/apk) and [here (chromecast)](./chromecast-sender-sample-app/apk), or on the PlayStore.
 
-core: 
+core:
 
 <a href='https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.aytplayersample&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
     <img width='200px' alt='Get it on Google Play'
@@ -119,7 +119,7 @@ The *chromecast-sender* module is an optional extension library for the *core* m
 dependencies {
   implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:8.0.1'
   implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.15'
-  
+
   implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.50'
 }
 ```
@@ -149,14 +149,14 @@ getLifecycle().addObserver(youtubePlayerView);
 
 youtubePlayerView.initialize(new YouTubePlayerInitListener() {
     @Override
-    public void onInitSuccess(@NonNull final YouTubePlayer initializedYouTubePlayer) {    
+    public void onInitSuccess(@NonNull final YouTubePlayer initializedYouTubePlayer) {
         initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady() {
                 String videoId = "6JYIGclVQdw";
                 initializedYouTubePlayer.loadVideo(videoId, 0);
             }
-        });        
+        });
     }
 }, true);
 ```
@@ -219,13 +219,13 @@ youtubePlayerView.removeFullScreenListener(YouTubePlayerFullScreenListener fullS
 The sample app contains an [helper class](./core-sample-app/src/main/java/com/pierfrancescosoffritti/aytplayersample/utils/FullScreenHelper.java) that can help you to update your UI when enter/exit fullscreen.
 
 
-It's important to keep in mind the the library is not responsible for changing the orientation of your Activity, that's up to you. 
+It's important to keep in mind the the library is not responsible for changing the orientation of your Activity, that's up to you.
 
 By default Android recreates Activities and Fragments when the orientation changes. Make sure that you manually handle orientation changes by adding the attribute `android:configChanges` to your Activity definition in the manifest.
 
 ```xml
 <application >
-  <activity  
+  <activity
     android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout" />
 </application>
 ```
@@ -253,7 +253,7 @@ public void onDestroy() {
 
 You don't need to manually release the player if you register it as an observer of your Activity/Fragment's lifecycle.
 
-### LifecycleObserver 
+### LifecycleObserver
 `YouTubePlayerView` implements the `LifecycleObserver` interface, this means that is a lifecycle aware component. If added as an observer of your Activity/Fragment's lifecycle, the `release()` method will be called automatically.
 
 ```java
@@ -405,7 +405,7 @@ View inflateCustomPlayerUI(@LayoutRes int customUILayoutID)
 
 can be used to replace the default UI of the player.
 
-This method takes in the id of a layout resource, which is a regular XML file defining a layout. The default UI of the player is removed and replaced with the new UI. The method returns the View object corresponding to the newly inflated layout. 
+This method takes in the id of a layout resource, which is a regular XML file defining a layout. The default UI of the player is removed and replaced with the new UI. The method returns the View object corresponding to the newly inflated layout.
 
 After calling this method, the default [PlayerUIController](#playeruicontroller) won't be available anymore. Calling `YouTubePlayerView.getPlayerUIController()` will throw an exception.
 
@@ -510,7 +510,7 @@ Add this class to your project:
 ```java
 public final class CastOptionsProvider implements OptionsProvider {
   public CastOptions getCastOptions(Context appContext) {
-  
+
   // Register you custom receiver on the Google Cast SDK Developer Console to get this ID.
   String receiverId = "";
 
@@ -564,7 +564,7 @@ protected void onCreate(Bundle savedInstanceState) {
   // can't use CastContext until I'm sure the user has GooglePlayServices
   PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, this::initChromecast);
 }
-    
+
 @Override
 public void onActivityResult(int requestCode, int resultCode, Intent data) {
   super.onActivityResult(requestCode, resultCode, data);
@@ -589,7 +589,7 @@ private Unit initChromecast() {
     CastContext.getSharedInstance(this).getSessionManager(),
     new SimpleChromecastConnectionListener()
   );
-  
+
   return Unit.INSTANCE;
 }
 ```
