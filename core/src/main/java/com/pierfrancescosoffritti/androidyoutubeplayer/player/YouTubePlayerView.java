@@ -190,4 +190,8 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
             }
         });
     }
+
+    public void enableBackgroundPlayback(boolean state) {
+        youTubePlayer.enableBackgroundPlayback(state);
+    }
 }

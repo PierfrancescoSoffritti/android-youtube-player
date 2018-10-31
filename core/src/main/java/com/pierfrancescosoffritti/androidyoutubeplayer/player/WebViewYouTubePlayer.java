@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -31,6 +32,9 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
 
     @NonNull private final Set<YouTubePlayerListener> youTubePlayerListeners;
     @NonNull private final Handler mainThreadHandler;
+
+    private boolean backgroundPlaybackEnabled = false;
+    private boolean isPlaying = false;
 
     private YouTubePlayerInitListener youTubePlayerInitListener;
 
@@ -62,6 +66,8 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
 
     @Override
     public void loadVideo(@NonNull final String videoId, final float startSeconds) {
+        isPlaying = true;
+
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -72,6 +78,8 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
 
     @Override
     public void cueVideo(@NonNull final String videoId, final float startSeconds) {
+        isPlaying = true;
+
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -82,6 +90,8 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
 
     @Override
     public void play() {
+        isPlaying = true;
+
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -92,6 +102,8 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
 
     @Override
     public void pause() {
+        isPlaying = false;
+
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -192,5 +204,20 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
         } catch (Exception e) {
             throw new RuntimeException("Can't parse HTML file containing the player.");
         }
+    }
+
+    public void enableBackgroundPlayback(boolean state) {
+        backgroundPlaybackEnabled = state;
+    }
+
+    @Override
+    protected void onWindowVisibilityChanged(int visibility) {
+        if (!backgroundPlaybackEnabled || !isPlaying) {
+            super.onWindowVisibilityChanged(visibility);
+            return;
+        }
+
+        if (visibility != View.GONE)
+            super.onWindowVisibilityChanged(View.VISIBLE);
     }
 }
