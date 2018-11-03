@@ -33,8 +33,7 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
     @NonNull private final Set<YouTubePlayerListener> youTubePlayerListeners;
     @NonNull private final Handler mainThreadHandler;
 
-    private boolean backgroundPlaybackEnabled = false;
-    private boolean isPlaying = false;
+    private boolean backgroundPlaybackEnabled;
 
     private YouTubePlayerInitListener youTubePlayerInitListener;
 
@@ -53,8 +52,11 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
         youTubePlayerListeners = new HashSet<>();
     }
 
-    protected void initialize(@NonNull YouTubePlayerInitListener initListener) {
+    protected void initialize(@NonNull YouTubePlayerInitListener initListener,
+                              boolean enableBackgroundPlayback) {
+
         youTubePlayerInitListener = initListener;
+        backgroundPlaybackEnabled = enableBackgroundPlayback;
 
         initWebView();
     }
@@ -66,8 +68,6 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
 
     @Override
     public void loadVideo(@NonNull final String videoId, final float startSeconds) {
-        isPlaying = true;
-
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -78,8 +78,6 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
 
     @Override
     public void cueVideo(@NonNull final String videoId, final float startSeconds) {
-        isPlaying = true;
-
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -90,8 +88,6 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
 
     @Override
     public void play() {
-        isPlaying = true;
-
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -102,8 +98,6 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
 
     @Override
     public void pause() {
-        isPlaying = false;
-
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -206,18 +200,13 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
         }
     }
 
-    public void enableBackgroundPlayback(boolean state) {
-        backgroundPlaybackEnabled = state;
-    }
-
     @Override
     protected void onWindowVisibilityChanged(int visibility) {
-        if (!backgroundPlaybackEnabled || !isPlaying) {
-            super.onWindowVisibilityChanged(visibility);
+        // If visibility changes to anything but visible, don't do anything
+        if (backgroundPlaybackEnabled && visibility != VISIBLE)
             return;
-        }
 
-        if (visibility != View.GONE)
-            super.onWindowVisibilityChanged(View.VISIBLE);
+        // If visibility changes to visible, no need to override
+        super.onWindowVisibilityChanged(visibility);
     }
 }

@@ -35,6 +35,6 @@ public class CustomUIActivity extends AppCompatActivity {
                 }
             });
 
-        }, true);
+        }, true, false);
     }
 }

@@ -55,7 +55,7 @@ public class PlayerStatusActivity extends AppCompatActivity {
                 }
             });
 
-        }, true);
+        }, true, false);
     }
 
     private void onNewState(PlayerConstants.PlayerState newState) {

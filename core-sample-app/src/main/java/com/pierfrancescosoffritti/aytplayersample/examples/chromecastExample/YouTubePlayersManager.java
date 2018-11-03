@@ -114,7 +114,7 @@ public class YouTubePlayersManager implements ChromecastConnectionListener {
                         youtubePlayer.pause();
                 }
             });
-        }, true);
+        }, true, false);
     }
 
     private void initializeCastPlayer(ChromecastYouTubePlayerContext chromecastYouTubePlayerContext) {
