@@ -14,7 +14,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.R;
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.customization.PlayerOptions;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.customization.IFramePlayerOptions;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener;
 
@@ -53,11 +53,11 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
 
     protected void initialize(
         @NonNull YouTubePlayerInitListener initListener,
-        @Nullable PlayerOptions playerOptions
+        @Nullable IFramePlayerOptions playerOptions
     ) {
         youTubePlayerInitListener = initListener;
 
-        initWebView(playerOptions == null ? PlayerOptions.getDefault() : playerOptions);
+        initWebView(playerOptions == null ? IFramePlayerOptions.getDefault() : playerOptions);
     }
 
     @Override
@@ -156,7 +156,7 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private void initWebView(PlayerOptions playerOptions) {
+    private void initWebView(IFramePlayerOptions playerOptions) {
         WebSettings settings = this.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
@@ -165,7 +165,7 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
         this.addJavascriptInterface(new YouTubePlayerBridge(this), "YouTubePlayerBridge");
 
         final String unformattedString = readYouTubePlayerHTMLFromFile();
-        final String formattedString = unformattedString.replace("<replace playeroptions here>", playerOptions.toString());
+        final String formattedString = unformattedString.replace("<<playerVars>>", playerOptions.toString());
 
         this.loadDataWithBaseURL("https://www.youtube.com", formattedString, "text/html", "utf-8", null);
 

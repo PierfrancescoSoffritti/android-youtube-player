@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.customization.PlayerOptions;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.customization.IFramePlayerOptions;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener;
@@ -73,8 +73,8 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
 
     /**
      * Initialize the player
-     * @param youTubePlayerInitListener lister for player init events
-     * @param handleNetworkEvents if <b>true</b> a broadcast receiver will be registered.<br/>If <b>false</b> you should handle network events with your own broadcast receiver. See {@link YouTubePlayerView#onNetworkAvailable()} and {@link YouTubePlayerView#onNetworkUnavailable()}
+     *
+     * @see YouTubePlayerView#initialize(YouTubePlayerInitListener, boolean, IFramePlayerOptions)
      */
     public void initialize(@NonNull final YouTubePlayerInitListener youTubePlayerInitListener, boolean handleNetworkEvents) {
         initialize(youTubePlayerInitListener, handleNetworkEvents, null);
@@ -89,7 +89,7 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     public void initialize(
         @NonNull final YouTubePlayerInitListener youTubePlayerInitListener,
         boolean handleNetworkEvents,
-        @Nullable final PlayerOptions playerOptions
+        @Nullable final IFramePlayerOptions playerOptions
     ) {
         if(handleNetworkEvents)
             getContext().registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));

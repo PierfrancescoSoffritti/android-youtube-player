@@ -7,11 +7,11 @@ import org.json.JSONObject;
  * {@link WebViewYouTubePlayer} options that correspond to the options listed here:
  * https://developers.google.com/youtube/player_parameters
  */
-public class PlayerOptions {
+public class IFramePlayerOptions {
 
     private final JSONObject playerOptions;
 
-    private PlayerOptions(JSONObject options) {
+    private IFramePlayerOptions(JSONObject options) {
         playerOptions = options;
     }
 
@@ -20,7 +20,7 @@ public class PlayerOptions {
         return playerOptions.toString();
     }
 
-    public static PlayerOptions getDefault() {
+    public static IFramePlayerOptions getDefault() {
         return new Builder().build();
     }
 
@@ -112,8 +112,8 @@ public class PlayerOptions {
         }
 
 
-        public PlayerOptions build() {
-            return new PlayerOptions(builderOptions);
+        public IFramePlayerOptions build() {
+            return new IFramePlayerOptions(builderOptions);
         }
     }
 }
