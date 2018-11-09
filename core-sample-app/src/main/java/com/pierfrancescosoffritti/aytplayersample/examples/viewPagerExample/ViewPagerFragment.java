@@ -34,7 +34,7 @@ public class ViewPagerFragment extends Fragment {
                     ViewPagerFragment.this.initializedYouTubePlayer = initializedYouTubePlayer;
                 }
             });
-        }, true);
+        }, true, false);
 
         return view;
     }

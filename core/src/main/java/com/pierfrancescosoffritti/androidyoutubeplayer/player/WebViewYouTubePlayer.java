@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -32,6 +33,8 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
     @NonNull private final Set<YouTubePlayerListener> youTubePlayerListeners;
     @NonNull private final Handler mainThreadHandler;
 
+    private boolean backgroundPlaybackEnabled;
+
     private YouTubePlayerInitListener youTubePlayerInitListener;
 
     protected WebViewYouTubePlayer(Context context) {
@@ -49,8 +52,11 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
         youTubePlayerListeners = new HashSet<>();
     }
 
-    protected void initialize(@NonNull YouTubePlayerInitListener initListener) {
+    protected void initialize(@NonNull YouTubePlayerInitListener initListener,
+                              boolean enableBackgroundPlayback) {
+
         youTubePlayerInitListener = initListener;
+        backgroundPlaybackEnabled = enableBackgroundPlayback;
 
         initWebView();
     }
@@ -192,5 +198,15 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
         } catch (Exception e) {
             throw new RuntimeException("Can't parse HTML file containing the player.");
         }
+    }
+
+    @Override
+    protected void onWindowVisibilityChanged(int visibility) {
+        // If visibility changes to anything but visible, don't do anything
+        if (backgroundPlaybackEnabled && visibility != VISIBLE)
+            return;
+
+        // If visibility changes to visible, no need to override
+        super.onWindowVisibilityChanged(visibility);
     }
 }
