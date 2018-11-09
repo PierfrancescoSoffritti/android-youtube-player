@@ -111,7 +111,6 @@ public class IFramePlayerOptions {
             }
         }
 
-
         public IFramePlayerOptions build() {
             return new IFramePlayerOptions(builderOptions);
         }
