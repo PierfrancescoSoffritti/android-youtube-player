@@ -36,6 +36,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$supportLibrary_version"
     implementation "com.android.support:design:$supportLibrary_version"
     implementation "com.android.support:recyclerview-v7:$supportLibrary_version"
+    implementation "com.android.support:support-v4:$supportLibrary_version"
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
@@ -68,3 +69,4 @@ dependencies {
 //dependencies {
 //    custom 'com.google.apis:google-api-services-youtube:v3-rev198-1.23.0'
 //}
+

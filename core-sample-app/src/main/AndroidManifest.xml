@@ -24,6 +24,11 @@
             android:hardwareAccelerated="true"
             android:label="@string/basic_example" />
         <activity
+            android:name=".examples.fragmentExample.FragmentExampleActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:hardwareAccelerated="true"
+            android:label="@string/fragment_example" />
+        <activity
             android:name=".examples.recyclerViewExample.RecyclerViewActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
