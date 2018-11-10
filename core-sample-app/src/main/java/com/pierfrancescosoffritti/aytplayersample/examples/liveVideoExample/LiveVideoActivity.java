@@ -34,6 +34,6 @@ public class LiveVideoActivity extends AppCompatActivity {
                     youTubePlayer.loadVideo(liveVideoId,0f);
                 }
             });
-        }, true, false);
+        }, true);
     }
 }

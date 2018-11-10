@@ -30,12 +30,12 @@ import java.util.Set;
  */
 class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlayerBridge.YouTubePlayerBridgeCallbacks {
 
+    private YouTubePlayerInitListener youTubePlayerInitListener;
+
     @NonNull private final Set<YouTubePlayerListener> youTubePlayerListeners;
     @NonNull private final Handler mainThreadHandler;
 
-    private boolean backgroundPlaybackEnabled;
-
-    private YouTubePlayerInitListener youTubePlayerInitListener;
+    protected boolean backgroundPlaybackEnabled = false;
 
     protected WebViewYouTubePlayer(Context context) {
         this(context, null);
@@ -52,12 +52,8 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
         youTubePlayerListeners = new HashSet<>();
     }
 
-    protected void initialize(@NonNull YouTubePlayerInitListener initListener,
-                              boolean enableBackgroundPlayback) {
-
+    protected void initialize(@NonNull YouTubePlayerInitListener initListener) {
         youTubePlayerInitListener = initListener;
-        backgroundPlaybackEnabled = enableBackgroundPlayback;
-
         initWebView();
     }
 
@@ -202,11 +198,9 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
 
     @Override
     protected void onWindowVisibilityChanged(int visibility) {
-        // If visibility changes to anything but visible, don't do anything
-        if (backgroundPlaybackEnabled && visibility != VISIBLE)
+        if (backgroundPlaybackEnabled && (visibility == View.GONE || visibility == INVISIBLE))
             return;
 
-        // If visibility changes to visible, no need to override
         super.onWindowVisibilityChanged(visibility);
     }
 }

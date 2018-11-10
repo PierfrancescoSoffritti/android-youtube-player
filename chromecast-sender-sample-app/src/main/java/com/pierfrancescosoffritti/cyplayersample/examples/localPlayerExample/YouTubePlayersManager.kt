@@ -97,7 +97,7 @@ class YouTubePlayersManager(
                         youtubePlayer.pause()
                 }
             })
-        }, true, false)
+        }, true)
     }
 
     private fun initializeCastPlayer(chromecastYouTubePlayerContext: ChromecastYouTubePlayerContext) {

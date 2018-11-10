@@ -41,7 +41,7 @@ public class PictureInPictureActivity extends AppCompatActivity {
                     loadVideo(youTubePlayer, videoIds[0]);
                 }
             });
-        }, true, false);
+        }, true);
     }
 
     private void initPictureInPicture(YouTubePlayerView youTubePlayerView) {

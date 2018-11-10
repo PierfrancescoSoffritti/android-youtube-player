@@ -75,8 +75,7 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
      * @param youTubePlayerInitListener lister for player init events
      * @param handleNetworkEvents if <b>true</b> a broadcast receiver will be registered.<br/>If <b>false</b> you should handle network events with your own broadcast receiver. See {@link YouTubePlayerView#onNetworkAvailable()} and {@link YouTubePlayerView#onNetworkUnavailable()}
      */
-    public void initialize(@NonNull final YouTubePlayerInitListener youTubePlayerInitListener,
-                           boolean handleNetworkEvents, final boolean enableBackgroundPlayback) {
+    public void initialize(@NonNull final YouTubePlayerInitListener youTubePlayerInitListener, boolean handleNetworkEvents) {
         if(handleNetworkEvents)
             getContext().registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
@@ -88,7 +87,7 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
                     public void onInitSuccess(@NonNull YouTubePlayer youTubePlayer) {
                         youTubePlayerInitListener.onInitSuccess(youTubePlayer);
                     }
-                }, enableBackgroundPlayback);
+                });
             }
         };
 
@@ -126,6 +125,10 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
 
     @Override
     public void onNetworkUnavailable() {
+    }
+
+    public void enableBackgroundPlayback(boolean enable) {
+        youTubePlayer.backgroundPlaybackEnabled = enable;
     }
 
     @NonNull
@@ -187,7 +190,6 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
             @Override
             public void onReady() {
                 asyncInitialization = null;
-                //youTubePlayer.removeListener(this);
             }
         });
     }
