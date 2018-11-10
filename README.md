@@ -362,8 +362,6 @@ PlayerUIController.showCustomAction1(boolean show);
 PlayerUIController.showCustomAction2(boolean show);
 ```
 
-by default if you set a custom action with a null listener the icon won't be visible.
-
 You can **also add any type of View to the UI**, this can be useful if you want to add a new icon to the UI.
 
 ```java
