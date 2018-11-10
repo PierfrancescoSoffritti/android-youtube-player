@@ -48,10 +48,11 @@ A list of published apps that are using this library: ([let me know](https://git
     4. [Release the YouTubePlayerView](#release-the-youtubeplayerview)
     5. [LifecycleObserver](#lifecycleobserver)
 5. [YouTubePlayer](#youtubeplayer)
-    1. [Events](#events)
-    2. [The onReady event](#the-onready-event)
-    3. [Player state](#player-state)
-    4. [YouTubePlayerTracker](#youtubeplayertracker)
+    1. [Load, Play and Pause videos](#load,-play-and-pause-videos)
+    2. [Events](#events)
+    3. [The onReady event](#the-onready-event)
+    4. [Player state](#player-state)
+    5. [YouTubePlayerTracker](#youtubeplayertracker)
 6. [YouTubePlayerListener](#youtubeplayerlistener)
 7. [PlayerUIController](#playeruicontroller)
     1. [Show video title](#show-video-title)
@@ -264,9 +265,17 @@ Adding `YouTubePlayerView` as an observer to a lifecycle will also automatically
 If you want your app to keep [playing when the Activity/Fragment is not visible](#play-youtube-videos-in-the-background) (remember that this behavior is not allowed, if you want to publish your app on the PlayStore), don't register the `YouTubePlayerView` as a lifecycle observer. But remember to manually call `release()` when the Activity/Fragment is being destroyed.
 
 # YouTubePlayer
-`YouTubePlayer` is the component responsible for controlling the playback of YouTube videos. You can see its contract [here](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/master/YouTubePlayer/src/main/java/com/pierfrancescosoffritti/youtubeplayer/player/YouTubePlayer.java).
+`YouTubePlayer` is the component responsible for controlling the playback of YouTube videos. You can see its contract [here](./core/src/main/java/com/pierfrancescosoffritti/youtubeplayer/player/YouTubePlayer.java).
 
 You can only get a reference to the `YouTubePlayer` when [initializing the YouTubePlayerView](#initialization).
+
+### Load, Play and Pause videos
+To load a video you can use `YouTubePlayer.loadVideo(String videoId, float startTime)` or `YouTubePlayer.cueVideo(String videoId, float startTime)`.
+The difference between the two is that `loadVideo` loads and automatically plays the video, while `cueVideo` just loads video and thumbnail but doesn't autoplay.
+
+To play a video call `YouTubePlayer.play()`.
+To pause a video call `YouTubePlayer.pause()`
+
 
 ### Events
 During its existence the player will constantly emit events, you can easily listen to all of them by adding a [YouTubePlayerListener](#youtubeplayerlistener) to it.
