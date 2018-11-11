@@ -1,11 +1,13 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.player.customization;
+package com.pierfrancescosoffritti.androidyoutubeplayer.player;
+
+import android.support.annotation.NonNull;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * {@link WebViewYouTubePlayer} options that correspond to the options listed here:
- * https://developers.google.com/youtube/player_parameters
+ * <a href="https://developers.google.com/youtube/player_parameters">IFrame player parameters</a>
  */
 public class IFramePlayerOptions {
 
@@ -47,7 +49,7 @@ public class IFramePlayerOptions {
             addInt(REL, 0);
             addInt(SHOW_INFO, 0);
             addInt(IV_LOAD_POLICY, 3);
-            addInt(MODEST_BRANDING, 0);
+            addInt(MODEST_BRANDING, 1);
         }
 
         public Builder autoplay(int autoplay) {
@@ -60,17 +62,7 @@ public class IFramePlayerOptions {
             return this;
         }
 
-        public Builder enableJSApi(int enableJSApi) {
-            addInt(ENABLE_JS_API, enableJSApi);
-            return this;
-        }
-
-        public Builder fs(int fs) {
-            addInt(FS, fs);
-            return this;
-        }
-
-        public Builder origin(String origin) {
+        public Builder origin(@NonNull String origin) {
             addString(ORIGIN, origin);
             return this;
         }
@@ -95,19 +87,19 @@ public class IFramePlayerOptions {
             return this;
         }
         
-        private void addString(String key, String value) {
+        private void addString(@NonNull String key, @NonNull String value) {
             try {
                 builderOptions.put(key, value);
             } catch (JSONException e) {
-                throw new RuntimeException("Illegal JSON value");
+                throw new RuntimeException("Illegal JSON value " +key +": " +value);
             }
         }
         
-        private void addInt(String key, int value) {
+        private void addInt(@NonNull String key, int value) {
             try {
                 builderOptions.put(key, value);
             } catch (JSONException e) {
-                throw new RuntimeException("Illegal JSON value");
+                throw new RuntimeException("Illegal JSON value " +key +": " +value);
             }
         }
 

@@ -15,7 +15,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.R;
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.customization.IFramePlayerOptions;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener;
 
@@ -54,10 +53,7 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
         youTubePlayerListeners = new HashSet<>();
     }
 
-    protected void initialize(
-        @NonNull YouTubePlayerInitListener initListener,
-        @Nullable IFramePlayerOptions playerOptions
-    ) {
+    protected void initialize(@NonNull YouTubePlayerInitListener initListener, @Nullable IFramePlayerOptions playerOptions) {
         youTubePlayerInitListener = initListener;
         initWebView(playerOptions == null ? IFramePlayerOptions.getDefault() : playerOptions);
     }
@@ -167,7 +163,7 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
         this.addJavascriptInterface(new YouTubePlayerBridge(this), "YouTubePlayerBridge");
 
         final String unformattedString = readYouTubePlayerHTMLFromFile();
-        final String formattedString = unformattedString.replace("<<playerVars>>", playerOptions.toString());
+        final String formattedString = unformattedString.replace("<<injectedPlayerVars>>", playerOptions.toString());
 
         this.loadDataWithBaseURL("https://www.youtube.com", formattedString, "text/html", "utf-8", null);
 

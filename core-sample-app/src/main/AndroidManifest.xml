@@ -61,6 +61,11 @@
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true" />
         <activity
+            android:name=".examples.iFramePlayerOptionsExample.IFramePlayerOptionsExampleActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:hardwareAccelerated="true"
+            android:label="@string/iframe_player_options_example" />
+        <activity
             android:name=".examples.chromecastExample.ChromecastExampleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"

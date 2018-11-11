@@ -43,10 +43,11 @@ A list of published apps that are using this library: ([let me know](https://git
 3. [Quick start](#quick-start)
 4. [YouTubePlayerView](#youtubeplayerview)
     1. [Initialization](#initialization)
-    2. [Full screen](#full-screen)
-    3. [UI](#ui)
-    4. [Release the YouTubePlayerView](#release-the-youtubeplayerview)
-    5. [LifecycleObserver](#lifecycleobserver)
+    2. [IFramePlayerOptions](#iframeplayeroptions)
+    3. [Full screen](#full-screen)
+    4. [UI](#ui)
+    5. [Release the YouTubePlayerView](#release-the-youtubeplayerview)
+    6. [LifecycleObserver](#lifecycleobserver)
 5. [YouTubePlayer](#youtubeplayer)
     1. [Load Play and Pause videos](#load-play-and-pause-videos)
     2. [Events](#events)
@@ -193,12 +194,27 @@ layout.addView(youtubePlayerView);
 if the height of the View is set to `wrap_content`, the View will automatically have an aspect ratio of 16:9, to fit the aspect ratio of YouTube videos.
 
 ### Initialization
-In order to use the YouTube player you need to initialize it. To do that, call `YouTubePlayerView.initialize(YouTubePlayerInitListener listener, boolean handleNetworkEvents)`.
+In order to use the YouTube player you need to initialize it. To do that, call `YouTubePlayerView.initialize(YouTubePlayerInitListener listener, boolean handleNetworkEvents)` or `YouTubePlayerView.initialize(YouTubePlayerInitListener listener, boolean handleNetworkEvents, IFramePlayerOptions iframePlayerOptions)`.
 
 This methods takes in a [YouTubePlayerInitListener](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/listeners/YouTubePlayerInitListener.java) and a boolean. The boolean parameter is used to tell the library whether it should handle network events or not, read more about network events [here](#network-events).
 
 The callback `YouTubePlayerInitListener.onInitSuccess(YouTubePlayer initializedYouTubePlayer)` will be called by the library when the initialization is completed. That is, when the IFrame YouTube player has been download in the WebView.
 The argument of the function is a reference to the initialized YouTubePlayer object. The YouTubePlayer is the object responsible for handling the playback of YouTube videos, read more about it [here](#youtubeplayer).
+
+The `IFramePlayerOptions` is an optional paramenter that can be used to set some of the paramenters of the IFrame YouTubePlayer. All the possible parameters and values are listed [here](https://developers.google.com/youtube/player_parameters#Parameters).
+
+### IFramePlayerOptions
+The `IFramePlayerOptions` is an optional paramenter that can be passed to `YouTubePlayerView.initialize(YouTubePlayerInitListener listener, boolean handleNetworkEvents, IFramePlayerOptions iframePlayerOptions)`, it can be used to set some of the paramenters of the IFrame YouTubePlayer. All the possible parameters and values are listed [here](https://developers.google.com/youtube/player_parameters#Parameters).
+
+A simple example of how to use `IFramePlayerOptions` can be found in the sample app [here](./core-sample-app/src/main/java/com/pierfrancescosoffritti/aytplayersample/examples/iFramePlayerOptionsExample/IFramePlayerOptionsExampleActivity.java).
+
+Use the Builder to get a `IFramePlayerOptions` object.
+
+```java
+IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
+  .controls(1)
+  .build();
+```
 
 ### Full screen
 You can use the `YouTubePlayerView` to set the player full screen or not, using these methods

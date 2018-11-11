@@ -14,4 +14,5 @@
     <string name="open_on_github">Open on GitHub</string>
     <string name="chromecast_example">Chromecast example</string>
     <string name="fragment_example">Fragment Example</string>
+    <string name="iframe_player_options_example">IFrame Player Options Example</string>
 </resources>

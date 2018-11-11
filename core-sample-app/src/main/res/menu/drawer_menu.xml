@@ -37,6 +37,10 @@
             android:title="@string/picture_in_picture_example" />
 
         <item
+            android:id="@+id/open_iframe_player_options_example_menu_item"
+            android:title="@string/iframe_player_options_example" />
+
+        <item
             android:id="@+id/open_chromecast_example_menu_item"
             android:title="@string/chromecast_example" />
 
