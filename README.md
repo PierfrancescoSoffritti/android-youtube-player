@@ -355,9 +355,11 @@ youtubePlayerView.getPlayerUIController();
 ```
 
 ### Show video title
-`PlayerUIController` exposes a method called `setVideoTitle(String videoTitle)`.
+Due to changes to the IFrame API, the web player will always show the title of the video.
 
-Unfortunately the library doesn't know the title of the videos it plays. Therefore, if you want to use this method to set the real title of the video, you need to find it first. The best way to do that is by using the [YouTube Data API](https://developers.google.com/youtube/v3/docs/)  to fetch the video title from the video id.
+Nevertheless, the `PlayerUIController` exposes a method called `setVideoTitle(String videoTitle)` that can be used to set the title on the Android side (unfortunately setting this title won't remove the title from the Webview).
+
+The library doesn't know the title of the videos it plays. Therefore, if you want to use this method to set the real title of the video, you need to find it first. The best way to do that is by using the [YouTube Data API](https://developers.google.com/youtube/v3/docs/)  to fetch the video title from the video id.
 
 You can see an example in the method `setVideoTitle(PlayerUIController playerUIController, String videoId)` from the [sample app](./core-sample-app/src/main/java/com/pierfrancescosoffritti/aytplayersample/examples/basicExample/BasicExampleActivity.java#L177).
 
