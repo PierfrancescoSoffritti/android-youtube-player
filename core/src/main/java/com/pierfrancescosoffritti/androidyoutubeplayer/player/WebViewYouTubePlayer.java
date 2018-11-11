@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.R;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.customization.IFramePlayerOptions;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener;
 
@@ -52,9 +54,12 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
         youTubePlayerListeners = new HashSet<>();
     }
 
-    protected void initialize(@NonNull YouTubePlayerInitListener initListener) {
+    protected void initialize(
+        @NonNull YouTubePlayerInitListener initListener,
+        @Nullable IFramePlayerOptions playerOptions
+    ) {
         youTubePlayerInitListener = initListener;
-        initWebView();
+        initWebView(playerOptions == null ? IFramePlayerOptions.getDefault() : playerOptions);
     }
 
     @Override
@@ -153,14 +158,18 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private void initWebView() {
+    private void initWebView(IFramePlayerOptions playerOptions) {
         WebSettings settings = this.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         settings.setMediaPlaybackRequiresUserGesture(false);
 
         this.addJavascriptInterface(new YouTubePlayerBridge(this), "YouTubePlayerBridge");
-        this.loadDataWithBaseURL("https://www.youtube.com", readYouTubePlayerHTMLFromFile(), "text/html", "utf-8", null);
+
+        final String unformattedString = readYouTubePlayerHTMLFromFile();
+        final String formattedString = unformattedString.replace("<<playerVars>>", playerOptions.toString());
+
+        this.loadDataWithBaseURL("https://www.youtube.com", formattedString, "text/html", "utf-8", null);
 
         // if the video's thumbnail is not in memory, show a black screen
         this.setWebChromeClient(new WebChromeClient() {
