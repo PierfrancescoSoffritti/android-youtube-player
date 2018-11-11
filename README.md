@@ -194,7 +194,9 @@ layout.addView(youtubePlayerView);
 if the height of the View is set to `wrap_content`, the View will automatically have an aspect ratio of 16:9, to fit the aspect ratio of YouTube videos.
 
 ### Initialization
-In order to use the YouTube player you need to initialize it. To do that, call `YouTubePlayerView.initialize(YouTubePlayerInitListener listener, boolean handleNetworkEvents)` or `YouTubePlayerView.initialize(YouTubePlayerInitListener listener, boolean handleNetworkEvents, IFramePlayerOptions iframePlayerOptions)`.
+In order to use the YouTube player you need to initialize it. To do that, call 
+`YouTubePlayerView.initialize(YouTubePlayerInitListener listener, boolean handleNetworkEvents)` or 
+`YouTubePlayerView.initialize(YouTubePlayerInitListener listener, boolean handleNetworkEvents, IFramePlayerOptions iframePlayerOptions)`.
 
 This methods takes in a [YouTubePlayerInitListener](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/listeners/YouTubePlayerInitListener.java) and a boolean. The boolean parameter is used to tell the library whether it should handle network events or not, read more about network events [here](#network-events).
 
