@@ -1,14 +1,8 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.player;
 
-import android.arch.lifecycle.Lifecycle;
-import android.arch.lifecycle.LifecycleObserver;
-import android.arch.lifecycle.OnLifecycleEvent;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +19,13 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.ui.PlayerUIController;
 import com.pierfrancescosoffritti.androidyoutubeplayer.utils.Callable;
 import com.pierfrancescosoffritti.androidyoutubeplayer.utils.NetworkReceiver;
 import com.pierfrancescosoffritti.androidyoutubeplayer.utils.Utils;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.lifecycle.OnLifecycleEvent;
 
 public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.NetworkListener, LifecycleObserver {
 

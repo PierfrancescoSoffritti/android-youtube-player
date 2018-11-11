@@ -1,13 +1,10 @@
 package com.pierfrancescosoffritti.aytplayersample.examples.basicExample;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.Lifecycle;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
@@ -25,6 +22,9 @@ import com.pierfrancescosoffritti.aytplayersample.utils.YouTubeDataEndpoint;
 
 import java.util.Random;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Lifecycle;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;

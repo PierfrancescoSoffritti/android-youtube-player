@@ -2,10 +2,7 @@ package com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample;
 
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.MediaRouteButton;
 import android.view.View;
 
 import com.google.android.gms.cast.framework.CastContext;
@@ -17,6 +14,10 @@ import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.uti
 import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.notifications.NotificationManager;
 import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.utils.PlayServicesUtils;
 import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.notifications.PlaybackControllerBroadcastReceiver;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.mediarouter.app.MediaRouteButton;
 
 /**
  * Example Activity used to showcase how to use the chromecast-youtube-library extension to cast videos to a Chromecast device.

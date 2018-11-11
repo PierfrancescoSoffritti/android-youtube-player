@@ -36,8 +36,8 @@ dependencies {
     api project(':core')
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation "com.android.support:appcompat-v7:$supportLibrary_version"
-    implementation "com.android.support:mediarouter-v7:$supportLibrary_version"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.mediarouter:mediarouter:1.0.0'
     implementation 'com.google.android.gms:play-services-cast-framework:16.1.0'
 }
 

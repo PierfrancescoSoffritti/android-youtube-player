@@ -1,8 +1,6 @@
 package com.pierfrancescosoffritti.aytplayersample.examples.iFramePlayerOptionsExample;
 
-import android.arch.lifecycle.Lifecycle;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.IFramePlayerOptions;
@@ -12,6 +10,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.Abstract
 import com.pierfrancescosoffritti.aytplayersample.R;
 
 import java.util.Random;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Lifecycle;
 
 public class IFramePlayerOptionsExampleActivity extends AppCompatActivity {
 

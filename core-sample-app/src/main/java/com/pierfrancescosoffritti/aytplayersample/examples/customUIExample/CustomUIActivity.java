@@ -1,12 +1,13 @@
 package com.pierfrancescosoffritti.aytplayersample.examples.customUIExample;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.aytplayersample.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class CustomUIActivity extends AppCompatActivity {
 

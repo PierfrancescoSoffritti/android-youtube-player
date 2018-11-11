@@ -9,12 +9,6 @@ import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +21,7 @@ import android.webkit.WebViewClient;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
+import com.google.android.material.navigation.NavigationView;
 import com.pierfrancescosoffritti.aytplayersample.examples.basicExample.BasicExampleActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.ChromecastExampleActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.customUIExample.CustomUIActivity;
@@ -37,6 +32,12 @@ import com.pierfrancescosoffritti.aytplayersample.examples.pictureInPictureExamp
 import com.pierfrancescosoffritti.aytplayersample.examples.playerStatusExample.PlayerStatusActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.recyclerViewExample.RecyclerViewActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.viewPagerExample.ViewPagerActivity;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 /**
  * This Activity is used as a starting point for all the sample Activities.

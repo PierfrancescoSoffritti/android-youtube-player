@@ -1,6 +1,6 @@
 package com.pierfrancescosoffritti.cyplayersample.examples.localPlayerExample
 
-import android.support.v7.app.MediaRouteButton
+import androidx.mediarouter.app.MediaRouteButton
 
 interface MediaRouteButtonContainer {
     fun addMediaRouteButton(mediaRouteButton: MediaRouteButton)

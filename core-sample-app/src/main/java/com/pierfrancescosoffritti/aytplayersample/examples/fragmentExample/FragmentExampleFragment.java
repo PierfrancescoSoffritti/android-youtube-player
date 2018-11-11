@@ -1,10 +1,6 @@
 package com.pierfrancescosoffritti.aytplayersample.examples.fragmentExample;
 
-
-import android.arch.lifecycle.Lifecycle;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +13,14 @@ import com.pierfrancescosoffritti.aytplayersample.R;
 
 import java.util.Random;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
+
 public class FragmentExampleFragment extends Fragment {
 
     private YouTubePlayerView youTubePlayerView;
-    Button playNextVideoButton;
+    private Button playNextVideoButton;
 
     private String[] videoIds = {"6JYIGclVQdw", "LvetJ9U_tVY"};
 

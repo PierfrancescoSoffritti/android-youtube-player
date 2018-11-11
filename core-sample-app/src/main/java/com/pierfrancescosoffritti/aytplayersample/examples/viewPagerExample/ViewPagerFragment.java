@@ -1,8 +1,6 @@
 package com.pierfrancescosoffritti.aytplayersample.examples.viewPagerExample;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +9,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.aytplayersample.R;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 public class ViewPagerFragment extends Fragment {
 

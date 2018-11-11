@@ -7,10 +7,10 @@ import android.content.Intent
 import android.graphics.Point
 import android.net.Uri
 import android.os.Build
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
+import com.google.android.material.navigation.NavigationView
+import androidx.core.view.GravityCompat
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View

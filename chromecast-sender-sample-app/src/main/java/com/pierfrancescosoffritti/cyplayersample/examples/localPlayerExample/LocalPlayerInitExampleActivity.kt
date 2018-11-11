@@ -3,8 +3,8 @@ package com.pierfrancescosoffritti.cyplayersample.examples.localPlayerExample
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.app.MediaRouteButton
+import androidx.appcompat.app.AppCompatActivity
+import androidx.mediarouter.app.MediaRouteButton
 import android.view.View
 import com.google.android.gms.cast.framework.CastContext
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.ChromecastYouTubePlayerContext

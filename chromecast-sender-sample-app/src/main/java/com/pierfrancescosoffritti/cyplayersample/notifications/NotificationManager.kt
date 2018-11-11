@@ -7,11 +7,11 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.support.v4.app.NotificationCompat
-import android.support.v4.app.NotificationManagerCompat
-import android.support.v4.content.ContextCompat
-import android.support.v4.media.app.NotificationCompat.MediaStyle
-import android.support.v7.graphics.Palette
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
+import androidx.media.app.NotificationCompat.MediaStyle
+import androidx.palette.graphics.Palette
 import android.util.Log
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener

@@ -3,15 +3,9 @@ package com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.no
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.PendingIntent;
-import android.arch.lifecycle.LifecycleObserver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.graphics.Palette;
 import android.util.Log;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants;
@@ -20,6 +14,12 @@ import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.aytplayersample.utils.VideoInfo;
 import com.pierfrancescosoffritti.aytplayersample.utils.YouTubeDataEndpoint;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LifecycleObserver;
+import androidx.palette.graphics.Palette;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -54,7 +54,7 @@ public class NotificationManager extends AbstractYouTubePlayerListener implement
         }
     }
 
-    private  NotificationCompat.Builder initNotificationBuilder() {
+    private NotificationCompat.Builder initNotificationBuilder() {
         Intent openActivityExplicitIntent = new Intent(context.getApplicationContext(), notificationHostActivity);
         PendingIntent openActivityPendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, openActivityExplicitIntent, 0);
 
@@ -71,7 +71,7 @@ public class NotificationManager extends AbstractYouTubePlayerListener implement
                 .setOngoing(true)
                 .addAction(R.drawable.ic_play_arrow_24dp, "Toggle Playback", togglePlaybackPendingIntent)
                 .addAction(R.drawable.ic_cast_connected_24dp, "Disconnect from chromecast", stopCastSessionPendingIntent)
-                .setStyle(new android.support.v4.media.app.NotificationCompat.MediaStyle().setShowActionsInCompactView(0, 1));
+                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle().setShowActionsInCompactView(0, 1));
     }
 
     public void showNotification() {

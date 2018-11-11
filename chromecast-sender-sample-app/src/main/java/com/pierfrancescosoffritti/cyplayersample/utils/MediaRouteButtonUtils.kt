@@ -1,10 +1,10 @@
 package com.pierfrancescosoffritti.cyplayersample.utils
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
-import android.support.v4.graphics.drawable.DrawableCompat
-import android.support.v7.app.MediaRouteButton
-import android.support.v7.mediarouter.R
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.mediarouter.app.MediaRouteButton
+import androidx.mediarouter.R
 import android.view.ContextThemeWrapper
 import com.google.android.gms.cast.framework.CastButtonFactory
 import com.pierfrancescosoffritti.cyplayersample.examples.localPlayerExample.MediaRouteButtonContainer
@@ -36,8 +36,8 @@ object MediaRouteButtonUtils {
 
     private fun setMediaRouterButtonTint(mediaRouterButton: MediaRouteButton, color: Int) {
         val castContext = ContextThemeWrapper(mediaRouterButton.context, R.style.Theme_MediaRouter)
-        val styledAttributes = castContext.obtainStyledAttributes(null, android.support.v7.mediarouter.R.styleable.MediaRouteButton, android.support.v7.mediarouter.R.attr.mediaRouteButtonStyle, 0)
-        val drawable = styledAttributes.getDrawable(android.support.v7.mediarouter.R.styleable.MediaRouteButton_externalRouteEnabledDrawable)
+        val styledAttributes = castContext.obtainStyledAttributes(null, R.styleable.MediaRouteButton, R.attr.mediaRouteButtonStyle, 0)
+        val drawable = styledAttributes.getDrawable(R.styleable.MediaRouteButton_externalRouteEnabledDrawable)
 
         styledAttributes.recycle()
         DrawableCompat.setTint(drawable, ContextCompat.getColor(mediaRouterButton.context, color))

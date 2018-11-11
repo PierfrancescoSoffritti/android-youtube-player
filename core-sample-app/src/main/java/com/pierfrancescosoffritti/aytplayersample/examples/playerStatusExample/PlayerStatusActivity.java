@@ -1,10 +1,11 @@
 package com.pierfrancescosoffritti.aytplayersample.examples.playerStatusExample;
 
-import android.arch.lifecycle.Lifecycle;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Lifecycle;
+
 import android.widget.Button;
 import android.widget.TextView;
 

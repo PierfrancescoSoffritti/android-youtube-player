@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent" >
 
-    <android.support.v7.app.MediaRouteButton
+    <androidx.mediarouter.app.MediaRouteButton
         android:id="@+id/media_route_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

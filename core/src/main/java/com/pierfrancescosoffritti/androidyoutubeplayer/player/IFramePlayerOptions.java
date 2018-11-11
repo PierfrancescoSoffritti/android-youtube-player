@@ -1,9 +1,9 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.player;
 
-import android.support.annotation.NonNull;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import androidx.annotation.NonNull;
 
 /**
  * {@link WebViewYouTubePlayer} options that correspond to the options listed here:

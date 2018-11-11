@@ -3,11 +3,11 @@ package com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.ut
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.app.MediaRouteButton;
-import android.support.v7.view.ContextThemeWrapper;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.mediarouter.app.MediaRouteButton;
+import androidx.appcompat.view.ContextThemeWrapper;
 import android.util.Log;
 
 import com.google.android.gms.cast.framework.CastButtonFactory;
@@ -39,8 +39,8 @@ public class MediaRouteButtonUtils {
 
     static private void setMediaRouterButtonTint(MediaRouteButton mediaRouterButton, int color) {
         ContextThemeWrapper castContext = new ContextThemeWrapper(mediaRouterButton.getContext(), R.style.Theme_MediaRouter);
-        TypedArray styledAttributes = castContext.obtainStyledAttributes(null, android.support.v7.mediarouter.R.styleable.MediaRouteButton, android.support.v7.mediarouter.R.attr.mediaRouteButtonStyle, 0);
-        Drawable drawable = styledAttributes.getDrawable(android.support.v7.mediarouter.R.styleable.MediaRouteButton_externalRouteEnabledDrawable);
+        TypedArray styledAttributes = castContext.obtainStyledAttributes(null, androidx.mediarouter.R.styleable.MediaRouteButton, androidx.mediarouter.R.attr.mediaRouteButtonStyle, 0);
+        Drawable drawable = styledAttributes.getDrawable(androidx.mediarouter.R.styleable.MediaRouteButton_externalRouteEnabledDrawable);
 
         if(drawable == null) {
             Log.e("MediaRouteButtonUtils", "can't apply tint to MediaRouteButton");
