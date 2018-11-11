@@ -67,7 +67,7 @@ public class BasicExampleActivity extends AppCompatActivity {
         initPlayerMenu();
 
         // The player will automatically release itself when the activity is destroyed.
-        // The player will automatically pause when the activity is paused
+        // The player will automatically pause when the activity is stopped
         // If you don't add YouTubePlayerView as a lifecycle observer, you will have to release it manually.
         getLifecycle().addObserver(youTubePlayerView);
 
@@ -111,7 +111,7 @@ public class BasicExampleActivity extends AppCompatActivity {
         else
             youTubePlayer.cueVideo(videoId, 0);
 
-        setVideoTitle(youTubePlayerView.getPlayerUIController(), videoId);
+        //setVideoTitle(youTubePlayerView.getPlayerUIController(), videoId);
     }
 
     private void addFullScreenListenerToPlayer(final YouTubePlayer youTubePlayer) {

@@ -30,6 +30,7 @@ import com.getkeepsafe.taptargetview.TapTargetView;
 import com.pierfrancescosoffritti.aytplayersample.examples.basicExample.BasicExampleActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.ChromecastExampleActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.customUIExample.CustomUIActivity;
+import com.pierfrancescosoffritti.aytplayersample.examples.fragmentExample.FragmentExampleActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.liveVideoExample.LiveVideoActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.pictureInPictureExample.PictureInPictureActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.playerStatusExample.PlayerStatusActivity;
@@ -176,6 +177,9 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                     } else if(menuItem.getItemId() == R.id.open_chromecast_example_menu_item) {
                         Intent intent = new Intent(this, ChromecastExampleActivity.class);
+                        startActivity(intent);
+                    } else if(menuItem.getItemId() == R.id.open_fragment_example_menu_item) {
+                        Intent intent = new Intent(this, FragmentExampleActivity.class);
                         startActivity(intent);
                     }
 

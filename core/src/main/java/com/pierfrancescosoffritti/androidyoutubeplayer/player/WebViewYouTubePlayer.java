@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -31,10 +32,12 @@ import java.util.Set;
  */
 class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlayerBridge.YouTubePlayerBridgeCallbacks {
 
+    private YouTubePlayerInitListener youTubePlayerInitListener;
+
     @NonNull private final Set<YouTubePlayerListener> youTubePlayerListeners;
     @NonNull private final Handler mainThreadHandler;
 
-    private YouTubePlayerInitListener youTubePlayerInitListener;
+    protected boolean backgroundPlaybackEnabled = false;
 
     protected WebViewYouTubePlayer(Context context) {
         this(context, null);
@@ -56,7 +59,6 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
         @Nullable IFramePlayerOptions playerOptions
     ) {
         youTubePlayerInitListener = initListener;
-
         initWebView(playerOptions == null ? IFramePlayerOptions.getDefault() : playerOptions);
     }
 
@@ -201,5 +203,13 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
         } catch (Exception e) {
             throw new RuntimeException("Can't parse HTML file containing the player.");
         }
+    }
+
+    @Override
+    protected void onWindowVisibilityChanged(int visibility) {
+        if (backgroundPlaybackEnabled && (visibility == View.GONE || visibility == INVISIBLE))
+            return;
+
+        super.onWindowVisibilityChanged(visibility);
     }
 }

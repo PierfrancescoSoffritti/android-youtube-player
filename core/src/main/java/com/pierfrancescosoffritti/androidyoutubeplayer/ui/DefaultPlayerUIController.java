@@ -70,6 +70,8 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     private boolean showUI = true;
     private boolean showPlayPauseButton = true;
     private boolean showBufferingProgress = true;
+    private boolean showCustomActionLeft = false;
+    private boolean showCustomActionRight = false;
 
     public DefaultPlayerUIController(@NonNull YouTubePlayerView youTubePlayerView, @NonNull YouTubePlayer youTubePlayer) {
         this.youTubePlayerView = youTubePlayerView;
@@ -161,7 +163,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     public void setCustomAction1(@NonNull Drawable icon, View.OnClickListener clickListener) {
         customActionLeft.setImageDrawable(icon);
         customActionLeft.setOnClickListener(clickListener);
-        showCustomAction1(clickListener != null);
+        showCustomAction1(true);
     }
 
     /**
@@ -171,15 +173,17 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     public void setCustomAction2(@NonNull Drawable icon, View.OnClickListener clickListener) {
         customActionRight.setImageDrawable(icon);
         customActionRight.setOnClickListener(clickListener);
-        showCustomAction2(clickListener != null);
+        showCustomAction2(true);
     }
 
     public void showCustomAction1(boolean show) {
+        showCustomActionLeft = show;
         int visibility = show ? View.VISIBLE : View.GONE;
         customActionLeft.setVisibility(visibility);
     }
 
     public void showCustomAction2(boolean show) {
+        showCustomActionRight = show;
         int visibility = show ? View.VISIBLE : View.GONE;
         customActionRight.setVisibility(visibility);
     }
@@ -371,6 +375,8 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
 
             if(showPlayPauseButton) playPauseButton.setVisibility(View.VISIBLE);
 
+            if(showCustomActionLeft) customActionLeft.setVisibility(View.VISIBLE);
+            if(showCustomActionRight) customActionRight.setVisibility(View.VISIBLE);
 
             canFadeControls = true;
             boolean playing = state == PlayerConstants.PlayerState.PLAYING;

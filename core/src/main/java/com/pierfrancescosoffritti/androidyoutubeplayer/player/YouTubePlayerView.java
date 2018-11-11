@@ -142,6 +142,10 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     public void onNetworkUnavailable() {
     }
 
+    public void enableBackgroundPlayback(boolean enable) {
+        youTubePlayer.backgroundPlaybackEnabled = enable;
+    }
+
     @NonNull
     public PlayerUIController getPlayerUIController() {
         if(defaultPlayerUIController == null)
@@ -201,7 +205,6 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
             @Override
             public void onReady() {
                 asyncInitialization = null;
-                //youTubePlayer.removeListener(this);
             }
         });
     }

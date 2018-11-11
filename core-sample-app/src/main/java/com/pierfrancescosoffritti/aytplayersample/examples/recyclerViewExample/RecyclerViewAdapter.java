@@ -57,8 +57,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
                             youTubePlayer = initializedYouTubePlayer;
                             youTubePlayer.cueVideo(currentVideoId, 0);
                         }
-                    }), true
-            );
+                    }), true);
         }
 
         void cueVideo(String videoId) {
