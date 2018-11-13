@@ -46,8 +46,10 @@
     			
                 events: {
     				onReady: function(event) {
-    				    document.querySelector("#youTubePlayerDOM").contentDocument.querySelector('.ytp-chrome-top').style.display = "none"
-    				    document.querySelector("#youTubePlayerDOM").contentDocument.querySelector('.ytp-icon-watermark').style.display = "none"
+    				    try {
+    				        document.querySelector("#youTubePlayerDOM").contentDocument.querySelector('.ytp-chrome-top').style.display = "none"
+    				        document.querySelector("#youTubePlayerDOM").contentDocument.querySelector('.ytp-icon-watermark').style.display = "none"
+    				    } catch(err) {}
     				    YouTubePlayerBridge.sendReady()
     				},
     				onStateChange: function(event) { sendPlayerStateChange(event.data) },
