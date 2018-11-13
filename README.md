@@ -159,7 +159,7 @@ youtubePlayerView.initialize(new YouTubePlayerInitListener() {
             }
         });
     }
-}, true, false);
+}, true);
 ```
 
 That's all you need, a YouTube video is now playing in your app.
