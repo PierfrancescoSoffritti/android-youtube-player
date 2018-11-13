@@ -105,7 +105,7 @@ Having the sample apps installed is a good way to be notified of new releases. A
 # Download
 The Gradle dependency is available via [jCenter](https://bintray.com/pierfrancescosoffritti/maven). jCenter is the default Maven repository used by Android Studio.
 
-The minimum API level supported by this library is API 17.
+The minimum API level supported by this library is API 17. Also, your app needs to be using the [androidx libraries](https://developer.android.com/jetpack/androidx/) instead of the old support libraries.
 
 ### Core
 The *core* module contains the YouTube Player. It's all you need to play YouTube videos in your app.
