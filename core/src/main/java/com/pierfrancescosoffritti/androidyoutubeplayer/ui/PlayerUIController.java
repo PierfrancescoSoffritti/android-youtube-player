@@ -1,16 +1,24 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.ui;
 
 import android.graphics.drawable.Drawable;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import android.graphics.drawable.LayerDrawable;
 import android.view.View;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.menu.YouTubePlayerMenu;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 
 public interface PlayerUIController {
     void showUI(boolean show);
+
     void showPlayPauseButton(boolean show);
+
+    /**
+     * @param icon should consist of two layers in order: play and pause.
+     */
+    void setCustomPlayPauseButton(@NonNull LayerDrawable icon, @Nullable View.OnClickListener clickListener);
 
     void showVideoTitle(boolean show);
     void setVideoTitle(@NonNull String videoTitle);

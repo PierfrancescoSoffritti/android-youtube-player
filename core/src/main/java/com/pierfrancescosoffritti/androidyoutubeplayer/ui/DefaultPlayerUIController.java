@@ -3,6 +3,7 @@ package com.pierfrancescosoffritti.androidyoutubeplayer.ui;
 import android.animation.Animator;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
@@ -60,6 +61,9 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
 
     private SeekBar seekBar;
 
+    @Nullable private LayerDrawable playPauseDrawable;
+
+    @Nullable private View.OnClickListener onPlayPauseButtonListener;
     @Nullable private View.OnClickListener onFullScreenButtonListener;
     @Nullable private View.OnClickListener onMenuButtonClickListener;
 
@@ -138,6 +142,13 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
         playPauseButton.setVisibility(visibility);
 
         showPlayPauseButton = show;
+    }
+
+    @Override
+    public void setCustomPlayPauseButton(@NonNull LayerDrawable icon, @Nullable View.OnClickListener clickListener) {
+        playPauseDrawable = icon;
+        onPlayPauseButtonListener = clickListener;
+        updatePlayPauseButtonIcon(isPlaying);
     }
 
     @Override
@@ -288,15 +299,34 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     }
 
     private void onPlayButtonPressed() {
-        if(isPlaying)
-            youTubePlayer.pause();
-        else
-            youTubePlayer.play();
+        if (onPlayPauseButtonListener == null) {
+            if (isPlaying) {
+                youTubePlayer.pause();
+            } else {
+                youTubePlayer.play();
+            }
+        } else {
+            onPlayPauseButtonListener.onClick(playPauseButton);
+        }
     }
 
     private void updatePlayPauseButtonIcon(boolean playing) {
-        int img = playing ? R.drawable.ic_pause_36dp : R.drawable.ic_play_36dp;
-        playPauseButton.setImageResource(img);
+        if (playPauseDrawable == null) {
+            int img = playing ? R.drawable.ic_pause_36dp : R.drawable.ic_play_36dp;
+            playPauseButton.setImageResource(img);
+        } else {
+            playPauseButton.setImageDrawable(playPauseDrawable);
+            togglePlayPauseButtonLayers();
+        }
+    }
+
+    private void togglePlayPauseButtonLayers() {
+        int playLayerId = playPauseDrawable.getId(0);
+        int pauseLayerId = playPauseDrawable.getId(1);
+        int playLayerAlpha = isPlaying ? 0 : 255;
+        int pauseLayerAlpha = isPlaying ? 255 : 0;
+        playPauseDrawable.findDrawableByLayerId(playLayerId).setAlpha(playLayerAlpha);
+        playPauseDrawable.findDrawableByLayerId(pauseLayerId).setAlpha(pauseLayerAlpha);
     }
 
     private void toggleControlsVisibility() {
