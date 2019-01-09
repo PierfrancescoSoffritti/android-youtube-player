@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/play"
+        android:drawable="@drawable/ic_play_circle_filled_black_24dp"/>
+    <item
+        android:id="@+id/pause"
+        android:drawable="@drawable/ic_pause_circle_filled_black_24dp"/>
+</layer-list>
