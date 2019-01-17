@@ -35,7 +35,7 @@ public class DefaultYouTubePlayerMenu implements YouTubePlayerMenu {
     @Override
     public void show(View anchorView) {
         popupWindow = createPopupWindow();
-        popupWindow.showAsDropDown(anchorView, 0, - context.getResources().getDimensionPixelSize(R.dimen._8dp) * 4);
+        popupWindow.showAsDropDown(anchorView, - context.getResources().getDimensionPixelSize(R.dimen._8dp) * 12, - context.getResources().getDimensionPixelSize(R.dimen._8dp) * 12);
 
         if(menuItems.size() == 0)
             Log.e(YouTubePlayerMenu.class.getName(), "The menu is empty");
