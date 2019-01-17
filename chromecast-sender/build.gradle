@@ -38,7 +38,7 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.mediarouter:mediarouter:1.0.0'
-    implementation 'com.google.android.gms:play-services-cast-framework:16.1.0'
+    implementation 'com.google.android.gms:play-services-cast-framework:16.1.2'
 }
 
 apply from: rootProject.file('release-bintray.gradle')
