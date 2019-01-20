@@ -1,0 +1,50 @@
+/* desktop-x-small */
+@media all and (min-width: 0) and (max-width: 480px) {
+    .content-dim {
+        margin-left: 100px;
+        margin-right: 100px;
+    }
+
+    .section-dim {
+        margin-top: 50px;
+    }
+    
+    .last-section-dim {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+}
+
+/* desktop-small */
+@media all and (min-width: 481px) and (max-width: 840px) {
+    .content-dim {
+        margin-left: 100px;
+        margin-right: 100px;
+    }
+
+    .section-dim {
+        margin-top: 50px;
+    }
+    
+    .last-section-dim {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+}
+
+/* desktop-medium */
+@media all and (min-width: 841px) {
+    .content-dim {
+        margin-left: 400px;
+        margin-right: 400px;
+    }
+
+    .section-dim {
+        margin-top: 50px;
+    }
+    
+    .last-section-dim {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+}

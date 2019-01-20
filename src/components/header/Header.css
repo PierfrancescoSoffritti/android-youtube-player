@@ -1,0 +1,60 @@
+/* desktop-x-small */
+@media all and (min-width: 0) and (max-width: 480px) { 
+    .header-dim {
+        height: 65vh;
+    }
+
+    .logo-dim {
+        height: 250px;
+        width: 250px;
+    }
+}
+
+/* desktop-small */
+@media all and (min-width: 481px) and (max-width: 840px) {
+    .header-dim {
+        height: 65vh;
+    }
+
+    .logo-dim {
+        height: 250px;
+        width: 250px;
+    }
+}
+
+/* desktop-medium */
+@media all and (min-width: 841px) {
+    .header-dim {
+        height: 65vh;
+    }
+
+    .logo-dim {
+        height: 250px;
+        width: 250px;
+    }
+}
+
+.header {
+    width: 100%;
+    background-color: rgba(255, 166, 0, 0.623);
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    background-color: rgba(255, 0, 0, 0.575);
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+    
+    margin: 60px;
+}

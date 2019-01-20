@@ -1,27 +1,48 @@
 /* desktop-x-small */
 @media all and (min-width: 0) and (max-width: 480px) {
+    .navbar-dim {
+        height: 60px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 }
 
 /* desktop-small */
 @media all and (min-width: 481px) and (max-width: 840px) {
+    .navbar-dim {
+        height: 60px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 }
 
 /* desktop-medium */
 @media all and (min-width: 841px) {
+    .navbar-dim {
+        height: 60px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 }
 
 .navbar {
-    position: fixed;
-
     z-index: 100;
+    background-color: rgba(0, 0, 0, 0.267);
 
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+
+    justify-content: start;
     align-items: center;
+    
 }
 
 .navbar-item {
     border-radius: 4px;
+}
+
+.navbar-item-dim {
+    padding: 16px;
 }
 
 .navbar-item:hover {
