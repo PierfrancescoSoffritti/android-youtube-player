@@ -1,8 +1,9 @@
 /* desktop-x-small */
 @media all and (min-width: 0) and (max-width: 480px) {
     .root-dim {
-        margin-left: 100px;
-        margin-right: 100px;
+        margin-left: 8px;
+        margin-right: 8px;
+        /* background-color: yellow; */
     }
 
     .section-dim {
@@ -18,8 +19,9 @@
 /* desktop-small */
 @media all and (min-width: 481px) and (max-width: 840px) {
     .root-dim {
-        margin-left: 100px;
-        margin-right: 100px;
+        margin-left: 16px;
+        margin-right: 16px;
+        /* background-color: green; */
     }
 
     .section-dim {
@@ -33,10 +35,11 @@
 }
 
 /* desktop-medium */
-@media all and (min-width: 841px) {
+@media all and (min-width: 841px) and (max-width: 1280px) {
     .root-dim {
-        margin-left: 400px;
-        margin-right: 400px;
+        margin-left: 100px;
+        margin-right: 100px;
+        /* background-color: blue; */
     }
 
     .section-dim {
@@ -47,4 +50,48 @@
         margin-top: 50px;
         margin-bottom: 50px;
     }
+}
+
+/* desktop-large */
+@media all and (min-width: 1281px) and (max-width: 1600px) { 
+    .root-dim {
+        margin-left: 200px;
+        margin-right: 200px;
+        /* background-color: pink; */
+    }
+
+    .section-dim {
+        margin-top: 50px;
+    }
+    
+    .last-section-dim {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+}
+
+/* desktop-xlarge */
+@media all and (min-width: 1601px) {
+    .root-dim {
+        margin-left: 400px;
+        margin-right: 400px;
+        /* background-color: gray; */
+    }
+
+    .section-dim {
+        margin-top: 50px;
+    }
+    
+    .last-section-dim {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }   
+}
+
+.section-title {
+    font-size: 25px;
+    font-weight: 600;
+
+    margin-top: 22px;
+    margin-bottom: 8px;
 }

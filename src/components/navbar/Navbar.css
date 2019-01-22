@@ -27,7 +27,7 @@
 
 .navbar {
     z-index: 100;
-    background-color: rgba(0, 0, 0, 0.267);
+    background-color: rgba(244, 69, 56, 1);
 
     display: flex;
     flex-direction: row;
@@ -39,10 +39,21 @@
 
 .navbar-item {
     border-radius: 4px;
+    color: white;
+    
+    font-size: 15px;
+    font-weight: 500;
+
+    background-color: rgba(0, 0, 0, 0); /* Green */
+    border: none;
 }
 
 .navbar-item-dim {
     padding: 16px;
+}
+
+.navbar-item:focus {
+    outline:0;
 }
 
 .navbar-item:hover {

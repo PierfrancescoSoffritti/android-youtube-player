@@ -11,7 +11,7 @@ const Overview = () => {
                 The UI of the player is 100% customizable. The default UI can be changed, to show and hide new views, or can be completely replaced by a custom UI.
                 This library also provides a Chromecast YouTube player, that you can use to cast YouTube videos from your app to a Chromecast device.
             </div>
-            <div>Why should you use it</div>
+            <div className="section-title">Why should you use it</div>
             <div>
                 This library has been developed out of necessity. The official library provided by Google to integrate YouTube videos in Android apps is the YouTube Android Player API. I've found the official library to be quite buggy (some bugs are 5+ years old) and lacking in support from Google. It was quite unreliable and therefore unusable in production.
                 This, added to its limited options for customization and lack of Chromecast support, lead me to the development of this open source library.

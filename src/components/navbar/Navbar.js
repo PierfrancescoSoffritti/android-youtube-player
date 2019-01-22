@@ -4,11 +4,11 @@ import "./Navbar.css"
 const Navbar = () => {
     return (
         <nav className="navbar navbar-dim">
-            <span className="navbar-item navbar-item-dim">android-youtube-player</span>
+            <button className="navbar-item navbar-item-dim">android-youtube-player</button>
             <div className="fill-space"></div>
-            <span className="navbar-item navbar-item-dim">Documentation</span>
-            <span className="navbar-item navbar-item-dim">Support</span>
-            <span className="navbar-item navbar-item-dim">Open on GitHub</span>
+            <button className="navbar-item navbar-item-dim">Documentation</button>
+            <button className="navbar-item navbar-item-dim">Support</button>
+            <button className="navbar-item navbar-item-dim">Open on GitHub</button>
         </nav>
     );
 }

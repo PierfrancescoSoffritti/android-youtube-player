@@ -4,7 +4,7 @@ import "./Download.css"
 const Download = () => {
     return (
         <section>
-            <div>Download</div>
+            <div className="section-title">Download</div>
         </section>
     );
 }

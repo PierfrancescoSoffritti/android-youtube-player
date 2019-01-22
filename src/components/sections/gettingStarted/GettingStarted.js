@@ -4,7 +4,7 @@ import "./GettingStarted.css"
 const GettingStarted = () => {
     return (
         <section>
-            <div>Getting started</div>
+            <div className="section-title">Getting started</div>
         </section>
     );
 }
