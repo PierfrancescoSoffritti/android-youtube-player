@@ -1,6 +1,8 @@
 /* desktop-x-small */
 @media all and (min-width: 0) and (max-width: 480px) {
     .navbar-dim {
+        justify-content: space-evenly;
+
         width: 100%;
         height: 40px;
         padding-left: 10px;
@@ -8,6 +10,7 @@
     }
 
     .navbar-item-dim {
+        font-size: 14px;
         padding: 8px;
         margin-right: 2px;
     }
@@ -20,6 +23,8 @@
 /* desktop-small */
 @media all and (min-width: 481px) and (max-width: 840px) {
     .navbar-dim {
+        justify-content: center;
+
         width: 100%;
         height: 50px;
         padding-left: 10px;
@@ -27,6 +32,7 @@
     }
 
     .navbar-item-dim {
+        font-size: 15px;
         padding: 12px;
         margin: 8px;
     }
@@ -36,18 +42,41 @@
     }
 }
 
-/* desktop-medium */
-@media all and (min-width: 841px) {
+/* desktop-small-medium */
+@media all and (min-width: 841px) and (max-width: 1280px) {
     .navbar-dim {
+        justify-content: center;
+
         width: 100%;
         height: 60px;
         padding-left: 18px;
         padding-right: 18px;
+        margin-top: 4px;
     }
 
     .navbar-item-dim {
-        padding: 16px;
-        margin-right: 20px;
+        font-size: 18px;
+        padding: 22px;
+        letter-spacing: 2px;
+    }
+}
+
+/* desktop-medium */
+@media all and (min-width: 1281px) {
+    .navbar-dim {
+        justify-content: center;
+
+        width: 100%;
+        height: 60px;
+        padding-left: 18px;
+        padding-right: 18px;
+        margin-top: 16px;
+    }
+
+    .navbar-item-dim {
+        font-size: 18px;
+        padding: 22px;
+        letter-spacing: 2px;
     }
 }
 
@@ -59,7 +88,6 @@
     display: flex;
     flex-direction: row;
 
-    justify-content: center;
     align-items: center;
     
 }
@@ -68,8 +96,7 @@
     border-radius: 4px;
     color: white;
     
-    font-size: 15px;
-    font-weight: 500;
+    text-transform: uppercase;
 
     background-color: rgba(0, 0, 0, 0); /* Green */
     border: none;

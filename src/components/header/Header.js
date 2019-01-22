@@ -43,15 +43,14 @@ export default class Header extends Component {
 
                 <canvas ref={element => this.canvas = element} className="header-background header-dim" />
 
-                <div className="header-conten">
+                <div className="header-conten header-conten-dim">
                     <img 
                         className="logo-dim"
                         src="https://firebasestorage.googleapis.com/v0/b/androidyoutubeplayer-sampleapp.appspot.com/o/android-youtube-player-logo.webp?alt=media&token=12ad47c4-52a5-43c5-88eb-0fe39cc5078c"
                         alt="logo"
                     />
-                    <div className="description description-dim">
-                        <div>YouTube Player library for Android and Chromecast, stable and customizable.</div>
-                    </div>
+                    
+                    <div className="description description-dim">YouTube Player library for Android and Chromecast, stable and customizable.</div>
                 </div>
 
             </header>

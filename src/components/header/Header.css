@@ -2,7 +2,7 @@
 @media all and (min-width: 0) and (max-width: 480px) { 
     .header-dim {
         width: 100%;
-        height: 20vh;
+        height: 18vh;
     }
 
     .logo-dim {
@@ -13,6 +13,11 @@
     .description-dim {
         margin-left: 16px;
         margin-right: 16px;
+    }
+
+    .header-conten-dim {
+        font-size: 14px;
+        margin-top: 10px;
     }
 }
 
@@ -38,7 +43,7 @@
 @media all and (min-width: 841px) and (max-width: 1280px) {
     .header-dim {
         width: 100%;
-        height: 45vh;
+        height: 35vh;
     }
 
     .logo-dim {
@@ -56,16 +61,16 @@
 @media all and (min-width: 1281px) {
     .header-dim {
         width: 100%;
-        height: 65vh;
+        height: 55vh;
     }
 
     .logo-dim {
-        height: 250px;
-        width: 250px;
+        height: 300px;
+        width: 300px;
     }
 
     .description-dim {
-        font-size: 18px;
+        font-size: 22px;
         font-weight: 500;
     }
 }
