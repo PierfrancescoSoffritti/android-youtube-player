@@ -2,11 +2,21 @@ import React, { Component } from 'react';
 import "./Header.css"
 
 export default class Header extends Component {
-    
+
+    mousePosition = { x: 0, y: 0 }
+    currentOffset = { x: 0, y: 0 }
+
     componentDidMount() {
         const canvas = this.canvas
         window.onresize = () => this.resizeCanvas(canvas)
+        window.onmousemove = this.onMouseMove
         this.resizeCanvas(canvas)
+        this.updateCanvas()
+    }
+
+    onMouseMove = ({screenX, screenY}) => {
+        this.mousePosition.x = screenX-this.canvas.width/2
+        this.mousePosition.y = screenY-this.canvas.height/2
     }
 
     resizeCanvas = (canvas) => {
@@ -15,26 +25,35 @@ export default class Header extends Component {
         
         canvas.width  = canvas.offsetWidth;
         canvas.height = canvas.offsetHeight;
-
-        this.draw(canvas)
     }
 
-    draw = canvas => {
+    draw = (canvas, time) => {
+        const offsetSlow = Math.sin(time/820)*10
+        const offsetFast = Math.sin(time/1200)*15
+
+        this.currentOffset.x += (  (this.mousePosition.x * 0.06) - this.currentOffset.x ) * 0.01;
+        this.currentOffset.y += ( -(this.mousePosition.y * 0.06) - this.currentOffset.y ) * 0.01;
+
         const context = canvas.getContext("2d");
         context.fillStyle = '#ef5451';
         context.beginPath();
-        context.arc(canvas.width/2, canvas.height/2, canvas.width, 0, 2 * Math.PI);
+        context.arc(canvas.width/2, canvas.height/2, canvas.width+offsetSlow, 0, 2 * Math.PI);
         context.fill()
 
         context.fillStyle = '#e57373';
         context.beginPath();
-        context.arc(canvas.width/2, canvas.height/2, canvas.width/2.5, 0, 2 * Math.PI);
+        context.arc(canvas.width/2 +this.currentOffset.x*0.5, canvas.height/2 +this.currentOffset.y*0.5, canvas.width/2.5 +offsetSlow, 0, 2 * Math.PI);
         context.fill()
 
         context.fillStyle = '#ef9a9b';
         context.beginPath();
-        context.arc(canvas.width/2, canvas.height/2, canvas.width/4, 0, 2 * Math.PI);
+        context.arc(canvas.width/2 + this.currentOffset.x, canvas.height/2 +this.currentOffset.y, canvas.width/4 +offsetFast, 0, 2 * Math.PI);
         context.fill()
+    }
+
+    updateCanvas = time => {
+        requestAnimationFrame(this.updateCanvas);
+        this.draw(this.canvas, time);
     }
 
     render () {
