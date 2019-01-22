@@ -1,16 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 import "./Navbar.css"
 
-const Navbar = () => {
-    return (
-        <nav className="navbar navbar-dim">
-            {/* <button className="navbar-item navbar-item-dim navbar-item-not-important">android-youtube-player</button>
-            <div className="fill-space navbar-item-not-important"></div> */}
-            <button className="navbar-item navbar-item-dim">Docs</button>
-            <button className="navbar-item navbar-item-dim">Support</button>
-            <button className="navbar-item navbar-item-dim">GitHub</button>
-        </nav>
-    );
+function getCurrentScroll() { return (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop }
+
+class Navbar extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = { currentScroll: 0 }
+    }
+
+    componentDidMount = () => {
+        window.addEventListener('scroll', this.handleScroll);
+    }
+    
+    componentWillUnmount = () => {
+        window.removeEventListener('scroll', this.handleScroll);
+    }
+    
+    handleScroll = event => {
+        const currentScroll = getCurrentScroll()
+        this.setState({ currentScroll });
+    }
+
+    render = () => {
+        
+        const navBarClass = this.state.currentScroll === 0 ? "" : "navbar-elevated";
+        const navBarItemClass = this.state.currentScroll === 0 ? "" : "navbar-item-elevated";
+
+        return (
+            <nav className={"navbar navbar-dim " +navBarClass}>
+                <button className={"navbar-item navbar-item-dim " +navBarItemClass}>Docs</button>
+                <button className={"navbar-item navbar-item-dim " +navBarItemClass}>Support</button>
+                <button className={"navbar-item navbar-item-dim " +navBarItemClass}>GitHub</button>
+            </nav>
+        );
+    }
 }
 
 export default Navbar

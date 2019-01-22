@@ -10,13 +10,12 @@
     }
 
     .navbar-item-dim {
-        font-size: 14px;
-        padding: 8px;
-        margin-right: 2px;
-    }
+        height: 100%;
 
-    .navbar-item-not-important {
-        display: none;
+        font-size: 14px;
+
+        padding-left: 8px;
+        padding-right: 8px;
     }
 }
 
@@ -32,13 +31,12 @@
     }
 
     .navbar-item-dim {
-        font-size: 15px;
-        padding: 12px;
-        margin: 8px;
-    }
+        height: 100%;
 
-    .navbar-item-not-important {
-        display: none;
+        font-size: 15px;
+
+        padding-left: 12px;
+        padding-right: 12px;
     }
 }
 
@@ -51,13 +49,16 @@
         height: 60px;
         padding-left: 18px;
         padding-right: 18px;
-        margin-top: 4px;
     }
 
     .navbar-item-dim {
-        font-size: 18px;
-        padding: 22px;
+        height: 100%;
+
+        font-size: 17px;
         letter-spacing: 2px;
+
+        padding-left: 22px;
+        padding-right: 22px;
     }
 }
 
@@ -70,38 +71,48 @@
         height: 60px;
         padding-left: 18px;
         padding-right: 18px;
-        margin-top: 16px;
     }
 
     .navbar-item-dim {
-        font-size: 18px;
-        padding: 22px;
+        height: 100%;
+
+        font-size: 17px;
         letter-spacing: 2px;
+        
+        padding-left: 22px;
+        padding-right: 22px;
     }
 }
 
 .navbar {
     position: fixed;
     z-index: 100;
-    /* background-color: rgba(244, 69, 56, 1); */
 
     display: flex;
     flex-direction: row;
 
     align-items: center;
     
+    -webkit-transition: all 300ms ease-in-out;
+    -ms-transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
 }
 
 .navbar-item {
-    border-radius: 4px;
     color: white;
     
     text-transform: uppercase;
 
-    background-color: rgba(0, 0, 0, 0); /* Green */
+    background-color: rgba(0, 0, 0, 0);
     border: none;
     
     cursor: pointer;
+
+    -webkit-transition: all 300ms ease-in-out;
+    -ms-transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
 }
 
 .navbar-item:focus {
@@ -115,4 +126,13 @@
     transition: all 200ms ease-in;
 
     background-color: rgba(0, 0, 0, 0.05);
+}
+
+.navbar-elevated {
+    background-color: white;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.10);
+}
+
+.navbar-item-elevated {
+    color: black;
 }
