@@ -37,8 +37,8 @@ class Navbar extends Component {
 
         return (
             <nav className={"navbar navbar-dim " +navBarClass}>
-                {navBarItems.map(item => 
-                    <a className="navbar-link navbar-item-dim" href={item.src} target="_blank" rel="noopener noreferrer">
+                {navBarItems.map( (item, idx) => 
+                    <a key={idx} className="navbar-link navbar-item-dim" href={item.src} target="_blank" rel="noopener noreferrer">
                         <button className={"navbar-button navbar-item-dim " +navBarItemClass}>{item.name}</button>
                     </a>
                 )}
