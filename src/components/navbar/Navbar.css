@@ -1,12 +1,8 @@
 /* desktop-x-small */
 @media all and (min-width: 0) and (max-width: 480px) {
     .navbar-dim {
-        justify-content: space-evenly;
-
         width: 100%;
         height: 40px;
-        padding-left: 10px;
-        padding-right: 10px;
     }
 
     .navbar-item-dim {
@@ -22,12 +18,8 @@
 /* desktop-small */
 @media all and (min-width: 481px) and (max-width: 840px) {
     .navbar-dim {
-        justify-content: center;
-
         width: 100%;
         height: 50px;
-        padding-left: 10px;
-        padding-right: 10px;
     }
 
     .navbar-item-dim {
@@ -43,12 +35,8 @@
 /* desktop-small-medium */
 @media all and (min-width: 841px) and (max-width: 1280px) {
     .navbar-dim {
-        justify-content: center;
-
         width: 100%;
         height: 60px;
-        padding-left: 18px;
-        padding-right: 18px;
     }
 
     .navbar-item-dim {
@@ -65,12 +53,8 @@
 /* desktop-medium */
 @media all and (min-width: 1281px) {
     .navbar-dim {
-        justify-content: center;
-
         width: 100%;
         height: 60px;
-        padding-left: 18px;
-        padding-right: 18px;
     }
 
     .navbar-item-dim {
@@ -89,8 +73,8 @@
     z-index: 100;
 
     display: flex;
-    flex-direction: row;
 
+    justify-content: center;
     align-items: center;
     
     -webkit-transition: all 300ms ease-in-out;
@@ -99,7 +83,12 @@
     transition: all 300ms ease-in-out;
 }
 
-.navbar-item {
+.navbar-elevated {
+    background-color: white;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.10);
+}
+
+.navbar-button {
     color: white;
     
     text-transform: uppercase;
@@ -115,24 +104,27 @@
     transition: all 300ms ease-in-out;
 }
 
-.navbar-item:focus {
+.navbar-button:focus {
     outline:0;
 }
 
-.navbar-item:hover {
-    -webkit-transition: all 200ms ease-in;
-    -ms-transition: all 200ms ease-in;
-    -moz-transition: all 200ms ease-in;
-    transition: all 200ms ease-in;
+.navbar-button-elevated {
+    color: black;
+}
+
+.navbar-link {
+    -webkit-transition: all 300ms ease-in-out;
+    -ms-transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+}
+
+.navbar-link:visited, .navbar-link:hover, .navbar-link:active {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-link:hover {
 
     background-color: rgba(0, 0, 0, 0.05);
-}
-
-.navbar-elevated {
-    background-color: white;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.10);
-}
-
-.navbar-item-elevated {
-    color: black;
 }

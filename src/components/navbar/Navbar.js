@@ -26,13 +26,21 @@ class Navbar extends Component {
     render = () => {
         
         const navBarClass = this.state.currentScroll === 0 ? "" : "navbar-elevated";
-        const navBarItemClass = this.state.currentScroll === 0 ? "" : "navbar-item-elevated";
+        const navBarItemClass = this.state.currentScroll === 0 ? "" : "navbar-button-elevated";
+
+        const navBarItems = [
+            {src: "https://github.com/PierfrancescoSoffritti/android-youtube-player#table-of-contents-core", name: "Docs"},
+            {src: "https://github.com/PierfrancescoSoffritti/android-youtube-player", name: "GitHub"},
+            {src: "https://github.com/PierfrancescoSoffritti/android-youtube-player/issues", name: "Support"},
+        ]
 
         return (
             <nav className={"navbar navbar-dim " +navBarClass}>
-                <button className={"navbar-item navbar-item-dim " +navBarItemClass}>Docs</button>
-                <button className={"navbar-item navbar-item-dim " +navBarItemClass}>Support</button>
-                <button className={"navbar-item navbar-item-dim " +navBarItemClass}>GitHub</button>
+                {navBarItems.map(item => 
+                    <a className="navbar-link navbar-item-dim" href={item.src} target="_blank" rel="noopener noreferrer">
+                        <button className={"navbar-button navbar-item-dim " +navBarItemClass}>{item.name}</button>
+                    </a>
+                )}
             </nav>
         );
     }
