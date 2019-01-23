@@ -48,7 +48,7 @@ youtubePlayerView.initialize(new YouTubePlayerInitListener() {
 
 This is all you need, a YouTube video is now playing in your app.
 <br/><br/>
-You can <a href="">read the complete documentation here</a>.
+You can <a href="https://github.com/PierfrancescoSoffritti/android-youtube-player#table-of-contents-core" target="_blank" rel="noopener noreferrer">read the complete documentation here</a>.
 
             </div>
         </section>

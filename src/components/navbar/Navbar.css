@@ -93,7 +93,7 @@
     
     text-transform: uppercase;
 
-    background-color: rgba(0, 0, 0, 0);
+    background-color: transparent;
     border: none;
     
     cursor: pointer;
@@ -113,6 +113,8 @@
 }
 
 .navbar-link {
+    background-color: transparent;
+    
     -webkit-transition: all 300ms ease-in-out;
     -ms-transition: all 300ms ease-in-out;
     -moz-transition: all 300ms ease-in-out;

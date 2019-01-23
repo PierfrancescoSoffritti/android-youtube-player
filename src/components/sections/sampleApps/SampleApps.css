@@ -1,6 +1,6 @@
 /* desktop-x-small */
 @media all and (min-width: 0) and (max-width: 595px) {
-    .play-store-buttons {
+    .buttons-container {
         display: flex;
         flex-direction: column;
     
@@ -10,7 +10,7 @@
 
 /* desktop-small */
 @media all and (min-width: 596px) and (max-width: 840px) {
-    .play-store-buttons {
+    .buttons-container {
         display: flex;
         flex-direction: row;
     
@@ -20,13 +20,54 @@
 
 /* desktop-medium */
 @media all and (min-width: 841px) {
-    .play-store-buttons {
+    .buttons-container {
         display: flex;
         flex-direction: row;
     
         margin-top: 22px;
     }
 }
+
+.sample-app-logo {
+    width: "32px";
+    height: "32px";
+    margin-right: "8px";
+    
+    color: #24292e;
+    fill: currentColor;
+}
+
+.sample-app-button {
+    width: 250px;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 16px;
+    margin-right: 16px;
+
+    margin-top: 8px;
+
+    border-radius: 10px;
+    border: 2px solid #24292e;
+
+    background-color: transparent;
+
+    color: #24292e;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    -webkit-transition: all 300ms ease-in-out;
+    -ms-transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
+} 
 
 .play-store-logo {
     width: "32px";
@@ -55,12 +96,13 @@
     border-radius: 10px;
     border: 2px solid #4CAF50;
 
-    background-color: rgba(0, 0, 0, 0);
+    background-color: transparent;
 
     color: #4CAF50;
     text-align: center;
     text-decoration: none;
     font-size: 18px;
+    font-weight: 500;
 
     display: flex;
     flex-direction: row;
@@ -72,7 +114,16 @@
     -o-animation: play-store-button-border-change 10000ms infinite;
     -ms-animation: play-store-button-border-change 10000ms infinite;
     animation: play-store-button-border-change 10000ms infinite;
+
+    -webkit-transition: all 300ms ease-in-out;
+    -ms-transition: all 300ms ease-in-out;
+    -moz-transition: all 300ms ease-in-out;
+    transition: all 300ms ease-in-out;
 } 
+
+.play-store-button:hover, .sample-app-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
 
 @-webkit-keyframes play-store-button-border-change {
     0% { border: 2px solid #4CAF50; color: #4CAF50; }
