@@ -1,9 +1,9 @@
 {
   "short_name": "android-youtube-player",
-  "name": "android-youtube-player landing page",
+  "name": "android-youtube-player",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "android-youtube-player_favicon.webp",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     }

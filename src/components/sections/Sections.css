@@ -1,8 +1,8 @@
 /* desktop-x-small */
 @media all and (min-width: 0) and (max-width: 480px) {
     .root-dim {
-        margin-left: 8px;
-        margin-right: 8px;
+        margin-left: 16px;
+        margin-right: 16px;
         /* background-color: yellow; */
     }
 
@@ -60,7 +60,7 @@
     
     .last-section-dim {
         margin-top: 40px;
-        margin-bottom: 50px;
+        margin-bottom: 40px;
     }
 }
 
@@ -82,7 +82,7 @@
     
     .last-section-dim {
         margin-top: 40px;
-        margin-bottom: 50px;
+        margin-bottom: 40px;
     }
 }
 
@@ -104,7 +104,7 @@
     
     .last-section-dim {
         margin-top: 40px;
-        margin-bottom: 50px;
+        margin-bottom: 40px;
     }   
 }
 

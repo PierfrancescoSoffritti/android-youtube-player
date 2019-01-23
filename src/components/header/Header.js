@@ -65,7 +65,7 @@ export default class Header extends Component {
                 <div className="header-conten header-conten-dim">
                     <img 
                         className="logo-dim"
-                        src="https://firebasestorage.googleapis.com/v0/b/androidyoutubeplayer-sampleapp.appspot.com/o/android-youtube-player-logo.webp?alt=media&token=12ad47c4-52a5-43c5-88eb-0fe39cc5078c"
+                        src="https://firebasestorage.googleapis.com/v0/b/androidyoutubeplayer-sampleapp.appspot.com/o/Android-YouTube-Player_300px.webp?alt=media&token=d768f08c-58a1-4048-b77a-040ce57944da"
                         alt="logo"
                     />
                     
