@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import logo from '../../assets/android-youtube-player_300px.webp'
 import "./Header.css"
 
 export default class Header extends Component {
@@ -65,7 +66,7 @@ export default class Header extends Component {
                 <div className="header-conten header-conten-dim">
                     <img 
                         className="logo-dim"
-                        src="https://firebasestorage.googleapis.com/v0/b/androidyoutubeplayer-sampleapp.appspot.com/o/Android-YouTube-Player_300px.webp?alt=media&token=d768f08c-58a1-4048-b77a-040ce57944da"
+                        src={logo}
                         alt="logo"
                     />
                     
