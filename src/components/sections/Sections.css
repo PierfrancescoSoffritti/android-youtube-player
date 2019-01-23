@@ -6,12 +6,16 @@
         /* background-color: yellow; */
     }
 
+    .gh-buttons-section-dim {
+        margin-top: 20px;
+    }
+
     .section-dim {
-        margin-top: 50px;
+        margin-top: 20px;
     }
     
     .last-section-dim {
-        margin-top: 50px;
+        margin-top: 20px;
         margin-bottom: 50px;
     }
 }
@@ -24,12 +28,16 @@
         /* background-color: green; */
     }
 
+    .gh-buttons-section-dim {
+        margin-top: 40px;
+    }
+
     .section-dim {
-        margin-top: 50px;
+        margin-top: 30px;
     }
     
     .last-section-dim {
-        margin-top: 50px;
+        margin-top: 30px;
         margin-bottom: 50px;
     }
 }
@@ -42,12 +50,16 @@
         /* background-color: blue; */
     }
 
-    .section-dim {
+    .gh-buttons-section-dim {
         margin-top: 50px;
+    }
+
+    .section-dim {
+        margin-top: 40px;
     }
     
     .last-section-dim {
-        margin-top: 50px;
+        margin-top: 40px;
         margin-bottom: 50px;
     }
 }
@@ -60,12 +72,16 @@
         /* background-color: pink; */
     }
 
-    .section-dim {
+    .gh-buttons-section-dim {
         margin-top: 50px;
+    }
+
+    .section-dim {
+        margin-top: 40px;
     }
     
     .last-section-dim {
-        margin-top: 50px;
+        margin-top: 40px;
         margin-bottom: 50px;
     }
 }
@@ -78,12 +94,16 @@
         /* background-color: gray; */
     }
 
-    .section-dim {
+    .gh-buttons-section-dim {
         margin-top: 50px;
+    }
+
+    .section-dim {
+        margin-top: 40px;
     }
     
     .last-section-dim {
-        margin-top: 50px;
+        margin-top: 40px;
         margin-bottom: 50px;
     }   
 }
@@ -92,6 +112,5 @@
     font-size: 25px;
     font-weight: 600;
 
-    margin-top: 22px;
     margin-bottom: 8px;
 }
