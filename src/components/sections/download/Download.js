@@ -13,7 +13,7 @@ The Gradle dependency is available via <a href="https://bintray.com/pierfrancesc
 
 <br/><br/>
 
-The <b>core</b> module is all you need to play YouTube videos in your app.
+The <b>core</b> module is all you need to start playing YouTube videos in your app.
 
 <SyntaxHighlighter language='groovy' style={ agate }>{
 `dependencies {

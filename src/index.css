@@ -4,6 +4,8 @@ body, html {
   padding: 0;
 
   letter-spacing: .5px;
+  /* line-height: 1.5; */
+  line-height: 1.41;
 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
