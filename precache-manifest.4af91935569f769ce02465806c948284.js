@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/android-youtube-player/static/css/main.5e804dfd.chunk.css"
   },
   {
-    "revision": "82720e54306d7cbe1ea8ff78e3c54323",
+    "revision": "199ad2e16d15086c5df52efb91e82eee",
     "url": "/android-youtube-player/index.html"
   }
 ];
