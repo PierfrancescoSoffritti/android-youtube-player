@@ -1,0 +1,13 @@
+{
+  "main.css": "/android-youtube-player/static/css/main.5e804dfd.chunk.css",
+  "main.js": "/android-youtube-player/static/js/main.95ab5c82.chunk.js",
+  "main.js.map": "/android-youtube-player/static/js/main.95ab5c82.chunk.js.map",
+  "static/js/1.b88ef137.chunk.js": "/android-youtube-player/static/js/1.b88ef137.chunk.js",
+  "static/js/1.b88ef137.chunk.js.map": "/android-youtube-player/static/js/1.b88ef137.chunk.js.map",
+  "runtime~main.js": "/android-youtube-player/static/js/runtime~main.d9c46bd2.js",
+  "runtime~main.js.map": "/android-youtube-player/static/js/runtime~main.d9c46bd2.js.map",
+  "static/css/main.5e804dfd.chunk.css.map": "/android-youtube-player/static/css/main.5e804dfd.chunk.css.map",
+  "index.html": "/android-youtube-player/index.html",
+  "precache-manifest.b3047305422cb80fcc5f23f51365dd90.js": "/android-youtube-player/precache-manifest.b3047305422cb80fcc5f23f51365dd90.js",
+  "service-worker.js": "/android-youtube-player/service-worker.js"
+}
