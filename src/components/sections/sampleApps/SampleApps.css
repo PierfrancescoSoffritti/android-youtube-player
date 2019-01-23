@@ -1,0 +1,155 @@
+/* desktop-x-small */
+@media all and (min-width: 0) and (max-width: 595px) {
+    .play-store-buttons {
+        display: flex;
+        flex-direction: column;
+    
+        margin-top: 22px;
+    }
+}
+
+/* desktop-small */
+@media all and (min-width: 596px) and (max-width: 840px) {
+    .play-store-buttons {
+        display: flex;
+        flex-direction: row;
+    
+        margin-top: 22px;
+    }
+}
+
+/* desktop-medium */
+@media all and (min-width: 841px) {
+    .play-store-buttons {
+        display: flex;
+        flex-direction: row;
+    
+        margin-top: 22px;
+    }
+}
+
+.play-store-logo {
+    width: "32px";
+    height: "32px";
+    margin-right: "8px";
+    
+    fill: currentColor;
+
+    -webkit-animation: play-store-icon-color 10000ms infinite;
+    -moz-animation: play-store-icon-color 10000ms infinite;
+    -o-animation: play-store-icon-color 10000ms infinite;
+    -ms-animation: play-store-icon-color 10000ms infinite;
+    animation: play-store-icon-color 10000ms infinite;
+}
+
+.play-store-button {
+    width: 250px;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 16px;
+    margin-right: 16px;
+
+    margin-top: 8px;
+
+    border-radius: 10px;
+    border: 2px solid #4CAF50;
+
+    background-color: rgba(0, 0, 0, 0);
+
+    color: #4CAF50;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+
+    -webkit-animation: play-store-button-border-change 10000ms infinite;
+    -moz-animation: play-store-button-border-change 10000ms infinite;
+    -o-animation: play-store-button-border-change 10000ms infinite;
+    -ms-animation: play-store-button-border-change 10000ms infinite;
+    animation: play-store-button-border-change 10000ms infinite;
+} 
+
+@-webkit-keyframes play-store-button-border-change {
+    0% { border: 2px solid #4CAF50; color: #4CAF50; }
+    25% { border: 2px solid #03A9F4; color: #03A9F4; }
+    50% { border: 2px solid #F44336; color: #F44336; }
+    75% { border: 2px solid #E91E63; color: #E91E63; }
+    100% { border: 2px solid #4CAF50; color: #4CAF50; }
+}
+
+@-moz-keyframes play-store-button-border-change {
+    0% { border: 2px solid #4CAF50; color: #4CAF50; }
+    25% { border: 2px solid #03A9F4; color: #03A9F4; }
+    50% { border: 2px solid #F44336; color: #F44336; }
+    75% { border: 2px solid #E91E63; color: #E91E63; }
+    100% { border: 2px solid #4CAF50; color: #4CAF50; }
+}
+
+@-ms-keyframes play-store-button-border-change {
+    0% { border: 2px solid #4CAF50; color: #4CAF50; }
+    25% { border: 2px solid #03A9F4; color: #03A9F4; }
+    50% { border: 2px solid #F44336; color: #F44336; }
+    75% { border: 2px solid #E91E63; color: #E91E63; }
+    100% { border: 2px solid #4CAF50; color: #4CAF50; }
+}
+
+@-o-keyframes play-store-button-border-change {
+    0% { border: 2px solid #4CAF50; color: #4CAF50; }
+    25% { border: 2px solid #03A9F4; color: #03A9F4; }
+    50% { border: 2px solid #F44336; color: #F44336; }
+    75% { border: 2px solid #E91E63; color: #E91E63; }
+    100% { border: 2px solid #4CAF50; color: #4CAF50; }
+}
+
+@keyframes play-store-button-border-change {
+    0% { border: 2px solid #4CAF50; color: #4CAF50; }
+    25% { border: 2px solid #03A9F4; color: #03A9F4; }
+    50% { border: 2px solid #F44336; color: #F44336; }
+    75% { border: 2px solid #E91E63; color: #E91E63; }
+    100% { border: 2px solid #4CAF50; color: #4CAF50; }
+}
+
+@-webkit-keyframes play-store-icon-color {
+    0% { color: #4CAF50; }
+    25% { color: #03A9F4; }
+    50% { color: #F44336; }
+    75% { color: #E91E63; }
+    100% { color: #4CAF50; }
+}
+
+@-moz-keyframes play-store-icon-color {
+    0% { color: #4CAF50; }
+    25% { color: #03A9F4; }
+    50% { color: #F44336; }
+    75% { color: #E91E63; }
+    100% { color: #4CAF50; }
+}
+
+@-ms-keyframes play-store-icon-color {
+    0% { color: #4CAF50; }
+    25% { color: #03A9F4; }
+    50% { color: #F44336; }
+    75% { color: #E91E63; }
+    100% { color: #4CAF50; }
+}
+
+@-o-keyframes play-store-icon-color {
+    0% { color: #4CAF50; }
+    25% { color: #03A9F4; }
+    50% { color: #F44336; }
+    75% { color: #E91E63; }
+    100% { color: #4CAF50; }
+}
+
+@keyframes play-store-icon-color {
+    0% { color: #4CAF50; }
+    25% { color: #03A9F4; }
+    50% { color: #F44336; }
+    75% { color: #E91E63; }
+    100% { color: #4CAF50; }
+}
