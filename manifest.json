@@ -3,7 +3,7 @@
   "name": "android-youtube-player",
   "icons": [
     {
-      "src": "android-youtube-player_favicon.webp",
+      "src": "android-youtube-player_64x64.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     }
