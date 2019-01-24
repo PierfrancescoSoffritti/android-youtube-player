@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import logo from '../../assets/android-youtube-player_300px.webp'
+import logo_fallback_png from '../../assets/android-youtube-player_300px.png'
 import "./Header.css"
 
 export default class Header extends Component {
@@ -64,11 +65,11 @@ export default class Header extends Component {
                 <canvas ref={element => this.canvas = element} className="header-background header-dim" />
 
                 <div className="header-conten header-conten-dim">
-                    <img 
-                        className="logo-dim"
-                        src={logo}
-                        alt="logo"
-                    />
+                <picture>
+                    <source srcset={logo} type="image/webp" />
+                    <source srcset={logo_fallback_png} type="image/png" />
+                    <img className="logo-dim" src={logo_fallback_png} alt="logo" />
+                </picture>
                     
                     <div className="description description-dim">YouTube Player library for Android and Chromecast, stable and customizable.</div>
                 </div>
