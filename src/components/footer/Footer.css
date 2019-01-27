@@ -44,7 +44,7 @@
     align-items: center;
 }
 
-.footer a:link, .footer a:visited, .footer a:hover, .footer a:active {
+.footer a:link, .footer a:visited, .footer a:active {
     color: rgba(0, 0, 0, 0.6);
 }
 

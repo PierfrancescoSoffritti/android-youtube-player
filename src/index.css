@@ -25,4 +25,13 @@ html {
 a {
   text-decoration: none;
   font-weight: 600;
+  color: #D32F2F;
+}
+
+/* a:link, a:visited, a:active {
+  color: #D32F2F;
+}*/
+
+a:hover {
+  text-decoration: underline;
 }
