@@ -12,19 +12,19 @@ self.__precacheManifest = [
     "url": "/android-youtube-player/static/js/runtime~main.d9c46bd2.js"
   },
   {
-    "revision": "4137ce4dd16ceca6c5e0",
-    "url": "/android-youtube-player/static/js/main.4137ce4d.chunk.js"
+    "revision": "e957a967e35d4aadf85e",
+    "url": "/android-youtube-player/static/js/main.e957a967.chunk.js"
   },
   {
     "revision": "526b102f840e87dadcd5",
     "url": "/android-youtube-player/static/js/1.526b102f.chunk.js"
   },
   {
-    "revision": "4137ce4dd16ceca6c5e0",
-    "url": "/android-youtube-player/static/css/main.38dd9fdd.chunk.css"
+    "revision": "e957a967e35d4aadf85e",
+    "url": "/android-youtube-player/static/css/main.47e1e1d5.chunk.css"
   },
   {
-    "revision": "0b33ec7c866ec2e27d1214a2b263d928",
+    "revision": "8e40d6e4217053bcaf14bd31d6c74b77",
     "url": "/android-youtube-player/index.html"
   }
 ];
