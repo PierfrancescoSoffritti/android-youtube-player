@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
+import com.pierfrancescosoffritti.androidyoutubeplayer.R;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener;
@@ -81,10 +82,22 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     }
 
     /**
+     * Initialize the player and disables the native UI and the default PlayerUIController. The web-based UI is enabled instead.
+     * Trying to use {@link YouTubePlayerView#getPlayerUIController()} will throw an exception.
+     *
+     * @see YouTubePlayerView#initialize(YouTubePlayerInitListener, boolean, IFramePlayerOptions)
+     */
+    public void initializeWithWebUI(@NonNull final YouTubePlayerInitListener youTubePlayerInitListener, boolean handleNetworkEvents) {
+        IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder().controls(1).build();
+        inflateCustomPlayerUI(R.layout.empty_layout);
+        initialize(youTubePlayerInitListener, handleNetworkEvents, iFramePlayerOptions);
+    }
+
+    /**
      * Initialize the player
      * @param youTubePlayerInitListener listener for player init events
      * @param handleNetworkEvents if <b>true</b> a broadcast receiver will be registered.<br/>If <b>false</b> you should handle network events with your own broadcast receiver. See {@link YouTubePlayerView#onNetworkAvailable()} and {@link YouTubePlayerView#onNetworkUnavailable()}
-     * @param playerOptions customizable options for the embedded video player
+     * @param playerOptions customizable options for the embedded video player, can be null.
      */
     public void initialize(@NonNull final YouTubePlayerInitListener youTubePlayerInitListener, boolean handleNetworkEvents, @Nullable final IFramePlayerOptions playerOptions) {
         if(handleNetworkEvents)

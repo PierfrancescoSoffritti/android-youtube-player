@@ -11,7 +11,7 @@ buildscript {
         versionCode_chromecast = 3
         versionName_chromecast = '0.17'
 
-        kotlin_version = '1.3.11'
+        kotlin_version = '1.3.20'
         dokka_version = '0.9.17'
     }
 
