@@ -1,15 +1,17 @@
 # android-youtube-player
-[ ![core](https://api.bintray.com/packages/pierfrancescosoffritti/maven/android-youtube-player%3Acore/images/download.svg) ](https://bintray.com/pierfrancescosoffritti/maven/android-youtube-player%3Acore/_latestVersion)
-[ ![chromecast-sender](https://api.bintray.com/packages/pierfrancescosoffritti/maven/android-youtube-player%3Achromecast-sender/images/download.svg) ](https://bintray.com/pierfrancescosoffritti/maven/android-youtube-player%3Achromecast-sender/_latestVersion)
-[ ![](https://img.shields.io/badge/Android%20Arsenal-android--youtube--player-brightgreen.svg?style=flat) ](https://android-arsenal.com/details/1/4322)
 
-[![](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=A%20new%20YouTube%20Player%20library%20for%20Android,%20stable%20and%20customizable&url=https://github.com/PierfrancescoSoffritti/android-youtube-player&via=PierfrancescoSo&hashtags=opensource,youtubeplayer,androiddev)
+[![core](https://api.bintray.com/packages/pierfrancescosoffritti/maven/android-youtube-player%3Acore/images/download.svg)](https://bintray.com/pierfrancescosoffritti/maven/android-youtube-player%3Acore/_latestVersion)
+[![chromecast-sender](https://api.bintray.com/packages/pierfrancescosoffritti/maven/android-youtube-player%3Achromecast-sender/images/download.svg)](https://bintray.com/pierfrancescosoffritti/maven/android-youtube-player%3Achromecast-sender/_latestVersion)
+[![android arsenal](https://img.shields.io/badge/Android%20Arsenal-android--youtube--player-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/4322)
+[![website](https://img.shields.io/badge/-website-brightgreen.svg)](https://pierfrancescosoffritti.github.io/android-youtube-player/)
+
+[![share on twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=A%20new%20YouTube%20Player%20library%20for%20Android,%20stable%20and%20customizable&url=https://github.com/PierfrancescoSoffritti/android-youtube-player&via=PierfrancescoSo&hashtags=opensource,youtubeplayer,androiddev)
 
 <img align="right" width="180px" src="./pics/android-youtube-player_512x512.png" title="android-youtube-player logo" />
 
-The android-youtube-player library is a stable and customizable open source YouTube player for Android. It provides a simple View that can be easily integrated in every Activity/Fragment.
+android-youtube-player is a stable and customizable open source YouTube player for Android. It provides a simple View that can be easily integrated in every Activity/Fragment.
 
-The interaction with YouTube is based on the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference), running inside of a WebView, therefore the YouTube app is not required on the user's device.
+To interact with YouTube the library uses the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference), inside of a WebView, therefore the YouTube app is not required on the user's device.
 
 The web UI of the IFrame Player player is hidden. Instead, a native UI built on top of Android is used to interact with the player, providing a native experience to the users.
 
@@ -18,7 +20,8 @@ The UI of the player is 100% customizable. [The default UI can be changed](#play
 This library also provides a [Chromecast YouTube player](#chromecast-extension-library), that you can use to cast YouTube videos from your app to a Chromecast device.
 
 ## Why does this library exist?
-This library has been developed out of necessity. The official library provided by Google to integrate YouTube videos in Android apps is the [YouTube Android Player API](https://developers.google.com/youtube/android/player/). I've found the official library to be quite buggy ([some bugs are 5+ years old](https://code.google.com/p/gdata-issues/issues/detail?id=4395)) and lacking in support from Google. It was quite unreliable and therefore unusable in production.
+The official library provided by Google to integrate YouTube videos in Android apps is the [YouTube Android Player API](https://developers.google.com/youtube/android/player/).
+The official library is quite buggy ([some bugs are 5+ years old](https://code.google.com/p/gdata-issues/issues/detail?id=4395)) and lacks in support from Google. I found it to be quite unreliable and therefore unusable in production.
 
 This, added to its limited options for customization and lack of Chromecast support, lead me to the development of this open source library.
 
@@ -41,39 +44,40 @@ A list of published apps that are using this library: ([let me know](https://git
     1. [Core](#core)
     2. [Chromecast](#chromecast)
 3. [Quick start](#quick-start)
-4. [YouTubePlayerView](#youtubeplayerview)
-    1. [Initialization](#initialization)
-    2. [IFramePlayerOptions](#iframeplayeroptions)
-    3. [Full screen](#full-screen)
-    4. [UI](#ui)
-    5. [Release the YouTubePlayerView](#release-the-youtubeplayerview)
-    6. [LifecycleObserver](#lifecycleobserver)
-5. [YouTubePlayer](#youtubeplayer)
-    1. [Load Play and Pause videos](#load-play-and-pause-videos)
-    2. [Events](#events)
-    3. [The onReady event](#the-onready-event)
-    4. [Player state](#player-state)
-    5. [YouTubePlayerTracker](#youtubeplayertracker)
-6. [YouTubePlayerListener](#youtubeplayerlistener)
-7. [PlayerUIController](#playeruicontroller)
-    1. [Show video title](#show-video-title)
-    2. [Live videos](#live-videos)
-    3. [Custom actions](#custom-actions)
-8. [Menu](#menu)
-    1. [YouTubePlayerMenu](#youtubeplayermenu)
-    2. [DefaultYouTubePlayerMenu](#defaultyoutubeplayermenu)
-    3. [MenuItem](#menuitem)
-9. [Create your own custom UI](#create-your-own-custom-ui)
-10. [Network events](#network-events)
-11. [Chromecast support](#chromecast-support)
-12. [Useful info](#useful-info)
-    1. [Hardware acceleration](#hardware-acceleration)
-    2. [Play YouTube videos in the background](#play-youtube-videos-in-the-background)
-    3. [minSdk](#minsdk)
+4. [API documentation](#api-documentation)
+    1. [YouTubePlayerView](#youtubeplayerview)
+        1. [Initialization](#initialization)
+        2. [IFramePlayerOptions](#iframeplayeroptions)
+        3. [Full screen](#full-screen)
+        4. [UI](#ui)
+        5. [Release the YouTubePlayerView](#release-the-youtubeplayerview)
+        6. [LifecycleObserver](#lifecycleobserver)
+    2. [YouTubePlayer](#youtubeplayer)
+        1. [Load Play and Pause videos](#load-play-and-pause-videos)
+        2. [Events](#events)
+        3. [The onReady event](#the-onready-event)
+        4. [Player state](#player-state)
+        5. [YouTubePlayerTracker](#youtubeplayertracker)
+    3. [YouTubePlayerListener](#youtubeplayerlistener)
+    4. [PlayerUIController](#playeruicontroller)
+        1. [Show video title](#show-video-title)
+        2. [Live videos](#live-videos)
+        3. [Custom actions](#custom-actions)
+    5. [Menu](#menu)
+        1. [YouTubePlayerMenu](#youtubeplayermenu)
+        2. [DefaultYouTubePlayerMenu](#defaultyoutubeplayermenu)
+        3. [MenuItem](#menuitem)
+    6. [Create your own custom UI](#create-your-own-custom-ui)
+    7. [Network events](#network-events)
+    8. [Chromecast support](#chromecast-support)
+    9. [Useful info](#useful-info)
+        1. [Hardware acceleration](#hardware-acceleration)
+        2. [Play YouTube videos in the background](#play-youtube-videos-in-the-background)
+        3. [minSdk](#minsdk)
 
 # Table of Contents (Chromecast)
 1. [Chromecast extension library](#chromecast-extension-library)
-2. [Quick start](#quick-start-chromecast)
+2. [Quick start and API documentation](#quick-start-chromecast)
     1. [Download extra dependencies](#download-extra-dependencies)
     2. [Sender](#sender)
     3. [Receiver](#receiver)
@@ -165,7 +169,14 @@ youtubePlayerView.initialize(new YouTubePlayerInitListener() {
 
 That's all you need, a YouTube video is now playing in your app.
 
-# YouTubePlayerView
+----
+
+# API documentation
+The following sections provide detailed documentation for every component of the library.
+
+If you see any problem or mistake in the documentation, feel free to contribute by opening an issue an/or sending a pull request.
+
+## YouTubePlayerView
 `YouTubePlayerView` is the access point to the *core* library.
 
 You can add the View to your layout
@@ -282,7 +293,7 @@ Adding `YouTubePlayerView` as an observer to a lifecycle will also automatically
 
 If you want your app to keep [playing when the Activity/Fragment is not visible](#play-youtube-videos-in-the-background) (remember that this behavior is not allowed, if you want to publish your app on the PlayStore), don't register the `YouTubePlayerView` as a lifecycle observer. But remember to manually call `release()` when the Activity/Fragment is being destroyed.
 
-# YouTubePlayer
+## YouTubePlayer
 `YouTubePlayer` is the component responsible for controlling the playback of YouTube videos. You can see its contract [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/YouTubePlayer.java).
 
 You can only get a reference to the `YouTubePlayer` when [initializing the YouTubePlayerView](#initialization).
@@ -331,7 +342,7 @@ tracker.getVideoDuration();
 tracker.getVideoId();
 ```
 
-# YouTubePlayerListener
+## YouTubePlayerListener
 A `YouTubePlayerListener` is used to intercept events emitted by a `YouTubePlayer`.
 
 During its existence a `YouTubePlayer` will constantly emit events, you can listen to them by adding a `YouTubePlayerListener` to it.
@@ -345,7 +356,7 @@ If you don't want to implement all the methods of the `YouTubePlayerListener` in
 
 For more information on the methods defined in the `YouTubePlayerListener` interface, please refer to the documentation defined above each method [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/listeners/YouTubePlayerListener.java).
 
-# PlayerUIController
+## PlayerUIController
 The `PlayerUIController` is responsible for controlling the UI of a `YouTubePlayerView`.
 
 You can get a reference to the `PlayerUIController` from the `YouTubePlayerView`
@@ -391,7 +402,7 @@ PlayerUIController.removeView(View view);
 
 The View will be added to the top of the player.
 
-# Menu
+## Menu
 You can use these methods to control the menu's behavior:
 
 ``` java
@@ -421,7 +432,7 @@ Initially the menu doesn't contain any `MenuItem`. You need to add them, using t
 ### MenuItem
 `MenuItem`s are the entries in the `YouTubePlayerMenu`. They are POJOs with a String of text, an icon and a OnClickListener. [Here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/ui/menu/MenuItem.java) is the implementation.
 
-# Create your own custom UI
+## Create your own custom UI
 Customization is an important aspect of this library. If need to, you can completely replace the default UI of the player.
 
 `YouTubePlayerView`'s method
@@ -458,7 +469,7 @@ Sample app example:
 
 ![Sample app example](https://media.giphy.com/media/SradsoNdy1DNVGHGy5/giphy.gif)
 
-# Network events
+## Network events
 This library is capable of handling network events, using an internal BroadcastReceiver. You can choose to use it or not when you are initializing the player.
 
 Call `YouTubePlayerView.initialize(..., true)` to let the library register its BroadcastReceiver or call `YouTubePlayerView.initialize(..., false)` if you prefer to use your own.
@@ -469,10 +480,10 @@ For example, if the player is playing but is stopped by a lost connection, once 
 
 If you want to use your own BroadcastReceiver make sure to cover all this scenarios, in order to provide a good user experience.
 
-# Chromecast support
+## Chromecast support
 If you need to cast YouTube videos to a Chromecast device you can use the *chromecast-sender* extension library. Read its documentation [here](#chromecast-extension-library).
 
-# Useful info
+## Useful info
 ### Hardware acceleration
 Is important that the Activity containing the [YouTubePlayerView](#youtubeplayerview) is hardware accelerated. This option is enabled by default, you don't have to change anything in your app. Unless you manually disabled hardware acceleration.
 
