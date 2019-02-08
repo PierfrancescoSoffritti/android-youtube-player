@@ -33,9 +33,7 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
 
     api project(':core')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+    api "com.google.android.gms:play-services-cast-framework:$versions.googlePlayServicesCastFramework"
 
-    implementation "androidx.appcompat:appcompat:$versions.androidxCore"
-    implementation "androidx.mediarouter:mediarouter:$versions.androidxMediarouter"
-    implementation "com.google.android.gms:play-services-cast-framework:$versions.googlePlayServicesCastFramework"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 }

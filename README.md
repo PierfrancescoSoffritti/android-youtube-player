@@ -534,11 +534,8 @@ To use Google Cast functionalities in your app you are going to need two extra l
 implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:last-version'
 implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:last-version'
 
-implementation 'com.android.support:mediarouter-v7:27.1.1'
-implementation 'com.google.android.gms:play-services-cast-framework:15.0.1'
-
-implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.50'
-
+// this is not necessarily needed to use the library, it provides the cast button.
+implementation 'androidx.mediarouter:mediarouter:last-version'
 ```
 
 ### Sender

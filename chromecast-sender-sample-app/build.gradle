@@ -20,11 +20,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-    // this is needed because I'm importing 2 modules called "core" (core and com.psoffritti.librarysampleapptemplate:core) (https://discuss.kotlinlang.org/t/disable-meta-inf-generation-in-gradle-android-project/3830)
-//    packagingOptions {
-//        exclude 'META-INF/core_release.kotlin_module'
-//    }
 }
 
 dependencies {
@@ -40,28 +35,26 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$versions.androidxCore"
     implementation "androidx.recyclerview:recyclerview:$versions.androidxRecyclerView"
     implementation "com.google.android.material:material:$versions.androidxMaterial"
-    implementation "androidx.legacy:legacy-support-v4:$versions.androidxLegacySupport"
     implementation "androidx.constraintlayout:constraintlayout:$versions.androidxConstraintLayout"
     implementation "androidx.palette:palette:$versions.androidxPalette"
 
     implementation "androidx.mediarouter:mediarouter:$versions.androidxMediarouter"
-    implementation "com.google.android.gms:play-services-cast-framework:$versions.googlePlayServicesCastFramework"
 
     implementation "io.reactivex.rxjava2:rxjava:$versions.rxJava"
     implementation "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid"
 
-    implementation('com.google.api-client:google-api-client-android:1.23.0') {
+    implementation("com.google.api-client:google-api-client-android:$versions.googleApiClientAndroid") {
         exclude group: 'com.google.guava'
         exclude group: 'org.apache.httpcomponents'
         exclude group: 'com.google.code.findbugs'
         exclude group: 'com.google.http-client', module: 'google-http-client-jackson2'
     }
-    implementation('com.google.apis:google-api-services-youtube:v3-rev198-1.23.0') {
+    implementation("com.google.apis:google-api-services-youtube:$versions.googleApiServicesYoutube") {
         exclude group: 'com.google.guava'
         exclude group: 'org.apache.httpcomponents'
         exclude group: 'com.google.code.findbugs'
         exclude group: 'com.google.http-client', module: 'google-http-client-jackson2'
     }
 
-    implementation 'com.psoffritti.librarysampleapptemplate:core:1.0.1'
+    implementation "com.psoffritti.librarysampleapptemplate:core:$versions.sampleAppTemplate"
 }
