@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.aytplayersample.examples.playerStatusExample;
+package com.pierfrancescosoffritti.aytplayersample.examples.playerStateExample;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -21,9 +21,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 
-public class PlayerStatusActivity extends AppCompatActivity {
+public class PlayerStateActivity extends AppCompatActivity {
 
     private List<Pair<Date, String>> playerStatesHistory = new ArrayList<>();
 

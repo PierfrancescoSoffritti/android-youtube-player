@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 apply from: '../dependencies.gradle'
 
 ext.shard = 'core'
@@ -33,5 +35,6 @@ dependencies {
     api "androidx.appcompat:appcompat:$versions.androidxCore"
     api "androidx.annotation:annotation:$versions.androidxAnnotations"
 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
     implementation "androidx.recyclerview:recyclerview:$versions.androidxRecyclerView"
 }

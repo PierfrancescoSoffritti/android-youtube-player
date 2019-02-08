@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <View
         android:id="@+id/panel"
@@ -107,42 +107,16 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true" >
 
-            <TextView
-                android:id="@+id/video_current_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ayp_null_time"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
-
-                android:padding="8dp"
-                android:gravity="center_vertical" />
-
-            <SeekBar
-                android:id="@+id/seek_bar"
+            <com.pierfrancescosoffritti.androidyoutubeplayer.ui.views.YouTubePlayerSeekBar
+                android:id="@+id/youtube_player_seekbar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
 
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-
-                android:thumbTint="@color/ayp_red"
-                android:progressTint="@color/ayp_red"
-                android:progressBackgroundTint="@color/ayp_red"
+                app:fontSize="12sp"
+                app:color="@color/ayp_red"
 
                 android:maxHeight="100dp" />
-
-            <TextView
-                android:id="@+id/video_duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ayp_null_time"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
-
-                android:padding="8dp"
-                android:gravity="center_vertical" />
 
             <TextView
                 android:id="@+id/live_video_indicator"
@@ -199,6 +173,7 @@
             android:clickable="true"
             android:focusable="true"
             android:background="@drawable/ayp_background_item_selected"
+            android:contentDescription="@string/ayp_custom_action_left"
 
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/play_pause_button" />
@@ -217,6 +192,8 @@
             android:clickable="true"
             android:focusable="true"
             android:background="@drawable/ayp_background_item_selected"
+
+            android:contentDescription="@string/ayp_custom_action_right"
 
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/play_pause_button" />

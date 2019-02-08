@@ -10,7 +10,7 @@ import com.pierfrancescosoffritti.aytplayersample.examples.fragmentExample.Fragm
 import com.pierfrancescosoffritti.aytplayersample.examples.iFramePlayerOptionsExample.IFramePlayerOptionsExampleActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.liveVideoExample.LiveVideoActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.pictureInPictureExample.PictureInPictureActivity;
-import com.pierfrancescosoffritti.aytplayersample.examples.playerStatusExample.PlayerStatusActivity;
+import com.pierfrancescosoffritti.aytplayersample.examples.playerStateExample.PlayerStateActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.recyclerViewExample.RecyclerViewActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.viewPagerExample.ViewPagerActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.webUIExample.WebUIExampleActivity;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 new ExampleActivityDetails(R.string.view_pager_example,null, ViewPagerActivity.class),
                 new ExampleActivityDetails(R.string.fragment_example,null, FragmentExampleActivity.class),
                 new ExampleActivityDetails(R.string.live_video_example,null, LiveVideoActivity.class),
-                new ExampleActivityDetails(R.string.player_status_example,null, PlayerStatusActivity.class),
+                new ExampleActivityDetails(R.string.player_status_example,null, PlayerStateActivity.class),
                 new ExampleActivityDetails(R.string.picture_in_picture_example,null, PictureInPictureActivity.class),
                 new ExampleActivityDetails(R.string.chromecast_example,null, ChromecastExampleActivity.class),
                 new ExampleActivityDetails(R.string.iframe_player_options_example,null, IFramePlayerOptionsExampleActivity.class)

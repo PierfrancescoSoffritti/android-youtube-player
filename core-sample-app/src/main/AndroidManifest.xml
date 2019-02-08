@@ -50,7 +50,7 @@
             android:hardwareAccelerated="true"
             android:label="@string/live_video_example" />
         <activity
-            android:name=".examples.playerStatusExample.PlayerStatusActivity"
+            android:name=".examples.playerStateExample.PlayerStateActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/player_status_example" />
