@@ -234,7 +234,7 @@ By passing an `IFramePlayerOptions` to the initialize method it is possible to s
 All the possible parameters and values are listed [here](https://developers.google.com/youtube/player_parameters#Parameters). Not all of them are supported in this library because some don't make sense in this context. [Open an issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues) if you need a parameter that is not currently supported.
 
 ### IFramePlayerOptions
-The `IFramePlayerOptions` is an optional paramenter that can be passed to `YouTubePlayerView.initialize(YouTubePlayerInitListener, boolean, IFramePlayerOptions)`, it can be used to set some of the paramenters of the IFrame YouTubePlayer. All the possible parameters and values are listed [here](https://developers.google.com/youtube/player_parameters#Parameters).
+The `IFramePlayerOptions` is an optional paramenter that can be passed to `YouTubePlayerView.initialize(YouTubePlayerInitListener, boolean, IFramePlayerOptions)`, it can be used to set some of the paramenters of the IFrame YouTubePlayer.
 
 A simple example of how to use `IFramePlayerOptions` can be found in the sample app [here](./core-sample-app/src/main/java/com/pierfrancescosoffritti/aytplayersample/examples/iFramePlayerOptionsExample/IFramePlayerOptionsExampleActivity.java).
 
@@ -245,6 +245,31 @@ IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
   .controls(1)
   .build();
 ```
+
+All the possible parameters and values are listed [here](https://developers.google.com/youtube/player_parameters#Parameters). Not all of them are supported in this library because some don't make sense in this context. [Open an issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues) if you need a parameter that is not currently supported.
+
+#### Supported options
+
+##### `controls`
+This option indicates whether the web-based UI of the IFrame player is used or not.
+
+If set to 0: web UI is not used.
+
+If set to 1: web UI is used.
+
+##### `rel`
+This option controls the related videos shown at the end of a video.
+
+If set to 0, related videos will come from the same channel as the video that was just played.
+
+If set to 1, related videos will come from multiple channels.
+
+##### `ivLoadPolicy`
+This option controls video annotations.
+
+If set to 1: causes video annotations to be shown by default.
+
+If set to 3 causes video annotations to not be shown by default.
 
 ### Full screen
 You can use the `YouTubePlayerView` to set the player full screen or not, using these methods

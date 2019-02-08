@@ -53,8 +53,8 @@ public class IFramePlayerOptions {
         }
 
         /**
-         * This parameter indicates whether the player controls of the IFrame player are displayed.
-         * @param controls If the to 0: IFrame Player controls do not display in the player. If set to 1: IFrame Player controls display in the player.
+         * Controls whether the web-based UI of the IFrame player is used or not.
+         * @param controls If set to 0: web UI is not used. If set to 1: web UI is used.
          */
         public Builder controls(int controls) {
             addInt(CONTROLS, controls);
@@ -62,7 +62,7 @@ public class IFramePlayerOptions {
         }
 
         /**
-         * This parameter controls the related videos shown at the end of a video.
+         * Controls the related videos shown at the end of a video.
          * @param rel If set to 0, related videos will come from the same channel as the video that was just played. If set to 1, related videos will come from multiple channels.
          */
         public Builder rel(int rel) {
