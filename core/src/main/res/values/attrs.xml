@@ -4,4 +4,9 @@
         <attr name="fontSize" format="dimension" />
         <attr name="color" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="FadingFrameLayout">
+        <attr name="animationDuration" format="integer" />
+        <attr name="fadeOutDelay" format="integer" />
+    </declare-styleable>
 </resources>

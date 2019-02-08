@@ -109,8 +109,6 @@ public class BasicExampleActivity extends AppCompatActivity {
             youTubePlayer.loadVideo(videoId, 0);
         else
             youTubePlayer.cueVideo(videoId, 0);
-
-        //setVideoTitle(youTubePlayerView.getPlayerUIController(), videoId);
     }
 
     private void addFullScreenListenerToPlayer(final YouTubePlayer youTubePlayer) {
@@ -161,6 +159,8 @@ public class BasicExampleActivity extends AppCompatActivity {
     }
 
     /**
+     * This method is here just for reference, it is not being used because the IFrame player already shows the title of the video.
+     *
      * This method is called every time a new video is being loaded/cued.
      * It uses the YouTube Data APIs to fetch the video title from the video ID.
      * The YouTube Data APIs are nothing more then a wrapper over the YouTube REST API.

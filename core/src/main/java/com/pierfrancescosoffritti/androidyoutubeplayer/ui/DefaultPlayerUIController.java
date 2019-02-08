@@ -1,16 +1,12 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.ui;
 
-import android.animation.Animator;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.R;
@@ -21,9 +17,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubeP
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.menu.YouTubePlayerMenu;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.menu.defaultMenu.DefaultYouTubePlayerMenu;
+import com.pierfrancescosoffritti.androidyoutubeplayer.ui.views.FadingFrameLayout;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.views.YouTubePlayerSeekBar;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.views.YouTubePlayerSeekBarListener;
-import com.pierfrancescosoffritti.androidyoutubeplayer.utils.Utils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,13 +33,11 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
 
     /**
      * View used for for intercepting clicks and for drawing a black background.
-     * Could have used controlsRoot view, but in this way I'm able to hide all the control at once by hiding controlsRoot
+     * Could have used controlsContainer, but in this way I'm able to hide all the control at once by hiding controlsContainer
      */
     private View panel;
 
-    // view containing the controls
-    private View controlsRoot;
-
+    private FadingFrameLayout controlsContainer;
     private LinearLayout extraViewsContainer;
 
     private TextView videoTitle;
@@ -63,15 +57,11 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     @Nullable private View.OnClickListener onFullScreenButtonListener;
     @Nullable private View.OnClickListener onMenuButtonClickListener;
 
-    // view state
     private boolean isPlaying = false;
-    private boolean isVisible = true;
-    private boolean canFadeControls = false;
 
-    private boolean showUI = true;
-    private boolean showPlayPauseButton = true;
-    private boolean showCustomActionLeft = false;
-    private boolean showCustomActionRight = false;
+    private boolean isPlayPauseButtonEnabled = true;
+    private boolean isCustomActionLeftEnabled = false;
+    private boolean isCustomActionRightEnabled = false;
 
     public DefaultPlayerUIController(@NonNull YouTubePlayerView youTubePlayerView, @NonNull YouTubePlayer youTubePlayer) {
         this.youTubePlayerView = youTubePlayerView;
@@ -86,7 +76,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     private void initViews(View controlsView) {
         panel = controlsView.findViewById(R.id.panel);
 
-        controlsRoot = controlsView.findViewById(R.id.controls_root);
+        controlsContainer = controlsView.findViewById(R.id.controls_container);
         extraViewsContainer = controlsView.findViewById(R.id.extra_views_container);
 
         videoTitle = controlsView.findViewById(R.id.video_title);
@@ -104,6 +94,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
         youtubePlayerSeekBar = controlsView.findViewById(R.id.youtube_player_seekbar);
 
         youTubePlayer.addListener(youtubePlayerSeekBar);
+        youTubePlayer.addListener(controlsContainer);
 
         youtubePlayerSeekBar.setYoutubePlayerSeekBarListener(this);
         panel.setOnClickListener(this);
@@ -114,8 +105,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
 
     @Override
     public void showVideoTitle(boolean show) {
-        int visibility = show ? View.VISIBLE : View.GONE;
-        videoTitle.setVisibility(visibility);
+        videoTitle.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -125,29 +115,21 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
 
     @Override
     public void showUI(boolean show) {
-        int visibility = show ? View.VISIBLE : View.INVISIBLE;
-        controlsRoot.setVisibility(visibility);
-
-        showUI = show;
+        controlsContainer.setDisabled(!show);
+        controlsContainer.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
     public void showPlayPauseButton(boolean show) {
-        int visibility = show ? View.VISIBLE : View.GONE;
-        playPauseButton.setVisibility(visibility);
+        playPauseButton.setVisibility(show ? View.VISIBLE : View.GONE);
 
-        showPlayPauseButton = show;
+        isPlayPauseButtonEnabled = show;
     }
 
     @Override
     public void enableLiveVideoUI(boolean enable) {
-        if(enable) {
-            youtubePlayerSeekBar.setVisibility(View.INVISIBLE);
-            liveVideoIndicator.setVisibility(View.VISIBLE);
-        } else {
-            youtubePlayerSeekBar.setVisibility(View.VISIBLE);
-            liveVideoIndicator.setVisibility(View.GONE);
-        }
+        youtubePlayerSeekBar.setVisibility(enable ? View.INVISIBLE : View.VISIBLE);
+        liveVideoIndicator.setVisibility(enable ? View.VISIBLE : View.GONE);
     }
 
     /**
@@ -171,21 +153,18 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     }
 
     public void showCustomAction1(boolean show) {
-        showCustomActionLeft = show;
-        int visibility = show ? View.VISIBLE : View.GONE;
-        customActionLeft.setVisibility(visibility);
+        isCustomActionLeftEnabled = show;
+        customActionLeft.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     public void showCustomAction2(boolean show) {
-        showCustomActionRight = show;
-        int visibility = show ? View.VISIBLE : View.GONE;
-        customActionRight.setVisibility(visibility);
+        isCustomActionRightEnabled = show;
+        customActionRight.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override
     public void showMenuButton(boolean show) {
-        int visibility = show ? View.VISIBLE : View.GONE;
-        menuButton.setVisibility(visibility);
+        menuButton.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -195,20 +174,17 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
 
     @Override
     public void showCurrentTime(boolean show) {
-        int visibility = show ? View.VISIBLE : View.GONE;
-        youtubePlayerSeekBar.getVideoCurrentTimeTextView().setVisibility(visibility);
+        youtubePlayerSeekBar.getVideoCurrentTimeTextView().setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override
     public void showDuration(boolean show) {
-        int visibility = show ? View.VISIBLE : View.GONE;
-        youtubePlayerSeekBar.getVideoDurationTextView().setVisibility(visibility);
+        youtubePlayerSeekBar.getVideoDurationTextView().setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override
     public void showSeekBar(boolean show) {
-        int visibility = show ? View.VISIBLE : View.INVISIBLE;
-        youtubePlayerSeekBar.getSeekBar().setVisibility(visibility);
+        youtubePlayerSeekBar.getSeekBar().setVisibility(show ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
@@ -218,8 +194,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
 
     @Override
     public void showYouTubeButton(boolean show) {
-        int visibility = show ? View.VISIBLE : View.GONE;
-        youTubeButton.setVisibility(visibility);
+        youTubeButton.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -245,8 +220,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
 
     @Override
     public void showFullscreenButton(boolean show) {
-        int visibility = show ? View.VISIBLE : View.GONE;
-        fullScreenButton.setVisibility(visibility);
+        fullScreenButton.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -257,7 +231,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     @Override
     public void onClick(View view) {
         if(view == panel)
-            toggleControlsVisibility();
+            controlsContainer.toggleVisibility();
         else if(view == playPauseButton)
             onPlayButtonPressed();
         else if(view == fullScreenButton)
@@ -287,63 +261,6 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
             youTubePlayer.play();
     }
 
-    private void updatePlayPauseButtonIcon(boolean playing) {
-        int img = playing ? R.drawable.ayp_ic_pause_36dp : R.drawable.ayp_ic_play_36dp;
-        playPauseButton.setImageResource(img);
-    }
-
-    private void toggleControlsVisibility() {
-        final float finalAlpha = isVisible ? 0f : 1f;
-        fadeControls(finalAlpha);
-    }
-
-    private final Handler handler = new Handler(Looper.getMainLooper());
-    private final Runnable fadeOutRunnable = new Runnable() {
-        @Override
-        public void run() {
-            fadeControls(0f);
-        }
-    };
-
-    private void fadeControls(final float finalAlpha) {
-        if(!canFadeControls || !showUI)
-            return;
-
-        isVisible = finalAlpha != 0f;
-
-        // if the controls are shown and the player is playing they should automatically hide after a while.
-        // if the controls are hidden remove fade out runnable
-        if(finalAlpha == 1f && isPlaying)
-            startFadeOutViewTimer();
-        else
-            handler.removeCallbacks(fadeOutRunnable);
-
-
-        controlsRoot.animate()
-                .alpha(finalAlpha)
-                .setDuration(300)
-                .setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animator) {
-                        if (finalAlpha == 1f)
-                            controlsRoot.setVisibility(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animator) {
-                        if (finalAlpha == 0f)
-                            controlsRoot.setVisibility(View.GONE);
-                    }
-
-                    @Override public void onAnimationCancel(Animator animator) { }
-                    @Override public void onAnimationRepeat(Animator animator) { }
-                }).start();
-    }
-
-    private void startFadeOutViewTimer() {
-        handler.postDelayed(fadeOutRunnable, 3000);
-    }
-
     @Override
     public void onYouTubePlayerEnterFullScreen() {
         fullScreenButton.setImageResource(R.drawable.ayp_ic_fullscreen_exit_24dp);
@@ -354,7 +271,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
         fullScreenButton.setImageResource(R.drawable.ayp_ic_fullscreen_24dp);
     }
 
-    private void updateControlsState(PlayerConstants.PlayerState state) {
+    private void updateState(PlayerConstants.PlayerState state) {
         switch (state) {
             case ENDED:
                 isPlaying = false;
@@ -374,6 +291,10 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
         updatePlayPauseButtonIcon(!isPlaying);
     }
 
+    private void updatePlayPauseButtonIcon(boolean playing) {
+        playPauseButton.setImageResource(playing ? R.drawable.ayp_ic_pause_36dp : R.drawable.ayp_ic_play_36dp);
+    }
+
     @Override
     public void seekTo(float time) {
         youTubePlayer.seekTo(time);
@@ -383,45 +304,32 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
 
     @Override
     public void onStateChange(@NonNull PlayerConstants.PlayerState state) {
-        updateControlsState(state);
+        updateState(state);
 
         if(state == PlayerConstants.PlayerState.PLAYING || state == PlayerConstants.PlayerState.PAUSED || state == PlayerConstants.PlayerState.VIDEO_CUED) {
             panel.setBackgroundColor(ContextCompat.getColor(youTubePlayerView.getContext(), android.R.color.transparent));
             progressBar.setVisibility(View.GONE);
 
-            if(showPlayPauseButton) playPauseButton.setVisibility(View.VISIBLE);
+            if(isPlayPauseButtonEnabled) playPauseButton.setVisibility(View.VISIBLE);
+            if(isCustomActionLeftEnabled) customActionLeft.setVisibility(View.VISIBLE);
+            if(isCustomActionRightEnabled) customActionRight.setVisibility(View.VISIBLE);
 
-            if(showCustomActionLeft) customActionLeft.setVisibility(View.VISIBLE);
-            if(showCustomActionRight) customActionRight.setVisibility(View.VISIBLE);
-
-            canFadeControls = true;
-            boolean playing = state == PlayerConstants.PlayerState.PLAYING;
-            updatePlayPauseButtonIcon(playing);
-
-            if(playing)
-                startFadeOutViewTimer();
-            else
-                handler.removeCallbacks(fadeOutRunnable);
+            updatePlayPauseButtonIcon(state == PlayerConstants.PlayerState.PLAYING);
 
         } else {
             updatePlayPauseButtonIcon(false);
-            fadeControls(1f);
 
             if(state == PlayerConstants.PlayerState.BUFFERING) {
-                panel.setBackgroundColor(ContextCompat.getColor(youTubePlayerView.getContext(), android.R.color.transparent));
-                if(showPlayPauseButton) playPauseButton.setVisibility(View.INVISIBLE);
+                panel.setBackgroundColor(ContextCompat.getColor(panel.getContext(), android.R.color.transparent));
+                if(isPlayPauseButtonEnabled) playPauseButton.setVisibility(View.INVISIBLE);
 
                 customActionLeft.setVisibility(View.GONE);
                 customActionRight.setVisibility(View.GONE);
-
-                canFadeControls = false;
             }
 
             if(state == PlayerConstants.PlayerState.UNSTARTED) {
-                canFadeControls = false;
-
                 progressBar.setVisibility(View.GONE);
-                if(showPlayPauseButton) playPauseButton.setVisibility(View.VISIBLE);
+                if(isPlayPauseButtonEnabled) playPauseButton.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -432,7 +340,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=" + videoId + "#t=" + youtubePlayerSeekBar.getSeekBar().getProgress()));
-                controlsRoot.getContext().startActivity(intent);
+                youTubeButton.getContext().startActivity(intent);
             }
         });
     }

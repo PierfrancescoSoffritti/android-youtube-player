@@ -35,6 +35,9 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null): Linea
 
         val fontSize = typedArray.getDimensionPixelSize(R.styleable.YouTubePlayerSeekBar_fontSize, resources.getDimensionPixelSize(R.dimen.ayp_12sp))
         val color = typedArray.getColor(R.styleable.YouTubePlayerSeekBar_color, ContextCompat.getColor(context, R.color.ayp_red))
+
+        typedArray.recycle()
+
         val padding = resources.getDimensionPixelSize(R.dimen.ayp_8dp)
 
         videoCurrentTimeTextView.text = resources.getString(R.string.ayp_null_time)
@@ -74,7 +77,7 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null): Linea
         DrawableCompat.setTint(seekBar.progressDrawable, color)
     }
 
-    private fun updateControlsState(state: PlayerConstants.PlayerState) {
+    private fun updateState(state: PlayerConstants.PlayerState) {
         when (state) {
             PlayerConstants.PlayerState.ENDED -> isPlaying = false
             PlayerConstants.PlayerState.PAUSED -> isPlaying = false
@@ -112,7 +115,7 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null): Linea
 
     override fun onStateChange(state: PlayerConstants.PlayerState) {
         newSeekBarProgress = -1
-        updateControlsState(state)
+        updateState(state)
     }
 
     override fun onCurrentSecond(second: Float) {
