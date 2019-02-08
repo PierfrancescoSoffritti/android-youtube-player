@@ -726,7 +726,7 @@ If there are some problems, the result of the operation is delivered through the
 
 Once you're sure the user's GooglePlayServices is all right, you can create the `ChromecastYouTubePlayerContext`. The access point to the *chromecast-sender* library.
 
-*(For Java users: `PlayServicesUtils.checkGooglePlayServicesAvailability` expects a Kotlin function, therefore your Java function will have to return a `Unit` object. This is the same as returning `void`. This ugly syntax will be fixed when Kotlin will have a better way to map its functions to Java)*
+*(For Java users: `PlayServicesUtils.checkGooglePlayServicesAvailability` expects a Kotlin function for last argument, therefore your Java function will have to return a `Unit` object. This is the same as returning `void`. This syntax will be fixed when Kotlin will have a better way to map its functions to Java)*
 
 ```java
 private Unit initChromecast() {
