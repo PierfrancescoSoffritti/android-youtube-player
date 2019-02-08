@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SampleAppTemplateActivity.class);
 
         intent.putExtra(Constants.TITLE.name(), getString(R.string.app_name));
-        intent.putExtra(Constants.GITHUB_URL.name(), "https://github.com/PierfrancescoSoffritti/android-youtube-player");
-        intent.putExtra(Constants.HOMEPAGE_URL.name(), "https://pierfrancescosoffritti.github.io/android-youtube-player");
+        intent.putExtra(Constants.GITHUB_URL.name(), "https://github.com/PierfrancescoSoffritti/android-youtube-player/");
+        intent.putExtra(Constants.HOMEPAGE_URL.name(), "https://pierfrancescosoffritti.github.io/android-youtube-player/");
         intent.putExtra(Constants.PLAYSTORE_PACKAGE_NAME.name(), "com.pierfrancescosoffritti.aytplayersample");
 
         ExampleActivityDetails[] examples = new ExampleActivityDetails[]{
