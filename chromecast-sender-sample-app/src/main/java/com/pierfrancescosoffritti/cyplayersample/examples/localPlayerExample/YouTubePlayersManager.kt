@@ -13,7 +13,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.utils.YouTubePlayerTracke
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView
 import com.pierfrancescosoffritti.cyplayersample.R
 import com.pierfrancescosoffritti.cyplayersample.ui.SimpleChromecastUIController
-import com.pierfrancescosoffritti.cyplayersample.utils.PlaybackUtils
+import com.pierfrancescosoffritti.cyplayersample.utils.VideoIdsProvider
 
 /**
  * Class used to manage the two YouTubePlayers, local and cast.
@@ -41,7 +41,7 @@ class YouTubePlayersManager(
 
     init {
         initLocalYouTube(localYouTubePlayerInitListener)
-        nextVideoButton.setOnClickListener { chromecastYouTubePlayer?.loadVideo(PlaybackUtils.getNextVideoId(), 0f) }
+        nextVideoButton.setOnClickListener { chromecastYouTubePlayer?.loadVideo(VideoIdsProvider.getNextVideoId(), 0f) }
     }
 
     override fun onChromecastConnecting() {
@@ -87,7 +87,7 @@ class YouTubePlayersManager(
             youtubePlayer.addListener(object : AbstractYouTubePlayerListener() {
                 override fun onReady() {
                     if(!playingOnCastPlayer)
-                        youtubePlayer.loadVideo(PlaybackUtils.getNextVideoId(), chromecastPlayerStateTracker.currentSecond)
+                        youtubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), chromecastPlayerStateTracker.currentSecond)
 
                     localYouTubePlayerInitListener.onLocalYouTubePlayerInit()
                 }

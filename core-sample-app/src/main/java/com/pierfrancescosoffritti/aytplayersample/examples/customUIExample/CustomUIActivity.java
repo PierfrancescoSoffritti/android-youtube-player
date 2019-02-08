@@ -6,12 +6,11 @@ import android.view.View;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.aytplayersample.R;
+import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class CustomUIActivity extends AppCompatActivity {
-
-    private String[] videoIds = {"6JYIGclVQdw", "LvetJ9U_tVY"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +31,7 @@ public class CustomUIActivity extends AppCompatActivity {
             youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
                 @Override
                 public void onReady() {
-                    youTubePlayer.loadVideo(videoIds[0], 0);
+                    youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0);
                 }
             });
 

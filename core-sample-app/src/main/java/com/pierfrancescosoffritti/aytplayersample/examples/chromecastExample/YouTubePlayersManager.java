@@ -13,7 +13,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubeP
 import com.pierfrancescosoffritti.androidyoutubeplayer.utils.YouTubePlayerTracker;
 import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.ui.SimpleChromecastUIController;
-import com.pierfrancescosoffritti.aytplayersample.utils.PlaybackUtils;
+import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,7 +51,7 @@ public class YouTubePlayersManager implements ChromecastConnectionListener {
         initLocalYouTube(localYouTubePlayerInitListener);
         nextVideoButton.setOnClickListener(view -> {
             if(chromecastYouTubePlayer != null)
-                chromecastYouTubePlayer.loadVideo(PlaybackUtils.getNextVideoId(), 0f);
+                chromecastYouTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f);
         });
     }
 
@@ -105,7 +105,7 @@ public class YouTubePlayersManager implements ChromecastConnectionListener {
             youtubePlayer.addListener(new AbstractYouTubePlayerListener() {
                 public void onReady() {
                     if (!playingOnCastPlayer)
-                        youtubePlayer.loadVideo(PlaybackUtils.getNextVideoId(), chromecastPlayerStateTracker.getCurrentSecond());
+                        youtubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), chromecastPlayerStateTracker.getCurrentSecond());
 
                     localYouTubePlayerInitListener.onLocalYouTubePlayerInit();
                 }

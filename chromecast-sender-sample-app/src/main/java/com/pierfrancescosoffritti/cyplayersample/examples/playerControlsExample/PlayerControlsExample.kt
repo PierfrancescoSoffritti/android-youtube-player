@@ -16,7 +16,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubeP
 import com.pierfrancescosoffritti.cyplayersample.R
 import com.pierfrancescosoffritti.cyplayersample.utils.MediaRouteButtonUtils
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.utils.PlayServicesUtils
-import com.pierfrancescosoffritti.cyplayersample.utils.PlaybackUtils
+import com.pierfrancescosoffritti.cyplayersample.utils.VideoIdsProvider
 import com.pierfrancescosoffritti.cyplayersample.ui.SimpleChromecastUIController
 import kotlinx.android.synthetic.main.activity_player_controls_example.*
 
@@ -78,14 +78,14 @@ class PlayerControlsExample : AppCompatActivity() {
 
                 chromecast_controls_root
                         .findViewById<Button>(R.id.next_video_button)
-                        .setOnClickListener { youtubePlayer.loadVideo(PlaybackUtils.getNextVideoId(), 0f) }
+                        .setOnClickListener { youtubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f) }
 
                 chromecastUIController.youTubePlayer = youtubePlayer
 
                 youtubePlayer.addListener(chromecastUIController)
 
                 youtubePlayer.addListener(object: AbstractYouTubePlayerListener() {
-                    override fun onReady() = youtubePlayer.loadVideo(PlaybackUtils.getNextVideoId(), 0f)
+                    override fun onReady() = youtubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f)
 
                     override fun onStateChange(state: PlayerConstants.PlayerState) {
                         when(state) {

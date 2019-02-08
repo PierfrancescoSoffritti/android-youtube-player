@@ -14,6 +14,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.aytplayersample.R;
+import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,7 +25,6 @@ import java.util.Random;
 
 public class PlayerStatusActivity extends AppCompatActivity {
 
-    private String[] videoIds = {"6JYIGclVQdw", "LvetJ9U_tVY"};
     private List<Pair<Date, String>> playerStatesHistory = new ArrayList<>();
 
     @Override
@@ -47,7 +47,7 @@ public class PlayerStatusActivity extends AppCompatActivity {
             youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
                 @Override
                 public void onReady() {
-                    loadVideo(youTubePlayer, videoIds[0]);
+                    loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
                 }
 
                 @Override
@@ -119,8 +119,7 @@ public class PlayerStatusActivity extends AppCompatActivity {
         Button playNextVideoButton = findViewById(R.id.next_video_button);
 
         playNextVideoButton.setOnClickListener(view -> {
-            String videoId = videoIds[new Random().nextInt(videoIds.length)];
-            loadVideo(youTubePlayer, videoId);
+            loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
         });
     }
 }

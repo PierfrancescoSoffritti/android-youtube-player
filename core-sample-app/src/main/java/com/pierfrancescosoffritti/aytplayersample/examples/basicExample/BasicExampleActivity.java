@@ -15,6 +15,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.Abstract
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.PlayerUIController;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.menu.MenuItem;
+import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 import com.pierfrancescosoffritti.aytplayersample.utils.VideoInfo;
 import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.aytplayersample.utils.FullScreenHelper;
@@ -33,8 +34,6 @@ public class BasicExampleActivity extends AppCompatActivity {
 
     private YouTubePlayerView youTubePlayerView;
     private FullScreenHelper fullScreenHelper = new FullScreenHelper(this);
-
-    private String[] videoIds = {"6JYIGclVQdw", "LvetJ9U_tVY"};
 
     // a list of videos not available in some countries, to test if they're handled gracefully.
     // private String[] nonPlayableVideoIds = { "sop2V_MREEI" };
@@ -76,7 +75,7 @@ public class BasicExampleActivity extends AppCompatActivity {
             youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
                 @Override
                 public void onReady() {
-                    loadVideo(youTubePlayer, videoIds[0]);
+                    loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
                 }
             });
 
@@ -157,8 +156,7 @@ public class BasicExampleActivity extends AppCompatActivity {
         Button playNextVideoButton = findViewById(R.id.next_video_button);
 
         playNextVideoButton.setOnClickListener(view -> {
-            String videoId = videoIds[new Random().nextInt(videoIds.length)];
-            loadVideo(youTubePlayer, videoId);
+            loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
         });
     }
 

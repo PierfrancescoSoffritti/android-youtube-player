@@ -8,6 +8,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.aytplayersample.R;
+import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 
 import java.util.Random;
 
@@ -17,8 +18,6 @@ import androidx.lifecycle.Lifecycle;
 public class WebUIExampleActivity extends AppCompatActivity {
 
     private YouTubePlayerView youTubePlayerView;
-
-    private String[] videoIds = {"6JYIGclVQdw", "LvetJ9U_tVY"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +36,7 @@ public class WebUIExampleActivity extends AppCompatActivity {
             youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
                 @Override
                 public void onReady() {
-                    loadVideo(youTubePlayer, videoIds[0]);
+                    loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
                 }
             });
 
@@ -59,8 +58,7 @@ public class WebUIExampleActivity extends AppCompatActivity {
         Button playNextVideoButton = findViewById(R.id.next_video_button);
 
         playNextVideoButton.setOnClickListener(view -> {
-            String videoId = videoIds[new Random().nextInt(videoIds.length)];
-            loadVideo(youTubePlayer, videoId);
+            loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
         });
     }
 }

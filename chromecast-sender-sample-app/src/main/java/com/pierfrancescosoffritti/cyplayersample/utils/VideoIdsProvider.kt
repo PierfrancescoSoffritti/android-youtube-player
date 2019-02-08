@@ -2,10 +2,11 @@ package com.pierfrancescosoffritti.cyplayersample.utils
 
 import java.util.*
 
-object PlaybackUtils {
+object VideoIdsProvider {
     private val videoIds = arrayOf("6JYIGclVQdw", "LvetJ9U_tVY", "S0Q4gqBUs7c", "zOa-rSM4nms")
+    private val random = Random()
 
     fun getNextVideoId(): String {
-        return videoIds[Random().nextInt(videoIds.size)]
+        return videoIds[random.nextInt(videoIds.size)]
     }
 }

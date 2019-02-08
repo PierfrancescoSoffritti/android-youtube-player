@@ -12,7 +12,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubeP
 import com.pierfrancescosoffritti.cyplayersample.R
 import com.pierfrancescosoffritti.cyplayersample.utils.MediaRouteButtonUtils
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.utils.PlayServicesUtils
-import com.pierfrancescosoffritti.cyplayersample.utils.PlaybackUtils
+import com.pierfrancescosoffritti.cyplayersample.utils.VideoIdsProvider
 import kotlinx.android.synthetic.main.activity_basic_example.*
 
 class BasicExampleActivity : AppCompatActivity() {
@@ -61,7 +61,7 @@ class BasicExampleActivity : AppCompatActivity() {
 
                 youtubePlayer.addListener(object: AbstractYouTubePlayerListener() {
                     override fun onReady() {
-                        youtubePlayer.loadVideo(PlaybackUtils.getNextVideoId(), 0f)
+                        youtubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f)
                     }
                 })
                 

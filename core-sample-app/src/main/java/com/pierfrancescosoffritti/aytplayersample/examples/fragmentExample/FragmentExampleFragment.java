@@ -10,6 +10,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.aytplayersample.R;
+import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 
 import java.util.Random;
 
@@ -21,8 +22,6 @@ public class FragmentExampleFragment extends Fragment {
 
     private YouTubePlayerView youTubePlayerView;
     private Button playNextVideoButton;
-
-    private String[] videoIds = {"6JYIGclVQdw", "LvetJ9U_tVY"};
 
     public FragmentExampleFragment() {}
 
@@ -50,7 +49,7 @@ public class FragmentExampleFragment extends Fragment {
             youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
                 @Override
                 public void onReady() {
-                    loadVideo(youTubePlayer, videoIds[0]);
+                    loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
                 }
             });
 
@@ -68,8 +67,7 @@ public class FragmentExampleFragment extends Fragment {
 
     private void setPlayNextVideoButtonClickListener(final YouTubePlayer youTubePlayer) {
         playNextVideoButton.setOnClickListener(view -> {
-            String videoId = videoIds[new Random().nextInt(videoIds.length)];
-            loadVideo(youTubePlayer, videoId);
+            loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
         });
     }
 }

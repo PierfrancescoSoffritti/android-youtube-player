@@ -10,6 +10,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.aytplayersample.R;
+import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,6 @@ import androidx.lifecycle.Lifecycle;
 public class PictureInPictureActivity extends AppCompatActivity {
 
     private YouTubePlayerView youTubePlayerView;
-    private String[] videoIds = {"6JYIGclVQdw"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class PictureInPictureActivity extends AppCompatActivity {
             youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
                 @Override
                 public void onReady() {
-                    loadVideo(youTubePlayer, videoIds[0]);
+                    loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
                 }
             });
         }, true);

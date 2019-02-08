@@ -9,13 +9,14 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.aytplayersample.R;
+import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 public class ViewPagerFragment extends Fragment {
 
-    private String videoId = "6JYIGclVQdw";
+    private String videoId = VideoIdsProvider.getNextVideoId();
     private YouTubePlayer initializedYouTubePlayer;
 
     @Override
