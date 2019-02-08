@@ -5,12 +5,11 @@ import android.os.Bundle;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.aytplayersample.R;
+import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LiveVideoActivity extends AppCompatActivity {
-
-    private final String liveVideoId = "2ccaHpy5Ewo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +31,7 @@ public class LiveVideoActivity extends AppCompatActivity {
             youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
                 @Override
                 public void onReady() {
-                    youTubePlayer.loadVideo(liveVideoId,0f);
+                    youTubePlayer.loadVideo(VideoIdsProvider.getNextLiveVideoId(),0f);
                 }
             });
         }, true);
