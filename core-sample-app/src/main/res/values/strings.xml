@@ -4,11 +4,11 @@
     <string name="recycler_view_example">RecyclerView example</string>
     <string name="custom_ui_example">Custom UI example</string>
     <string name="view_pager_example">ViewPager example</string>
-    <string name="live_video_example">LiveVideo example</string>
-    <string name="player_status_example">PlayerStatus example</string>
+    <string name="live_video_example">Live video example</string>
+    <string name="player_status_example">Player status example</string>
     <string name="picture_in_picture_example">PictureInPicture example</string>
     <string name="chromecast_example">Chromecast example</string>
     <string name="fragment_example">Fragment Example</string>
     <string name="iframe_player_options_example">IFrame Player Options Example</string>
-    <string name="web_ui_example">WebUI Example</string>
+    <string name="web_ui_example">Web UI Example</string>
 </resources>
