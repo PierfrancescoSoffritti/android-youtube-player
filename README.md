@@ -66,6 +66,7 @@ A list of published apps that are using this library: ([let me know](https://git
     5. [Create your own custom UI](#create-your-own-custom-ui)
         1. [Reusable UI components](#reusable-ui-components)
             1. [YouTubePlayerSeekBar](#youtubeplayerseekbar)
+            2. [FadingFrameLayout](#fadingframelayout)
     6. [Menu](#menu)
         1. [YouTubePlayerMenu](#youtubeplayermenu)
         2. [DefaultYouTubePlayerMenu](#defaultyoutubeplayermenu)
@@ -521,6 +522,33 @@ youtubePlayerSeekBar.setYoutubePlayerSeekBarListener(new YouTubePlayerSeekBarLis
     youTubePlayer.seekTo(time);
   }
 });
+```
+
+#### FadingFrameLayout
+A ViewGroup that automatically fades out when not touched. It can be used a container for the player controls, so that they automatically fade when appropriate.
+
+The `FadingFrameLayout` is a `YouTubePlayerListener` therefore it can change it's behaviour based on the state of the player. For example: if the video is paused it won't automatically fade out.
+
+You can add it to your layout programatically or in your xml.
+
+```xml
+<com.pierfrancescosoffritti.androidyoutubeplayer.ui.views.FadingFrameLayout
+  android:id="@+id/controls_container"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+
+  app:animationDuration="300"
+  app:fadeOutDelay="3000" >
+  ...
+</com.pierfrancescosoffritti.androidyoutubeplayer.ui.views.FadingFrameLayout
+```
+
+It is possible to change the animation duration and fade out delay by using the `animationDuration` and `fadeOutDelay` attributes. These attribute take the time in milliseconds.
+
+In order for `FadingFrameLayout` to work properly you need to add it as a listener to your `YouTubePlayer` object.
+
+```java
+youTubePlayer.addListener(fadingFrameLayout);
 ```
 
 ## Menu
