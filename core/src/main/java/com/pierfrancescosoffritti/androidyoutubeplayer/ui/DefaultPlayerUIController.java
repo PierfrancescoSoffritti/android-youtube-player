@@ -427,18 +427,6 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     }
 
     @Override
-    public void onCurrentSecond(float second) {
-    }
-
-    @Override
-    public void onVideoDuration(float duration) {
-    }
-
-    @Override
-    public void onVideoLoadedFraction(float loadedFraction) {
-    }
-
-    @Override
     public void onVideoId(@NonNull final String videoId) {
         youTubeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -454,4 +442,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     @Override public void onPlaybackRateChange(@NonNull PlayerConstants.PlaybackRate rate) { }
     @Override public void onError(@NonNull PlayerConstants.PlayerError error) { }
     @Override public void onApiChange() { }
+    @Override public void onCurrentSecond(float second) { }
+    @Override public void onVideoDuration(float duration) { }
+    @Override public void onVideoLoadedFraction(float loadedFraction) { }
 }

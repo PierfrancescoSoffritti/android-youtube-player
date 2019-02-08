@@ -63,11 +63,13 @@ A list of published apps that are using this library: ([let me know](https://git
         1. [Show video title](#show-video-title)
         2. [Live videos](#live-videos)
         3. [Custom actions](#custom-actions)
-    5. [Menu](#menu)
+    5. [Create your own custom UI](#create-your-own-custom-ui)
+        1. [Reusable UI components](#reusable-ui-components)
+            1. [YouTubePlayerSeekBar](#youtubeplayerseekbar)
+    6. [Menu](#menu)
         1. [YouTubePlayerMenu](#youtubeplayermenu)
         2. [DefaultYouTubePlayerMenu](#defaultyoutubeplayermenu)
         3. [MenuItem](#menuitem)
-    6. [Create your own custom UI](#create-your-own-custom-ui)
     7. [Network events](#network-events)
     8. [Chromecast support](#chromecast-support)
     9. [Useful info](#useful-info)
@@ -312,6 +314,8 @@ PlayerUIController YouTubePlayerView.getPlayerUIController();
 ```
 You can read more about PlayerUIController [here](#playeruicontroller).
 
+You can also build your own custom UI, [read more here](#create-your-own-custom-ui).
+
 ### Release the YouTubePlayerView
 Remember to release the `YouTubePlayerView` when you're done using it, by calling `YouTubePlayerView.release()`.
 
@@ -444,36 +448,6 @@ PlayerUIController.removeView(View view);
 
 The View will be added to the top of the player.
 
-## Menu
-You can use these methods to control the menu's behavior:
-
-``` java
-PlayerUIController.showMenuButton(boolean show);
-PlayerUIController.setMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener);
-```
-
-By default the menu icon is not visible.
-
-The default `OnClickListener` opens the default menu.
-
-### YouTubePlayerMenu
-Internally the menu is represented by a `YouTubePlayerMenu`. You can see its contract [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/ui/menu/YouTubePlayerMenu.java).
-
-You can get a reference of the `YouTubePlayerMenu` from the `PlayerUIController`, using the method
-`PlayerUIController.getMenu()`.
-
-You can add your own implementation of `YouTubePlayerMenu` using `PlayerUIController.setMenu(YouTubePlayerMenu youTubePlayerMenu)`.
-
-### DefaultYouTubePlayerMenu
-The default implementation of `YouTubePlayerMenu` (provided by the library) shows a popup window when its `show()` method is called. The popup window contains a list of `MenuItem`s. You can see the implementation of the default menu [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/ui/menu/defaultMenu/DefaultYouTubePlayerMenu.java).
-
-Unless you want to provide a different UX to your users you can safely use the default implementation of `YouTubePlayerMenu`. Otherwise you can change the click listener of the menu icon or provide a custom implementation of `YouTubePlayerMenu`.
-
-Initially the menu doesn't contain any `MenuItem`. You need to add them, using the method `YouTubePlayerMenu.addItem(MenuItem menuItem)`.
-
-### MenuItem
-`MenuItem`s are the entries in the `YouTubePlayerMenu`. They are POJOs with a String of text, an icon and a OnClickListener. [Here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/ui/menu/MenuItem.java) is the implementation.
-
 ## Create your own custom UI
 Customization is an important aspect of this library. If need to, you can completely replace the default UI of the player.
 
@@ -510,6 +484,74 @@ A post on this topic is available [here](https://medium.com/@soffritti.pierfranc
 Sample app example:
 
 ![Sample app example](https://media.giphy.com/media/SradsoNdy1DNVGHGy5/giphy.gif)
+
+### Reusable UI components
+The library provides some pre-built UI components, these components are useful to reduce the time needed to build your own UI and controllers.
+
+#### YouTubePlayerSeekBar
+This component is useful to display and control the time of the playback. It shows the current time, the total duration of the video and a seek bar.
+
+![YouTubePlayerSeekBar](./pics/YouTubePlayerSeekBar.jpg)
+
+You can add it to your layout programatically or in your xml.
+
+```xml
+<com.pierfrancescosoffritti.androidyoutubeplayer.ui.views.YouTubePlayerSeekBar
+  android:id="@+id/youtube_player_seekbar"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+
+  app:fontSize="12sp"
+  app:color="@color/red" />
+```
+It is possible to change font size and color by using the `fontSize` and `color` attributes.
+
+`YouTubePlayerSeekBar` implements `YouTubePlayerListener`. In order for it to work you need to add it as a listener to your `YouTubePlayer` object.
+
+```java
+youTubePlayer.addListener(youtubePlayerSeekBar);
+```
+
+You may wan to listen to events from `YouTubePlayerSeekBar`, in order to update the current time of your `YouTubePlayer` when the user moves the touch bar. To do that pass a `YouTubePlayerSeekBarListener` to `YouTubePlayerSeekBar`.
+
+```java
+youtubePlayerSeekBar.setYoutubePlayerSeekBarListener(new YouTubePlayerSeekBarListener() {
+  @Override
+  public void seekTo(float time) {
+    youTubePlayer.seekTo(time);
+  }
+});
+```
+
+## Menu
+You can use these methods to control the menu's behavior:
+
+``` java
+PlayerUIController.showMenuButton(boolean show);
+PlayerUIController.setMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener);
+```
+
+By default the menu icon is not visible.
+
+The default `OnClickListener` opens the default menu.
+
+### YouTubePlayerMenu
+Internally the menu is represented by a `YouTubePlayerMenu`. You can see its contract [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/ui/menu/YouTubePlayerMenu.java).
+
+You can get a reference of the `YouTubePlayerMenu` from the `PlayerUIController`, using the method
+`PlayerUIController.getMenu()`.
+
+You can add your own implementation of `YouTubePlayerMenu` using `PlayerUIController.setMenu(YouTubePlayerMenu youTubePlayerMenu)`.
+
+### DefaultYouTubePlayerMenu
+The default implementation of `YouTubePlayerMenu` (provided by the library) shows a popup window when its `show()` method is called. The popup window contains a list of `MenuItem`s. You can see the implementation of the default menu [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/ui/menu/defaultMenu/DefaultYouTubePlayerMenu.java).
+
+Unless you want to provide a different UX to your users you can safely use the default implementation of `YouTubePlayerMenu`. Otherwise you can change the click listener of the menu icon or provide a custom implementation of `YouTubePlayerMenu`.
+
+Initially the menu doesn't contain any `MenuItem`. You need to add them, using the method `YouTubePlayerMenu.addItem(MenuItem menuItem)`.
+
+### MenuItem
+`MenuItem`s are the entries in the `YouTubePlayerMenu`. They are POJOs with a String of text, an icon and a OnClickListener. [Here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/ui/menu/MenuItem.java) is the implementation.
 
 ## Network events
 This library is capable of handling network events, using an internal BroadcastReceiver. You can choose to use it or not when you are initializing the player.

@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
@@ -23,7 +24,6 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null): Linea
     private var isPlaying = false
 
     var showBufferingProgress = true
-
     var youtubePlayerSeekBarListener: YouTubePlayerSeekBarListener? = null
 
     val videoCurrentTimeTextView = TextView(context)
@@ -35,36 +35,43 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null): Linea
 
         val fontSize = typedArray.getDimensionPixelSize(R.styleable.YouTubePlayerSeekBar_fontSize, resources.getDimensionPixelSize(R.dimen.ayp_12sp))
         val color = typedArray.getColor(R.styleable.YouTubePlayerSeekBar_color, ContextCompat.getColor(context, R.color.ayp_red))
-
         val padding = resources.getDimensionPixelSize(R.dimen.ayp_8dp)
 
         videoCurrentTimeTextView.text = resources.getString(R.string.ayp_null_time)
         videoCurrentTimeTextView.setPadding(padding, padding, 0, padding)
         videoCurrentTimeTextView.setTextColor(ContextCompat.getColor(context, android.R.color.white))
-        videoCurrentTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
         videoCurrentTimeTextView.gravity = Gravity.CENTER_VERTICAL
 
         videoDurationTextView.text = resources.getString(R.string.ayp_null_time)
         videoDurationTextView.setPadding(0, padding, padding, padding)
         videoDurationTextView.setTextColor(ContextCompat.getColor(context, android.R.color.white))
-        videoDurationTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize.toFloat())
         videoDurationTextView.gravity = Gravity.CENTER_VERTICAL
 
+        setFontSize(fontSize.toFloat())
+
         seekBar.setPadding(padding*2, padding, padding*2, padding)
-        DrawableCompat.setTint(seekBar.thumb, color)
-        DrawableCompat.setTint(seekBar.progressDrawable, color)
+        setColor(color)
 
         addView(videoCurrentTimeTextView, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT))
-
-        val layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT)
-        layoutParams.weight = 1f
-        addView(seekBar, layoutParams)
-
+        addView(seekBar, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))
         addView(videoDurationTextView, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT))
 
         gravity = Gravity.CENTER_VERTICAL
 
         seekBar.setOnSeekBarChangeListener(this)
+    }
+
+    /**
+     * @param fontSize in pixels.
+     */
+    fun setFontSize(fontSize: Float) {
+        videoCurrentTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+        videoDurationTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+    }
+
+    fun setColor(@ColorInt color: Int) {
+        DrawableCompat.setTint(seekBar.thumb, color)
+        DrawableCompat.setTint(seekBar.progressDrawable, color)
     }
 
     private fun updateControlsState(state: PlayerConstants.PlayerState) {
