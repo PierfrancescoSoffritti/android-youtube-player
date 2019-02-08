@@ -205,19 +205,36 @@ layout.addView(youtubePlayerView);
 if the height of the View is set to `wrap_content`, the View will automatically have an aspect ratio of 16:9, to fit the aspect ratio of YouTube videos.
 
 ### Initialization
-In order to use the YouTube player you need to initialize it. To do that, call 
-`YouTubePlayerView.initialize(YouTubePlayerInitListener listener, boolean handleNetworkEvents)` or 
-`YouTubePlayerView.initialize(YouTubePlayerInitListener listener, boolean handleNetworkEvents, IFramePlayerOptions iframePlayerOptions)`.
+In order to use the YouTube player you need to initialize it. To do that you use three methods: 
+```java
+YouTubePlayerView.initialize(YouTubePlayerInitListener listener, boolean handleNetworkEvents)
+```
+```java
+YouTubePlayerView.initializeWithWebUI(YouTubePlayerInitListener listener, boolean handleNetworkEvents)
+```
+```java
+YouTubePlayerView.initialize(YouTubePlayerInitListener listener, boolean handleNetworkEvents, IFramePlayerOptions iframePlayerOptions)
+```
+#### `initialize(YouTubePlayerInitListener, boolean)`
+This methods takes in a [`YouTubePlayerInitListener`](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/listeners/YouTubePlayerInitListener.java) and a `boolean`. The `boolean` parameter is used to tell the library whether it should handle network events or not, read more about network events [here](#network-events).
 
-This methods takes in a [YouTubePlayerInitListener](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/listeners/YouTubePlayerInitListener.java) and a boolean. The boolean parameter is used to tell the library whether it should handle network events or not, read more about network events [here](#network-events).
+The function `onInitSuccess(YouTubePlayer initializedYouTubePlayer)` of the `YouTubePlayerInitListener` will be called by the library once the initialization is completed. That is, when the IFrame YouTube player has been download in the WebView.
+The argument of the function is a reference to the initialized `YouTubePlayer` object. The `YouTubePlayer` is the object responsible for handling the playback of YouTube videos, read more about it [here](#youtubeplayer).
 
-The callback `YouTubePlayerInitListener.onInitSuccess(YouTubePlayer initializedYouTubePlayer)` will be called by the library when the initialization is completed. That is, when the IFrame YouTube player has been download in the WebView.
-The argument of the function is a reference to the initialized YouTubePlayer object. The YouTubePlayer is the object responsible for handling the playback of YouTube videos, read more about it [here](#youtubeplayer).
+#### `initializeWithWebUI(YouTubePlayerInitListener, boolean)`
+This method is identical to `initialize(YouTubePlayerInitListener, boolean)` but it disables the native UI of the player and uses the web-based UI of the IFrame Player API.
 
-The `IFramePlayerOptions` is an optional paramenter that can be used to set some of the paramenters of the IFrame YouTubePlayer. All the possible parameters and values are listed [here](https://developers.google.com/youtube/player_parameters#Parameters).
+Because the native UI is disabled trying to call `YouTubePlayerView.getPlayerUIController()` will throw an exception.
+
+YouTube added some non-removable buttons to the IFrame Player, as mentioned in [this issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues/242). Using the web-based UI is the only way to have access to these non-removable buttons.
+
+#### `initialize(YouTubePlayerInitListener, boolean, IFramePlayerOptions)`
+By passing an `IFramePlayerOptions` to the initialize method it is possible to set some of the paramenters of the IFrame YouTubePlayer. Read more about `IFramePlayerOptions` [here](#iframeplayeroptions).
+
+All the possible parameters and values are listed [here](https://developers.google.com/youtube/player_parameters#Parameters). Not all of them are supported in this library because some don't make sense in this context. [Open an issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues) if you need a parameter that is not currently supported.
 
 ### IFramePlayerOptions
-The `IFramePlayerOptions` is an optional paramenter that can be passed to `YouTubePlayerView.initialize(YouTubePlayerInitListener listener, boolean handleNetworkEvents, IFramePlayerOptions iframePlayerOptions)`, it can be used to set some of the paramenters of the IFrame YouTubePlayer. All the possible parameters and values are listed [here](https://developers.google.com/youtube/player_parameters#Parameters).
+The `IFramePlayerOptions` is an optional paramenter that can be passed to `YouTubePlayerView.initialize(YouTubePlayerInitListener, boolean, IFramePlayerOptions)`, it can be used to set some of the paramenters of the IFrame YouTubePlayer. All the possible parameters and values are listed [here](https://developers.google.com/youtube/player_parameters#Parameters).
 
 A simple example of how to use `IFramePlayerOptions` can be found in the sample app [here](./core-sample-app/src/main/java/com/pierfrancescosoffritti/aytplayersample/examples/iFramePlayerOptionsExample/IFramePlayerOptionsExampleActivity.java).
 
