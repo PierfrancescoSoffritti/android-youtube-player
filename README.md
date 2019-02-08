@@ -128,8 +128,6 @@ The *chromecast-sender* module is an optional extension library for the *core* m
 dependencies {
   implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:9.0.1'
   implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.17'
-
-  implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.0'
 }
 ```
 

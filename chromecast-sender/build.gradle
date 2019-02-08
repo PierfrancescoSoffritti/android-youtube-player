@@ -34,6 +34,5 @@ dependencies {
 
     api project(':core')
     api "com.google.android.gms:play-services-cast-framework:$versions.googlePlayServicesCastFramework"
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 }

@@ -8,16 +8,17 @@ import android.view.View;
 import com.google.android.gms.cast.framework.CastContext;
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.ChromecastYouTubePlayerContext;
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.infrastructure.ChromecastConnectionListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.utils.PlayServicesUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.aytplayersample.R;
-import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.utils.MediaRouteButtonUtils;
 import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.notifications.NotificationManager;
-import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.utils.PlayServicesUtils;
 import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.notifications.PlaybackControllerBroadcastReceiver;
+import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.utils.MediaRouteButtonUtils;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.mediarouter.app.MediaRouteButton;
+import kotlin.Unit;
 
 /**
  * Example Activity used to showcase how to use the chromecast-youtube-library extension to cast videos to a Chromecast device.
@@ -74,11 +75,13 @@ public class ChromecastExampleActivity extends AppCompatActivity implements YouT
             PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, this::initChromecast);
     }
 
-    private void initChromecast() {
+    private Unit initChromecast() {
         new ChromecastYouTubePlayerContext(
                 CastContext.getSharedInstance(this).getSessionManager(),
                 this, playbackControllerBroadcastReceiver, youTubePlayersManager
         );
+
+        return Unit.INSTANCE;
     }
 
     @Override
