@@ -1,44 +1,41 @@
 apply plugin: 'com.android.library'
-
-apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'org.jetbrains.dokka-android'
+apply plugin: 'kotlin-android'
+apply from: '../dependencies.gradle'
+
+ext.shard = 'chromecast-sender'
+ext.libVersion = versions.publishVersion_chromecast
+ext.libDescription = 'Extension for the android-youtube-player:core library, that enables Chromecast compatibility.'
+apply from: '../bintrayconfig.gradle'
 
 android {
-    compileSdkVersion compileSdk
-    buildToolsVersion buildTools
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
 
     defaultConfig {
-        minSdkVersion minSdk
-        targetSdkVersion targetSdk
-        versionCode versionCode_chromecast
-        versionName versionName_chromecast
-
-        consumerProguardFiles 'proguard-rules.pro'
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.compileSdk
+        versionCode versions.publishVersionCode_chromecast
+        versionName versions.publishVersion_chromecast
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
 
-dokka {
-    outputFormat = 'html'
-    outputDirectory = "$buildDir/javadoc"
+    sourceSets {
+        main.res.srcDirs = [
+            'src/main/res',
+            'src/main/res-public'
+        ]
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
+    testImplementation "junit:junit:$versions.junit"
+    androidTestImplementation "androidx.test:runner:$versions.runner"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
 
     api project(':core')
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.mediarouter:mediarouter:1.0.0'
-    implementation 'com.google.android.gms:play-services-cast-framework:16.1.2'
+    implementation "androidx.appcompat:appcompat:$versions.androidxCore"
+    implementation "androidx.mediarouter:mediarouter:$versions.androidxMediarouter"
+    implementation "com.google.android.gms:play-services-cast-framework:$versions.googlePlayServicesCastFramework"
 }
-
-apply from: rootProject.file('release-bintray.gradle')
