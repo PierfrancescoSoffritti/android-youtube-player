@@ -31,7 +31,7 @@ public class IFramePlayerOptionsExampleActivity extends AppCompatActivity {
     }
 
     private void initYouTubePlayerView() {
-        youTubePlayerView.inflateCustomPlayerUI(R.layout.empty_layout);
+        youTubePlayerView.inflateCustomPlayerUI(R.layout.ayp_empty_layout);
 
         IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
                 .controls(1)

@@ -89,7 +89,7 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
      */
     public void initializeWithWebUI(@NonNull final YouTubePlayerInitListener youTubePlayerInitListener, boolean handleNetworkEvents) {
         IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder().controls(1).build();
-        inflateCustomPlayerUI(R.layout.empty_layout);
+        inflateCustomPlayerUI(R.layout.ayp_empty_layout);
         initialize(youTubePlayerInitListener, handleNetworkEvents, iFramePlayerOptions);
     }
 

@@ -184,7 +184,7 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
 
     private String readYouTubePlayerHTMLFromFile() {
         try {
-            InputStream inputStream = getResources().openRawResource(R.raw.youtube_player);
+            InputStream inputStream = getResources().openRawResource(R.raw.ayp_youtube_player);
 
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);

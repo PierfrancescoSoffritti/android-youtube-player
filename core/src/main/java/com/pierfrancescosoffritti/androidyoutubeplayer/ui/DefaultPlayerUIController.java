@@ -78,7 +78,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
         this.youTubePlayerView = youTubePlayerView;
         this.youTubePlayer = youTubePlayer;
 
-        View defaultPlayerUI = View.inflate(youTubePlayerView.getContext(), R.layout.default_player_ui, youTubePlayerView);
+        View defaultPlayerUI = View.inflate(youTubePlayerView.getContext(), R.layout.ayp_default_player_ui, youTubePlayerView);
         initViews(defaultPlayerUI);
 
         youTubePlayerMenu = new DefaultYouTubePlayerMenu(youTubePlayerView.getContext());
@@ -295,7 +295,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     }
 
     private void updatePlayPauseButtonIcon(boolean playing) {
-        int img = playing ? R.drawable.ic_pause_36dp : R.drawable.ic_play_36dp;
+        int img = playing ? R.drawable.ayp_ic_pause_36dp : R.drawable.ayp_ic_play_36dp;
         playPauseButton.setImageResource(img);
     }
 
@@ -353,12 +353,12 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
 
     @Override
     public void onYouTubePlayerEnterFullScreen() {
-        fullScreenButton.setImageResource(R.drawable.ic_fullscreen_exit_24dp);
+        fullScreenButton.setImageResource(R.drawable.ayp_ic_fullscreen_exit_24dp);
     }
 
     @Override
     public void onYouTubePlayerExitFullScreen() {
-        fullScreenButton.setImageResource(R.drawable.ic_fullscreen_24dp);
+        fullScreenButton.setImageResource(R.drawable.ayp_ic_fullscreen_24dp);
     }
 
     // YouTubePlayer callbacks

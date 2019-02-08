@@ -1,4 +1,4 @@
 <ripple
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/item_selected">
+    android:color="@color/ayp_item_selected">
 </ripple>

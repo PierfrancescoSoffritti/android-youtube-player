@@ -4,8 +4,8 @@
     android:id="@+id/menu_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/menu_dialog_container_margin"
-    android:background="@drawable/shape_rounded_corners"
+    android:layout_margin="@dimen/ayp_menu_dialog_container_margin"
+    android:background="@drawable/ayp_shape_rounded_corners"
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView

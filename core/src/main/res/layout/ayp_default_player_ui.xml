@@ -23,14 +23,14 @@
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_alignParentTop="true"
-            android:background="@drawable/drop_shadow_top" />
+            android:background="@drawable/ayp_drop_shadow_top" />
 
         <View
             android:id="@+id/drop_shadow_bottom"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/drop_shadow_bottom" />
+            android:background="@drawable/ayp_drop_shadow_bottom" />
 
         <TextView
             android:id="@+id/video_title"
@@ -61,15 +61,15 @@
                 android:id="@+id/menu_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_menu_24dp"
+                android:src="@drawable/ayp_ic_menu_24dp"
 
                 android:visibility="gone"
 
                 android:clickable="true"
                 android:focusable="true"
-                android:background="@drawable/background_item_selected"
+                android:background="@drawable/ayp_background_item_selected"
 
-                android:contentDescription="@string/open_video_in_youtube" />
+                android:contentDescription="@string/ayp_open_video_in_youtube" />
 
         </LinearLayout>
 
@@ -77,17 +77,17 @@
             android:id="@+id/play_pause_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_play_36dp"
+            android:src="@drawable/ayp_ic_play_36dp"
 
             android:visibility="invisible"
 
             android:padding="8dp"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/background_item_selected"
+            android:background="@drawable/ayp_background_item_selected"
 
             android:layout_centerInParent="true"
-            android:contentDescription="@string/play_button" />
+            android:contentDescription="@string/ayp_play_button" />
 
         <ProgressBar
             android:id="@+id/progress"
@@ -111,7 +111,7 @@
                 android:id="@+id/video_current_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/null_time"
+                android:text="@string/ayp_null_time"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
 
@@ -127,9 +127,9 @@
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
 
-                android:thumbTint="@color/red"
-                android:progressTint="@color/red"
-                android:progressBackgroundTint="@color/red"
+                android:thumbTint="@color/ayp_red"
+                android:progressTint="@color/ayp_red"
+                android:progressBackgroundTint="@color/ayp_red"
 
                 android:maxHeight="100dp" />
 
@@ -137,7 +137,7 @@
                 android:id="@+id/video_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/null_time"
+                android:text="@string/ayp_null_time"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
 
@@ -148,7 +148,7 @@
                 android:id="@+id/live_video_indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/live"
+                android:text="@string/ayp_live"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
 
@@ -161,27 +161,27 @@
                 android:id="@+id/youtube_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_youtube_24dp"
+                android:src="@drawable/ayp_ic_youtube_24dp"
                 android:padding="8dp"
 
                 android:clickable="true"
                 android:focusable="true"
-                android:background="@drawable/background_item_selected"
+                android:background="@drawable/ayp_background_item_selected"
 
-                android:contentDescription="@string/open_video_in_youtube" />
+                android:contentDescription="@string/ayp_open_video_in_youtube" />
 
             <ImageView
                 android:id="@+id/fullscreen_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_fullscreen_24dp"
+                android:src="@drawable/ayp_ic_fullscreen_24dp"
                 android:padding="8dp"
 
                 android:clickable="true"
                 android:focusable="true"
-                android:background="@drawable/background_item_selected"
+                android:background="@drawable/ayp_background_item_selected"
 
-                android:contentDescription="@string/full_screen_button" />
+                android:contentDescription="@string/ayp_full_screen_button" />
 
         </LinearLayout>
 
@@ -189,7 +189,7 @@
             android:id="@+id/custom_action_left_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_play_36dp"
+            android:src="@drawable/ayp_ic_play_36dp"
 
             android:visibility="gone"
 
@@ -198,7 +198,7 @@
 
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/background_item_selected"
+            android:background="@drawable/ayp_background_item_selected"
 
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/play_pause_button" />
@@ -207,7 +207,7 @@
             android:id="@+id/custom_action_right_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_play_36dp"
+            android:src="@drawable/ayp_ic_play_36dp"
 
             android:visibility="gone"
 
@@ -216,7 +216,7 @@
 
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/background_item_selected"
+            android:background="@drawable/ayp_background_item_selected"
 
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/play_pause_button" />

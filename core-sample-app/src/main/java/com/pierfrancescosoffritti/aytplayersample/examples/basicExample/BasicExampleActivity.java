@@ -139,7 +139,7 @@ public class BasicExampleActivity extends AppCompatActivity {
      * Custom actions are shown next to the Play/Pause button in the middle of the player.
      */
     private void addCustomActionToPlayer(YouTubePlayer youTubePlayer) {
-        Drawable customActionIcon = ContextCompat.getDrawable(this, R.drawable.ic_pause_36dp);
+        Drawable customActionIcon = ContextCompat.getDrawable(this, R.drawable.ayp_ic_pause_36dp);
 
         youTubePlayerView.getPlayerUIController().setCustomAction1(customActionIcon, view -> {
             if(youTubePlayer != null) youTubePlayer.pause();

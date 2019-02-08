@@ -136,7 +136,7 @@ public class SimpleChromecastUIController extends AbstractYouTubePlayerListener 
     }
 
     private void updatePlayPauseButtonIcon(boolean playing) {
-        int img = playing ? R.drawable.ic_pause_36dp : R.drawable.ic_play_36dp;
+        int img = playing ? R.drawable.ayp_ic_pause_36dp : R.drawable.ayp_ic_play_36dp;
         playPauseButton.setImageResource(img);
     }
 

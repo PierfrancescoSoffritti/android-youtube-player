@@ -44,7 +44,7 @@
             app:layout_constraintBottom_toTopOf="@+id/chromecast_controls_low"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:src="@drawable/ic_play_36dp" />
+            android:src="@drawable/ayp_ic_play_36dp" />
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -121,7 +121,7 @@
                 android:padding="8dp"
                 android:tint="@android:color/black"
                 android:contentDescription="open on YouTube"
-                android:src="@drawable/ic_youtube_24dp" />
+                android:src="@drawable/ayp_ic_youtube_24dp" />
 
             <TextView
                 android:id="@+id/total_time_text_view"

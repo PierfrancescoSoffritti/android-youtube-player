@@ -114,7 +114,7 @@ class SimpleChromecastUIController(private val controls_view: View) : AbstractYo
     }
 
     private fun updatePlayPauseButtonIcon(playing: Boolean) {
-        val img = if (playing) R.drawable.ic_pause_36dp else R.drawable.ic_play_36dp
+        val img = if (playing) R.drawable.ayp_ic_pause_36dp else R.drawable.ayp_ic_play_36dp
         playPauseButton.setImageResource(img)
     }
 

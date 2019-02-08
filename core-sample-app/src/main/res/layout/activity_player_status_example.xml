@@ -15,7 +15,7 @@
         android:id="@+id/player_status_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_8dp"
+        android:padding="@dimen/ayp__8dp"
         android:text="Player states"/>
 
     <Button
