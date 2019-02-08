@@ -33,12 +33,11 @@ public class IFramePlayerOptionsExampleActivity extends AppCompatActivity {
         youTubePlayerView.inflateCustomPlayerUI(R.layout.ayp_empty_layout);
 
         IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
-                .controls(1)
+                .controls(0)
+                .rel(0)
+                .ivLoadPolicy(1)
                 .build();
 
-        // The player will automatically release itself when the activity is destroyed.
-        // The player will automatically pause when the activity is stopped
-        // If you don't add YouTubePlayerView as a lifecycle observer, you will have to release it manually.
         getLifecycle().addObserver(youTubePlayerView);
 
         youTubePlayerView.initialize(youTubePlayer -> {

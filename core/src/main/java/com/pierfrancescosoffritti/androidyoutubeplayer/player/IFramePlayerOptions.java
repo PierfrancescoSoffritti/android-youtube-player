@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 
 /**
  * {@link WebViewYouTubePlayer} options that correspond to the options listed here:
- * <a href="https://developers.google.com/youtube/player_parameters">IFrame player parameters</a>
+ * <a href="https://developers.google.com/youtube/player_parameters#Parameters">IFrame player parameters</a>
  */
 public class IFramePlayerOptions {
 
@@ -52,38 +52,30 @@ public class IFramePlayerOptions {
             addInt(MODEST_BRANDING, 1);
         }
 
-        public Builder autoplay(int autoplay) {
-            addInt(AUTOPLAY, autoplay);
-            return this;
-        }
-
+        /**
+         * This parameter indicates whether the player controls of the IFrame player are displayed.
+         * @param controls If the to 0: IFrame Player controls do not display in the player. If set to 1: IFrame Player controls display in the player.
+         */
         public Builder controls(int controls) {
             addInt(CONTROLS, controls);
             return this;
         }
 
-        public Builder origin(@NonNull String origin) {
-            addString(ORIGIN, origin);
-            return this;
-        }
-
+        /**
+         * This parameter controls the related videos shown at the end of a video.
+         * @param rel If set to 0, related videos will come from the same channel as the video that was just played. If set to 1, related videos will come from multiple channels.
+         */
         public Builder rel(int rel) {
             addInt(REL, rel);
             return this;
         }
 
-        public Builder showInfo(int showInfo) {
-            addInt(SHOW_INFO, showInfo);
-            return this;
-        }
-
+        /**
+         * Controls video annotations.
+         * @param ivLoadPolicy if set to 1: causes video annotations to be shown by default. If set to 3 causes video annotations to not be shown by default.
+         */
         public Builder ivLoadPolicy(int ivLoadPolicy) {
             addInt(IV_LOAD_POLICY, ivLoadPolicy);
-            return this;
-        }
-
-        public Builder modestBranding(int modestBranding) {
-            addInt(MODEST_BRANDING, modestBranding);
             return this;
         }
         
