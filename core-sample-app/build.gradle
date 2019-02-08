@@ -60,7 +60,7 @@ dependencies {
         exclude group: 'com.google.http-client', module: 'google-http-client-jackson2'
     }
 
-    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.12.0'
+    implementation 'com.psoffritti.librarysampleapptemplate:core:1.0.1'
 }
 
 /*

@@ -20,6 +20,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    // this is needed because I'm importing 2 modules called "core" (core and com.psoffritti.librarysampleapptemplate:core) (https://discuss.kotlinlang.org/t/disable-meta-inf-generation-in-gradle-android-project/3830)
+//    packagingOptions {
+//        exclude 'META-INF/core_release.kotlin_module'
+//    }
 }
 
 dependencies {
@@ -58,5 +63,5 @@ dependencies {
         exclude group: 'com.google.http-client', module: 'google-http-client-jackson2'
     }
 
-    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.12.0'
+    implementation 'com.psoffritti.librarysampleapptemplate:core:1.0.1'
 }
