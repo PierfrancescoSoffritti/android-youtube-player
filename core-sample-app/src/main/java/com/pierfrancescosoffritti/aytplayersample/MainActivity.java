@@ -36,14 +36,14 @@ public class MainActivity extends AppCompatActivity {
         ExampleActivityDetails[] examples = new ExampleActivityDetails[]{
                 new ExampleActivityDetails(R.string.basic_example,null, BasicExampleActivity.class),
                 new ExampleActivityDetails(R.string.web_ui_example,null, WebUIExampleActivity.class),
+                new ExampleActivityDetails(R.string.custom_ui_example,null, CustomUIActivity.class),
                 new ExampleActivityDetails(R.string.recycler_view_example,null, RecyclerViewActivity.class),
                 new ExampleActivityDetails(R.string.view_pager_example,null, ViewPagerActivity.class),
-                new ExampleActivityDetails(R.string.custom_ui_example,null, CustomUIActivity.class),
+                new ExampleActivityDetails(R.string.fragment_example,null, FragmentExampleActivity.class),
                 new ExampleActivityDetails(R.string.live_video_example,null, LiveVideoActivity.class),
                 new ExampleActivityDetails(R.string.player_status_example,null, PlayerStatusActivity.class),
                 new ExampleActivityDetails(R.string.picture_in_picture_example,null, PictureInPictureActivity.class),
                 new ExampleActivityDetails(R.string.chromecast_example,null, ChromecastExampleActivity.class),
-                new ExampleActivityDetails(R.string.fragment_example,null, FragmentExampleActivity.class),
                 new ExampleActivityDetails(R.string.iframe_player_options_example,null, IFramePlayerOptionsExampleActivity.class)
         };
 
