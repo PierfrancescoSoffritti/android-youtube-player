@@ -10,7 +10,7 @@ import android.widget.TextView
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.utils.Utils
+import com.pierfrancescosoffritti.androidyoutubeplayer.utils.Utilities
 import com.pierfrancescosoffritti.cyplayersample.R
 
 /**
@@ -54,7 +54,7 @@ class SimpleChromeCastUIController(private val controls_view: View) : AbstractYo
     }
 
     override fun onVideoDuration(youTubePlayer: YouTubePlayer, duration: Float) {
-        totalTimeTextView.text = Utils.formatTime(duration)
+        totalTimeTextView.text = Utilities.formatTime(duration)
         seekBar.max = duration.toInt()
     }
 
@@ -63,7 +63,7 @@ class SimpleChromeCastUIController(private val controls_view: View) : AbstractYo
             return
 
         // ignore if the current time is older than what the user selected with the SeekBar
-        if (newSeekBarProgress > 0 && Utils.formatTime(second) != Utils.formatTime(newSeekBarProgress.toFloat()))
+        if (newSeekBarProgress > 0 && Utilities.formatTime(second) != Utilities.formatTime(newSeekBarProgress.toFloat()))
             return
 
         newSeekBarProgress = -1
@@ -132,7 +132,7 @@ class SimpleChromeCastUIController(private val controls_view: View) : AbstractYo
     private var newSeekBarProgress = -1
 
     override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-        currentTimeTextView.text = Utils.formatTime(i.toFloat())
+        currentTimeTextView.text = Utilities.formatTime(i.toFloat())
     }
 
     override fun onStartTrackingTouch(seekBar: SeekBar) {

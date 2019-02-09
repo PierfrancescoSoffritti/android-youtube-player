@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
-import com.pierfrancescosoffritti.androidyoutubeplayer.utils.Utils;
+import com.pierfrancescosoffritti.androidyoutubeplayer.utils.Utilities;
 import com.pierfrancescosoffritti.aytplayersample.R;
 
 /**
@@ -76,7 +76,7 @@ public class SimpleChromeCastUIController extends AbstractYouTubePlayerListener 
 
     @Override
     public void onVideoDuration(@NonNull YouTubePlayer youTubePlayer, float duration) {
-        totalTimeTextView.setText(Utils.formatTime(duration));
+        totalTimeTextView.setText(Utilities.INSTANCE.formatTime(duration));
         seekBar.setMax((int) duration);
     }
 
@@ -86,7 +86,7 @@ public class SimpleChromeCastUIController extends AbstractYouTubePlayerListener 
             return;
 
         // ignore if the current time is older than what the user selected with the SeekBar
-        if (newSeekBarProgress > 0 && !Utils.formatTime(currentSecond).equals(Utils.formatTime(newSeekBarProgress)))
+        if (newSeekBarProgress > 0 && !Utilities.INSTANCE.formatTime(currentSecond).equals(Utilities.INSTANCE.formatTime(newSeekBarProgress)))
             return;
 
         newSeekBarProgress = -1;
@@ -158,7 +158,7 @@ public class SimpleChromeCastUIController extends AbstractYouTubePlayerListener 
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-        currentTimeTextView.setText(Utils.formatTime(i));
+        currentTimeTextView.setText(Utilities.INSTANCE.formatTime(i));
     }
 
     @Override

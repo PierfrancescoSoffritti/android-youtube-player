@@ -399,7 +399,8 @@ youtubePlayer.removeListener(YouTubePlayerListener listener);
 The `YouTubePlayerListener` interface exposes these methods, every method takes a reference to the `YouTubePlayer` and some other arguments.
 
 ```kotlin
-// Called when the player is ready to play videos. You should start using the player only after this method is called.
+// Called when the player is ready to play videos.
+// You should start using the player only after this method is called.
 fun onReady(youTubePlayer: YouTubePlayer)
 
 // Called every time the state of the player changes.

@@ -14,7 +14,6 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerFullScreenListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.FullScreenHelper
@@ -38,7 +37,7 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
     private val fullScreenHelper = FullScreenHelper(this)
 
     private var isInitialized = false
-    private var asyncInitialization = { }
+    private var youTubePlayerInitializer = { }
 
     var isUsingCustomUI = false
         private set
@@ -61,7 +60,7 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
 
         networkListener.onNetworkAvailable = {
             if (!isInitialized)
-                asyncInitialization()
+                youTubePlayerInitializer()
             else
                 playbackResumer.resume(youTubePlayer)
         }
@@ -78,12 +77,8 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
         if (handleNetworkEvents)
             context.registerReceiver(networkListener, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
 
-        asyncInitialization = {
-            youTubePlayer.initialize(object : YouTubePlayerInitListener {
-                override fun onInitSuccess(youTubePlayer: YouTubePlayer) {
-                    youTubePlayer.addListener(youTubePlayerListener)
-                }
-            }, playerOptions)
+        youTubePlayerInitializer = {
+            youTubePlayer.initialize({it.addListener(youTubePlayerListener)}, playerOptions)
         }
     }
 
@@ -151,8 +146,11 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
     private fun onStop() =
             youTubePlayer.pause()
 
+    /**
+     * Don't use this method if you want to publish your app on the PlayStore.
+     */
     fun enableBackgroundPlayback(enable: Boolean) {
-        youTubePlayer.backgroundPlaybackEnabled = enable
+        youTubePlayer.isBackgroundPlaybackEnabled = enable
     }
 
     fun getPlayerUIController(): PlayerUIController {

@@ -124,7 +124,7 @@ class LocalPlayerInitExampleActivity : AppCompatActivity(), YouTubePlayersManage
     }
 
     private val localPlayerUIMediaRouteButtonContainer = object: MediaRouteButtonContainer {
-        override fun addMediaRouteButton(mediaRouteButton: MediaRouteButton) = youtube_player_view.playerUIController.addView(mediaRouteButton)
-        override fun removeMediaRouteButton(mediaRouteButton: MediaRouteButton) = youtube_player_view.playerUIController.removeView(mediaRouteButton)
+        override fun addMediaRouteButton(mediaRouteButton: MediaRouteButton) = youtube_player_view.getPlayerUIController().addView(mediaRouteButton)
+        override fun removeMediaRouteButton(mediaRouteButton: MediaRouteButton) = youtube_player_view.getPlayerUIController().removeView(mediaRouteButton)
     }
 }

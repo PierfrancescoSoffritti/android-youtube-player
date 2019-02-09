@@ -45,7 +45,7 @@ public class IFramePlayerOptions {
             addInt(CONTROLS, 0);
             addInt(ENABLE_JS_API, 1);
             addInt(FS, 0);
-//            addString(ORIGIN, "https://www.youtube.com");
+            addString(ORIGIN, "https://www.youtube.com");
             addInt(REL, 0);
             addInt(SHOW_INFO, 0);
             addInt(IV_LOAD_POLICY, 3);
