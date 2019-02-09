@@ -15,7 +15,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.utils.InternalUtilities
-import com.pierfrancescosoffritti.androidyoutubeplayer.utils.Utilities
 
 import java.util.Collections
 import java.util.HashSet

@@ -67,6 +67,7 @@ A list of published apps that are using this library: ([let me know](https://git
         1. [Reusable UI components](#reusable-ui-components)
             1. [YouTubePlayerSeekBar](#youtubeplayerseekbar)
             2. [FadeViewHelper](#fadeviewhelper)
+            3. [TimeUtilities](#timeutilities)
     6. [Menu](#menu)
         1. [YouTubePlayerMenu](#youtubeplayermenu)
         2. [DefaultYouTubePlayerMenu](#defaultyoutubeplayermenu)
@@ -586,6 +587,11 @@ youTubePlayer.addListener(fadeViewHelper);
 Use the method `FadeViewHelper.setDisabled(boolean)` to disable the automatic fading.
 
 Use the method `FadeViewHelper.toggleVisibility()` to toggle the visibility of the target view, with a fade animation.
+
+## TimeUtilities
+An utility class containing method usefull to format the time.
+
+Use `fun formatTime(timeInSeconds: Float): String` to transform the time in seconds in a string with format "M:SS".
 
 ## Menu
 You can use these methods to control the menu's behavior:

@@ -14,7 +14,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.utils.Utilities
+import com.pierfrancescosoffritti.androidyoutubeplayer.ui.utils.TimeUtilities
 
 class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null): LinearLayout(context, attrs), SeekBar.OnSeekBarChangeListener, YouTubePlayerListener {
 
@@ -97,7 +97,7 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null): Linea
     // Seekbar
 
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-        videoCurrentTimeTextView.text = Utilities.formatTime(progress.toFloat())
+        videoCurrentTimeTextView.text = TimeUtilities.formatTime(progress.toFloat())
     }
 
     override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -124,7 +124,7 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null): Linea
         if (seekBarTouchStarted)
             return
         // ignore if the current time is older than what the user selected with the SeekBar
-        if (newSeekBarProgress > 0 && Utilities.formatTime(second) != Utilities.formatTime(newSeekBarProgress.toFloat()))
+        if (newSeekBarProgress > 0 && TimeUtilities.formatTime(second) != TimeUtilities.formatTime(newSeekBarProgress.toFloat()))
             return
 
         newSeekBarProgress = -1
@@ -133,7 +133,7 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null): Linea
     }
 
     override fun onVideoDuration(youTubePlayer: YouTubePlayer, duration: Float) {
-        videoDurationTextView.text = Utilities.formatTime(duration)
+        videoDurationTextView.text = TimeUtilities.formatTime(duration)
         seekBar.max = duration.toInt()
     }
 
