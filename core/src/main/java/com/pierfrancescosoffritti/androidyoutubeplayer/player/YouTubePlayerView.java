@@ -19,6 +19,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.playerUtils.Playba
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.DefaultPlayerUIController;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.PlayerUIController;
 import com.pierfrancescosoffritti.androidyoutubeplayer.utils.NetworkReceiver;
+import com.pierfrancescosoffritti.androidyoutubeplayer.utils.SixteenNineRatioFrameLayout;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
@@ -27,7 +28,7 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 
-public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.NetworkListener, LifecycleObserver {
+public class YouTubePlayerView extends SixteenNineRatioFrameLayout implements NetworkReceiver.NetworkListener, LifecycleObserver {
 
     @NonNull private final WebViewYouTubePlayer youTubePlayer;
     @Nullable private DefaultPlayerUIController defaultPlayerUIController;
@@ -63,16 +64,6 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         addYouTubePlayerListeners(youTubePlayer);
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        // if height == wrap content make the view 16:9
-        if(getLayoutParams().height == ViewGroup.LayoutParams.WRAP_CONTENT) {
-            int sixteenNineHeight = View.MeasureSpec.makeMeasureSpec(View.MeasureSpec.getSize(widthMeasureSpec) * 9 / 16, View.MeasureSpec.EXACTLY);
-            super.onMeasure(widthMeasureSpec, sixteenNineHeight);
-        } else
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    }
-
     /**
      * Initialize the player. You must call this method before using the player.
      * @param youTubePlayerListener listener for player events
@@ -100,19 +91,19 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     }
 
     /**
-     * Initialize the player. Network events are automatically handled by the player.
-     * @see YouTubePlayerView#initialize(YouTubePlayerListener, boolean, IFramePlayerOptions)
-     */
-    public void initialize(@NonNull final YouTubePlayerListener youTubePlayerListener) {
-        initialize(youTubePlayerListener, true);
-    }
-
-    /**
      * Initialize the player using the provided {@link IFramePlayerOptions} object.
      * @see YouTubePlayerView#initialize(YouTubePlayerListener, boolean, IFramePlayerOptions)
      */
     public void initialize(@NonNull final YouTubePlayerListener youTubePlayerListener, boolean handleNetworkEvents) {
         initialize(youTubePlayerListener, handleNetworkEvents, null);
+    }
+
+    /**
+     * Initialize the player. Network events are automatically handled by the player.
+     * @see YouTubePlayerView#initialize(YouTubePlayerListener, boolean, IFramePlayerOptions)
+     */
+    public void initialize(@NonNull final YouTubePlayerListener youTubePlayerListener) {
+        initialize(youTubePlayerListener, true);
     }
 
     /**
