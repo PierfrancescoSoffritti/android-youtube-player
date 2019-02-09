@@ -41,17 +41,25 @@ public class PlayerStateActivity extends AppCompatActivity {
 
         youTubePlayerView.initialize(youTubePlayer -> {
 
+            addToList("INITIALIZED", playerStatesHistory);
             setPlayNextVideoButtonClickListener(youTubePlayer);
 
             youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
                 @Override
                 public void onReady() {
+                    addToList("READY", playerStatesHistory);
                     loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
                 }
 
                 @Override
                 public void onStateChange(@NonNull PlayerConstants.PlayerState state) {
                     onNewState(state);
+                }
+
+                @Override
+                public void onError(@NonNull PlayerConstants.PlayerError error) {
+                    super.onError(error);
+                    addToList("ERROR: " +error.name(), playerStatesHistory);
                 }
             });
 
@@ -67,7 +75,7 @@ public class PlayerStateActivity extends AppCompatActivity {
     }
 
     private void addToList(String playerState, List<Pair<Date, String>> stateHistory) {
-        if(stateHistory.size() >= 10)
+        if(stateHistory.size() >= 20)
             stateHistory.remove(0);
         stateHistory.add(new Pair<>(new Date(), playerState));
     }
@@ -99,7 +107,7 @@ public class PlayerStateActivity extends AppCompatActivity {
             case PAUSED:
                 return "PAUSED";
             case BUFFERING:
-                    return "BUFFERING";
+                return "BUFFERING";
             case VIDEO_CUED:
                 return "VIDEO_CUED";
             default:
