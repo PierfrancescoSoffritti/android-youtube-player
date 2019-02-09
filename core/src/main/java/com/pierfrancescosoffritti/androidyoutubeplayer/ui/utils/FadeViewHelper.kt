@@ -43,9 +43,9 @@ class FadeViewHelper(val targetView: View): YouTubePlayerListener {
         // if the controls are shown and the player is playing they should automatically fade after a while.
         // otherwise don't do anything automatically
         if (finalAlpha == 1f && isPlaying)
-            targetView.handler.postDelayed(fadeOut, fadeOutDelay)
+            targetView.handler?.postDelayed(fadeOut, fadeOutDelay)
         else
-            targetView.handler.removeCallbacks(fadeOut)
+            targetView.handler?.removeCallbacks(fadeOut)
 
         targetView.animate()
                 .alpha(finalAlpha)
@@ -81,9 +81,9 @@ class FadeViewHelper(val targetView: View): YouTubePlayerListener {
             PlayerConstants.PlayerState.PLAYING, PlayerConstants.PlayerState.PAUSED, PlayerConstants.PlayerState.VIDEO_CUED -> {
                 canFade = true
                 if (state == PlayerConstants.PlayerState.PLAYING)
-                    targetView.handler.postDelayed(fadeOut, fadeOutDelay)
+                    targetView.handler?.postDelayed(fadeOut, fadeOutDelay)
                 else
-                    targetView.handler.removeCallbacks(fadeOut)
+                    targetView.handler?.removeCallbacks(fadeOut)
             }
             PlayerConstants.PlayerState.BUFFERING, PlayerConstants.PlayerState.UNSTARTED -> {
                 fade(1f)
