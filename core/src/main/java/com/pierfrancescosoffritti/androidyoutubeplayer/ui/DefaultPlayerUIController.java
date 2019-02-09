@@ -17,7 +17,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubeP
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.menu.YouTubePlayerMenu;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.menu.defaultMenu.DefaultYouTubePlayerMenu;
-import com.pierfrancescosoffritti.androidyoutubeplayer.ui.views.FadingFrameLayout;
+import com.pierfrancescosoffritti.androidyoutubeplayer.ui.utils.FadeViewHelper;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.views.YouTubePlayerSeekBar;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.views.YouTubePlayerSeekBarListener;
 
@@ -37,7 +37,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
      */
     private View panel;
 
-    private FadingFrameLayout controlsContainer;
+    private View controlsContainer;
     private LinearLayout extraViewsContainer;
 
     private TextView videoTitle;
@@ -56,6 +56,8 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
 
     @Nullable private View.OnClickListener onFullScreenButtonListener;
     @Nullable private View.OnClickListener onMenuButtonClickListener;
+
+    private FadeViewHelper fadeControlsContainer;
 
     private boolean isPlaying = false;
 
@@ -93,8 +95,10 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
 
         youtubePlayerSeekBar = controlsView.findViewById(R.id.youtube_player_seekbar);
 
+        fadeControlsContainer = new FadeViewHelper(controlsContainer);
+
         youTubePlayer.addListener(youtubePlayerSeekBar);
-        youTubePlayer.addListener(controlsContainer);
+        youTubePlayer.addListener(fadeControlsContainer);
 
         youtubePlayerSeekBar.setYoutubePlayerSeekBarListener(this);
         panel.setOnClickListener(this);
@@ -115,7 +119,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
 
     @Override
     public void showUI(boolean show) {
-        controlsContainer.setDisabled(!show);
+        fadeControlsContainer.setDisabled(!show);
         controlsContainer.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
     }
 
@@ -231,7 +235,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     @Override
     public void onClick(View view) {
         if(view == panel)
-            controlsContainer.toggleVisibility();
+            fadeControlsContainer.toggleVisibility();
         else if(view == playPauseButton)
             onPlayButtonPressed();
         else if(view == fullScreenButton)

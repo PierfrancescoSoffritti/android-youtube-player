@@ -1,15 +1,15 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.ui.views
+package com.pierfrancescosoffritti.androidyoutubeplayer.ui.utils
 
 import android.animation.Animator
-import android.content.Context
-import android.util.AttributeSet
 import android.view.View
-import android.widget.FrameLayout
-import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener
 
-class FadingFrameLayout(context: Context, attrs: AttributeSet? = null): FrameLayout(context, attrs), YouTubePlayerListener {
+class FadeViewHelper(val targetView: View): YouTubePlayerListener {
+    companion object {
+        const val  DEFAULT_ANIMATION_DURATION = 300L
+        const val  DEFAULT_FADE_OUT_DELAY = 3000L
+    }
 
     private var isPlaying = false
 
@@ -23,21 +23,12 @@ class FadingFrameLayout(context: Context, attrs: AttributeSet? = null): FrameLay
     /**
      * Duration of the fade animation in milliseconds.
      */
-    val animationDuration: Long
+    var animationDuration = DEFAULT_ANIMATION_DURATION
 
     /**
      * Delay after which the view automatically fades out.
      */
-    val fadeOutDelay: Long
-
-    init {
-        val typedArray = context.theme.obtainStyledAttributes(attrs, R.styleable.FadingFrameLayout, 0, 0)
-
-        animationDuration = typedArray.getInt(R.styleable.FadingFrameLayout_animationDuration, 300).toLong()
-        fadeOutDelay = typedArray.getInt(R.styleable.FadingFrameLayout_fadeOutDelay, 3000).toLong()
-
-        typedArray.recycle()
-    }
+    var fadeOutDelay = DEFAULT_FADE_OUT_DELAY
 
     fun toggleVisibility() {
         fade(if (isVisible) 0f else 1f)
@@ -52,20 +43,20 @@ class FadingFrameLayout(context: Context, attrs: AttributeSet? = null): FrameLay
         // if the controls are shown and the player is playing they should automatically fade after a while.
         // otherwise don't do anything automatically
         if (finalAlpha == 1f && isPlaying)
-            handler.postDelayed(fadeOut, fadeOutDelay)
+            targetView.handler.postDelayed(fadeOut, fadeOutDelay)
         else
-            handler.removeCallbacks(fadeOut)
+            targetView.handler.removeCallbacks(fadeOut)
 
-        animate()
+        targetView.animate()
                 .alpha(finalAlpha)
                 .setDuration(animationDuration)
                 .setListener(object : Animator.AnimatorListener {
                     override fun onAnimationStart(animator: Animator) {
-                        if (finalAlpha == 1f) visibility = View.VISIBLE
+                        if (finalAlpha == 1f) targetView.visibility = View.VISIBLE
                     }
 
                     override fun onAnimationEnd(animator: Animator) {
-                        if (finalAlpha == 0f) visibility = View.GONE
+                        if (finalAlpha == 0f) targetView.visibility = View.GONE
                     }
 
                     override fun onAnimationCancel(animator: Animator) {}
@@ -90,9 +81,9 @@ class FadingFrameLayout(context: Context, attrs: AttributeSet? = null): FrameLay
             PlayerConstants.PlayerState.PLAYING, PlayerConstants.PlayerState.PAUSED, PlayerConstants.PlayerState.VIDEO_CUED -> {
                 canFade = true
                 if (state == PlayerConstants.PlayerState.PLAYING)
-                    handler.postDelayed(fadeOut, fadeOutDelay)
+                    targetView.handler.postDelayed(fadeOut, fadeOutDelay)
                 else
-                    handler.removeCallbacks(fadeOut)
+                    targetView.handler.removeCallbacks(fadeOut)
             }
             PlayerConstants.PlayerState.BUFFERING, PlayerConstants.PlayerState.UNSTARTED -> {
                 fade(1f)

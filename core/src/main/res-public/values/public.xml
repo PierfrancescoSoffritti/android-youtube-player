@@ -5,7 +5,4 @@
     <public name="YouTubePlayerSeekBar_fontSize" type="attr" />
     <public name="YouTubePlayerSeekBar_color" type="attr" />
 
-    <public name="FadingFrameLayout_animationDuration" type="attr" />
-    <public name="FadingFrameLayout_fadeOutDelay" type="attr" />
-
 </resources>
