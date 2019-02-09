@@ -14,6 +14,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerFullScreenListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.FullScreenHelper
@@ -21,10 +22,10 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.PlaybackResu
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.DefaultPlayerUIController
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.PlayerUIController
 import com.pierfrancescosoffritti.androidyoutubeplayer.utils.NetworkListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.utils.SixteenNineRatioFrameLayout
+import com.pierfrancescosoffritti.androidyoutubeplayer.utils.SixteenByNineFrameLayout
 
 class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0):
-        SixteenNineRatioFrameLayout(context, attrs, defStyleAttr), LifecycleObserver {
+        SixteenByNineFrameLayout(context, attrs, defStyleAttr), LifecycleObserver {
 
     constructor(context: Context): this(context, null, 0)
     constructor(context: Context, attrs: AttributeSet? = null): this(context, attrs, 0)
@@ -36,8 +37,9 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
     private val playbackResumer = PlaybackResumer()
     private val fullScreenHelper = FullScreenHelper(this)
 
-    private var isInitialized = false
+    internal var isInitialized = false
     private var initialize = { }
+    private var initListener: YouTubePlayerInitListener? = null
 
     var isUsingCustomUI = false
         private set
@@ -54,6 +56,7 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
         youTubePlayer.addListener(object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 isInitialized = true
+                initListener?.onInitSuccess(youTubePlayer)
                 youTubePlayer.removeListener(this)
             }
         })
@@ -74,6 +77,9 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
      * @param playerOptions customizable options for the embedded video player, can be null.
      */
     fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean, playerOptions: IFramePlayerOptions?) {
+        if(isInitialized)
+            throw IllegalStateException("This YouTubePlayerView has already been initialized.")
+
         if (handleNetworkEvents)
             context.registerReceiver(networkListener, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
 
@@ -111,14 +117,21 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
     }
 
     /**
+     * @see YouTubePlayerView.initListener
+     */
+    fun onInitSuccess(youTubePlayerInitListener: YouTubePlayerInitListener) {
+        initListener = youTubePlayerInitListener
+    }
+
+    /**
      * Use this method to replace the default UI of the player with a custom UI.
      *
      * You will be responsible to manage the custom UI from your application,
      * the default controller obtained through [YouTubePlayerView.getPlayerUIController] won't be available anymore.
-     * @param customLayoutID the ID of the layout defining the custom UI.
+     * @param layoutId the ID of the layout defining the custom UI.
      * @return The inflated View
      */
-    fun inflateCustomPlayerUI(@LayoutRes customLayoutID: Int): View {
+    fun inflateCustomPlayerUI(@LayoutRes layoutId: Int): View {
         removeViews(1, childCount - 1)
 
         if (!isUsingCustomUI) {
@@ -128,7 +141,7 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
 
         isUsingCustomUI = true
 
-        return View.inflate(context, customLayoutID, this)
+        return View.inflate(context, layoutId, this)
     }
 
     /**

@@ -5,8 +5,9 @@
     <public name="YouTubePlayerSeekBar_fontSize" type="attr" />
     <public name="YouTubePlayerSeekBar_color" type="attr" />
 
-    <public name="ManagedYouTubePlayerView_useWebUI" type="attr" />
-    <public name="ManagedYouTubePlayerView_enableLiveVideoUI" type="attr" />
+    <public name="ManagedYouTubePlayerView_enableAutomaticInitialization" type="attr" />
+    <public name="ManagedYouTubePlayerView_useWebUi" type="attr" />
+    <public name="ManagedYouTubePlayerView_enableLiveVideoUi" type="attr" />
     <public name="ManagedYouTubePlayerView_videoId" type="attr" />
     <public name="ManagedYouTubePlayerView_autoPlay" type="attr" />
     <public name="ManagedYouTubePlayerView_handleNetworkEvents" type="attr" />

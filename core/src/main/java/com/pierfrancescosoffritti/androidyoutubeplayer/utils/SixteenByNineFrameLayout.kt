@@ -11,7 +11,7 @@ import androidx.annotation.RestrictTo
  * A FrameLayout with an aspect ration of 16:9, when the height is set to wrap_content.
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY)
-open class SixteenNineRatioFrameLayout: FrameLayout {
+open class SixteenByNineFrameLayout: FrameLayout {
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr)

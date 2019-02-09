@@ -2,7 +2,6 @@ package com.pierfrancescosoffritti.aytplayersample.examples.managedPlayerExample
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.View;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.ManagedYouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants;
@@ -33,22 +32,17 @@ public class ManagedPlayerActivity extends AppCompatActivity {
         managedYouTubePlayerView.addListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                setNextVideoButtonClickListener(youTubePlayer);
+                findViewById(R.id.next_video_button).setOnClickListener(view ->
+                                youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f)
+                );
+
+                youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f);
             }
 
             @Override
             public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState state) {
                 if(state == PlayerConstants.PlayerState.ENDED)
                     youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f);
-            }
-        });
-    }
-
-    private void setNextVideoButtonClickListener(YouTubePlayer youTubePlayer) {
-        findViewById(R.id.next_video_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f);
             }
         });
     }

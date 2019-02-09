@@ -6,8 +6,9 @@
     </declare-styleable>
 
     <declare-styleable name="ManagedYouTubePlayerView">
-        <attr name="useWebUI" format="boolean" />
-        <attr name="enableLiveVideoUI" format="boolean" />
+        <attr name="enableAutomaticInitialization" format="boolean" />
+        <attr name="useWebUi" format="boolean" />
+        <attr name="enableLiveVideoUi" format="boolean" />
         <attr name="videoId" format="string" />
         <attr name="autoPlay" format="boolean" />
         <attr name="handleNetworkEvents" format="boolean" />
