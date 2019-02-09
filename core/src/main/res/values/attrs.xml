@@ -4,4 +4,17 @@
         <attr name="fontSize" format="dimension" />
         <attr name="color" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="ManagedYouTubePlayerView">
+        <attr name="useWebUI" format="boolean" />
+        <attr name="enableLiveVideoUI" format="boolean" />
+        <attr name="videoId" format="string" />
+        <attr name="autoPlay" format="boolean" />
+        <attr name="handleNetworkEvents" format="boolean" />
+        <attr name="showYouTubeButton" format="boolean" />
+        <attr name="showFullScreenButton" format="boolean" />
+        <attr name="showVideoCurrentTime" format="boolean" />
+        <attr name="showVideoDuration" format="boolean" />
+        <attr name="showSeekBar" format="boolean" />
+    </declare-styleable>
 </resources>

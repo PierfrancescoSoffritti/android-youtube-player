@@ -9,6 +9,7 @@ import com.pierfrancescosoffritti.aytplayersample.examples.customUIExample.Custo
 import com.pierfrancescosoffritti.aytplayersample.examples.fragmentExample.FragmentExampleActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.iFramePlayerOptionsExample.IFramePlayerOptionsExampleActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.liveVideoExample.LiveVideoActivity;
+import com.pierfrancescosoffritti.aytplayersample.examples.managedPlayerExample.ManagedPlayerActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.pictureInPictureExample.PictureInPictureActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.playerStateExample.PlayerStateActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.recyclerViewExample.RecyclerViewActivity;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 new ExampleActivityDetails(R.string.basic_example,null, BasicExampleActivity.class),
                 new ExampleActivityDetails(R.string.web_ui_example,null, WebUIExampleActivity.class),
                 new ExampleActivityDetails(R.string.custom_ui_example,null, CustomUIActivity.class),
+                new ExampleActivityDetails(R.string.managed_player_example,null, ManagedPlayerActivity.class),
                 new ExampleActivityDetails(R.string.recycler_view_example,null, RecyclerViewActivity.class),
                 new ExampleActivityDetails(R.string.view_pager_example,null, ViewPagerActivity.class),
                 new ExampleActivityDetails(R.string.fragment_example,null, FragmentExampleActivity.class),

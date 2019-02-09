@@ -11,4 +11,5 @@
     <string name="fragment_example">Fragment Example</string>
     <string name="iframe_player_options_example">IFrame Player Options Example</string>
     <string name="web_ui_example">Web UI Example</string>
+    <string name="managed_player_example">Managed player example</string>
 </resources>

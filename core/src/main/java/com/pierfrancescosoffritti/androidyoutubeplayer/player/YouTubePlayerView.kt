@@ -29,7 +29,7 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
     constructor(context: Context): this(context, null, 0)
     constructor(context: Context, attrs: AttributeSet? = null): this(context, attrs, 0)
 
-    private val youTubePlayer: WebViewYouTubePlayer = WebViewYouTubePlayer(context)
+    internal val youTubePlayer: WebViewYouTubePlayer = WebViewYouTubePlayer(context)
     private val defaultPlayerUIController: DefaultPlayerUIController
 
     private val networkListener = NetworkListener()
@@ -37,7 +37,7 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
     private val fullScreenHelper = FullScreenHelper(this)
 
     private var isInitialized = false
-    private var youTubePlayerInitializer = { }
+    private var initialize = { }
 
     var isUsingCustomUI = false
         private set
@@ -60,7 +60,7 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
 
         networkListener.onNetworkAvailable = {
             if (!isInitialized)
-                youTubePlayerInitializer()
+                initialize()
             else
                 playbackResumer.resume(youTubePlayer)
         }
@@ -77,9 +77,12 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
         if (handleNetworkEvents)
             context.registerReceiver(networkListener, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
 
-        youTubePlayerInitializer = {
+        initialize = {
             youTubePlayer.initialize({it.addListener(youTubePlayerListener)}, playerOptions)
         }
+
+        if(!handleNetworkEvents)
+            initialize()
     }
 
     /**
@@ -143,8 +146,7 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    private fun onStop() =
-            youTubePlayer.pause()
+    private fun onStop() = youTubePlayer.pause()
 
     /**
      * Don't use this method if you want to publish your app on the PlayStore.
