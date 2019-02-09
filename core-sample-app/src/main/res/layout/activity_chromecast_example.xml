@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".examples.chromecastExample.ChromecastExampleActivity" >
+    tools:context=".examples.chromecastExample.ChromeCastExampleActivity" >
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView
         android:id="@+id/youtube_player_view"

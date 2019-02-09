@@ -12,8 +12,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.Abstract
 import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 
-import java.util.Random;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;

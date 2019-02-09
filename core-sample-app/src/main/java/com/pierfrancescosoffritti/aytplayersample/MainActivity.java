@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.pierfrancescosoffritti.aytplayersample.examples.basicExample.BasicExampleActivity;
-import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.ChromecastExampleActivity;
+import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.ChromeCastExampleActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.customUIExample.CustomUIActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.fragmentExample.FragmentExampleActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.iFramePlayerOptionsExample.IFramePlayerOptionsExampleActivity;
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 new ExampleActivityDetails(R.string.live_video_example,null, LiveVideoActivity.class),
                 new ExampleActivityDetails(R.string.player_status_example,null, PlayerStateActivity.class),
                 new ExampleActivityDetails(R.string.picture_in_picture_example,null, PictureInPictureActivity.class),
-                new ExampleActivityDetails(R.string.chromecast_example,null, ChromecastExampleActivity.class),
+                new ExampleActivityDetails(R.string.chromecast_example,null, ChromeCastExampleActivity.class),
                 new ExampleActivityDetails(R.string.iframe_player_options_example,null, IFramePlayerOptionsExampleActivity.class)
         };
 

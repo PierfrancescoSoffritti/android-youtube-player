@@ -72,7 +72,7 @@
             android:hardwareAccelerated="true"
             android:label="@string/web_ui_example" />
         <activity
-            android:name=".examples.chromecastExample.ChromecastExampleActivity"
+            android:name=".examples.chromecastExample.ChromeCastExampleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/chromecast_example" />

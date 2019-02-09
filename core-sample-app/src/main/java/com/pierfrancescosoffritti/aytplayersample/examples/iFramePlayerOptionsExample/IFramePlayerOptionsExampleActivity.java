@@ -3,9 +3,9 @@ package com.pierfrancescosoffritti.aytplayersample.examples.iFramePlayerOptionsE
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.options.IFramePlayerOptions;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;

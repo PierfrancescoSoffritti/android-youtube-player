@@ -311,7 +311,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
         updateState(state);
 
         if(state == PlayerConstants.PlayerState.PLAYING || state == PlayerConstants.PlayerState.PAUSED || state == PlayerConstants.PlayerState.VIDEO_CUED) {
-            panel.setBackgroundColor(ContextCompat.getColor(youTubePlayerView.getContext(), android.R.color.transparent));
+            panel.setBackgroundColor(ContextCompat.getColor(panel.getContext(), android.R.color.transparent));
             progressBar.setVisibility(View.GONE);
 
             if(isPlayPauseButtonEnabled) playPauseButton.setVisibility(View.VISIBLE);

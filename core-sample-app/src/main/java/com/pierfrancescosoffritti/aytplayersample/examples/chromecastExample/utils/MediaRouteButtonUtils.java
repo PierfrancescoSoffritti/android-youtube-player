@@ -12,7 +12,7 @@ import android.util.Log;
 
 import com.google.android.gms.cast.framework.CastButtonFactory;
 import com.pierfrancescosoffritti.aytplayersample.R;
-import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.ChromecastExampleActivity;
+import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.ChromeCastExampleActivity;
 
 public class MediaRouteButtonUtils {
     static public MediaRouteButton initMediaRouteButton(Context context) {
@@ -24,7 +24,7 @@ public class MediaRouteButtonUtils {
 
     static public void addMediaRouteButtonToPlayerUI(
             MediaRouteButton mediaRouteButton, int tintColor,
-            @Nullable ChromecastExampleActivity.MediaRouteButtonContainer disabledContainer, ChromecastExampleActivity.MediaRouteButtonContainer activatedContainer) {
+            @Nullable ChromeCastExampleActivity.MediaRouteButtonContainer disabledContainer, ChromeCastExampleActivity.MediaRouteButtonContainer activatedContainer) {
 
         setMediaRouterButtonTint(mediaRouteButton, tintColor);
 

@@ -24,7 +24,7 @@ import kotlin.Unit;
  * Example Activity used to showcase how to use the chromecast-youtube-library extension to cast videos to a Chromecast device.
  * See documentation here: <a href="https://github.com/PierfrancescoSoffritti/chromecast-youtube-player">chromecast-youtube-player</a>
  */
-public class ChromecastExampleActivity extends AppCompatActivity implements YouTubePlayersManager.LocalYouTubePlayerInitListener, ChromecastConnectionListener {
+public class ChromeCastExampleActivity extends AppCompatActivity implements YouTubePlayersManager.LocalYouTubePlayerInitListener, ChromecastConnectionListener {
 
     private int googlePlayServicesAvailabilityRequestCode = 1;
 
@@ -49,7 +49,7 @@ public class ChromecastExampleActivity extends AppCompatActivity implements YouT
 
         getLifecycle().addObserver(youTubePlayerView);
 
-        notificationManager = new NotificationManager(this, ChromecastExampleActivity.class);
+        notificationManager = new NotificationManager(this, ChromeCastExampleActivity.class);
 
         youTubePlayersManager = new YouTubePlayersManager(this, youTubePlayerView, chromecastControlsRoot, notificationManager);
         mediaRouteButton = MediaRouteButtonUtils.initMediaRouteButton(this);
