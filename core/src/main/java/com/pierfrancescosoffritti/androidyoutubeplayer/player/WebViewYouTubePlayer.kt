@@ -14,7 +14,7 @@ import android.webkit.WebView
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.options.IFramePlayerOptions
-import com.pierfrancescosoffritti.androidyoutubeplayer.utils.InternalUtilities
+import com.pierfrancescosoffritti.androidyoutubeplayer.utils.Utils
 
 import java.util.Collections
 import java.util.HashSet
@@ -94,7 +94,7 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
 
         addJavascriptInterface(YouTubePlayerBridge(this), "YouTubePlayerBridge")
 
-        val htmlPage = InternalUtilities
+        val htmlPage = Utils
                 .readHTMLFromFile(resources.openRawResource(R.raw.ayp_youtube_player))
                 .replace("<<injectedPlayerVars>>", playerOptions.toString())
 
