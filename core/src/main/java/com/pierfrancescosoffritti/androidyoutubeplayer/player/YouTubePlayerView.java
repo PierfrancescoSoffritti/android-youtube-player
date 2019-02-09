@@ -14,8 +14,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.Abstract
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener;
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.playerUtils.FullScreenHelper;
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.playerUtils.PlaybackResumer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.options.IFramePlayerOptions;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.FullScreenHelper;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.PlaybackResumer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.DefaultPlayerUIController;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.PlayerUIController;
 import com.pierfrancescosoffritti.androidyoutubeplayer.utils.NetworkReceiver;
@@ -58,7 +59,7 @@ public class YouTubePlayerView extends SixteenNineRatioFrameLayout implements Ne
 
         playbackResumer = new PlaybackResumer();
         networkReceiver = new NetworkReceiver(this);
-        fullScreenHelper = new FullScreenHelper();
+        fullScreenHelper = new FullScreenHelper(this);
 
         fullScreenHelper.addFullScreenListener(defaultPlayerUIController);
         addYouTubePlayerListeners(youTubePlayer);
@@ -183,11 +184,11 @@ public class YouTubePlayerView extends SixteenNineRatioFrameLayout implements Ne
     }
 
     public void enterFullScreen() {
-        fullScreenHelper.enterFullScreen(this);
+        fullScreenHelper.enterFullScreen();
     }
 
     public void exitFullScreen() {
-        fullScreenHelper.exitFullScreen(this);
+        fullScreenHelper.exitFullScreen();
     }
 
     public boolean isFullScreen() {
@@ -195,7 +196,7 @@ public class YouTubePlayerView extends SixteenNineRatioFrameLayout implements Ne
     }
 
     public void toggleFullScreen() {
-        fullScreenHelper.toggleFullScreen(this);
+        fullScreenHelper.toggleFullScreen();
     }
 
     public boolean addFullScreenListener(@NonNull YouTubePlayerFullScreenListener fullScreenListener) {

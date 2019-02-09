@@ -15,6 +15,7 @@ import android.webkit.WebView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.R;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.options.IFramePlayerOptions;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

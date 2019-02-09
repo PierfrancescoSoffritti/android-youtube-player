@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.player;
+package com.pierfrancescosoffritti.androidyoutubeplayer.player.options;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import androidx.annotation.NonNull;
 
 /**
- * {@link WebViewYouTubePlayer} options that correspond to the options listed here:
+ * Options used to configure the IFrame Player. All the options are listed here:
  * <a href="https://developers.google.com/youtube/player_parameters#Parameters">IFrame player parameters</a>
  */
 public class IFramePlayerOptions {

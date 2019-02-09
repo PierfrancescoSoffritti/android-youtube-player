@@ -214,14 +214,18 @@ YouTubePlayerView.initializeWithWebUI(YouTubePlayerListener listener, boolean ha
 ```java
 YouTubePlayerView.initialize(YouTubePlayerListener listener, boolean handleNetworkEvents, IFramePlayerOptions iframePlayerOptions)
 ```
-#### `initialize(YouTubePlayerListener, boolean)`
-This methods takes in a [`YouTubePlayerListener`](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/listeners/YouTubePlayerListener.kt) and a `boolean`. The `boolean` parameter is used to tell the library whether it should handle network events or not, read more about network events [here](#network-events).
-
-The function `YouTubePlayerListener.onReady(YouTubePlayer)` will be called by the library once the initialization is completed. That is, when the IFrame YouTube player has been download in the WebView.
-The argument of the function is a reference to the initialized `YouTubePlayer` object. The `YouTubePlayer` is the object responsible for handling the playback of YouTube videos, read more about it [here](#youtubeplayer).
-
 #### `initialize(YouTubePlayerListener)`
-This method is identical to `initialize(YouTubePlayerListener, boolean)` but the `boolean` value is automatically set to `true`, therefore the player will handle network events.
+Initialize the `YouTubePlayer`. Network events are automatically handles by the player.
+
+The argument is a `YouTubePlayerListener`, you can read more about it [here](#youtubeplayerlistener).
+
+#### `initialize(YouTubePlayerListener, boolean)`
+Initialize the `YouTubePlayer`. By using the `boolean` is possible to decide if the player should handle network events or not, read more about network events [here](#network-events).
+
+#### `initialize(YouTubePlayerListener, boolean, IFramePlayerOptions)`
+By passing an `IFramePlayerOptions` to the initialize method it is possible to set some of the paramenters of the IFrame YouTubePlayer. Read more about `IFramePlayerOptions` [here](#iframeplayeroptions).
+
+All the possible parameters and values are listed [here](https://developers.google.com/youtube/player_parameters#Parameters). Not all of them are supported in this library because some don't make sense in this context. [Open an issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues) if you need a parameter that is not currently supported.
 
 #### `initializeWithWebUI(YouTubePlayerListener, boolean)`
 This method is identical to `initialize(YouTubePlayerListener, boolean)` but it disables the native UI of the player and uses the web-based UI of the IFrame Player API.
@@ -229,11 +233,6 @@ This method is identical to `initialize(YouTubePlayerListener, boolean)` but it 
 Because the native UI is disabled trying to call `YouTubePlayerView.getPlayerUIController()` will throw an exception.
 
 YouTube added some non-removable buttons to the IFrame Player, as mentioned in [this issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues/242). Using the web-based UI is the only way to have access to these non-removable buttons.
-
-#### `initialize(YouTubePlayerListener, boolean, IFramePlayerOptions)`
-By passing an `IFramePlayerOptions` to the initialize method it is possible to set some of the paramenters of the IFrame YouTubePlayer. Read more about `IFramePlayerOptions` [here](#iframeplayeroptions).
-
-All the possible parameters and values are listed [here](https://developers.google.com/youtube/player_parameters#Parameters). Not all of them are supported in this library because some don't make sense in this context. [Open an issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues) if you need a parameter that is not currently supported.
 
 ### IFramePlayerOptions
 The `IFramePlayerOptions` is an optional paramenter that can be passed to `YouTubePlayerView.initialize(YouTubePlayerListener, boolean, IFramePlayerOptions)`, it can be used to set some of the paramenters of the IFrame YouTubePlayer.
@@ -397,8 +396,41 @@ During its existence a `YouTubePlayer` will constantly emit events, you can list
 youtubePlayer.addListener(YouTubePlayerListener listener);
 youtubePlayer.removeListener(YouTubePlayerListener listener);
 ```
+The `YouTubePlayerListener` interface exposes these methods, every method takes a reference to the `YouTubePlayer` and some other arguments.
 
-If you don't want to implement all the methods of the `YouTubePlayerListener` interface, you can extend `AbstractYouTubePlayerListener` instead of implementing `YouTubePlayerListener` and override only the methods you are interested in.
+```kotlin
+// Called when the player is ready to play videos. You should start using the player only after this method is called.
+fun onReady(youTubePlayer: YouTubePlayer)
+
+// Called every time the state of the player changes.
+fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState)
+
+// Called every time the quality of the playback changes.
+fun onPlaybackQualityChange(youTubePlayer: YouTubePlayer, playbackQuality: PlayerConstants.PlaybackQuality)
+
+// Called every time the speed of the playback changes.
+fun onPlaybackRateChange(youTubePlayer: YouTubePlayer, playbackRate: PlayerConstants.PlaybackRate)
+
+// Called when an error occurs in the player.
+fun onError(youTubePlayer: YouTubePlayer, error: PlayerConstants.PlayerError)
+
+// Called periodically by the player, the argument is the number of seconds that have been played.
+fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float)
+
+// Called when the total duration of the video is loaded.
+// Note that getDuration() will return 0 until the video's metadata is loaded, which normally happens just after the video starts playing.
+fun onVideoDuration(youTubePlayer: YouTubePlayer, duration: Float)
+
+// Called periodically by the player, the argument is the percentage of the video that has been buffered.
+fun onVideoLoadedFraction(youTubePlayer: YouTubePlayer, loadedFraction: Float)
+
+// Called when the id of the current video is loaded
+fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String)
+
+fun onApiChange(youTubePlayer: YouTubePlayer)
+```
+
+If you don't want to implement all the methods of this interface, you can extend `AbstractYouTubePlayerListener` instead of implementing `YouTubePlayerListener` and override only the methods you are interested in.
 
 For more information on the methods defined in the `YouTubePlayerListener` interface, please refer to the documentation defined above each method [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/listeners/YouTubePlayerListener.kt).
 
