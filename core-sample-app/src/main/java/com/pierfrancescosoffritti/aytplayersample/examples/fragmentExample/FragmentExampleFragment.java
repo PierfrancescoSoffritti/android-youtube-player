@@ -44,17 +44,13 @@ public class FragmentExampleFragment extends Fragment {
         // If you don't add YouTubePlayerView as a lifecycle observer, you will have to release it manually.
         getLifecycle().addObserver(youTubePlayerView);
 
-        youTubePlayerView.initialize(youTubePlayer -> {
+        youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                setPlayNextVideoButtonClickListener(youTubePlayer);
 
-            youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
-                @Override
-                public void onReady() {
-                    loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
-                }
-            });
-
-            setPlayNextVideoButtonClickListener(youTubePlayer);
-
+                loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
+            }
         }, true);
     }
 

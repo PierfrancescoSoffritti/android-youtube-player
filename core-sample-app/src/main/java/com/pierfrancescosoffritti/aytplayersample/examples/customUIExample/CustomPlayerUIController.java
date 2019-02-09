@@ -69,12 +69,12 @@ class CustomPlayerUIController extends AbstractYouTubePlayerListener implements 
     }
 
     @Override
-    public void onReady() {
+    public void onReady(@NonNull YouTubePlayer youTubePlayer) {
         progressbar.setVisibility(View.GONE);
     }
 
     @Override
-    public void onStateChange(@NonNull PlayerConstants.PlayerState state) {
+    public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState state) {
         if(state == PlayerConstants.PlayerState.PLAYING || state == PlayerConstants.PlayerState.PAUSED || state == PlayerConstants.PlayerState.VIDEO_CUED)
             panel.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent));
         else
@@ -84,13 +84,13 @@ class CustomPlayerUIController extends AbstractYouTubePlayerListener implements 
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onCurrentSecond(float second) {
+    public void onCurrentSecond(@NonNull YouTubePlayer youTubePlayer, float second) {
         videoCurrentTimeTextView.setText(second+"");
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onVideoDuration(float duration) {
+    public void onVideoDuration(@NonNull YouTubePlayer youTubePlayer, float duration) {
         videoDurationTextView.setText(duration+"");
     }
 

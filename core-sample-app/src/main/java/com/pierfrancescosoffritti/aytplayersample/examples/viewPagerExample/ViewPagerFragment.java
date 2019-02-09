@@ -28,19 +28,18 @@ public class ViewPagerFragment extends Fragment {
         getLifecycle().addObserver(youTubePlayerView);
         youTubePlayerView.getPlayerUIController().showFullscreenButton(false);
 
-        youTubePlayerView.initialize(initializedYouTubePlayer -> {
-            initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
-                @Override
-                public void onReady() {
-                    initializedYouTubePlayer.cueVideo(videoId, 0);
-                    ViewPagerFragment.this.initializedYouTubePlayer = initializedYouTubePlayer;
-                }
-            });
+        youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                youTubePlayer.cueVideo(videoId, 0);
+                initializedYouTubePlayer = youTubePlayer;
+            }
         }, true);
 
         return view;
     }
 
+    // pause when fragment goes offscreen
     @Override
     public void setMenuVisibility(final boolean visible) {
         super.setMenuVisibility(visible);

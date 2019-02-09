@@ -19,7 +19,7 @@ public class PlaybackResumer extends AbstractYouTubePlayerListener {
     private String currentVideoId;
     private float currentSecond;
 
-    public  void resume(YouTubePlayer youTubePlayer) {
+    public void resume(YouTubePlayer youTubePlayer) {
         if(isPlaying && error == PlayerConstants.PlayerError.HTML_5_PLAYER)
             youTubePlayer.loadVideo(currentVideoId, currentSecond);
         else if(!isPlaying && error == PlayerConstants.PlayerError.HTML_5_PLAYER)
@@ -30,7 +30,7 @@ public class PlaybackResumer extends AbstractYouTubePlayerListener {
 
     @SuppressLint("SwitchIntDef")
     @Override
-    public void onStateChange(@NonNull PlayerConstants.PlayerState state) {
+    public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState state) {
         switch (state) {
             case ENDED:
                 isPlaying = false;
@@ -42,23 +42,22 @@ public class PlaybackResumer extends AbstractYouTubePlayerListener {
                 isPlaying = true;
                 return;
             default:
-                return;
         }
     }
 
     @Override
-    public void onError(@NonNull PlayerConstants.PlayerError error) {
+    public void onError(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerError error) {
         if(error == PlayerConstants.PlayerError.HTML_5_PLAYER)
             this.error = error;
     }
 
     @Override
-    public void onCurrentSecond(float second) {
+    public void onCurrentSecond(@NonNull YouTubePlayer youTubePlayer, float second) {
         this.currentSecond = second;
     }
 
     @Override
-    public void onVideoId(@NonNull String videoId) {
+    public void onVideoId(@NonNull YouTubePlayer youTubePlayer, @NonNull String videoId) {
         this.currentVideoId = videoId;
     }
 }

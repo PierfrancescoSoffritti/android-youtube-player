@@ -12,7 +12,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.Abstract
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.utils.YouTubePlayerTracker;
 import com.pierfrancescosoffritti.aytplayersample.R;
-import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.ui.SimpleChromecastUIController;
+import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.ui.SimpleChromeCastUIController;
 import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 
 import androidx.annotation.NonNull;
@@ -29,7 +29,7 @@ public class YouTubePlayersManager implements ChromecastConnectionListener {
     private final YouTubePlayerView youtubePlayerView;
     private final YouTubePlayerListener chromecastPlayerListener;
 
-    private final SimpleChromecastUIController chromecastUIController;
+    private final SimpleChromeCastUIController chromecastUIController;
 
     @Nullable private YouTubePlayer localYouTubePlayer = null;
     @Nullable private YouTubePlayer chromecastYouTubePlayer = null;
@@ -46,7 +46,7 @@ public class YouTubePlayersManager implements ChromecastConnectionListener {
         this.chromecastPlayerListener = chromecastPlayerListener;
 
         Button nextVideoButton = chromecastControls.findViewById(R.id.next_video_button);
-        chromecastUIController = new SimpleChromecastUIController(chromecastControls);
+        chromecastUIController = new SimpleChromeCastUIController(chromecastControls);
 
         initLocalYouTube(localYouTubePlayerInitListener);
         nextVideoButton.setOnClickListener(view -> {
@@ -80,7 +80,7 @@ public class YouTubePlayersManager implements ChromecastConnectionListener {
         playingOnCastPlayer = false;
     }
 
-    public SimpleChromecastUIController getChromecastUIController() {
+    public SimpleChromeCastUIController getChromecastUIController() {
         return chromecastUIController;
     }
 
@@ -98,43 +98,39 @@ public class YouTubePlayersManager implements ChromecastConnectionListener {
     }
 
     private void initLocalYouTube(LocalYouTubePlayerInitListener localYouTubePlayerInitListener) {
-        youtubePlayerView.initialize(youtubePlayer -> {
-            this.localYouTubePlayer = youtubePlayer;
-            youtubePlayer.addListener(localPlayerStateTracker);
+        youtubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                localYouTubePlayer = youTubePlayer;
+                youTubePlayer.addListener(localPlayerStateTracker);
 
-            youtubePlayer.addListener(new AbstractYouTubePlayerListener() {
-                public void onReady() {
-                    if (!playingOnCastPlayer)
-                        youtubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), chromecastPlayerStateTracker.getCurrentSecond());
+                if (!playingOnCastPlayer)
+                    youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), chromecastPlayerStateTracker.getCurrentSecond());
 
-                    localYouTubePlayerInitListener.onLocalYouTubePlayerInit();
-                }
+                localYouTubePlayerInitListener.onLocalYouTubePlayerInit();
+            }
 
-                public void onCurrentSecond(float second){
-                    if (playingOnCastPlayer && localPlayerStateTracker.getState() == PlayerConstants.PlayerState.PLAYING)
-                        youtubePlayer.pause();
-                }
-            });
+            public void onCurrentSecond(@NonNull YouTubePlayer youTubePlayer, float second){
+                if (playingOnCastPlayer && localPlayerStateTracker.getState() == PlayerConstants.PlayerState.PLAYING)
+                    youTubePlayer.pause();
+            }
         }, true);
     }
 
     private void initializeCastPlayer(ChromecastYouTubePlayerContext chromecastYouTubePlayerContext) {
-        chromecastYouTubePlayerContext.initialize( youtubePlayer -> {
-            chromecastYouTubePlayer = youtubePlayer;
+        chromecastYouTubePlayerContext.initialize(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                chromecastYouTubePlayer = youTubePlayer;
 
-            chromecastUIController.setYouTubePlayer(youtubePlayer);
+                chromecastUIController.setYouTubePlayer(youTubePlayer);
 
-            youtubePlayer.addListener(chromecastPlayerListener);
-            youtubePlayer.addListener(chromecastPlayerStateTracker);
-            youtubePlayer.addListener(chromecastUIController);
+                youTubePlayer.addListener(chromecastPlayerListener);
+                youTubePlayer.addListener(chromecastPlayerStateTracker);
+                youTubePlayer.addListener(chromecastUIController);
 
-            youtubePlayer.addListener(new AbstractYouTubePlayerListener() {
-                @Override
-                public void onReady() {
-                    if(localPlayerStateTracker.getVideoId() != null)
-                        youtubePlayer.loadVideo(localPlayerStateTracker.getVideoId(), localPlayerStateTracker.getCurrentSecond());
-                }
-            });
+                if(localPlayerStateTracker.getVideoId() != null)
+                    youTubePlayer.loadVideo(localPlayerStateTracker.getVideoId(), localPlayerStateTracker.getCurrentSecond());
+            }
         });
     }
 

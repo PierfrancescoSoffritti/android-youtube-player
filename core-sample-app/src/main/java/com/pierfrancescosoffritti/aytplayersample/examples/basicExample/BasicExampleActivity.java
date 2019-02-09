@@ -21,8 +21,7 @@ import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.aytplayersample.utils.FullScreenHelper;
 import com.pierfrancescosoffritti.aytplayersample.utils.YouTubeDataEndpoint;
 
-import java.util.Random;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Lifecycle;
@@ -70,18 +69,14 @@ public class BasicExampleActivity extends AppCompatActivity {
         // If you don't add YouTubePlayerView as a lifecycle observer, you will have to release it manually.
         getLifecycle().addObserver(youTubePlayerView);
 
-        youTubePlayerView.initialize(youTubePlayer -> {
+        youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
 
-            youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
-                @Override
-                public void onReady() {
-                    loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
-                }
-            });
-
-            addFullScreenListenerToPlayer(youTubePlayer);
-            setPlayNextVideoButtonClickListener(youTubePlayer);
-
+                addFullScreenListenerToPlayer(youTubePlayer);
+                setPlayNextVideoButtonClickListener(youTubePlayer);
+            }
         }, true);
     }
 

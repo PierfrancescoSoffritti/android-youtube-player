@@ -12,6 +12,7 @@ import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 
 import java.util.Random;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
 
@@ -40,17 +41,13 @@ public class IFramePlayerOptionsExampleActivity extends AppCompatActivity {
 
         getLifecycle().addObserver(youTubePlayerView);
 
-        youTubePlayerView.initialize(youTubePlayer -> {
+        youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                setPlayNextVideoButtonClickListener(youTubePlayer);
 
-            youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
-                @Override
-                public void onReady() {
-                    loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
-                }
-            });
-
-            setPlayNextVideoButtonClickListener(youTubePlayer);
-
+                loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
+            }
         }, true, iFramePlayerOptions);
     }
 

@@ -65,6 +65,11 @@ class WebViewYouTubePlayer extends WebView implements YouTubePlayer, YouTubePlay
     }
 
     @Override
+    public YouTubePlayer getInstance() {
+        return this;
+    }
+
+    @Override
     public void loadVideo(@NonNull final String videoId, final float startSeconds) {
         mainThreadHandler.post(new Runnable() {
             @Override

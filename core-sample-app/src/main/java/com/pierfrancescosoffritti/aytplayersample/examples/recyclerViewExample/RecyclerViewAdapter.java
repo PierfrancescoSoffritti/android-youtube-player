@@ -51,14 +51,13 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
             super(playerView);
             youTubePlayerView = playerView;
 
-            youTubePlayerView.initialize(initializedYouTubePlayer ->
-                    initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
-                        @Override
-                        public void onReady() {
-                            youTubePlayer = initializedYouTubePlayer;
-                            youTubePlayer.cueVideo(currentVideoId, 0);
-                        }
-                    }), true);
+            youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+                @Override
+                public void onReady(@NonNull YouTubePlayer initializedYouTubePlayer) {
+                    youTubePlayer = initializedYouTubePlayer;
+                    youTubePlayer.cueVideo(currentVideoId, 0);
+                }
+            }, true);
         }
 
         void cueVideo(String videoId) {

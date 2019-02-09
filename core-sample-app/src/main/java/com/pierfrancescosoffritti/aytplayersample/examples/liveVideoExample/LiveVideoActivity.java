@@ -2,11 +2,13 @@ package com.pierfrancescosoffritti.aytplayersample.examples.liveVideoExample;
 
 import android.os.Bundle;
 
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LiveVideoActivity extends AppCompatActivity {
@@ -26,14 +28,11 @@ public class LiveVideoActivity extends AppCompatActivity {
 
         getLifecycle().addObserver(youTubePlayerView);
 
-        youTubePlayerView.initialize(youTubePlayer -> {
-
-            youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
-                @Override
-                public void onReady() {
-                    youTubePlayer.loadVideo(VideoIdsProvider.getNextLiveVideoId(),0f);
-                }
-            });
+        youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                youTubePlayer.loadVideo(VideoIdsProvider.getNextLiveVideoId(),0f);
+            }
         }, true);
     }
 }

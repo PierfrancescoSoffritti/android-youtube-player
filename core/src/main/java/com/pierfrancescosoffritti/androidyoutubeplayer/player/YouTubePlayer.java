@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener;
 
+/**
+ * Use this interface to control the playback of YouTube videos and to listen to their events.
+ */
 public interface YouTubePlayer {
     /**
      * Loads and automatically plays the specified video.

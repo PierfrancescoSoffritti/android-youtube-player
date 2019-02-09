@@ -14,6 +14,7 @@ import androidx.media.app.NotificationCompat.MediaStyle
 import androidx.palette.graphics.Palette
 import android.util.Log
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.cyplayersample.R
 import com.pierfrancescosoffritti.cyplayersample.utils.YouTubeDataEndpoint
@@ -72,7 +73,7 @@ class NotificationManager(private val context: Context, private val notification
     }
 
     @SuppressLint("SwitchIntDef")
-    override fun onStateChange(state: PlayerConstants.PlayerState) {
+    override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
         when(state) {
             PlayerConstants.PlayerState.PLAYING -> notificationBuilder.mActions[0].icon = R.drawable.ic_pause_24dp
             else -> notificationBuilder.mActions[0].icon = R.drawable.ic_play_arrow_24dp
@@ -81,7 +82,7 @@ class NotificationManager(private val context: Context, private val notification
         showNotification()
     }
 
-    override fun onVideoId(videoId: String) {
+    override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) {
         val observable = YouTubeDataEndpoint.getVideoInfoFromYouTubeDataAPIs(videoId)
 
         observable

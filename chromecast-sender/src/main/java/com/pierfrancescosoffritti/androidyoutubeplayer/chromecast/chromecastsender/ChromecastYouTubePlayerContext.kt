@@ -3,7 +3,8 @@ package com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsen
 import com.google.android.gms.cast.framework.SessionManager
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.infrastructure.ChromecastConnectionListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.infrastructure.ChromecastManager
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener
 
 class ChromecastYouTubePlayerContext(sessionManager: SessionManager, vararg chromecastConnectionListeners: ChromecastConnectionListener) : ChromecastConnectionListener {
     private val chromecastConnectionListeners = HashSet<ChromecastConnectionListener>()
@@ -32,11 +33,11 @@ class ChromecastYouTubePlayerContext(sessionManager: SessionManager, vararg chro
 //    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
 //    private fun onPause() = chromecastManager.removeSessionManagerListener()
 
-    fun initialize(youTubePlayerInitListener: YouTubePlayerInitListener) {
+    fun initialize(youTubePlayerListener: YouTubePlayerListener) {
         if(!chromecastConnected)
             throw RuntimeException("ChromecastYouTubePlayerContext, can't initialize before Chromecast connection is established.")
 
-        chromecastYouTubePlayer.initialize(youTubePlayerInitListener)
+        chromecastYouTubePlayer.initialize { youTubePlayer -> youTubePlayer.addListener(youTubePlayerListener) }
     }
 
     fun release() {

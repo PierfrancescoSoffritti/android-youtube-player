@@ -13,6 +13,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.R;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.playerUtils.FullScreenHelper;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.playerUtils.PlaybackResumer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.DefaultPlayerUIController;
@@ -74,11 +75,11 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
 
     /**
      * Initialize the player. You must call this method before using the player.
-     * @param youTubePlayerInitListener listener for player init events
+     * @param youTubePlayerListener listener for player events
      * @param handleNetworkEvents if <b>true</b> a broadcast receiver will be registered.<br/>If <b>false</b> you should handle network events with your own broadcast receiver. See {@link YouTubePlayerView#onNetworkAvailable()} and {@link YouTubePlayerView#onNetworkUnavailable()}
      * @param playerOptions customizable options for the embedded video player, can be null.
      */
-    public void initialize(@NonNull final YouTubePlayerInitListener youTubePlayerInitListener, boolean handleNetworkEvents, @Nullable final IFramePlayerOptions playerOptions) {
+    public void initialize(@NonNull final YouTubePlayerListener youTubePlayerListener, boolean handleNetworkEvents, @Nullable final IFramePlayerOptions playerOptions) {
         if(handleNetworkEvents)
             getContext().registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
@@ -88,7 +89,7 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
                 youTubePlayer.initialize(new YouTubePlayerInitListener() {
                     @Override
                     public void onInitSuccess(@NonNull YouTubePlayer youTubePlayer) {
-                        youTubePlayerInitListener.onInitSuccess(youTubePlayer);
+                        youTubePlayer.addListener(youTubePlayerListener);
                     }
                 }, playerOptions);
             }
@@ -100,21 +101,21 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
 
     /**
      * Initialize the player. You must call this method before using the player.
-     * @see YouTubePlayerView#initialize(YouTubePlayerInitListener, boolean, IFramePlayerOptions)
+     * @see YouTubePlayerView#initialize(YouTubePlayerListener, boolean, IFramePlayerOptions)
      */
-    public void initialize(@NonNull final YouTubePlayerInitListener youTubePlayerInitListener, boolean handleNetworkEvents) {
-        initialize(youTubePlayerInitListener, handleNetworkEvents, null);
+    public void initialize(@NonNull final YouTubePlayerListener youTubePlayerListener, boolean handleNetworkEvents) {
+        initialize(youTubePlayerListener, handleNetworkEvents, null);
     }
 
     /**
      * Initialize a player using the web-base UI instead pf the native UI.
      * The default PlayerUIController will be removed and {@link YouTubePlayerView#getPlayerUIController()} will throw exception.
-     * @see YouTubePlayerView#initialize(YouTubePlayerInitListener, boolean, IFramePlayerOptions)
+     * @see YouTubePlayerView#initialize(YouTubePlayerListener, boolean, IFramePlayerOptions)
      */
-    public void initializeWithWebUI(@NonNull final YouTubePlayerInitListener youTubePlayerInitListener, boolean handleNetworkEvents) {
+    public void initializeWithWebUI(@NonNull final YouTubePlayerListener youTubePlayerListener, boolean handleNetworkEvents) {
         IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder().controls(1).build();
         inflateCustomPlayerUI(R.layout.ayp_empty_layout);
-        initialize(youTubePlayerInitListener, handleNetworkEvents, iFramePlayerOptions);
+        initialize(youTubePlayerListener, handleNetworkEvents, iFramePlayerOptions);
     }
 
     /**
@@ -211,7 +212,7 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         youTubePlayer.addListener(playbackResumer);
         youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
             @Override
-            public void onReady() {
+            public void onReady(YouTubePlayer youTubePlayer1) {
                 isInitialized = true;
             }
         });

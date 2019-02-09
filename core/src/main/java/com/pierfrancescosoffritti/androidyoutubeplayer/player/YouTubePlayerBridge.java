@@ -45,16 +45,17 @@ public class YouTubePlayerBridge {
     private static final String ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER1 = "101";
     private static final String ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER2 = "150";
 
-    @NonNull private final YouTubePlayerBridgeCallbacks youTubePlayer;
+    @NonNull private final YouTubePlayerBridgeCallbacks youTubePlayerOwner;
     @NonNull private final Handler mainThreadHandler;
 
     public interface YouTubePlayerBridgeCallbacks {
         void onYouTubeIframeAPIReady();
+        YouTubePlayer getInstance();
         Collection<YouTubePlayerListener> getListeners();
     }
 
     public YouTubePlayerBridge(@NonNull YouTubePlayerBridgeCallbacks youTubePlayer) {
-        this.youTubePlayer = youTubePlayer;
+        this.youTubePlayerOwner = youTubePlayer;
         mainThreadHandler = new Handler(Looper.getMainLooper());
     }
 
@@ -63,7 +64,7 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                youTubePlayer.onYouTubeIframeAPIReady();
+                youTubePlayerOwner.onYouTubeIframeAPIReady();
             }
         });
     }
@@ -73,8 +74,8 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for (YouTubePlayerListener listener : youTubePlayer.getListeners())
-                    listener.onReady();
+                for (YouTubePlayerListener listener : youTubePlayerOwner.getListeners())
+                    listener.onReady(youTubePlayerOwner.getInstance());
             }
         });
     }
@@ -87,8 +88,8 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayerListener listener : youTubePlayer.getListeners())
-                    listener.onStateChange(playerState);
+                for(YouTubePlayerListener listener : youTubePlayerOwner.getListeners())
+                    listener.onStateChange(youTubePlayerOwner.getInstance(), playerState);
             }
         });
     }
@@ -101,8 +102,8 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayerListener listener : youTubePlayer.getListeners())
-                    listener.onPlaybackQualityChange(playbackQuality);
+                for(YouTubePlayerListener listener : youTubePlayerOwner.getListeners())
+                    listener.onPlaybackQualityChange(youTubePlayerOwner.getInstance(), playbackQuality);
             }
         });
     }
@@ -115,8 +116,8 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for (YouTubePlayerListener listener : youTubePlayer.getListeners())
-                    listener.onPlaybackRateChange(playbackRate);
+                for (YouTubePlayerListener listener : youTubePlayerOwner.getListeners())
+                    listener.onPlaybackRateChange(youTubePlayerOwner.getInstance(), playbackRate);
             }
         });
     }
@@ -129,8 +130,8 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayerListener listener : youTubePlayer.getListeners())
-                    listener.onError(playerError);
+                for(YouTubePlayerListener listener : youTubePlayerOwner.getListeners())
+                    listener.onError(youTubePlayerOwner.getInstance(), playerError);
             }
         });
     }
@@ -140,8 +141,8 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayerListener listener : youTubePlayer.getListeners())
-                    listener.onApiChange();
+                for(YouTubePlayerListener listener : youTubePlayerOwner.getListeners())
+                    listener.onApiChange(youTubePlayerOwner.getInstance());
             }
         });
     }
@@ -159,8 +160,8 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayerListener listener : youTubePlayer.getListeners())
-                    listener.onCurrentSecond(currentTimeSeconds);
+                for(YouTubePlayerListener listener : youTubePlayerOwner.getListeners())
+                    listener.onCurrentSecond(youTubePlayerOwner.getInstance(), currentTimeSeconds);
             }
         });
     }
@@ -179,8 +180,8 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for (YouTubePlayerListener listener : youTubePlayer.getListeners())
-                    listener.onVideoDuration(videoDuration);
+                for (YouTubePlayerListener listener : youTubePlayerOwner.getListeners())
+                    listener.onVideoDuration(youTubePlayerOwner.getInstance(), videoDuration);
             }
         });
     }
@@ -198,8 +199,8 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayerListener listener : youTubePlayer.getListeners())
-                    listener.onVideoLoadedFraction(loadedFraction);
+                for(YouTubePlayerListener listener : youTubePlayerOwner.getListeners())
+                    listener.onVideoLoadedFraction(youTubePlayerOwner.getInstance(), loadedFraction);
             }
         });
     }
@@ -209,8 +210,8 @@ public class YouTubePlayerBridge {
         mainThreadHandler.post(new Runnable() {
             @Override
             public void run() {
-                for(YouTubePlayerListener listener : youTubePlayer.getListeners())
-                    listener.onVideoId(videoId);
+                for(YouTubePlayerListener listener : youTubePlayerOwner.getListeners())
+                    listener.onVideoId(youTubePlayerOwner.getInstance(), videoId);
             }
         });
     }

@@ -154,17 +154,12 @@ Get a reference to the `YouTubePlayerView` in your code and initialize it
 YouTubePlayerView youtubePlayerView = findViewById(R.id.youtube_player_view);
 getLifecycle().addObserver(youtubePlayerView);
 
-youtubePlayerView.initialize(new YouTubePlayerInitListener() {
-    @Override
-    public void onInitSuccess(@NonNull final YouTubePlayer initializedYouTubePlayer) {
-        initializedYouTubePlayer.addListener(new AbstractYouTubePlayerListener() {
-            @Override
-            public void onReady() {
-                String videoId = "6JYIGclVQdw";
-                initializedYouTubePlayer.loadVideo(videoId, 0);
-            }
-        });
-    }
+youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+  @Override
+  public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+    String videoId = "6JYIGclVQdw";
+    youTubePlayer.loadVideo(videoId, 0);
+  }
 }, true);
 ```
 
@@ -208,34 +203,34 @@ if the height of the View is set to `wrap_content`, the View will automatically 
 ### Initialization
 In order to use the YouTube player you need to initialize it. To do that you use three methods: 
 ```java
-YouTubePlayerView.initialize(YouTubePlayerInitListener listener, boolean handleNetworkEvents)
+YouTubePlayerView.initialize(YouTubePlayerListener listener, boolean handleNetworkEvents)
 ```
 ```java
-YouTubePlayerView.initializeWithWebUI(YouTubePlayerInitListener listener, boolean handleNetworkEvents)
+YouTubePlayerView.initializeWithWebUI(YouTubePlayerListener listener, boolean handleNetworkEvents)
 ```
 ```java
-YouTubePlayerView.initialize(YouTubePlayerInitListener listener, boolean handleNetworkEvents, IFramePlayerOptions iframePlayerOptions)
+YouTubePlayerView.initialize(YouTubePlayerListener listener, boolean handleNetworkEvents, IFramePlayerOptions iframePlayerOptions)
 ```
-#### `initialize(YouTubePlayerInitListener, boolean)`
-This methods takes in a [`YouTubePlayerInitListener`](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/listeners/YouTubePlayerInitListener.java) and a `boolean`. The `boolean` parameter is used to tell the library whether it should handle network events or not, read more about network events [here](#network-events).
+#### `initialize(YouTubePlayerListener, boolean)`
+This methods takes in a [`YouTubePlayerListener`](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/listeners/YouTubePlayerListener.kt) and a `boolean`. The `boolean` parameter is used to tell the library whether it should handle network events or not, read more about network events [here](#network-events).
 
-The function `onInitSuccess(YouTubePlayer initializedYouTubePlayer)` of the `YouTubePlayerInitListener` will be called by the library once the initialization is completed. That is, when the IFrame YouTube player has been download in the WebView.
+The function `YouTubePlayerListener.onReady(YouTubePlayer)` will be called by the library once the initialization is completed. That is, when the IFrame YouTube player has been download in the WebView.
 The argument of the function is a reference to the initialized `YouTubePlayer` object. The `YouTubePlayer` is the object responsible for handling the playback of YouTube videos, read more about it [here](#youtubeplayer).
 
-#### `initializeWithWebUI(YouTubePlayerInitListener, boolean)`
-This method is identical to `initialize(YouTubePlayerInitListener, boolean)` but it disables the native UI of the player and uses the web-based UI of the IFrame Player API.
+#### `initializeWithWebUI(YouTubePlayerListener, boolean)`
+This method is identical to `initialize(YouTubePlayerListener, boolean)` but it disables the native UI of the player and uses the web-based UI of the IFrame Player API.
 
 Because the native UI is disabled trying to call `YouTubePlayerView.getPlayerUIController()` will throw an exception.
 
 YouTube added some non-removable buttons to the IFrame Player, as mentioned in [this issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues/242). Using the web-based UI is the only way to have access to these non-removable buttons.
 
-#### `initialize(YouTubePlayerInitListener, boolean, IFramePlayerOptions)`
+#### `initialize(YouTubePlayerListener, boolean, IFramePlayerOptions)`
 By passing an `IFramePlayerOptions` to the initialize method it is possible to set some of the paramenters of the IFrame YouTubePlayer. Read more about `IFramePlayerOptions` [here](#iframeplayeroptions).
 
 All the possible parameters and values are listed [here](https://developers.google.com/youtube/player_parameters#Parameters). Not all of them are supported in this library because some don't make sense in this context. [Open an issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues) if you need a parameter that is not currently supported.
 
 ### IFramePlayerOptions
-The `IFramePlayerOptions` is an optional paramenter that can be passed to `YouTubePlayerView.initialize(YouTubePlayerInitListener, boolean, IFramePlayerOptions)`, it can be used to set some of the paramenters of the IFrame YouTubePlayer.
+The `IFramePlayerOptions` is an optional paramenter that can be passed to `YouTubePlayerView.initialize(YouTubePlayerListener, boolean, IFramePlayerOptions)`, it can be used to set some of the paramenters of the IFrame YouTubePlayer.
 
 A simple example of how to use `IFramePlayerOptions` can be found in the sample app [here](./core-sample-app/src/main/java/com/pierfrancescosoffritti/aytplayersample/examples/iFramePlayerOptionsExample/IFramePlayerOptionsExampleActivity.java).
 
@@ -399,7 +394,7 @@ youtubePlayer.removeListener(YouTubePlayerListener listener);
 
 If you don't want to implement all the methods of the `YouTubePlayerListener` interface, you can extend `AbstractYouTubePlayerListener` instead of implementing `YouTubePlayerListener` and override only the methods you are interested in.
 
-For more information on the methods defined in the `YouTubePlayerListener` interface, please refer to the documentation defined above each method [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/listeners/YouTubePlayerListener.java).
+For more information on the methods defined in the `YouTubePlayerListener` interface, please refer to the documentation defined above each method [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/listeners/YouTubePlayerListener.kt).
 
 ## PlayerUIController
 The `PlayerUIController` is responsible for controlling the UI of a `YouTubePlayerView`.
@@ -469,14 +464,17 @@ Example (taken from sample app):
 ```java
 View customPlayerUI = youTubePlayerView.inflateCustomPlayerUI(R.layout.custom_player_ui);
 
-youTubePlayerView.initialize(youTubePlayer -> {
+youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+  @Override
+  public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+    YourCustomPlayerUIController customPlayerUIController = new YourCustomPlayerUIController(youTubePlayer, youTubePlayerView);
+    youTubePlayer.addListener(customPlayerUIController);
+    youTubePlayerView.addFullScreenListener(customPlayerUIController);
 
-  CustomPlayerUIController customPlayerUIController = new CustomPlayerUIController(this, customPlayerUI, youTubePlayer, youTubePlayerView);
-  youTubePlayer.addListener(customPlayerUIController);
-  youTubePlayerView.addFullScreenListener(customPlayerUIController);
-
-  // ...
+    // ...
+  }
 }, true);
+
 ```
 A post on this topic is available [here](https://medium.com/@soffritti.pierfrancesco/customize-android-youtube-players-ui-9f32da9e8505).
 
@@ -764,21 +762,18 @@ private class SimpleChromecastConnectionListener implements ChromecastConnection
   }
 
   private void initializeCastPlayer(ChromecastYouTubePlayerContext chromecastYouTubePlayerContext) {
-    chromecastYouTubePlayerContext.initialize(youtubePlayer -> {
-
-    youtubePlayer.addListener(new AbstractYouTubePlayerListener() {
+    chromecastYouTubePlayerContext.initialize(new AbstractYouTubePlayerListener() {
       @Override
-      public void onReady() {
-        youtubePlayer.loadVideo("6JYIGclVQdw", 0f);
+      public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+        youTubePlayer.loadVideo("6JYIGclVQdw", 0f);
       }
     });
-  });
 }
 ```
 
 Only after a Chromecast connection has been established you can initialize the `ChromecastConnectionListener`.
 
-From now on it will be the same as using a local `YouTubePlayer`. You need to call `ChromecastYouTubePlayerContext.initialize`, providing a `YouTubePlayerInitListener`. You can then add a `YouTubePlayerListener` to the `YouTubePlayer` to be notified of changes in the playback.
+From now on it will be the same as using a local `YouTubePlayer`. You need to call `ChromecastYouTubePlayerContext.initialize`, providing a `YouTubePlayerListener`. The `YouTubePlayerListener` will notify you of changes in the playback.
 You can call `loadVideo`, `cueVideo`, `pause`, `play` etc.. on the `YouTubePlayer`, the library will take care of communication with the Google Cast device.
 
 For all this you can refer to the documentation for the *core* library, [YouTubePlayer](#youtubeplayer).

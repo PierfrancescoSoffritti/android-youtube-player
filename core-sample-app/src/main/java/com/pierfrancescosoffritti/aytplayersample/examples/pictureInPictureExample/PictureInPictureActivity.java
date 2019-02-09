@@ -12,6 +12,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.Abstract
 import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -36,13 +37,11 @@ public class PictureInPictureActivity extends AppCompatActivity {
         getLifecycle().addObserver(youTubePlayerView);
         initPictureInPicture(youTubePlayerView);
 
-        youTubePlayerView.initialize(youTubePlayer -> {
-            youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
-                @Override
-                public void onReady() {
-                    loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
-                }
-            });
+        youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
+            }
         }, true);
     }
 

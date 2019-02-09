@@ -307,7 +307,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     // YouTubePlayer callbacks
 
     @Override
-    public void onStateChange(@NonNull PlayerConstants.PlayerState state) {
+    public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState state) {
         updateState(state);
 
         if(state == PlayerConstants.PlayerState.PLAYING || state == PlayerConstants.PlayerState.PAUSED || state == PlayerConstants.PlayerState.VIDEO_CUED) {
@@ -339,7 +339,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     }
 
     @Override
-    public void onVideoId(@NonNull final String videoId) {
+    public void onVideoId(@NonNull YouTubePlayer youTubePlayer, @NonNull final String videoId) {
         youTubeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -349,12 +349,12 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
         });
     }
 
-    @Override public void onReady() { }
-    @Override public void onPlaybackQualityChange(@NonNull PlayerConstants.PlaybackQuality playbackQuality) { }
-    @Override public void onPlaybackRateChange(@NonNull PlayerConstants.PlaybackRate rate) { }
-    @Override public void onError(@NonNull PlayerConstants.PlayerError error) { }
-    @Override public void onApiChange() { }
-    @Override public void onCurrentSecond(float second) { }
-    @Override public void onVideoDuration(float duration) { }
-    @Override public void onVideoLoadedFraction(float loadedFraction) { }
+    @Override public void onReady(@NonNull YouTubePlayer youTubePlayer) { }
+    @Override public void onPlaybackQualityChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlaybackQuality playbackQuality) { }
+    @Override public void onPlaybackRateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlaybackRate rate) { }
+    @Override public void onError(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerError error) { }
+    @Override public void onApiChange(@NonNull YouTubePlayer youTubePlayer) { }
+    @Override public void onCurrentSecond(@NonNull YouTubePlayer youTubePlayer, float second) { }
+    @Override public void onVideoDuration(@NonNull YouTubePlayer youTubePlayer, float duration) { }
+    @Override public void onVideoLoadedFraction(@NonNull YouTubePlayer youTubePlayer, float loadedFraction) { }
 }

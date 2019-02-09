@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 
 /**
@@ -17,22 +18,22 @@ public class YouTubePlayerTracker extends AbstractYouTubePlayerListener {
     private String videoId;
 
     @Override
-    public void onStateChange(@NonNull PlayerConstants.PlayerState state) {
+    public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState state) {
         this.currentState = state;
     }
 
     @Override
-    public void onCurrentSecond(float second) {
+    public void onCurrentSecond(@NonNull YouTubePlayer youTubePlayer, float second) {
         currentSecond = second;
     }
 
     @Override
-    public void onVideoDuration(float duration) {
+    public void onVideoDuration(@NonNull YouTubePlayer youTubePlayer, float duration) {
         videoDuration = duration;
     }
 
     @Override
-    public void onVideoId(@NonNull String videoId) {
+    public void onVideoId(@NonNull YouTubePlayer youTubePlayer, @NonNull String videoId) {
         this.videoId = videoId;
     }
 

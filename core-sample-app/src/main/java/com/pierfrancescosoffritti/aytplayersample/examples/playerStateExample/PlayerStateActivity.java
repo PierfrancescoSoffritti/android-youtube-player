@@ -39,30 +39,25 @@ public class PlayerStateActivity extends AppCompatActivity {
         youTubePlayerView.getPlayerUIController().showYouTubeButton(false);
         getLifecycle().addObserver(youTubePlayerView);
 
-        youTubePlayerView.initialize(youTubePlayer -> {
+        youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                addToList("READY", playerStatesHistory);
 
-            addToList("INITIALIZED", playerStatesHistory);
-            setPlayNextVideoButtonClickListener(youTubePlayer);
+                setPlayNextVideoButtonClickListener(youTubePlayer);
 
-            youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
-                @Override
-                public void onReady() {
-                    addToList("READY", playerStatesHistory);
-                    loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
-                }
+                loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
+            }
 
-                @Override
-                public void onStateChange(@NonNull PlayerConstants.PlayerState state) {
-                    onNewState(state);
-                }
+            @Override
+            public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState state) {
+                onNewState(state);
+            }
 
-                @Override
-                public void onError(@NonNull PlayerConstants.PlayerError error) {
-                    super.onError(error);
-                    addToList("ERROR: " +error.name(), playerStatesHistory);
-                }
-            });
-
+            @Override
+            public void onError(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerError error) {
+                addToList("ERROR: " +error.name(), playerStatesHistory);
+            }
         }, true);
     }
 

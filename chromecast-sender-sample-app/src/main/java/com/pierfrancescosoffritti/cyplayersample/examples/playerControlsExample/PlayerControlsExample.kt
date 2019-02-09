@@ -12,12 +12,12 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsend
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.infrastructure.ChromecastConnectionListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener
 import com.pierfrancescosoffritti.cyplayersample.R
 import com.pierfrancescosoffritti.cyplayersample.utils.MediaRouteButtonUtils
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.utils.PlayServicesUtils
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer
 import com.pierfrancescosoffritti.cyplayersample.utils.VideoIdsProvider
-import com.pierfrancescosoffritti.cyplayersample.ui.SimpleChromecastUIController
+import com.pierfrancescosoffritti.cyplayersample.ui.SimpleChromeCastUIController
 import kotlinx.android.synthetic.main.activity_player_controls_example.*
 
 @SuppressLint("SetTextI18n")
@@ -49,7 +49,7 @@ class PlayerControlsExample : AppCompatActivity() {
 
     inner class SimpleChromecastConnectionListener : ChromecastConnectionListener {
 
-        private val chromecastUIController = SimpleChromecastUIController(chromecast_controls_root)
+        private val chromecastUIController = SimpleChromeCastUIController(chromecast_controls_root)
         private val chromecastConnectionStatusTextView = chromecast_controls_root.findViewById<TextView>(R.id.chromecast_connection_status)!!
         private val playerStatusTextView = chromecast_controls_root.findViewById<TextView>(R.id.player_status)!!
 
@@ -74,32 +74,31 @@ class PlayerControlsExample : AppCompatActivity() {
 
         private fun initializeCastPlayer(chromecastYouTubePlayerContext: ChromecastYouTubePlayerContext) {
 
-            chromecastYouTubePlayerContext.initialize( YouTubePlayerInitListener { youtubePlayer ->
+            chromecastYouTubePlayerContext.initialize(object: AbstractYouTubePlayerListener() {
+                override fun onReady(youTubePlayer: YouTubePlayer) {
+                    chromecast_controls_root
+                            .findViewById<Button>(R.id.next_video_button)
+                            .setOnClickListener { youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f) }
 
-                chromecast_controls_root
-                        .findViewById<Button>(R.id.next_video_button)
-                        .setOnClickListener { youtubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f) }
+                    chromecastUIController.youTubePlayer = youTubePlayer
 
-                chromecastUIController.youTubePlayer = youtubePlayer
+                    youTubePlayer.addListener(chromecastUIController)
 
-                youtubePlayer.addListener(chromecastUIController)
+                    youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f)
+                }
 
-                youtubePlayer.addListener(object: AbstractYouTubePlayerListener() {
-                    override fun onReady() = youtubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f)
-
-                    override fun onStateChange(state: PlayerConstants.PlayerState) {
-                        when(state) {
-                            PlayerConstants.PlayerState.UNSTARTED -> playerStatusTextView.text = "UNSTARTED"
-                            PlayerConstants.PlayerState.BUFFERING -> playerStatusTextView.text = "BUFFERING"
-                            PlayerConstants.PlayerState.ENDED -> playerStatusTextView.text = "ENDED"
-                            PlayerConstants.PlayerState.PAUSED -> playerStatusTextView.text = "PAUSED"
-                            PlayerConstants.PlayerState.PLAYING -> playerStatusTextView.text = "PLAYING"
-                            PlayerConstants.PlayerState.UNKNOWN -> playerStatusTextView.text = "UNKNOWN"
-                            PlayerConstants.PlayerState.VIDEO_CUED -> playerStatusTextView.text = "VIDEO_CUED"
-                            else -> Log.d(javaClass.simpleName, "unknown state")
-                        }
+                override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
+                    when(state) {
+                        PlayerConstants.PlayerState.UNSTARTED -> playerStatusTextView.text = "UNSTARTED"
+                        PlayerConstants.PlayerState.BUFFERING -> playerStatusTextView.text = "BUFFERING"
+                        PlayerConstants.PlayerState.ENDED -> playerStatusTextView.text = "ENDED"
+                        PlayerConstants.PlayerState.PAUSED -> playerStatusTextView.text = "PAUSED"
+                        PlayerConstants.PlayerState.PLAYING -> playerStatusTextView.text = "PLAYING"
+                        PlayerConstants.PlayerState.UNKNOWN -> playerStatusTextView.text = "UNKNOWN"
+                        PlayerConstants.PlayerState.VIDEO_CUED -> playerStatusTextView.text = "VIDEO_CUED"
+                        else -> Log.d(javaClass.simpleName, "unknown state")
                     }
-                })
+                }
             })
         }
     }

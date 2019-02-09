@@ -19,7 +19,7 @@ import com.pierfrancescosoffritti.aytplayersample.R;
 /**
  * Class used to control a simple UI for the cast player.
  */
-public class SimpleChromecastUIController extends AbstractYouTubePlayerListener implements SeekBar.OnSeekBarChangeListener {
+public class SimpleChromeCastUIController extends AbstractYouTubePlayerListener implements SeekBar.OnSeekBarChangeListener {
 
     private final View controls_view;
 
@@ -37,7 +37,7 @@ public class SimpleChromecastUIController extends AbstractYouTubePlayerListener 
 
     private final FrameLayout newViewsContainer;
 
-    public SimpleChromecastUIController(View controls_view){
+    public SimpleChromeCastUIController(View controls_view){
         this.controls_view = controls_view;
 
         progressBar = controls_view.findViewById(R.id.progress_bar);
@@ -75,13 +75,13 @@ public class SimpleChromecastUIController extends AbstractYouTubePlayerListener 
     }
 
     @Override
-    public void onVideoDuration(float duration) {
+    public void onVideoDuration(@NonNull YouTubePlayer youTubePlayer, float duration) {
         totalTimeTextView.setText(Utils.formatTime(duration));
         seekBar.setMax((int) duration);
     }
 
     @Override
-    public void onCurrentSecond(float currentSecond) {
+    public void onCurrentSecond(@NonNull YouTubePlayer youTubePlayer, float currentSecond) {
         if (seekBarTouchStarted)
             return;
 
@@ -94,12 +94,12 @@ public class SimpleChromecastUIController extends AbstractYouTubePlayerListener 
     }
 
     @Override
-    public void onVideoLoadedFraction(float loadedFraction) {
+    public void onVideoLoadedFraction(@NonNull YouTubePlayer youTubePlayer, float loadedFraction) {
         seekBar.setSecondaryProgress((int) loadedFraction);
     }
 
     @Override
-    public void onVideoId(@NonNull String videoId) {
+    public void onVideoId(@NonNull YouTubePlayer youTubePlayer, @NonNull String videoId) {
         youTubeButton.setOnClickListener( view -> {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=$videoId"));
             controls_view.getContext().startActivity(intent);

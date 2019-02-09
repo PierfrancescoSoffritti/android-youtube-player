@@ -11,7 +11,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsend
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.utils.YouTubePlayerTracker
 import com.pierfrancescosoffritti.cyplayersample.R
 import com.pierfrancescosoffritti.cyplayersample.notifications.NotificationManager
@@ -87,20 +86,17 @@ class NotificationExampleActivity : AppCompatActivity() {
         }
 
         private fun initializeCastPlayer(chromecastYouTubePlayerContext: ChromecastYouTubePlayerContext) {
-            chromecastYouTubePlayerContext.initialize( YouTubePlayerInitListener { youtubePlayer ->
+            chromecastYouTubePlayerContext.initialize(object: AbstractYouTubePlayerListener() {
+                override fun onReady(youTubePlayer: YouTubePlayer) {
+                    val playerStateTracker = YouTubePlayerTracker()
 
-                val playerStateTracker = YouTubePlayerTracker()
+                    initBroadcastReceiver(youTubePlayer, playerStateTracker)
 
-                initBroadcastReceiver(youtubePlayer, playerStateTracker)
+                    youTubePlayer.addListener(notificationManager)
+                    youTubePlayer.addListener(playerStateTracker)
 
-                youtubePlayer.addListener(notificationManager)
-                youtubePlayer.addListener(playerStateTracker)
-
-                youtubePlayer.addListener(object: AbstractYouTubePlayerListener() {
-                    override fun onReady() {
-                        youtubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f)
-                    }
-                })
+                    youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f)
+                }
             })
         }
 

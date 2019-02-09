@@ -3,11 +3,13 @@ package com.pierfrancescosoffritti.aytplayersample.examples.customUIExample;
 import android.os.Bundle;
 import android.view.View;
 
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class CustomUIActivity extends AppCompatActivity {
@@ -22,19 +24,15 @@ public class CustomUIActivity extends AppCompatActivity {
 
         View customPlayerUI = youTubePlayerView.inflateCustomPlayerUI(R.layout.custom_player_ui);
 
-        youTubePlayerView.initialize(youTubePlayer -> {
+        youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                CustomPlayerUIController customPlayerUIController = new CustomPlayerUIController(CustomUIActivity.this, customPlayerUI, youTubePlayer, youTubePlayerView);
+                youTubePlayer.addListener(customPlayerUIController);
+                youTubePlayerView.addFullScreenListener(customPlayerUIController);
 
-            CustomPlayerUIController customPlayerUIController = new CustomPlayerUIController(this, customPlayerUI, youTubePlayer, youTubePlayerView);
-            youTubePlayer.addListener(customPlayerUIController);
-            youTubePlayerView.addFullScreenListener(customPlayerUIController);
-
-            youTubePlayer.addListener(new AbstractYouTubePlayerListener() {
-                @Override
-                public void onReady() {
-                    youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0);
-                }
-            });
-
+                youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0);
+            }
         }, true);
     }
 }

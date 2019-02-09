@@ -16,7 +16,7 @@ import com.pierfrancescosoffritti.cyplayersample.R
 /**
 * Class used to control a simple UI for the cast player.
 */
-class SimpleChromecastUIController(private val controls_view: View) : AbstractYouTubePlayerListener(), SeekBar.OnSeekBarChangeListener {
+class SimpleChromeCastUIController(private val controls_view: View) : AbstractYouTubePlayerListener(), SeekBar.OnSeekBarChangeListener {
     lateinit var youTubePlayer: YouTubePlayer
 
     private var isPlaying = false
@@ -35,7 +35,7 @@ class SimpleChromecastUIController(private val controls_view: View) : AbstractYo
         playPauseButton.setOnClickListener { onPlayButtonPressed() }
     }
 
-    override fun onStateChange(state: PlayerConstants.PlayerState) {
+    override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
         newSeekBarProgress = -1
 
         updateControlsState(state)
@@ -53,29 +53,29 @@ class SimpleChromecastUIController(private val controls_view: View) : AbstractYo
         updatePlayPauseButtonIcon(playing)
     }
 
-    override fun onVideoDuration(duration: Float) {
+    override fun onVideoDuration(youTubePlayer: YouTubePlayer, duration: Float) {
         totalTimeTextView.text = Utils.formatTime(duration)
         seekBar.max = duration.toInt()
     }
 
-    override fun onCurrentSecond(currentSecond: Float) {
+    override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {
         if (seekBarTouchStarted)
             return
 
         // ignore if the current time is older than what the user selected with the SeekBar
-        if (newSeekBarProgress > 0 && Utils.formatTime(currentSecond) != Utils.formatTime(newSeekBarProgress.toFloat()))
+        if (newSeekBarProgress > 0 && Utils.formatTime(second) != Utils.formatTime(newSeekBarProgress.toFloat()))
             return
 
         newSeekBarProgress = -1
 
-        seekBar.progress = currentSecond.toInt()
+        seekBar.progress = second.toInt()
     }
 
-    override fun onVideoLoadedFraction(loadedFraction: Float) {
+    override fun onVideoLoadedFraction(youTubePlayer: YouTubePlayer, loadedFraction: Float) {
         seekBar.secondaryProgress = loadedFraction.toInt()
     }
 
-    override fun onVideoId(videoId: String) {
+    override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) {
         youTubeButton.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=$videoId"))
             controls_view.context.startActivity(intent)
