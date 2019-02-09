@@ -160,7 +160,7 @@ youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
     String videoId = "6JYIGclVQdw";
     youTubePlayer.loadVideo(videoId, 0);
   }
-}, true);
+});
 ```
 
 That's all you need, a YouTube video is now playing in your app.
@@ -203,6 +203,9 @@ if the height of the View is set to `wrap_content`, the View will automatically 
 ### Initialization
 In order to use the YouTube player you need to initialize it. To do that you use three methods: 
 ```java
+YouTubePlayerView.initialize(YouTubePlayerListener listener)
+```
+```java
 YouTubePlayerView.initialize(YouTubePlayerListener listener, boolean handleNetworkEvents)
 ```
 ```java
@@ -216,6 +219,9 @@ This methods takes in a [`YouTubePlayerListener`](./core/src/main/java/com/pierf
 
 The function `YouTubePlayerListener.onReady(YouTubePlayer)` will be called by the library once the initialization is completed. That is, when the IFrame YouTube player has been download in the WebView.
 The argument of the function is a reference to the initialized `YouTubePlayer` object. The `YouTubePlayer` is the object responsible for handling the playback of YouTube videos, read more about it [here](#youtubeplayer).
+
+#### `initialize(YouTubePlayerListener)`
+This method is identical to `initialize(YouTubePlayerListener, boolean)` but the `boolean` value is automatically set to `true`, therefore the player will handle network events.
 
 #### `initializeWithWebUI(YouTubePlayerListener, boolean)`
 This method is identical to `initialize(YouTubePlayerListener, boolean)` but it disables the native UI of the player and uses the web-based UI of the IFrame Player API.
@@ -473,7 +479,7 @@ youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
 
     // ...
   }
-}, true);
+});
 
 ```
 A post on this topic is available [here](https://medium.com/@soffritti.pierfrancesco/customize-android-youtube-players-ui-9f32da9e8505).

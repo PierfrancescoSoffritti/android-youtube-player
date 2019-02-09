@@ -77,7 +77,7 @@ public class BasicExampleActivity extends AppCompatActivity {
                 addFullScreenListenerToPlayer(youTubePlayer);
                 setPlayNextVideoButtonClickListener(youTubePlayer);
             }
-        }, true);
+        });
     }
 
     /**

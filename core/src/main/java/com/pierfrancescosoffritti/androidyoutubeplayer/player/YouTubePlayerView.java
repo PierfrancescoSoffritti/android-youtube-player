@@ -100,7 +100,15 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     }
 
     /**
-     * Initialize the player. You must call this method before using the player.
+     * Initialize the player. Network events are automatically handled by the player.
+     * @see YouTubePlayerView#initialize(YouTubePlayerListener, boolean, IFramePlayerOptions)
+     */
+    public void initialize(@NonNull final YouTubePlayerListener youTubePlayerListener) {
+        initialize(youTubePlayerListener, true);
+    }
+
+    /**
+     * Initialize the player using the provided {@link IFramePlayerOptions} object.
      * @see YouTubePlayerView#initialize(YouTubePlayerListener, boolean, IFramePlayerOptions)
      */
     public void initialize(@NonNull final YouTubePlayerListener youTubePlayerListener, boolean handleNetworkEvents) {
@@ -120,7 +128,7 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
 
     /**
      * Calls {@link WebView#destroy()} on the player. And unregisters the broadcast receiver (for network events), if registered.
-     * Call this method before destroying the host Fragment/Activity, or register this View as an observer of its host lifcecycle
+     * Call this method before destroying the host Fragment/Activity, or register this View as an observer of its host lifecycle
      */
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void release() {
