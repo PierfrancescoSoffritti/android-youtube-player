@@ -17,7 +17,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.playerUtils.FullSc
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.playerUtils.PlaybackResumer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.DefaultPlayerUIController;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.PlayerUIController;
-import com.pierfrancescosoffritti.androidyoutubeplayer.utils.Callable;
 import com.pierfrancescosoffritti.androidyoutubeplayer.utils.NetworkReceiver;
 
 import androidx.annotation.LayoutRes;
@@ -37,7 +36,7 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     @NonNull private final FullScreenHelper fullScreenHelper;
 
     private boolean isInitialized = false;
-    @Nullable private Callable asyncInitialization;
+    @Nullable private Runnable asyncInitialization;
 
     public YouTubePlayerView(Context context) {
         this(context, null);
@@ -83,9 +82,9 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
         if(handleNetworkEvents)
             getContext().registerReceiver(networkReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
-        asyncInitialization = new Callable() {
+        asyncInitialization = new Runnable() {
             @Override
-            public void call() {
+            public void run() {
                 youTubePlayer.initialize(new YouTubePlayerInitListener() {
                     @Override
                     public void onInitSuccess(@NonNull YouTubePlayer youTubePlayer) {
@@ -141,7 +140,7 @@ public class YouTubePlayerView extends FrameLayout implements NetworkReceiver.Ne
     @Override
     public void onNetworkAvailable() {
         if(!isInitialized) {
-            asyncInitialization.call();
+            asyncInitialization.run();
         } else {
             playbackResumer.resume(youTubePlayer);
         }

@@ -8,7 +8,6 @@ import android.util.Log;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.ChromecastYouTubePlayerContext;
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.infrastructure.ChromecastConnectionListener;
-import com.pierfrancescosoffritti.androidyoutubeplayer.utils.Callable;
 
 import java.util.Objects;
 
@@ -21,9 +20,9 @@ public class PlaybackControllerBroadcastReceiver extends BroadcastReceiver imple
     public static final String STOP_CAST_SESSION = "com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.example.STOP_CAST_SESSION";
 
     private ChromecastYouTubePlayerContext chromecastYouTubePlayerContext;
-    private final Callable togglePlayback;
+    private final Runnable togglePlayback;
 
-    public PlaybackControllerBroadcastReceiver(Callable togglePlayback) {
+    public PlaybackControllerBroadcastReceiver(Runnable togglePlayback) {
         this.togglePlayback = togglePlayback;
     }
 
@@ -33,7 +32,7 @@ public class PlaybackControllerBroadcastReceiver extends BroadcastReceiver imple
 
         switch (Objects.requireNonNull(intent.getAction())) {
             case TOGGLE_PLAYBACK:
-                togglePlayback.call();
+                togglePlayback.run();
                 break;
 
             case STOP_CAST_SESSION:
