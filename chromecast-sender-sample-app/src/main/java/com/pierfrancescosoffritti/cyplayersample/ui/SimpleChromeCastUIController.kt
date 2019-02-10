@@ -31,8 +31,14 @@ class SimpleChromeCastUiController(private val controls_view: View) : AbstractYo
     private val newViewsContainer = controls_view.findViewById<FrameLayout>(R.id.cast_button_container)
 
     init {
+        progressBar.visibility = View.INVISIBLE
+
         seekBar.setOnSeekBarChangeListener(this)
         playPauseButton.setOnClickListener { onPlayButtonPressed() }
+    }
+
+    fun showProgressBar() {
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {

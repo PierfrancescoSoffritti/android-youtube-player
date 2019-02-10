@@ -7,7 +7,7 @@
 
 [![share on twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=A%20new%20YouTube%20Player%20library%20for%20Android,%20stable%20and%20customizable&url=https://github.com/PierfrancescoSoffritti/android-youtube-player&via=PierfrancescoSo&hashtags=opensource,youtubeplayer,androiddev)
 
-<img align="right" width="180px" src="./pics/android-youtube-player_512x512.png" title="android-youtube-player logo" />
+<img align="right" width="180px" src="./images/android-youtube-player_512x512.png" title="android-youtube-player logo" />
 
 android-youtube-player is a stable and customizable open source YouTube player for Android. It provides a simple View that can be easily integrated in every Activity/Fragment.
 
@@ -36,7 +36,7 @@ A list of published apps that are using this library: ([let me know](https://git
 - [Mobile Movie Database](https://play.google.com/store/apps/details?id=com.tmdb.themoviedatabase)
 - [Curated](https://play.google.com/store/apps/details?id=com.rockspin.weaveapp)
 
-<img src="./pics/showcase.jpg" />
+<img src="./images/showcase.jpg" />
 
 # Table of Contents (Core)
 1. [Sample app](#sample-app)
@@ -692,7 +692,7 @@ The library provides some pre-built UI components, these components are useful t
 #### YouTubePlayerSeekBar
 This component is useful to display and control the time of the playback. It shows the current time, the total duration of the video and a seek bar.
 
-![YouTubePlayerSeekBar](./pics/YouTubePlayerSeekBar.jpg)
+![YouTubePlayerSeekBar](./images/YouTubePlayerSeekBar.jpg)
 
 You can add it to your layout programatically or in your xml.
 
@@ -769,7 +769,7 @@ When using the web-based UI, calling `YouTubePlayerView.getPlayerUiController()`
 
 This is how the player will look:
 
-![web-based UI](./pics/web_based_ui_screenshot.jpg)
+![web-based UI](./images/web_based_ui_screenshot.jpg)
 
 ## Menu
 `PlayerUiController` has an optional menu. You can use these methods to control the menu's behavior:
@@ -847,7 +847,7 @@ If you want to be able to click them, you should [use the web-based UI](#web-bas
 
 # Chromecast extension library
 
-<img align="right" width="180px" src="./pics/chromecast-youtube-player-icon_512x512.png" title="chromecast-youtube-player logo" />
+<img align="right" width="180px" src="./images/chromecast-youtube-player-icon_512x512.png" title="chromecast-youtube-player logo" />
 
 The *chromecast-sender* extension library extends the *core* library with chromecast functionalities. It shares some interfaces with the *core* library, therefore they must be used together.
 

@@ -23,8 +23,7 @@ public class SimpleChromeCastUiController extends AbstractYouTubePlayerListener 
 
     private final View controls_view;
 
-    @Nullable
-    private YouTubePlayer youTubePlayer;
+    @Nullable private YouTubePlayer youTubePlayer;
 
     private boolean isPlaying = false;
 
@@ -56,7 +55,8 @@ public class SimpleChromeCastUiController extends AbstractYouTubePlayerListener 
         this.youTubePlayer = youTubePlayer;
     }
 
-    public void onStateChange(@NonNull PlayerConstants.PlayerState state) {
+    @Override
+    public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState state) {
         newSeekBarProgress = -1;
 
         updateControlsState(state);

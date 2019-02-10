@@ -107,7 +107,7 @@ public class CompleteExampleActivity extends AppCompatActivity {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 fullScreenHelper.enterFullScreen();
 
-                addCustomActionToPlayer(youTubePlayer);
+                addCustomActionToPlayer();
             }
 
             @Override
@@ -124,12 +124,12 @@ public class CompleteExampleActivity extends AppCompatActivity {
      * This method adds a new custom action to the player.
      * Custom actions are shown next to the Play/Pause button in the middle of the player.
      */
-    private void addCustomActionToPlayer(YouTubePlayer youTubePlayer) {
-        Drawable customActionIcon = ContextCompat.getDrawable(this, R.drawable.ayp_ic_pause_36dp);
+    private void addCustomActionToPlayer() {
+        Drawable customActionIcon = ContextCompat.getDrawable(this, R.drawable.ic_mood_white_32dp);
+        assert customActionIcon != null;
 
-        youTubePlayerView.getPlayerUiController().setCustomAction1(customActionIcon, view -> {
-            if(youTubePlayer != null) youTubePlayer.pause();
-        });
+        youTubePlayerView.getPlayerUiController().setCustomAction1(customActionIcon, view ->
+                Toast.makeText(this, "custom action1 clicked", Toast.LENGTH_SHORT).show());
     }
 
     private void removeCustomActionFromPlayer() {

@@ -32,7 +32,7 @@ class PlayerControlsExample : AppCompatActivity() {
         MediaRouteButtonUtils.initMediaRouteButton(media_route_button)
 
         // can't use CastContext until I'm sure the user has GooglePlayServices
-        PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode) { initChromecast() }
+        PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode) { initChromeCast() }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -40,35 +40,36 @@ class PlayerControlsExample : AppCompatActivity() {
 
         // can't use CastContext until I'm sure the user has GooglePlayServices
         if(requestCode == googlePlayServicesAvailabilityRequestCode)
-            PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode) {initChromecast()}
+            PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode) {initChromeCast()}
     }
 
-    private fun initChromecast() {
-        ChromecastYouTubePlayerContext(CastContext.getSharedInstance(this).sessionManager, SimpleChromecastConnectionListener())
+    private fun initChromeCast() {
+        ChromecastYouTubePlayerContext(CastContext.getSharedInstance(this).sessionManager, SimpleChromeCastConnectionListener())
     }
 
-    inner class SimpleChromecastConnectionListener : ChromecastConnectionListener {
+    inner class SimpleChromeCastConnectionListener : ChromecastConnectionListener {
 
-        private val chromecastUiController = SimpleChromeCastUiController(chromecast_controls_root)
-        private val chromecastConnectionStatusTextView = chromecast_controls_root.findViewById<TextView>(R.id.chromecast_connection_status)!!
+        private val chromeCastUiController = SimpleChromeCastUiController(chromecast_controls_root)
+        private val chromeCastConnectionStatusTextView = chromecast_controls_root.findViewById<TextView>(R.id.chromecast_connection_status)!!
         private val playerStatusTextView = chromecast_controls_root.findViewById<TextView>(R.id.player_status)!!
 
         override fun onChromecastConnecting() {
             Log.d(javaClass.simpleName, "onChromecastConnecting")
-            chromecastConnectionStatusTextView.text = "connecting to chromecast..."
+            chromeCastConnectionStatusTextView.text = "connecting to chromecast..."
+            chromeCastUiController.showProgressBar()
         }
 
         override fun onChromecastConnected(chromecastYouTubePlayerContext: ChromecastYouTubePlayerContext) {
             Log.d(javaClass.simpleName, "onChromecastConnected")
-            chromecastConnectionStatusTextView.text = "connected to chromecast"
+            chromeCastConnectionStatusTextView.text = "connected to chromecast"
 
             initializeCastPlayer(chromecastYouTubePlayerContext)
         }
 
         override fun onChromecastDisconnected() {
             Log.d(javaClass.simpleName, "onChromecastDisconnected")
-            chromecastConnectionStatusTextView.text = "not connected to chromecast"
-            chromecastUiController.resetUi()
+            chromeCastConnectionStatusTextView.text = "not connected to chromecast"
+            chromeCastUiController.resetUi()
             playerStatusTextView.text = ""
         }
 
@@ -80,9 +81,9 @@ class PlayerControlsExample : AppCompatActivity() {
                             .findViewById<Button>(R.id.next_video_button)
                             .setOnClickListener { youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f) }
 
-                    chromecastUiController.youTubePlayer = youTubePlayer
+                    chromeCastUiController.youTubePlayer = youTubePlayer
 
-                    youTubePlayer.addListener(chromecastUiController)
+                    youTubePlayer.addListener(chromeCastUiController)
 
                     youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f)
                 }
