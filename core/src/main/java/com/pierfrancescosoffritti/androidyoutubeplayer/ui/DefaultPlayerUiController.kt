@@ -263,6 +263,7 @@ internal class DefaultPlayerUiController(private val youTubePlayerView: LegacyYo
             updatePlayPauseButtonIcon(false)
 
             if (state === PlayerConstants.PlayerState.BUFFERING) {
+                progressBar.visibility = View.VISIBLE
                 panel.setBackgroundColor(ContextCompat.getColor(panel.context, android.R.color.transparent))
                 if (isPlayPauseButtonEnabled) playPauseButton.visibility = View.INVISIBLE
 
