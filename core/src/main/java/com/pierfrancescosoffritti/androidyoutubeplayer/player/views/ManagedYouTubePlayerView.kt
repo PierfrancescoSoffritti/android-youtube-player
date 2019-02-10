@@ -19,7 +19,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.options.IFramePlay
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.FullScreenHelper
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.PlayerUIController
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.SixteenByNineFrameLayout
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.YouTubePlayerUtils.loadOrCueVideo
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.loadOrCueVideo
 
 
 class ManagedYouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0):
@@ -59,6 +59,15 @@ class ManagedYouTubePlayerView(context: Context, attrs: AttributeSet? = null, de
                     "you should manually initialize the YouTubePlayerView using 'initializeWithWebUI'")
         }
 
+        if(!useWebUi) {
+            youTubePlayerView.getPlayerUIController().enableLiveVideoUI(enableLiveVideoUI)
+            youTubePlayerView.getPlayerUIController().showYouTubeButton(showYouTubeButton)
+            youTubePlayerView.getPlayerUIController().showFullscreenButton(showFullScreenButton)
+            youTubePlayerView.getPlayerUIController().showCurrentTime(showVideoCurrentTime)
+            youTubePlayerView.getPlayerUIController().showDuration(showVideoDuration)
+            youTubePlayerView.getPlayerUIController().showSeekBar(showSeekBar)
+        }
+
         val youTubePlayerListener = object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 videoId?.let {
@@ -70,15 +79,6 @@ class ManagedYouTubePlayerView(context: Context, attrs: AttributeSet? = null, de
 
                 youTubePlayer.removeListener(this)
             }
-        }
-
-        if(!useWebUi) {
-            youTubePlayerView.getPlayerUIController().enableLiveVideoUI(enableLiveVideoUI)
-            youTubePlayerView.getPlayerUIController().showYouTubeButton(showYouTubeButton)
-            youTubePlayerView.getPlayerUIController().showFullscreenButton(showFullScreenButton)
-            youTubePlayerView.getPlayerUIController().showCurrentTime(showVideoCurrentTime)
-            youTubePlayerView.getPlayerUIController().showDuration(showVideoDuration)
-            youTubePlayerView.getPlayerUIController().showSeekBar(showSeekBar)
         }
 
         if(enableAutomaticInitialization) {
@@ -130,20 +130,17 @@ class ManagedYouTubePlayerView(context: Context, attrs: AttributeSet? = null, de
         else youTubePlayerView.initializeWithWebUI(youTubePlayerListener, handleNetworkEvents)
     }
 
-    fun addListener(youTubePlayerListener: YouTubePlayerListener) {
+    fun addListener(youTubePlayerListener: YouTubePlayerListener) =
         youTubePlayerView.youTubePlayer.addListener(youTubePlayerListener)
-    }
 
-    fun removeListener(youTubePlayerListener: YouTubePlayerListener) {
+    fun removeListener(youTubePlayerListener: YouTubePlayerListener) =
         youTubePlayerView.youTubePlayer.removeListener(youTubePlayerListener)
-    }
 
     /**
      * @see YouTubePlayerView.getYouTubePlayerWhenReady
      */
-    fun getYouTubePlayerWhenReady(youTubePlayerCallback: YouTubePlayerCallback) {
+    fun getYouTubePlayerWhenReady(youTubePlayerCallback: YouTubePlayerCallback) =
         youTubePlayerView.getYouTubePlayerWhenReady(youTubePlayerCallback)
-    }
 
     /**
      * @see YouTubePlayerView.inflateCustomPlayerUI
@@ -169,17 +166,11 @@ class ManagedYouTubePlayerView(context: Context, attrs: AttributeSet? = null, de
 
     fun getPlayerUIController(): PlayerUIController = youTubePlayerView.getPlayerUIController()
 
-    fun enterFullScreen() {
-        youTubePlayerView.enterFullScreen()
-    }
+    fun enterFullScreen() = youTubePlayerView.enterFullScreen()
 
-    fun exitFullScreen() {
-        youTubePlayerView.exitFullScreen()
-    }
+    fun exitFullScreen() = youTubePlayerView.exitFullScreen()
 
-    fun toggleFullScreen() {
-        youTubePlayerView.toggleFullScreen()
-    }
+    fun toggleFullScreen() = youTubePlayerView.toggleFullScreen()
 
     fun isFullScreen(): Boolean = fullScreenHelper.isFullScreen
 

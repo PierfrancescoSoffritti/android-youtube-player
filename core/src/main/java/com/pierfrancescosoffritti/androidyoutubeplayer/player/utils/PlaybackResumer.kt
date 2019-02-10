@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.YouTubePlayerUtils.loadOrCueVideo
 
 /**
  * Class responsible for resuming the playback state in case of network problems.
