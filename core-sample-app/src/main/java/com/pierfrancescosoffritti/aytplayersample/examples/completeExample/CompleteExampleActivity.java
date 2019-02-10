@@ -79,7 +79,7 @@ public class CompleteExampleActivity extends AppCompatActivity {
                         0f
                 );
 
-                addFullScreenListenerToPlayer(youTubePlayer);
+                addFullScreenListenerToPlayer();
                 setPlayNextVideoButtonClickListener(youTubePlayer);
             }
         });
@@ -100,14 +100,14 @@ public class CompleteExampleActivity extends AppCompatActivity {
                                     view -> Toast.makeText(this, "item no icon clicked", Toast.LENGTH_SHORT).show()));
     }
 
-    private void addFullScreenListenerToPlayer(final YouTubePlayer youTubePlayer) {
+    private void addFullScreenListenerToPlayer() {
         youTubePlayerView.addFullScreenListener(new YouTubePlayerFullScreenListener() {
             @Override
             public void onYouTubePlayerEnterFullScreen() {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
                 fullScreenHelper.enterFullScreen();
 
-                addCustomActionToPlayer();
+                addCustomActionsToPlayer();
             }
 
             @Override
@@ -115,7 +115,7 @@ public class CompleteExampleActivity extends AppCompatActivity {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 fullScreenHelper.exitFullScreen();
 
-                removeCustomActionFromPlayer();
+                removeCustomActionsFromPlayer();
             }
         });
     }
@@ -124,16 +124,22 @@ public class CompleteExampleActivity extends AppCompatActivity {
      * This method adds a new custom action to the player.
      * Custom actions are shown next to the Play/Pause button in the middle of the player.
      */
-    private void addCustomActionToPlayer() {
-        Drawable customActionIcon = ContextCompat.getDrawable(this, R.drawable.ic_mood_white_32dp);
-        assert customActionIcon != null;
+    private void addCustomActionsToPlayer() {
+        Drawable customAction1Icon = ContextCompat.getDrawable(this, R.drawable.ic_fast_rewind_white_24dp);
+        Drawable customAction2Icon = ContextCompat.getDrawable(this, R.drawable.ic_fast_forward_white_24dp);
+        assert customAction1Icon != null;
+        assert customAction2Icon != null;
 
-        youTubePlayerView.getPlayerUiController().setCustomAction1(customActionIcon, view ->
+        youTubePlayerView.getPlayerUiController().setCustomAction1(customAction1Icon, view ->
+                Toast.makeText(this, "custom action1 clicked", Toast.LENGTH_SHORT).show());
+
+        youTubePlayerView.getPlayerUiController().setCustomAction2(customAction2Icon, view ->
                 Toast.makeText(this, "custom action1 clicked", Toast.LENGTH_SHORT).show());
     }
 
-    private void removeCustomActionFromPlayer() {
+    private void removeCustomActionsFromPlayer() {
         youTubePlayerView.getPlayerUiController().showCustomAction1(false);
+        youTubePlayerView.getPlayerUiController().showCustomAction2(false);
     }
 
     /**

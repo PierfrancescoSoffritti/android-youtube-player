@@ -273,7 +273,7 @@ YouTube added some non-removable buttons to the IFrame Player, as mentioned in [
 
 Read the documentation of the [`initializeWithWebUi`](#initializeWithWebUi(YouTubePlayerListener,-boolean)) method to learn more about the effects of this attribute.
 
-Web UI screenshot:
+*Web UI screenshot:*
 
 ![web-ui screenshot](./images/web_based_ui_screenshot.jpg)
 
@@ -285,6 +285,10 @@ This attribute expects a `boolean`. Its default value is `false`.
 **If `false`**, `YouTubePlayerView` will use the UI normal videos.
 
 This attribute does nothing if `useWebUi` is `true`.
+
+*Live UI screenshot:*
+
+![live-ui screenshot](./images/live_ui_screenshot.jpg)
 
 #### showYouTubeButton
 This attribute expects a `boolean`. Its default value is `true`.
@@ -644,6 +648,10 @@ Unfortunately there is no way for the player to automatically know if it is play
 
 You can obtain the same result by setting the xml attribute `app:enableLiveVideoUi="true"` of `YouTubePlayerView`.
 
+*Live-ui screenshot:*
+
+![live-ui screenshot](./images/live_ui_screenshot.jpg)
+
 ### Custom actions
 You can set custom actions on the right and left side of the Play/Pause button of the player
 
@@ -653,6 +661,9 @@ PlayerUiController.setCustomAction2(Drawable icon, OnClickListener listener);
 PlayerUiController.showCustomAction1(boolean show);
 PlayerUiController.showCustomAction2(boolean show);
 ```
+*Custom actions example:*
+
+![custom actions screenshot](./images/custom_actions_screenshot.jpg)
 
 You can **also add any type of View to the UI**, this can be useful if you want to add a new icon.
 
@@ -663,10 +674,14 @@ PlayerUiController.removeView(View view);
 
 The View will be added to the top corner of the player.
 
+*Example of views added to the player (see Chromecast icon in the top-right corner):*
+
+![custom actions screenshot](./images/chromecast_screenshot.jpg)
+
 ## Create your own custom UI
 Customization is an important aspect of this library. If need to, you can completely replace the default UI of the player.
 
-`YouTubePlayerView` has method for that.
+`YouTubePlayerView` has method for that. 
 
 ```java
 View inflateCustomPlayerUi(@LayoutRes int customUiLayoutID)
@@ -697,7 +712,7 @@ youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
 ```
 A blog post going deeper on this is available [at this link](https://medium.com/@soffritti.pierfrancesco/customize-android-youtube-players-ui-9f32da9e8505).
 
-Example of an (ugly) custom UI:
+*Example of a custom UI: (this is just a ugly example, but here your design skills are the limit :))*
 
 ![Sample app example](https://media.giphy.com/media/SradsoNdy1DNVGHGy5/giphy.gif)
 
@@ -798,6 +813,10 @@ By default the menu icon is not visible.
 
 The default `OnClickListener` opens the menu when the menu icon is clicked. You can change this behaviour, for example to open a menu with a different UX, like a bottom sheet panel. Obviously if you want a UX different from the one provided by the library, you are responsible for creating your own components.
 
+*Menu screenshot:*
+
+![menu screenshot](./images/menu_screenshot.jpg)
+
 ### YouTubePlayerMenu
 You can get a reference of the `YouTubePlayerMenu` from the `PlayerUiController`.
 ```java
@@ -854,9 +873,13 @@ The minSdk of the library is 17. [At this point in time](https://developer.andro
 I'm not sure how WebView will behave on older versions of Android, but technically it should be possible to lower the minSdk. If you absolutely need to support older devices, I suggest you fork the library and lower the minSdk yourself.
 
 ### How to disable share and watch later buttons
-YouTube made some changes to the IFrame player, unfortunately it's not possible to hide those buttons.
+YouTube made some changes to the IFrame player, unfortunately it's not possible to remove those buttons.
 
 If you want to be able to click them, you should [use the web-based UI](#web-based-ui) of the player instead of the native UI.
+
+*Watch later and share button are in the top right corner, they are visible when the ui is visible:*
+
+![web-ui screenshot](./images/web_based_ui_screenshot.jpg)
 
 ---
 
@@ -1019,7 +1042,11 @@ You can call `loadVideo`, `cueVideo`, `pause`, `play` etc.. on the `YouTubePlaye
 
 For how to use the `YouTubePlayer` object and `YouTubePlayerListener`, you can refer to the documentation for the *core* library, [YouTubePlayer](#youtubeplayer).
 
-This example can also be found [in the sample app](#./chromecast-sender-sample-app/src/main/java/com/pierfrancescosoffritti/cyplayersample/examples/basicExample/BasicExampleActivity.kt), written in Kotlin.
+This example can be found [in the chromecast-sender sample app](./chromecast-sender-sample-app/src/main/java/com/pierfrancescosoffritti/cyplayersample/examples/basicExample/BasicExampleActivity.kt), written in Kotlin and in the [core sample app](./core-sample-app/src/main/java/com/pierfrancescosoffritti/aytplayersample/examples/chromecastExample/), wirtten in Java.
+
+*Screenshot of the CastButton added to the YouTubePlayerView:*
+
+![chromecast button screenshot](./images/chromecast_screenshot.jpg)
 
 ### Receiver
 This library requires a custom receiver, you can find the source code of the *chromecast-receiver* [here](./chromecast-receiver).
