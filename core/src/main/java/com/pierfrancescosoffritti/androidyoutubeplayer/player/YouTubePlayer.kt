@@ -7,14 +7,14 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubeP
  */
 interface YouTubePlayer {
     /**
-     * Loads and automatically plays the specified video.
+     * Loads and automatically plays the video.
      * @param videoId id of the video
      * @param startSeconds the time from which the video should start playing
      */
     fun loadVideo(videoId: String, startSeconds: Float)
 
     /**
-     * Loads the specified video's thumbnail and prepares the player to play the video. Does not automatically play the video.
+     * Loads the video's thumbnail and prepares the player to play the video. Does not automatically play the video.
      * @param videoId id of the video
      * @param startSeconds the time from which the video should start playing
      */

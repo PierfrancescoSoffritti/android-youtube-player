@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.aytplayersample.examples.basicExample;
+package com.pierfrancescosoffritti.aytplayersample.examples.completeExample;
 
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
@@ -29,7 +29,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class BasicExampleActivity extends AppCompatActivity {
+public class CompleteExampleActivity extends AppCompatActivity {
 
     private YouTubePlayerView youTubePlayerView;
     private FullScreenHelper fullScreenHelper = new FullScreenHelper(this);

@@ -228,6 +228,8 @@ This attribute expects a `boolean`. Its default value is `false`.
 
 If `videoId` is not set, this attribute is useless, therefore if it is set to `true` `YouTubePlayerView` will throw an excpetion.
 
+`autoPlay` won't work if `YouTubePlayerView` is not [added as a `LifecycleObserver` of its parent Activity/Fragment](#lifecycleobserver).
+
 #### enableAutomaticInitialization
 This attribute expects a `boolean`. Its default value is `true`.
 
@@ -589,7 +591,7 @@ For more information on the methods defined in the `YouTubePlayerListener` inter
 The onReady callback of a `YouTubePlayerListener` is called once, when the `YouTubePlayer` is ready to be used for the first time. **You can't use a `YouTubePlayer` before it is ready**.
 
 ### onStateChanged callback
-The `YouTubePlayer` has a state, that changes accordingly to the playback changes. The [list of possible states](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/PlayerConstants.java#L5) is the same of the YouTube [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference#Playback_status).
+The `YouTubePlayer` has a state, that changes accordingly to the playback changes. The [list of possible states](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/PlayerConstants.java) is the same of the YouTube [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference#Playback_status).
 
 ```
 UNKNOWN
@@ -1001,7 +1003,7 @@ You can call `loadVideo`, `cueVideo`, `pause`, `play` etc.. on the `YouTubePlaye
 
 For all this you can refer to the documentation for the *core* library, [YouTubePlayer](#youtubeplayer).
 
-This example can also be found [in the sample app](#chromecast-sender-sample-app/src/main/java/com/pierfrancescosoffritti/cyplayersample/examples/basicExample/BasicExampleActivity.kt), written in Kotlin.
+This example can also be found [in the sample app](#./chromecast-sender-sample-app/src/main/java/com/pierfrancescosoffritti/cyplayersample/examples/basicExample/BasicExampleActivity.kt), written in Kotlin.
 
 ### Receiver
 This library requires a custom receiver, you can find the source code of the *chromecast-receiver* [here](./chromecast-receiver).

@@ -8,6 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".examples.simpleExample.SimpleExampleActivity"></activity>
         <activity android:name="com.psoffritti.librarysampleapptemplate.core.SampleAppTemplateActivity" />
         <activity
             android:name=".MainActivity"
@@ -20,10 +21,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".examples.basicExample.BasicExampleActivity"
+            android:name=".examples.completeExample.CompleteExampleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
-            android:label="@string/basic_example" />
+            android:label="@string/complete_example" />
         <activity
             android:name=".examples.fragmentExample.FragmentExampleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"

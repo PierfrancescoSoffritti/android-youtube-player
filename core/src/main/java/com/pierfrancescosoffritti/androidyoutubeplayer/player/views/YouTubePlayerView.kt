@@ -74,10 +74,7 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
         val youTubePlayerListener = object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 videoId?.let {
-                    if(autoPlay)
-                        youTubePlayer.loadOrCueVideo(legacyTubePlayerView.canPlay, videoId, 0f)
-                    else
-                        youTubePlayer.cueVideo(videoId, 0f)
+                    youTubePlayer.loadOrCueVideo(legacyTubePlayerView.canPlay && autoPlay, videoId, 0f)
                 }
 
                 youTubePlayer.removeListener(this)

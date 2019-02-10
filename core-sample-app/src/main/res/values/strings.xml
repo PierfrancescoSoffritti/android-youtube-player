@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">android-youtube-player</string>
-    <string name="basic_example">Basic example</string>
+    <string name="simple_example">Simple example</string>
+    <string name="complete_example">Complete example</string>
     <string name="recycler_view_example">RecyclerView example</string>
     <string name="custom_ui_example">Custom Ui example</string>
     <string name="view_pager_example">ViewPager example</string>

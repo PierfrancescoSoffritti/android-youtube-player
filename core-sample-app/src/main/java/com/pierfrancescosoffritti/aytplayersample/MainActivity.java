@@ -3,7 +3,7 @@ package com.pierfrancescosoffritti.aytplayersample;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.pierfrancescosoffritti.aytplayersample.examples.basicExample.BasicExampleActivity;
+import com.pierfrancescosoffritti.aytplayersample.examples.completeExample.CompleteExampleActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.ChromeCastExampleActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.customUiExample.CustomUiActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.fragmentExample.FragmentExampleActivity;
@@ -12,6 +12,7 @@ import com.pierfrancescosoffritti.aytplayersample.examples.liveVideoExample.Live
 import com.pierfrancescosoffritti.aytplayersample.examples.pictureInPictureExample.PictureInPictureActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.playerStateExample.PlayerStateActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.recyclerViewExample.RecyclerViewActivity;
+import com.pierfrancescosoffritti.aytplayersample.examples.simpleExample.SimpleExampleActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.viewPagerExample.ViewPagerActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.webUiExample.WebUiExampleActivity;
 import com.psoffritti.librarysampleapptemplate.core.Constants;
@@ -34,7 +35,8 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(Constants.PLAYSTORE_PACKAGE_NAME.name(), "com.pierfrancescosoffritti.aytplayersample");
 
         ExampleActivityDetails[] examples = new ExampleActivityDetails[]{
-                new ExampleActivityDetails(R.string.basic_example,null, BasicExampleActivity.class),
+                new ExampleActivityDetails(R.string.simple_example,null, SimpleExampleActivity.class),
+                new ExampleActivityDetails(R.string.complete_example,null, CompleteExampleActivity.class),
                 new ExampleActivityDetails(R.string.web_ui_example,null, WebUiExampleActivity.class),
                 new ExampleActivityDetails(R.string.custom_ui_example,null, CustomUiActivity.class),
                 new ExampleActivityDetails(R.string.recycler_view_example,null, RecyclerViewActivity.class),
