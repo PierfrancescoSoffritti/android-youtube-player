@@ -3,7 +3,7 @@ package com.pierfrancescosoffritti.aytplayersample.examples.managedPlayerExample
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.ManagedYouTubePlayerView;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.views.ManagedYouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;

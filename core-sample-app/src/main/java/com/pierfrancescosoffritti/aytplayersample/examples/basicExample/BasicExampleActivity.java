@@ -9,7 +9,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.ManagedYouTubePlayerView;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.views.ManagedYouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerFullScreenListener;

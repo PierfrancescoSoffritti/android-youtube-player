@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.player
+package com.pierfrancescosoffritti.androidyoutubeplayer.player.views
 
 import android.content.Context
 import android.content.IntentFilter
@@ -12,6 +12,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.WebViewYouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerFullScreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerCallback

@@ -3,7 +3,7 @@ package com.pierfrancescosoffritti.aytplayersample.examples.liveVideoExample;
 import android.os.Bundle;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;

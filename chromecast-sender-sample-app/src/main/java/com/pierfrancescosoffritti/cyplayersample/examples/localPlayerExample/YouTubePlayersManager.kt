@@ -9,7 +9,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.utils.YouTubePlayerTracker
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.views.YouTubePlayerView
 import com.pierfrancescosoffritti.cyplayersample.R
 import com.pierfrancescosoffritti.cyplayersample.ui.SimpleChromeCastUIController
 import com.pierfrancescosoffritti.cyplayersample.utils.VideoIdsProvider

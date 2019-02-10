@@ -7,7 +7,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsend
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.infrastructure.ChromecastConnectionListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.utils.YouTubePlayerTracker;

@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.player
+package com.pierfrancescosoffritti.androidyoutubeplayer.player.views
 
 import android.content.Context
 import android.util.AttributeSet
@@ -10,15 +10,15 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerFullScreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerCallback
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerFullScreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.FullScreenHelper
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.PlayerUIController
 import com.pierfrancescosoffritti.androidyoutubeplayer.utils.SixteenByNineFrameLayout
-import java.lang.IllegalStateException
 
 
 class ManagedYouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0):
