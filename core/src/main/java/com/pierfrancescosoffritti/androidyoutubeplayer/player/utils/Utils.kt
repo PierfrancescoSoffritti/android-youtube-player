@@ -13,7 +13,7 @@ internal object Utils {
         return networkInfo != null && networkInfo.isConnected
     }
 
-    internal fun readHTMLFromFile(inputStream: InputStream): String {
+    fun readHTMLFromUTF8File(inputStream: InputStream): String {
         try {
             val bufferedReader = BufferedReader(InputStreamReader(inputStream, "utf-8"))
 

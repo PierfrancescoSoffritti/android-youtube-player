@@ -97,7 +97,7 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
         addJavascriptInterface(YouTubePlayerBridge(this), "YouTubePlayerBridge")
 
         val htmlPage = Utils
-                .readHTMLFromFile(resources.openRawResource(R.raw.ayp_youtube_player))
+                .readHTMLFromUTF8File(resources.openRawResource(R.raw.ayp_youtube_player))
                 .replace("<<injectedPlayerVars>>", playerOptions.toString())
 
         loadDataWithBaseURL("https://www.youtube.com", htmlPage, "text/html", "utf-8", null)

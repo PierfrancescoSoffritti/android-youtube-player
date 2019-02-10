@@ -1,5 +1,6 @@
 # android-youtube-player
 
+[![Build Status](https://travis-ci.com/PierfrancescoSoffritti/android-youtube-player.svg?branch=master)](https://travis-ci.com/PierfrancescoSoffritti/android-youtube-player) 
 [![core](https://api.bintray.com/packages/pierfrancescosoffritti/maven/android-youtube-player%3Acore/images/download.svg)](https://bintray.com/pierfrancescosoffritti/maven/android-youtube-player%3Acore/_latestVersion)
 [![chromecast-sender](https://api.bintray.com/packages/pierfrancescosoffritti/maven/android-youtube-player%3Achromecast-sender/images/download.svg)](https://bintray.com/pierfrancescosoffritti/maven/android-youtube-player%3Achromecast-sender/_latestVersion)
 [![android arsenal](https://img.shields.io/badge/Android%20Arsenal-android--youtube--player-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/4322)
