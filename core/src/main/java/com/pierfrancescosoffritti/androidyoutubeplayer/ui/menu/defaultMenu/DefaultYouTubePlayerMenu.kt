@@ -45,6 +45,11 @@ internal class DefaultYouTubePlayerMenu(private val context: Context) : YouTubeP
         return this
     }
 
+    override fun removeItem(menuItem: MenuItem): YouTubePlayerMenu {
+        menuItems.remove(menuItem)
+        return this
+    }
+
     private fun createPopupWindow(): PopupWindow {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view = inflater.inflate(R.layout.ayp_player_menu, null)

@@ -53,5 +53,4 @@ interface PlayerUiController {
     fun removeView(view: View): PlayerUiController
 
     fun getMenu(): YouTubePlayerMenu?
-    fun setMenu(youTubePlayerMenu: YouTubePlayerMenu): PlayerUiController
 }

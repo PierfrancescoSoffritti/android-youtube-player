@@ -74,8 +74,7 @@ A list of published apps that are using this library: ([let me know](https://git
     6. [Web-based UI](#web-based-ui)
     7. [Menu](#menu)
         1. [YouTubePlayerMenu](#youtubeplayermenu)
-        2. [DefaultYouTubePlayerMenu](#defaultyoutubeplayermenu)
-        3. [MenuItem](#menuitem)
+        2. [MenuItem](#menuitem)
     8. [Network events](#network-events)
     9. [Chromecast support](#chromecast-support)
     10. [Useful info](#useful-info)
@@ -773,34 +772,37 @@ This is how the player will look:
 ![web-based UI](./pics/web_based_ui_screenshot.jpg)
 
 ## Menu
-You can use these methods to control the menu's behavior:
+`PlayerUiController` has an optional menu. You can use these methods to control the menu's behavior:
 
 ``` java
 PlayerUiController.showMenuButton(boolean show);
 PlayerUiController.setMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener);
 ```
 
-By default the menu icon is not visible.
+By default the menu icon is not visible. 
 
-The default `OnClickListener` opens the default menu.
+The default `OnClickListener` opens the menu when the menu icon is clicked. You can change this behaviour, for example to open a menu with a different UX, like a bottom sheet panel. Obviously if you want a UX different from the one provided by the library, you are responsible for creating your own components.
 
 ### YouTubePlayerMenu
-Internally the menu is represented by a `YouTubePlayerMenu`. You can see its contract [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/ui/menu/YouTubePlayerMenu.java).
+You can get a reference of the `YouTubePlayerMenu` from the `PlayerUiController`.
+```java
+YouTubePlayerMenu PlayerUiController.getMenu()
+```
+Once you get a `YouTubePlayerMenu` object you can add and remove items to it, show it and dimiss it.
 
-You can get a reference of the `YouTubePlayerMenu` from the `PlayerUiController`, using the method
-`PlayerUiController.getMenu()`.
+```java
+YouTubePlayerMenu addItem(MenuItem menuItem)
+YouTubePlayerMenu removeItem(MenuItem menuItem)
+YouTubePlayerMenu removeItem(int itemIndex)
 
-You can add your own implementation of `YouTubePlayerMenu` using `PlayerUiController.setMenu(YouTubePlayerMenu youTubePlayerMenu)`.
+void show(View anchorView)
+void dismiss()
+```
 
-### DefaultYouTubePlayerMenu
-The default implementation of `YouTubePlayerMenu` (provided by the library) shows a popup window when its `show()` method is called. The popup window contains a list of `MenuItem`s. You can see the implementation of the default menu [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/ui/menu/defaultMenu/DefaultYouTubePlayerMenu.java).
-
-Unless you want to provide a different UX to your users you can safely use the default implementation of `YouTubePlayerMenu`. Otherwise you can change the click listener of the menu icon or provide a custom implementation of `YouTubePlayerMenu`.
-
-Initially the menu doesn't contain any `MenuItem`. You need to add them, using the method `YouTubePlayerMenu.addItem(MenuItem menuItem)`.
+Initially the `YouTubePlayerMenu` doesn't contain any item. You need to add them.
 
 ### MenuItem
-`MenuItem`s are the entries in the `YouTubePlayerMenu`. They are POJOs with a String of text, an icon and a OnClickListener. [Here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/ui/menu/MenuItem.java) is the implementation.
+`MenuItem`s are the items of the `YouTubePlayerMenu`. They have a title, an optional icon and a `OnClickListener` that is called when the item is clicked.
 
 ## Network events
 [`YouTubePlayerView`](#youtubeplayerview) automatically handles network events, using an internal BroadcastReceiver. You can choose to enable or disable this feature [when initializing the player](#initialization), or by setting the xml attribute `app:handleNetworkEvents="false"`.

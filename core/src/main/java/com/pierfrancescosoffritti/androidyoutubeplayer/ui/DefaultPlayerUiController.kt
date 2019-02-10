@@ -205,11 +205,6 @@ internal class DefaultPlayerUiController(private val youTubePlayerView: LegacyYo
 
     override fun getMenu(): YouTubePlayerMenu = youTubePlayerMenu
 
-    override fun setMenu(youTubePlayerMenu: YouTubePlayerMenu): PlayerUiController {
-        this.youTubePlayerMenu = youTubePlayerMenu
-        return this
-    }
-
     override fun showFullscreenButton(show: Boolean): PlayerUiController {
         fullScreenButton.visibility = if (show) View.VISIBLE else View.GONE
         return this

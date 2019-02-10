@@ -9,4 +9,5 @@ interface YouTubePlayerMenu {
 
     fun addItem(menuItem: MenuItem): YouTubePlayerMenu
     fun removeItem(itemIndex: Int): YouTubePlayerMenu
+    fun removeItem(menuItem: MenuItem): YouTubePlayerMenu
 }
