@@ -82,6 +82,7 @@ A list of published apps that are using this library: ([let me know](https://git
         1. [Hardware acceleration](#hardware-acceleration)
         2. [Play YouTube videos in the background](#play-youtube-videos-in-the-background)
         3. [minSdk](#minsdk)
+        4. [How to disable share and watch later buttons](#how-to-disable-share-and-watch-later-buttons)
 
 # Table of Contents (Chromecast)
 1. [Chromecast extension library](#chromecast-extension-library)
@@ -833,7 +834,7 @@ The minSdk of the library is 17. [At this point in time](https://developer.andro
 
 I'm not sure how WebView will behave on older versions of Android, but technically it should be possible to lower the minSdk. If you absolutely need to support older devices, I suggest you fork the library and lower the minSdk yourself.
 
-### How to disable the share and watch later buttons
+### How to disable share and watch later buttons
 YouTube made some changes to the IFrame player, unfortunately it's not possible to hide those buttons.
 
 If you want to be able to click them, you should [use the web-based UI](#web-based-ui) of the player instead of the native UI.
