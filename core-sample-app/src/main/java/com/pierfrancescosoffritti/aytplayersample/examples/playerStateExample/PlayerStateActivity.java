@@ -38,7 +38,7 @@ public class PlayerStateActivity extends AppCompatActivity {
         YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
         getLifecycle().addObserver(youTubePlayerView);
 
-        youTubePlayerView.addListener(new AbstractYouTubePlayerListener() {
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 addToList("READY", playerStatesHistory);

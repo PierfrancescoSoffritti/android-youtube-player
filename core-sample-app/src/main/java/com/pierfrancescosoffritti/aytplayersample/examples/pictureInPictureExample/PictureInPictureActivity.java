@@ -36,7 +36,7 @@ public class PictureInPictureActivity extends AppCompatActivity {
         getLifecycle().addObserver(youTubePlayerView);
         initPictureInPicture(youTubePlayerView);
 
-        youTubePlayerView.addListener(new AbstractYouTubePlayerListener() {
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 YouTubePlayerUtils.loadOrCueVideo(

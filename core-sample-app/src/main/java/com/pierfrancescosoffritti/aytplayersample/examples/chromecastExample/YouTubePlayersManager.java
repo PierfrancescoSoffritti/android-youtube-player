@@ -108,7 +108,7 @@ public class YouTubePlayersManager implements ChromecastConnectionListener {
     }
 
     private void initLocalYouTube(LocalYouTubePlayerInitListener localYouTubePlayerInitListener) {
-        youtubePlayerView.addListener(new AbstractYouTubePlayerListener() {
+        youtubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 localYouTubePlayer = youTubePlayer;
                 youTubePlayer.addListener(localPlayerStateTracker);

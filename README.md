@@ -46,19 +46,22 @@ A list of published apps that are using this library: ([let me know](https://git
 3. [Quick start](#quick-start)
 4. [API documentation](#api-documentation)
     1. [YouTubePlayerView](#youtubeplayerview)
-        1. [Initialization](#initialization)
-        2. [IFramePlayerOptions](#iframeplayeroptions)
-        3. [Full screen](#full-screen)
-        4. [UI](#ui)
-        5. [Release the YouTubePlayerView](#release-the-youtubeplayerview)
-        6. [LifecycleObserver](#lifecycleobserver)
+        1. [XML attributes](#xml-attributes)
+        2. [Initialization](#initialization)
+        3. [IFramePlayerOptions](#iframeplayeroptions)
+        4. [Full screen](#full-screen)
+        5. [UI](#ui)
+        6. [Release the YouTubePlayerView](#release-the-youtubeplayerview)
+        7. [LifecycleObserver](#lifecycleobserver)
     2. [YouTubePlayer](#youtubeplayer)
-        1. [Load Play and Pause videos](#load-play-and-pause-videos)
-        2. [Events](#events)
-        3. [The onReady event](#the-onready-event)
-        4. [Player state](#player-state)
-        5. [YouTubePlayerTracker](#youtubeplayertracker)
+        1. [Get a reference to YouTubePlayer](#get-a-reference-to-youtubeplayer)
+        2. [Load videos](#load-videos)
+            1. [Utility for loading videos](#utility-for-loading-videos)
+        3. [Events](#events)
+        4. [YouTubePlayerTracker](#youtubeplayertracker)
     3. [YouTubePlayerListener](#youtubeplayerlistener)
+        1. [onReady callback](#onready-callback)
+        2. [onStateChanged callback](#onstatechanged-callback)
     4. [PlayerUiController](#playeruicontroller)
         1. [Show video title](#show-video-title)
         2. [Live videos](#live-videos)
@@ -68,13 +71,14 @@ A list of published apps that are using this library: ([let me know](https://git
             1. [YouTubePlayerSeekBar](#youtubeplayerseekbar)
             2. [FadeViewHelper](#fadeviewhelper)
             3. [TimeUtilities](#timeutilities)
-    6. [Menu](#menu)
+    6. [Web-based UI](#web-based-ui)
+    7. [Menu](#menu)
         1. [YouTubePlayerMenu](#youtubeplayermenu)
         2. [DefaultYouTubePlayerMenu](#defaultyoutubeplayermenu)
         3. [MenuItem](#menuitem)
-    7. [Network events](#network-events)
-    8. [Chromecast support](#chromecast-support)
-    9. [Useful info](#useful-info)
+    8. [Network events](#network-events)
+    9. [Chromecast support](#chromecast-support)
+    10. [Useful info](#useful-info)
         1. [Hardware acceleration](#hardware-acceleration)
         2. [Play YouTube videos in the background](#play-youtube-videos-in-the-background)
         3. [minSdk](#minsdk)
@@ -133,11 +137,12 @@ dependencies {
 ```
 
 # Quick start
-In order to start using the player you need to add a [YouTubePlayerView](#youtubeplayerview) to your layout
+In order to start using the player you need to add a [YouTubePlayerView](#youtubeplayerview) to your layout.
 
 ```xml
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -145,17 +150,20 @@ In order to start using the player you need to add a [YouTubePlayerView](#youtub
     <com.pierfrancescosoffritti.androidyoutubeplayer.player.views.YouTubePlayerView
         android:id="@+id/youtube_player_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        
+        app:videoId="6JYIGclVQdw" />
 </LinearLayout>
 ```
+That's all you need, a YouTube video is now playing in your app.
 
-Get a reference to the `YouTubePlayerView` in your code and initialize it
+If you want more control, everything can be done programmatically by getting a reference to your `YouTubePlayerView` and adding a `YouTubePlayerListener` to it.
 
 ```java
-YouTubePlayerView youtubePlayerView = findViewById(R.id.youtube_player_view);
-getLifecycle().addObserver(youtubePlayerView);
+YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
+getLifecycle().addObserver(youTubePlayerView);
 
-youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
   @Override
   public void onReady(@NonNull YouTubePlayer youTubePlayer) {
     String videoId = "6JYIGclVQdw";
@@ -163,8 +171,6 @@ youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
   }
 });
 ```
-
-That's all you need, a YouTube video is now playing in your app.
 
 ----
 
@@ -174,7 +180,7 @@ The following sections provide detailed documentation for every component of the
 If you see any problem or mistake in the documentation, feel free to contribute by opening an issue an/or sending a pull request.
 
 ## YouTubePlayerView
-`YouTubePlayerView` is the access point to the *core* library.
+`YouTubePlayerView` is the access point to the YouTubePlayer.
 
 You can add the View to your layout
 
@@ -182,8 +188,7 @@ You can add the View to your layout
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.player.views.YouTubePlayerView
         android:id="@+id/youtube_player_view"
@@ -192,17 +197,130 @@ You can add the View to your layout
 </LinearLayout>
 ```
 
-or you can initialize it programmatically and manually add it to a ViewGroup
+or you can create it programmatically and manually add it to a ViewGroup
 
 ```java
-YouTubePlayerView youtubePlayerView = new YouTubePlayerView(this);
-layout.addView(youtubePlayerView);
+YouTubePlayerView youTubePlayerView = new YouTubePlayerView(this);
+layout.addView(youTubePlayerView);
 ```
 
-if the height of the View is set to `wrap_content`, the View will automatically have an aspect ratio of 16:9, to fit the aspect ratio of YouTube videos.
+if the height of the View is set to `wrap_content`, the View will automatically have an aspect ratio of 16:9, to match the aspect ratio of most YouTube videos.
+
+### XML attributes
+If you add the view to your XML layout you have the possibility to set a few custom attributes, to customize the view's look and behavior. Everything can also be done programmatically.
+
+#### videoId
+This attribute expects a `String`, which is the id of a YouTube video.
+
+**If set**, the player will automatically start playing the video.
+
+**If not set**, the player won't automatically play.
+
+In general you should use this attribute if you want your player to play only one video. This is not a rule, just best practice. In fact, even if you set the attribute it is still possible to play other videos programatically.
+
+#### autoPlay
+This attribute expects a `boolean`. Its default value is `false`.
+
+**If `true`**, the player start playing the video provided with `videoId` without waiting for user input.
+
+**If `false`**, the player will wait for user input befort playing the video provided with `videoId`.
+
+If `videoId` is not set, this attribute is useless, therefore if it is set to `true` `YouTubePlayerView` will throw an excpetion.
+
+#### enableAutomaticInitialization
+This attribute expects a `boolean`. Its default value is `true`.
+
+**If `true`**, `YouTubePlayerView` will take care of its initialization.
+
+**If `false`**, you will have to initialize `YouTubePlayerView` programmatically.
+
+In general it makes sense to leave this attribute to `true`. You may want to set it to `false` only if you need to initialize the view using [`IFramePlayerOptions`](#iframeplayeroptions).
+
+#### handleNetworkEvents
+This attribute expects a `boolean`. Its default value is `true`.
+
+**If `true`**, `YouTubePlayerView` handle network events by registering a `NetworkReceiver`.
+
+**If `false`**, you will be responsible for handling network events.
+
+It is useful to have this attribute set to `true` so that if the connection drops while the player is initializing `YouTubePlayerView` will be able to resume the initialization automatically once the network is back.
+
+If you decide to set it to `false` you should also disable `enableAutomaticInitialization` and manage network events on your own.
+
+Read more about network events [here](#network-events).
+
+#### useWebUi
+This attribute expects a `boolean`. Its default value is `false`.
+
+**If `true`**, `YouTubePlayerView` will use the web-based UI of the IFrame YouTubePlayer.
+
+**If `false`**, `YouTubePlayerView` will use the native UI of the library.
+
+YouTube added some non-removable buttons to the IFrame Player, as mentioned in [this issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues/242). Using the web-based UI is the only way to have access to these non-removable buttons.
+
+Read the documentation of the [`initializeWithWebUi`](#initializeWithWebUi(YouTubePlayerListener,-boolean)) method to learn more about the effects of this attribute.
+
+#### enableLiveVideoUi
+This attribute expects a `boolean`. Its default value is `false`.
+
+**If `true`**, `YouTubePlayerView` will use UI for live videos.
+
+**If `false`**, `YouTubePlayerView` will use the UI normal videos.
+
+This attribute does nothing if `useWebUi` is `true`.
+
+#### showYouTubeButton
+This attribute expects a `boolean`. Its default value is `true`.
+
+**If `true`**, `YouTubePlayerView` will show a small clickable YouTube icon in the lower right corner of the player.
+
+**If `false`**, `YouTubePlayerView` will not show a small clickable YouTube icon in the lower right corner of the player.
+
+This attribute does nothing if `useWebUi` is `true`.
+
+#### showFullScreenButton
+This attribute expects a `boolean`. Its default value is `true`.
+
+**If `true`**, `YouTubePlayerView` will show a button to enter and exit full-screen.
+
+**If `false`**, `YouTubePlayerView` will not show a button to enter and exit full-screen.
+
+This attribute does nothing if `useWebUi` is `true`.
+
+#### showVideoCurrentTime
+This attribute expects a `boolean`. Its default value is `true`.
+
+**If `true`**, `YouTubePlayerView` will show the current time of the current video.
+
+**If `false`**, `YouTubePlayerView` will not show the current time of the current video.
+
+This attribute does nothing if `useWebUi` is `true`.
+
+#### showVideoDuration
+This attribute expects a `boolean`. Its default value is `true`.
+
+**If `true`**, `YouTubePlayerView` will show the time duration of the current video.
+
+**If `false`**, `YouTubePlayerView` will not show the time duration of the current video.
+
+This attribute does nothing if `useWebUi` is `true`.
+
+#### showSeekBar
+This attribute expects a `boolean`. Its default value is `true`.
+
+**If `true`**, `YouTubePlayerView` will show a SeekBar to control video playback.
+
+**If `false`**, `YouTubePlayerView` will not show a SeekBar to control video playback.
+
+This attribute does nothing if `useWebUi` is `true`.
 
 ### Initialization
-In order to use the YouTube player you need to initialize it. To do that you use three methods: 
+If you need to initialize `YouTubePlayerView` programmatically, you can set its xml attribute `enableAutomaticInitialization` to false.
+You can do the same programmatically by calling `youTubePlayerView.setEnableAutomaticInitialization(false)`.
+
+After automatic initialization has been disabled, you need to take care of the initialization of `YouTubePlayerView`.
+
+You can use these methods:
 ```java
 YouTubePlayerView.initialize(YouTubePlayerListener listener)
 ```
@@ -216,7 +334,7 @@ YouTubePlayerView.initializeWithWebUi(YouTubePlayerListener listener, boolean ha
 YouTubePlayerView.initialize(YouTubePlayerListener listener, boolean handleNetworkEvents, IFramePlayerOptions iframePlayerOptions)
 ```
 #### `initialize(YouTubePlayerListener)`
-Initialize the `YouTubePlayer`. Network events are automatically handles by the player.
+Initialize the `YouTubePlayer`. Network events are automatically handled by the player.
 
 The argument is a `YouTubePlayerListener`, you can read more about it [here](#youtubeplayerlistener).
 
@@ -229,7 +347,7 @@ By passing an `IFramePlayerOptions` to the initialize method it is possible to s
 All the possible parameters and values are listed [here](https://developers.google.com/youtube/player_parameters#Parameters). Not all of them are supported in this library because some don't make sense in this context. [Open an issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues) if you need a parameter that is not currently supported.
 
 #### `initializeWithWebUi(YouTubePlayerListener, boolean)`
-This method is identical to `initialize(YouTubePlayerListener, boolean)` but it disables the native UI of the player and uses the web-based UI of the IFrame Player API.
+This method is identical to `initialize(YouTubePlayerListener, boolean)` but it disables the native UI of the player and instead uses the web-based UI of the IFrame Player API.
 
 Because the native UI is disabled trying to call `YouTubePlayerView.getPlayerUiController()` will throw an exception.
 
@@ -253,11 +371,11 @@ All the possible parameters and values are listed [here](https://developers.goog
 #### Supported options
 
 ##### `controls`
-This option indicates whether the web-based UI of the IFrame player is used or not.
+This option indicates whether the web-based UI of the IFrame player should be hidden or visible.
 
-If set to 0: web UI is not used.
+If set to 0: web UI is not visible.
 
-If set to 1: web UI is used.
+If set to 1: web UI is visible.
 
 ##### `rel`
 This option controls the related videos shown at the end of a video.
@@ -274,7 +392,7 @@ If set to 1: causes video annotations to be shown by default.
 If set to 3 causes video annotations to not be shown by default.
 
 ### Full screen
-You can use the `YouTubePlayerView` to set the player full screen or not, using these methods
+You can use the `YouTubePlayerView` to enter and exit fullscreen.
 
 ```java
 youtubePlayerView.enterFullScreen();
@@ -283,19 +401,20 @@ youtubePlayerView.isFullScreen();
 youtubePlayerView.toggleFullScreen();
 ```
 
-You can also add listeners to get notified when the `YouTubePlayerView` enters or exits full screen
+You can also add listeners to get notified when the `YouTubePlayerView` enters or exits full screen.
 
 ```java
 youtubePlayerView.addFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
 youtubePlayerView.removeFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
 ```
 
-The sample app contains an [helper class](./core-sample-app/src/main/java/com/pierfrancescosoffritti/aytplayersample/utils/FullScreenHelper.java) that can help you to update your UI when enter/exit fullscreen.
+`enterFullScreen()` and `exitFullScreen()` will:
+- set `YouTubePlayerView`'s height and width to `MATCH_PARENT`
+- update the UI of the player to match the new state. (eg: update the fullscreen button)
 
+It is responsibility of the developer to hide other Views in the Activity, change the orientation of the Activity etc. The sample app contains an [helper class](./core-sample-app/src/main/java/com/pierfrancescosoffritti/aytplayersample/utils/FullScreenHelper.java) that can help you to update your app state, but this is not part of the library.
 
-It's important to keep in mind the the library is not responsible for changing the orientation of your Activity, that's up to you.
-
-By default Android recreates Activities and Fragments when the orientation changes. Make sure that you manually handle orientation changes by adding the attribute `android:configChanges` to your Activity definition in the manifest.
+If you need to change the orientation of your Activity/Fragment, remember that by default Android recreates Activities and Fragments when the orientation changes. Make sure that you manually handle orientation changes by adding the attribute `android:configChanges` to your Activity definition in the manifest.
 
 ```xml
 <application >
@@ -304,17 +423,14 @@ By default Android recreates Activities and Fragments when the orientation chang
 </application>
 ```
 
-If you don't do that the player will lose all the data it has buffered and re-start from zero after the orientation has changed.
-
 ### UI
 If you want to interact with the UI of the player you need to get a reference to the `PlayerUiController` from the `YouTubePlayerView` by calling this method
 
 ```java
 PlayerUiController YouTubePlayerView.getPlayerUiController();
 ```
-You can read more about PlayerUiController [here](#playeruicontroller).
 
-You can also build your own custom UI, [read more here](#create-your-own-custom-ui).
+[Read the documentation of PlayerUiController](#playeruicontroller).
 
 ### Release the YouTubePlayerView
 Remember to release the `YouTubePlayerView` when you're done using it, by calling `YouTubePlayerView.release()`.
@@ -327,54 +443,86 @@ public void onDestroy() {
 }
 ```
 
-You don't need to manually release the player if you register it as an observer of your Activity/Fragment's lifecycle.
+**You don't need to manually release the player if you registered it as an observer of your Activity/Fragment's lifecycle.**
 
 ### LifecycleObserver
-`YouTubePlayerView` implements the `LifecycleObserver` interface, this means that is a lifecycle aware component. If added as an observer of your Activity/Fragment's lifecycle, the `release()` method will be called automatically.
+`YouTubePlayerView` implements the `LifecycleObserver` interface, this means that it is a lifecycle aware component.
+
+If added as an observer of your Activity/Fragment's lifecycle, `YouTubePlayerView` will be smarter. **It is highly recommended that you register `YouTubePlayerView` as a `LifecycleObserver`.**
 
 ```java
 lifecycleOwner.getLifecycle().addObserver(youTubePlayerView);
 ```
-Adding `YouTubePlayerView` as an observer to a lifecycle will also automatically cause the player to pause the playback when the Activity/Fragment stops (not when it pauses, in order to support multi-window applications).
+Adding `YouTubePlayerView` as an observer to a lifecycle will allow `YouTubePlayerView` to automatically pause the playback when the Activity/Fragment stops (not when it pauses, in order to support multi-window applications).
+
 
 If you want your app to keep [playing when the Activity/Fragment is not visible](#play-youtube-videos-in-the-background) (remember that this behavior is not allowed, if you want to publish your app on the PlayStore), don't register the `YouTubePlayerView` as a lifecycle observer. But remember to manually call `release()` when the Activity/Fragment is being destroyed.
 
 ## YouTubePlayer
-`YouTubePlayer` is the component responsible for controlling the playback of YouTube videos. You can see its contract [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/YouTubePlayer.java).
+`YouTubePlayer` is the component responsible for controlling the playback of YouTube videos. You can see its contract [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/YouTubePlayer.kt).
 
-You can only get a reference to the `YouTubePlayer` when [initializing the YouTubePlayerView](#initialization).
+Every [`YouTubePlayerView`](#youtubeplayerview) contains a `YouTubePlayer`.
 
-### Load Play and Pause videos
-To load a video you can use `YouTubePlayer.loadVideo(String videoId, float startTime)` or `YouTubePlayer.cueVideo(String videoId, float startTime)`.
+### Get a reference to YouTubePlayer
+There are tow ways to get a reference to the `YouTubePlayer`, through the `YouTubePlayerView`.
+
+#### 1. YouTubePlayerView.getYouTubePlayerWhenReady
+`YouTubePlayerView.getYouTubePlayerWhenReady` can be used to get a reference to the `YouTubePlayer`. As the name of the method says, you'll only get the player when it is ready.
+
+Therefore this function takes a callback as argument, the callback will be called when the `YouTubePlayer` is ready.
+
+```java
+youTubePlayerView.getYouTubePlayerWhenReady(youTubePlayer -> { 
+  // do stuff with it
+})
+```
+
+#### 2. YouTubePlayerListener
+Every method of a [`YouTubePlayerListener`](#youtubeplayerlistener) has the `YouTubePlayer` as argument.
+
+### Load videos
+To load a video you can use two methods.
+
+```java
+YouTubePlayer.loadVideo(String videoId, float startTime)
+```
+or
+```java
+YouTubePlayer.cueVideo(String videoId, float startTime)
+```
 The difference between the two is that `loadVideo` loads and automatically plays the video, while `cueVideo` just loads video and thumbnail but doesn't autoplay.
 
-To play a video call `YouTubePlayer.play()`.
-To pause a video call `YouTubePlayer.pause()`
+#### Utility for loading videos
+If the Activity/Fragment is in the background, but you created a `YouTubePlayerListener` that calls `loadVideo` when `onReady` is called, the video will start playing even if the Activity is in the background.
 
+To solve this problem you should use the `loadOrCueVideo` function.
+
+Provided as an utility function in Java.
+
+```java
+YouTubePlayerUtils.loadOrCueVideo(
+  youTubePlayer,
+  getLifecycle(),
+  videoId,
+  startTime
+);
+```
+
+And as an extension function in Kotlin.
+
+```kotlin
+youTubePlayer.loadOrCueVideo(lifeCycle, videoId, startTime)
+```
+
+This function will call `loadVideo` only if the Activity is resumed, otherwise it will call `cueVideo`, so that the video starts loading but not playing.
 
 ### Events
-During its existence the player will constantly emit events, you can easily listen to all of them by adding a [YouTubePlayerListener](#youtubeplayerlistener) to it.
-
-### The onReady event
-The onReady callback of a `YouTubePlayerListener` is called once, when the `YouTubePlayer` is ready to be used. **You can't use a `YouTubePlayer` before it is ready**.
-
-### Player state
-The player has a state, that changes accordingly to the playback changes. The [list of possible states](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/PlayerConstants.java#L5) is the same of the YouTube [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference#Playback_status).
-
-```
-UNKNOWN
-UNSTARTED
-ENDED
-PLAYING
-PAUSED
-BUFFERING
-VIDEO_CUED
-```
+During its existence the player will constantly emit events, you can easily listen to all of them by adding a [`YouTubePlayerListener`](#youtubeplayerlistener) to it.
 
 ### YouTubePlayerTracker
 `YouTubePlayerTracker` is an utility provided by the library to easily keep track of a `YouTubePlayer`'s state and other information.
 
-`YouTubePlayerTracker` is a `YouTubePlayerListener`, therefore in order to use it you need to add it as a listener to the `YouTubePlayer`.
+`YouTubePlayerTracker` is a [`YouTubePlayerListener`](#youtubeplayerlistener), therefore in order to use it you need to add it as a listener to the `YouTubePlayer`.
 
 You can then use the tracker to get the player's state and various information about the video that is being played.
 
@@ -389,7 +537,7 @@ tracker.getVideoId();
 ```
 
 ## YouTubePlayerListener
-A `YouTubePlayerListener` is used to intercept events emitted by a `YouTubePlayer`.
+A `YouTubePlayerListener` is used to intercept events emitted by a [`YouTubePlayer`](#youtubeplayer).
 
 During its existence a `YouTubePlayer` will constantly emit events, you can listen to them by adding a `YouTubePlayerListener` to it.
 
@@ -397,47 +545,63 @@ During its existence a `YouTubePlayer` will constantly emit events, you can list
 youtubePlayer.addListener(YouTubePlayerListener listener);
 youtubePlayer.removeListener(YouTubePlayerListener listener);
 ```
-The `YouTubePlayerListener` interface exposes these methods, every method takes a reference to the `YouTubePlayer` and some other arguments.
+These are the method that a `YouTubePlayerListener` must implement, every method takes a reference to the `YouTubePlayer` and some other arguments.
 
-```kotlin
+```java
 // Called when the player is ready to play videos.
 // You should start using the player only after this method is called.
-fun onReady(youTubePlayer: YouTubePlayer)
+void onReady(@NonNull YouTubePlayer youTubePlayer)
 
 // Called every time the state of the player changes.
-fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState)
+void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState state)
 
 // Called every time the quality of the playback changes.
-fun onPlaybackQualityChange(youTubePlayer: YouTubePlayer, playbackQuality: PlayerConstants.PlaybackQuality)
+void onPlaybackQualityChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlaybackQuality playbackQuality)
 
 // Called every time the speed of the playback changes.
-fun onPlaybackRateChange(youTubePlayer: YouTubePlayer, playbackRate: PlayerConstants.PlaybackRate)
+void onPlaybackRateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlaybackRate playbackRate)
 
 // Called when an error occurs in the player.
-fun onError(youTubePlayer: YouTubePlayer, error: PlayerConstants.PlayerError)
+void onError(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerError error)
 
 // Called periodically by the player, the argument is the number of seconds that have been played.
-fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float)
+void onCurrentSecond(@NonNull YouTubePlayer youTubePlayer, float second)
 
 // Called when the total duration of the video is loaded.
 // Note that getDuration() will return 0 until the video's metadata is loaded, which normally happens just after the video starts playing.
-fun onVideoDuration(youTubePlayer: YouTubePlayer, duration: Float)
+void onVideoDuration(@NonNull YouTubePlayer youTubePlayer, float duration)
 
 // Called periodically by the player, the argument is the percentage of the video that has been buffered.
-fun onVideoLoadedFraction(youTubePlayer: YouTubePlayer, loadedFraction: Float)
+void onVideoLoadedFraction(@NonNull YouTubePlayer youTubePlayer, float loadedFraction)
 
 // Called when the id of the current video is loaded
-fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String)
+void onVideoId(@NonNull YouTubePlayer youTubePlayer, String videoId)
 
-fun onApiChange(youTubePlayer: YouTubePlayer)
+void onApiChange(@NonNull YouTubePlayer youTubePlayer)
 ```
 
 If you don't want to implement all the methods of this interface, you can extend `AbstractYouTubePlayerListener` instead of implementing `YouTubePlayerListener` and override only the methods you are interested in.
 
-For more information on the methods defined in the `YouTubePlayerListener` interface, please refer to the documentation defined above each method [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/listeners/YouTubePlayerListener.kt).
+For more information on the methods defined in the `YouTubePlayerListener` interface, please refer to the documentation defined above each method [in the codebase](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/listeners/YouTubePlayerListener.kt).
+
+### onReady callback
+The onReady callback of a `YouTubePlayerListener` is called once, when the `YouTubePlayer` is ready to be used for the first time. **You can't use a `YouTubePlayer` before it is ready**.
+
+### onStateChanged callback
+The `YouTubePlayer` has a state, that changes accordingly to the playback changes. The [list of possible states](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/PlayerConstants.java#L5) is the same of the YouTube [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference#Playback_status).
+
+```
+UNKNOWN
+UNSTARTED
+ENDED
+PLAYING
+PAUSED
+BUFFERING
+VIDEO_CUED
+```
 
 ## PlayerUiController
-The `PlayerUiController` is responsible for controlling the UI of a `YouTubePlayerView`.
+The `PlayerUiController` is responsible for controlling the UI of a [`YouTubePlayerView`](#youtubeplayerview).
 
 You can get a reference to the `PlayerUiController` from the `YouTubePlayerView`
 
@@ -445,23 +609,23 @@ You can get a reference to the `PlayerUiController` from the `YouTubePlayerView`
 youtubePlayerView.getPlayerUiController();
 ```
 
+`PlayerUiController` offers a lot of method to control the UI, only a few of them are presented in the following sections.
+
 ### Show video title
-Due to changes to the IFrame API, the web player will always show the title of the video.
+Due to changes to the IFrame API, the web-based IFrame player will always show the title of the video.
 
-Nevertheless, the `PlayerUiController` exposes a method called `setVideoTitle(String videoTitle)` that can be used to set the title on the Android side (unfortunately setting this title won't remove the title from the Webview).
-
-The library doesn't know the title of the videos it plays. Therefore, if you want to use this method to set the real title of the video, you need to find it first. The best way to do that is by using the [YouTube Data API](https://developers.google.com/youtube/v3/docs/)  to fetch the video title from the video id.
-
-You can see an example in the method `setVideoTitle(PlayerUiController playerUiController, String videoId)` from the [sample app](./core-sample-app/src/main/java/com/pierfrancescosoffritti/aytplayersample/examples/basicExample/BasicExampleActivity.java#L177).
+Nevertheless, the `PlayerUiController` exposes a method called `setVideoTitle(String videoTitle)` that can be used to set the title on the Android side (unfortunately setting this title won't remove the title from the WebView).
 
 ### Live videos
-If you want to play live videos you must setup the UI accordingly, by calling this method
+If you want to play live videos you must setup the UI accordingly, by calling this method.
 
 ```java
 PlayerUiController.enableLiveVideoUi(boolean enable);
 ```
 
-Unfortunately there is no way for the player to automatically know if it is playing a live video or not, therefore is up to the developer to change the UI accordingly.
+Unfortunately there is no way for the player to automatically know if it is playing a live video or not, therefore is up to the developer to change the UI.
+
+You can obtain the same result by setting the xml attribute `app:enableLiveVideoUi="true"` of `YouTubePlayerView`.
 
 ### Custom actions
 You can set custom actions on the right and left side of the Play/Pause button of the player
@@ -473,27 +637,25 @@ PlayerUiController.showCustomAction1(boolean show);
 PlayerUiController.showCustomAction2(boolean show);
 ```
 
-You can **also add any type of View to the UI**, this can be useful if you want to add a new icon to the UI.
+You can **also add any type of View to the UI**, this can be useful if you want to add a new icon.
 
 ```java
 PlayerUiController.addView(View view);
 PlayerUiController.removeView(View view);
 ```
 
-The View will be added to the top of the player.
+The View will be added to the top corner of the player.
 
 ## Create your own custom UI
 Customization is an important aspect of this library. If need to, you can completely replace the default UI of the player.
 
-`YouTubePlayerView`'s method
+`YouTubePlayerView` has method for that.
 
 ```java
 View inflateCustomPlayerUi(@LayoutRes int customUiLayoutID)
 ```
 
-can be used to replace the default UI of the player.
-
-This method takes in the id of a layout resource, which is a regular XML file defining a layout. The default UI of the player is removed and replaced with the new UI. The method returns the View object corresponding to the newly inflated layout.
+This method takes in the `id` of a layout resource, which is a regular XML file containing the definition of a layout. The default UI of the player is removed and replaced with the new UI. The method returns the View object corresponding to the newly inflated layout.
 
 After calling this method, the default [PlayerUiController](#playeruicontroller) won't be available anymore. Calling `YouTubePlayerView.getPlayerUiController()` will throw an exception.
 
@@ -504,10 +666,10 @@ Example (taken from sample app):
 ```java
 View customPlayerUi = youTubePlayerView.inflateCustomPlayerUi(R.layout.custom_player_ui);
 
-youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
   @Override
   public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-    YourCustomPlayerUiController customPlayerUiController = new YourCustomPlayerUiController(youTubePlayer, youTubePlayerView, customPlayerUi);
+    YourCustomPlayerUiController customPlayerUiController = new YourCustomPlayerUiController(youTubePlayer, youTubePlayerView, customPlayerUi, ...);
     youTubePlayer.addListener(customPlayerUiController);
     youTubePlayerView.addFullScreenListener(customPlayerUiController);
 
@@ -516,9 +678,9 @@ youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
 });
 
 ```
-A post on this topic is available [here](https://medium.com/@soffritti.pierfrancesco/customize-android-youtube-players-ui-9f32da9e8505).
+A blog post going deeper on this is available [at this link](https://medium.com/@soffritti.pierfrancesco/customize-android-youtube-players-ui-9f32da9e8505).
 
-Sample app example:
+Example of an (ugly) custom UI:
 
 ![Sample app example](https://media.giphy.com/media/SradsoNdy1DNVGHGy5/giphy.gif)
 
@@ -588,10 +750,24 @@ Use the method `FadeViewHelper.setDisabled(boolean)` to disable the automatic fa
 
 Use the method `FadeViewHelper.toggleVisibility()` to toggle the visibility of the target view, with a fade animation.
 
-## TimeUtilities
-An utility class containing method usefull to format the time.
+#### TimeUtilities
+A set of utilities than can be used to format time Strings (like duration and current time of videos).
 
-Use `fun formatTime(timeInSeconds: Float): String` to transform the time in seconds in a string with format "M:SS".
+```java
+String TimeUtilities.formatTime(float timeInSeconds)
+```
+Takes in the time in seconds and returns a String with the time formatted as "M:SS". (M = minutes, S = seconds).
+
+## Web based UI
+YouTube added some non-removable buttons to the IFrame Player, as mentioned in [this issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues/242). Using the web-based UI is the only way to have access to these non-removable buttons.
+
+To use the web-based UI you can set the attribute `app:useWebUi="true"` in the `YouTubePlayerView` or you can use [the appropriate initialization method](#initialization).
+
+When using the web-based UI, calling `YouTubePlayerView.getPlayerUiController()` throws excpetion and it not possible to apply any UI customization.
+
+This is how the player will look:
+
+![web-based UI](./pics/web_based_ui_screenshot.jpg)
 
 ## Menu
 You can use these methods to control the menu's behavior:
@@ -624,15 +800,11 @@ Initially the menu doesn't contain any `MenuItem`. You need to add them, using t
 `MenuItem`s are the entries in the `YouTubePlayerMenu`. They are POJOs with a String of text, an icon and a OnClickListener. [Here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/ui/menu/MenuItem.java) is the implementation.
 
 ## Network events
-This library is capable of handling network events, using an internal BroadcastReceiver. You can choose to use it or not when you are initializing the player.
-
-Call `YouTubePlayerView.initialize(..., true)` to let the library register its BroadcastReceiver or call `YouTubePlayerView.initialize(..., false)` if you prefer to use your own.
+[`YouTubePlayerView`](#youtubeplayerview) automatically handles network events, using an internal BroadcastReceiver. You can choose to enable or disable this feature [when initializing the player](#initialization), or by setting the xml attribute `app:handleNetworkEvents="false"`.
 
 Using the internal BroadcastReceiver is the easiest and recommended way to handle network events. The library is capable of handling cases in which the connection goes off and the playback can't continue, or cases in which the connection goes off while the player is in the process of initialization.
 
-For example, if the player is playing but is stopped by a lost connection, once the connection is back the player automatically resumes the playback from where it left off. Otherwise if the player was paused, when the connection is back it just stays paused while automatically resuming the buffering of the video.
-
-If you want to use your own BroadcastReceiver make sure to cover all this scenarios, in order to provide a good user experience.
+If you want to use your own BroadcastReceiver make sure to cover all the possible scenarios, in order to provide a good user experience.
 
 ## Chromecast support
 If you need to cast YouTube videos to a Chromecast device you can use the *chromecast-sender* extension library. Read its documentation [here](#chromecast-extension-library).
@@ -660,6 +832,11 @@ Use this functionality only if you plan to build the app for personal use or if 
 The minSdk of the library is 17. [At this point in time](https://developer.android.com/about/dashboards/index.html) it doesn't make much sense for new apps to support older versions of Android.
 
 I'm not sure how WebView will behave on older versions of Android, but technically it should be possible to lower the minSdk. If you absolutely need to support older devices, I suggest you fork the library and lower the minSdk yourself.
+
+### How to disable the share and watch later buttons
+YouTube made some changes to the IFrame player, unfortunately it's not possible to hide those buttons.
+
+If you want to be able to click them, you should [use the web-based UI](#web-based-ui) of the player instead of the native UI.
 
 ---
 

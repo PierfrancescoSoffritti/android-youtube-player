@@ -29,7 +29,7 @@ public class WebUiExampleActivity extends AppCompatActivity {
 
     private void initYouTubePlayerView() {
         getLifecycle().addObserver(youTubePlayerView);
-        youTubePlayerView.addListener(new AbstractYouTubePlayerListener() {
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 setPlayNextVideoButtonClickListener(youTubePlayer);

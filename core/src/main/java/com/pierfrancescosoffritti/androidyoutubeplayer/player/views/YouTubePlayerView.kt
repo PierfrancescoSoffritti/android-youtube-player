@@ -59,6 +59,9 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
                     "you should manually initialize the YouTubePlayerView using 'initializeWithWebUi'")
         }
 
+        if(videoId == null && autoPlay)
+            throw IllegalStateException("YouTubePlayerView: videoId is not set but autoPlay is set to true. This combination is not possible.")
+
         if(!useWebUi) {
             legacyTubePlayerView.getPlayerUiController().enableLiveVideoUi(enableLiveVideoUi)
             legacyTubePlayerView.getPlayerUiController().showYouTubeButton(showYouTubeButton)
@@ -181,10 +184,10 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     private fun onStop() = legacyTubePlayerView.onStop()
 
-    fun addListener(youTubePlayerListener: YouTubePlayerListener) =
+    fun addYouTubePlayerListener(youTubePlayerListener: YouTubePlayerListener) =
             legacyTubePlayerView.youTubePlayer.addListener(youTubePlayerListener)
 
-    fun removeListener(youTubePlayerListener: YouTubePlayerListener) =
+    fun removeYouTubePlayerListener(youTubePlayerListener: YouTubePlayerListener) =
             legacyTubePlayerView.youTubePlayer.removeListener(youTubePlayerListener)
 
     fun enterFullScreen() = legacyTubePlayerView.enterFullScreen()

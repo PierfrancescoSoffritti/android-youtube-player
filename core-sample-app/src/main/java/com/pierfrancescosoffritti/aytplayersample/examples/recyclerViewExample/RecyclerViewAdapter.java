@@ -50,7 +50,7 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
             super(playerView);
             youTubePlayerView = playerView;
 
-            youTubePlayerView.addListener(new AbstractYouTubePlayerListener() {
+            youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
                 @Override
                 public void onReady(@NonNull YouTubePlayer initializedYouTubePlayer) {
                     youTubePlayer = initializedYouTubePlayer;

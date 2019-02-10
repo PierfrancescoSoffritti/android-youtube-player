@@ -78,7 +78,7 @@ class YouTubePlayersManager(
     }
 
     private fun initLocalYouTube(localYouTubePlayerInitListener: LocalYouTubePlayerInitListener) {
-        youtubePlayerView.addListener(object : AbstractYouTubePlayerListener() {
+        youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 localYouTubePlayer = youTubePlayer
                 youTubePlayer.addListener(localPlayerStateTracker)

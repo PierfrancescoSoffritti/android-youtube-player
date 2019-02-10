@@ -27,7 +27,7 @@ public class ViewPagerFragment extends Fragment {
 
         getLifecycle().addObserver(youTubePlayerView);
 
-        youTubePlayerView.addListener(new AbstractYouTubePlayerListener() {
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 youTubePlayer.cueVideo(videoId, 0);
