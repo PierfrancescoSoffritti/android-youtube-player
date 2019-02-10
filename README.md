@@ -86,7 +86,7 @@ A list of published apps that are using this library: ([let me know](https://git
 
 # Table of Contents (Chromecast)
 1. [Chromecast extension library](#chromecast-extension-library)
-2. [Quick start and API documentation](#quick-start-chromecast)
+2. [Quick start and API documentation](#quick-start--chromecast)
     1. [Download extra dependencies](#download-extra-dependencies)
     2. [Sender](#sender)
     3. [Receiver](#receiver)
@@ -153,10 +153,19 @@ In order to start using the player you need to add a [YouTubePlayerView](#youtub
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         
-        app:videoId="6JYIGclVQdw" />
+        app:videoId="S0Q4gqBUs7c" />
 </LinearLayout>
 ```
 That's all you need, a YouTube video is now playing in your app.
+
+It is not mandatory, but it's recommended that you add `YouTubePlayerView` as a lifecycle observer of its parent Activity/Fragment. You can [read why in the documentation](#lifecycleobserver).
+
+*(If you have problems adding `YouTubePlayerView` as a `LifecycleObserver`, you probably aren't using androidx, [I suggest you migrate your dependencies](https://developer.android.com/jetpack/androidx/migrate))*
+
+```java
+YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
+getLifecycle().addObserver(youTubePlayerView);
+```
 
 If you want more control, everything can be done programmatically by getting a reference to your `YouTubePlayerView` and adding a `YouTubePlayerListener` to it.
 
@@ -167,7 +176,7 @@ getLifecycle().addObserver(youTubePlayerView);
 youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
   @Override
   public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-    String videoId = "6JYIGclVQdw";
+    String videoId = "S0Q4gqBUs7c";
     youTubePlayer.loadVideo(videoId, 0);
   }
 });
