@@ -398,17 +398,17 @@ If set to 3 causes video annotations to not be shown by default.
 You can use the `YouTubePlayerView` to enter and exit fullscreen.
 
 ```java
-youtubePlayerView.enterFullScreen();
-youtubePlayerView.exitFullScreen();
-youtubePlayerView.isFullScreen();
-youtubePlayerView.toggleFullScreen();
+youTubePlayerView.enterFullScreen();
+youTubePlayerView.exitFullScreen();
+youTubePlayerView.isFullScreen();
+youTubePlayerView.toggleFullScreen();
 ```
 
 You can also add listeners to get notified when the `YouTubePlayerView` enters or exits full screen.
 
 ```java
-youtubePlayerView.addFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
-youtubePlayerView.removeFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
+youTubePlayerView.addFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
+youTubePlayerView.removeFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
 ```
 
 `enterFullScreen()` and `exitFullScreen()` will:
@@ -442,7 +442,7 @@ Remember to release the `YouTubePlayerView` when you're done using it, by callin
 @Override
 public void onDestroy() {
     super.onDestroy();
-    youtubePlayerView.release();
+    youTubePlayerView.release();
 }
 ```
 
@@ -531,7 +531,7 @@ You can then use the tracker to get the player's state and various information a
 
 ```java
 YouTubePlayerTracker tracker = new YouTubePlayerTracker();
-youtubePlayer.addListener(tracker);
+youTubePlayer.addListener(tracker);
 
 tracker.getState();
 tracker.getCurrentSecond();
@@ -545,8 +545,8 @@ A `YouTubePlayerListener` is used to intercept events emitted by a [`YouTubePlay
 During its existence a `YouTubePlayer` will constantly emit events, you can listen to them by adding a `YouTubePlayerListener` to it.
 
 ```java
-youtubePlayer.addListener(YouTubePlayerListener listener);
-youtubePlayer.removeListener(YouTubePlayerListener listener);
+youTubePlayer.addListener(YouTubePlayerListener listener);
+youTubePlayer.removeListener(YouTubePlayerListener listener);
 ```
 These are the method that a `YouTubePlayerListener` must implement, every method takes a reference to the `YouTubePlayer` and some other arguments.
 
@@ -609,7 +609,7 @@ The `PlayerUiController` is responsible for controlling the UI of a [`YouTubePla
 You can get a reference to the `PlayerUiController` from the `YouTubePlayerView`
 
 ```java
-youtubePlayerView.getPlayerUiController();
+youTubePlayerView.getPlayerUiController();
 ```
 
 `PlayerUiController` offers a lot of method to control the UI, only a few of them are presented in the following sections.
@@ -711,13 +711,13 @@ It is possible to change font size and color by using the `fontSize` and `color`
 `YouTubePlayerSeekBar` implements `YouTubePlayerListener`. In order for it to work you need to add it as a listener to your `YouTubePlayer` object.
 
 ```java
-youTubePlayer.addListener(youtubePlayerSeekBar);
+youTubePlayer.addListener(youTubePlayerSeekBar);
 ```
 
 You may wan to listen to events from `YouTubePlayerSeekBar`, in order to update the current time of your `YouTubePlayer` when the user moves the touch bar. To do that pass a `YouTubePlayerSeekBarListener` to `YouTubePlayerSeekBar`.
 
 ```java
-youtubePlayerSeekBar.setYoutubePlayerSeekBarListener(new YouTubePlayerSeekBarListener() {
+youTubePlayerSeekBar.setYoutubePlayerSeekBarListener(new YouTubePlayerSeekBarListener() {
   @Override
   public void seekTo(float time) {
     youTubePlayer.seekTo(time);
@@ -821,7 +821,7 @@ If you need to disable hardware acceleration in your application, you can enable
 Disabling hardware acceleration on the Activity containing `YouTubePlayerView` may result in some weird behavior. The one I have observed so far shows a black image in the player, while the audio is playing normally.
 
 ### Play YouTube videos in the background
-With this library it's easy to play YouTube videos when the app is not visible. In order to do that you simply have to not call `youtubePlayer.pause()` when the Activity is being paused or stopped and enable background playback by calling `YouTubePlayerView.enableBackgroundPlayback(true)`.
+With this library it's easy to play YouTube videos when the app is not visible. In order to do that you simply have to not call `youTubePlayer.pause()` when the Activity is being paused or stopped and enable background playback by calling `YouTubePlayerView.enableBackgroundPlayback(true)`.
 
 Adding `YouTubePlayerView` as an [observer to a lifecycle](#lifecycleobserver) will automatically cause the player to pause the playback when the Activity/Fragment stops.
 
