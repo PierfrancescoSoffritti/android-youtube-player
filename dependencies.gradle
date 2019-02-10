@@ -4,10 +4,10 @@ ext.versions = [
         compileSdk                      : 28,
         buildTools                      : '28.0.3',
 
-        publishVersion_core             : '9.0.1',
+        publishVersion_core             : '10.0.0-rc1',
         publishVersionCode_core         : 10,
 
-        publishVersion_chromecast       : '0.17',
+        publishVersion_chromecast       : '0.18-rc1',
         publishVersionCode_chromecast   : 3,
 
         // Plugins
