@@ -18,7 +18,6 @@ import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.uti
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.mediarouter.app.MediaRouteButton;
-import kotlin.Unit;
 
 /**
  * Example Activity used to showcase how to use the chromecast-youtube-library extension to cast videos to a Chromecast device.
@@ -57,7 +56,7 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
         registerBroadcastReceiver();
 
         // can't use CastContext until I'm sure the user has GooglePlayServices
-        PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, this::initChromecast);
+        PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, this::initChromeCast);
     }
 
     @Override
@@ -72,16 +71,14 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
 
         // can't use CastContext until I'm sure the user has GooglePlayServices
         if(requestCode == googlePlayServicesAvailabilityRequestCode)
-            PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, this::initChromecast);
+            PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, this::initChromeCast);
     }
 
-    private Unit initChromecast() {
+    private void initChromeCast() {
         new ChromecastYouTubePlayerContext(
                 CastContext.getSharedInstance(this).getSessionManager(),
                 this, playbackControllerBroadcastReceiver, youTubePlayersManager
         );
-
-        return Unit.INSTANCE;
     }
 
     @Override

@@ -11,10 +11,10 @@ object PlayServicesUtils {
      *
      * The answer will be available in onActivityResult.
      */
-    @JvmStatic fun checkGooglePlayServicesAvailability(activity: Activity, googlePlayServicesAvailabilityRequestCode: Int, onSuccess: () -> Unit) {
+    @JvmStatic fun checkGooglePlayServicesAvailability(activity: Activity, googlePlayServicesAvailabilityRequestCode: Int, onSuccess: Runnable) {
         val googlePlayServicesAvailabilityResult = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(activity)
         if(googlePlayServicesAvailabilityResult == ConnectionResult.SUCCESS)
-            onSuccess()
+            onSuccess.run()
         else
             GoogleApiAvailability.getInstance().getErrorDialog(activity, googlePlayServicesAvailabilityResult, googlePlayServicesAvailabilityRequestCode, null).show()
     }

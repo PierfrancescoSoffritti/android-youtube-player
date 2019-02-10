@@ -26,7 +26,7 @@ class BasicExampleActivity : AppCompatActivity() {
         MediaRouteButtonUtils.initMediaRouteButton(media_route_button)
 
         // can't use CastContext until I'm sure the user has GooglePlayServices
-        PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode) { initChromecast() }
+        PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, Runnable { initChromecast() })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -34,7 +34,7 @@ class BasicExampleActivity : AppCompatActivity() {
 
         // can't use CastContext until I'm sure the user has GooglePlayServices
         if(requestCode == googlePlayServicesAvailabilityRequestCode)
-            PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode) {initChromecast()}
+            PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, Runnable { initChromecast() })
     }
 
     private fun initChromecast() {

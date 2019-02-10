@@ -32,7 +32,7 @@ class PlayerControlsExample : AppCompatActivity() {
         MediaRouteButtonUtils.initMediaRouteButton(media_route_button)
 
         // can't use CastContext until I'm sure the user has GooglePlayServices
-        PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode) { initChromeCast() }
+        PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, Runnable { initChromeCast() })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -40,7 +40,7 @@ class PlayerControlsExample : AppCompatActivity() {
 
         // can't use CastContext until I'm sure the user has GooglePlayServices
         if(requestCode == googlePlayServicesAvailabilityRequestCode)
-            PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode) {initChromeCast()}
+            PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, Runnable { initChromeCast() })
     }
 
     private fun initChromeCast() {

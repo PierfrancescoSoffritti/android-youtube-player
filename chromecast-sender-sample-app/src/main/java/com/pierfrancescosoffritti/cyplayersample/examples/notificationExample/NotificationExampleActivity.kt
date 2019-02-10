@@ -38,7 +38,7 @@ class NotificationExampleActivity : AppCompatActivity() {
         MediaRouteButtonUtils.initMediaRouteButton(media_route_button)
 
         // can't use CastContext until I'm sure the user has GooglePlayServices
-        PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode) { initChromecast() }
+        PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, Runnable { initChromecast() })
     }
 
     override fun onDestroy() {
@@ -51,7 +51,7 @@ class NotificationExampleActivity : AppCompatActivity() {
 
         // can't use CastContext until I'm sure the user has GooglePlayServices
         if(requestCode == googlePlayServicesAvailabilityRequestCode)
-            PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode) {initChromecast()}
+            PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, Runnable { initChromecast() })
     }
 
     private fun registerBroadcastReceiver() {
