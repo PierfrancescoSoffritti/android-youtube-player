@@ -63,12 +63,13 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
             throw IllegalStateException("YouTubePlayerView: videoId is not set but autoPlay is set to true. This combination is not possible.")
 
         if(!useWebUi) {
-            legacyTubePlayerView.getPlayerUiController().enableLiveVideoUi(enableLiveVideoUi)
-            legacyTubePlayerView.getPlayerUiController().showYouTubeButton(showYouTubeButton)
-            legacyTubePlayerView.getPlayerUiController().showFullscreenButton(showFullScreenButton)
-            legacyTubePlayerView.getPlayerUiController().showCurrentTime(showVideoCurrentTime)
-            legacyTubePlayerView.getPlayerUiController().showDuration(showVideoDuration)
-            legacyTubePlayerView.getPlayerUiController().showSeekBar(showSeekBar)
+            legacyTubePlayerView.getPlayerUiController()
+                    .enableLiveVideoUi(enableLiveVideoUi)
+                    .showYouTubeButton(showYouTubeButton)
+                    .showFullscreenButton(showFullScreenButton)
+                    .showCurrentTime(showVideoCurrentTime)
+                    .showDuration(showVideoDuration)
+                    .showSeekBar(showSeekBar)
         }
 
         val youTubePlayerListener = object : AbstractYouTubePlayerListener() {

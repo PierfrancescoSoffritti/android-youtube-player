@@ -89,10 +89,13 @@ public class CompleteExampleActivity extends AppCompatActivity {
      * Shows the menu button in the player and adds an item to it.
      */
     private void initPlayerMenu() {
-        youTubePlayerView.getPlayerUiController().showMenuButton(true);
-        youTubePlayerView.getPlayerUiController().getMenu().addItem(
-                new MenuItem("example", R.drawable.ic_settings_24dp, (view) -> Toast.makeText(this, "item clicked", Toast.LENGTH_SHORT).show())
-        );
+        youTubePlayerView.getPlayerUiController()
+                .showMenuButton(true)
+                .getMenu()
+                    .addItem(
+                            new MenuItem("example", R.drawable.ic_settings_24dp,
+                                    view -> Toast.makeText(this, "item clicked", Toast.LENGTH_SHORT).show()
+                            ));
     }
 
     private void addFullScreenListenerToPlayer(final YouTubePlayer youTubePlayer) {

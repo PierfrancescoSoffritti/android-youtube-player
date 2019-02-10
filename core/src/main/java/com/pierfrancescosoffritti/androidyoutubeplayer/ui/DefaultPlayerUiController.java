@@ -108,107 +108,125 @@ public class DefaultPlayerUiController implements PlayerUiController, YouTubePla
     }
 
     @Override
-    public void showVideoTitle(boolean show) {
+    public PlayerUiController showVideoTitle(boolean show) {
         videoTitle.setVisibility(show ? View.VISIBLE : View.GONE);
+        return this;
     }
 
     @Override
-    public void setVideoTitle(@NonNull String title) {
+    public PlayerUiController setVideoTitle(@NonNull String title) {
         videoTitle.setText(title);
+        return this;
     }
 
     @Override
-    public void showUi(boolean show) {
+    public PlayerUiController showUi(boolean show) {
         fadeControlsContainer.setDisabled(!show);
         controlsContainer.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+        return this;
     }
 
     @Override
-    public void showPlayPauseButton(boolean show) {
+    public PlayerUiController showPlayPauseButton(boolean show) {
         playPauseButton.setVisibility(show ? View.VISIBLE : View.GONE);
 
         isPlayPauseButtonEnabled = show;
+        return this;
     }
 
     @Override
-    public void enableLiveVideoUi(boolean enable) {
+    public PlayerUiController enableLiveVideoUi(boolean enable) {
         youtubePlayerSeekBar.setVisibility(enable ? View.INVISIBLE : View.VISIBLE);
         liveVideoIndicator.setVisibility(enable ? View.VISIBLE : View.GONE);
+        return this;
     }
 
     /**
      * Set custom action to the left of the Play/Pause button
      */
     @Override
-    public void setCustomAction1(@NonNull Drawable icon, View.OnClickListener clickListener) {
+    public PlayerUiController setCustomAction1(@NonNull Drawable icon, View.OnClickListener clickListener) {
         customActionLeft.setImageDrawable(icon);
         customActionLeft.setOnClickListener(clickListener);
         showCustomAction1(true);
+        return this;
     }
 
     /**
      * Set custom action to the right of the Play/Pause button
      */
     @Override
-    public void setCustomAction2(@NonNull Drawable icon, View.OnClickListener clickListener) {
+    public PlayerUiController setCustomAction2(@NonNull Drawable icon, View.OnClickListener clickListener) {
         customActionRight.setImageDrawable(icon);
         customActionRight.setOnClickListener(clickListener);
         showCustomAction2(true);
+        return this;
     }
 
-    public void showCustomAction1(boolean show) {
+    public PlayerUiController showCustomAction1(boolean show) {
         isCustomActionLeftEnabled = show;
         customActionLeft.setVisibility(show ? View.VISIBLE : View.GONE);
+        return this;
     }
 
-    public void showCustomAction2(boolean show) {
+    public PlayerUiController showCustomAction2(boolean show) {
         isCustomActionRightEnabled = show;
         customActionRight.setVisibility(show ? View.VISIBLE : View.GONE);
+        return this;
     }
 
     @Override
-    public void showMenuButton(boolean show) {
+    public PlayerUiController showMenuButton(boolean show) {
         menuButton.setVisibility(show ? View.VISIBLE : View.GONE);
+        return this;
     }
 
     @Override
-    public void setMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener) {
+    public PlayerUiController setMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener) {
         this.onMenuButtonClickListener = customMenuButtonClickListener;
+        return this;
     }
 
     @Override
-    public void showCurrentTime(boolean show) {
+    public PlayerUiController showCurrentTime(boolean show) {
         youtubePlayerSeekBar.getVideoCurrentTimeTextView().setVisibility(show ? View.VISIBLE : View.GONE);
+        return this;
     }
 
     @Override
-    public void showDuration(boolean show) {
+    public PlayerUiController showDuration(boolean show) {
         youtubePlayerSeekBar.getVideoDurationTextView().setVisibility(show ? View.VISIBLE : View.GONE);
+        return this;
     }
 
     @Override
-    public void showSeekBar(boolean show) {
+    public PlayerUiController showSeekBar(boolean show) {
         youtubePlayerSeekBar.getSeekBar().setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+        return this;
     }
 
     @Override
-    public void showBufferingProgress(boolean show) {
+    public PlayerUiController showBufferingProgress(boolean show) {
         youtubePlayerSeekBar.setShowBufferingProgress(show);
+        return this;
     }
 
     @Override
-    public void showYouTubeButton(boolean show) {
+    public PlayerUiController showYouTubeButton(boolean show) {
         youTubeButton.setVisibility(show ? View.VISIBLE : View.GONE);
+        return this;
     }
 
     @Override
-    public void addView(@NonNull View view) {
+    public PlayerUiController addView(@NonNull View view) {
         extraViewsContainer.addView(view, 0);
+        return this;
     }
 
     @Override
-    public void removeView(@NonNull View view) {
+    public PlayerUiController removeView(@NonNull View view) {
         extraViewsContainer.removeView(view);
+        return this;
     }
 
     @NonNull
@@ -218,18 +236,21 @@ public class DefaultPlayerUiController implements PlayerUiController, YouTubePla
     }
 
     @Override
-    public void setMenu(@NonNull YouTubePlayerMenu youTubePlayerMenu) {
+    public PlayerUiController setMenu(@NonNull YouTubePlayerMenu youTubePlayerMenu) {
         this.youTubePlayerMenu = youTubePlayerMenu;
+        return this;
     }
 
     @Override
-    public void showFullscreenButton(boolean show) {
+    public PlayerUiController showFullscreenButton(boolean show) {
         fullScreenButton.setVisibility(show ? View.VISIBLE : View.GONE);
+        return this;
     }
 
     @Override
-    public void setFullScreenButtonClickListener(@NonNull View.OnClickListener customFullScreenButtonClickListener) {
+    public PlayerUiController setFullScreenButtonClickListener(@NonNull View.OnClickListener customFullScreenButtonClickListener) {
         this.onFullScreenButtonListener = customFullScreenButtonClickListener;
+        return this;
     }
 
     @Override

@@ -9,46 +9,45 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.ui.menu.YouTubePlayerMenu
 
 
 public interface PlayerUiController {
-    void showUi(boolean show);
-    void showPlayPauseButton(boolean show);
+    PlayerUiController showUi(boolean show);
+    PlayerUiController showPlayPauseButton(boolean show);
 
-    void showVideoTitle(boolean show);
-    void setVideoTitle(@NonNull String videoTitle);
+    PlayerUiController showVideoTitle(boolean show);
+    PlayerUiController setVideoTitle(@NonNull String videoTitle);
 
-    void enableLiveVideoUi(boolean enable);
+    PlayerUiController enableLiveVideoUi(boolean enable);
 
-    void setCustomAction1(@NonNull Drawable icon, @Nullable View.OnClickListener clickListener);
-    void setCustomAction2(@NonNull Drawable icon, @Nullable View.OnClickListener clickListener);
-    void showCustomAction1(boolean show);
-    void showCustomAction2(boolean show);
+    PlayerUiController setCustomAction1(@NonNull Drawable icon, @Nullable View.OnClickListener clickListener);
+    PlayerUiController setCustomAction2(@NonNull Drawable icon, @Nullable View.OnClickListener clickListener);
+    PlayerUiController showCustomAction1(boolean show);
+    PlayerUiController showCustomAction2(boolean show);
 
-    void showFullscreenButton(boolean show);
-    void setFullScreenButtonClickListener(@NonNull View.OnClickListener customFullScreenButtonClickListener);
+    PlayerUiController showFullscreenButton(boolean show);
+    PlayerUiController setFullScreenButtonClickListener(@NonNull View.OnClickListener customFullScreenButtonClickListener);
 
-    void showMenuButton(boolean show);
-    void setMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener);
+    PlayerUiController showMenuButton(boolean show);
+    PlayerUiController setMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener);
 
-    void showCurrentTime(boolean show);
-    void showDuration(boolean show);
+    PlayerUiController showCurrentTime(boolean show);
+    PlayerUiController showDuration(boolean show);
 
-    void showSeekBar(boolean show);
-    void showBufferingProgress(boolean show);
+    PlayerUiController showSeekBar(boolean show);
+    PlayerUiController showBufferingProgress(boolean show);
 
-    void showYouTubeButton(boolean show);
+    PlayerUiController showYouTubeButton(boolean show);
 
     /**
      * Adds a View to the top of the player
      * @param view View to be added
      */
-    void addView(@NonNull View view);
+    PlayerUiController addView(@NonNull View view);
 
     /**
      * Removes a View added with {@link #addView addView}
      * @param view View to be removed
      */
-    void removeView(@NonNull View view);
+    PlayerUiController removeView(@NonNull View view);
 
-    @Nullable
-    YouTubePlayerMenu getMenu();
-    void setMenu(@NonNull YouTubePlayerMenu youTubePlayerMenu);
+    @Nullable YouTubePlayerMenu getMenu();
+    PlayerUiController setMenu(@NonNull YouTubePlayerMenu youTubePlayerMenu);
 }
