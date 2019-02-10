@@ -86,7 +86,7 @@ A list of published apps that are using this library: ([let me know](https://git
 
 # Table of Contents (Chromecast)
 1. [Chromecast extension library](#chromecast-extension-library)
-2. [Quick start and API documentation](#quick-start--chromecast)
+2. [Quick start and API documentation](#quick-start---chromecast)
     1. [Download extra dependencies](#download-extra-dependencies)
     2. [Sender](#sender)
     3. [Receiver](#receiver)
@@ -153,19 +153,20 @@ In order to start using the player you need to add a [YouTubePlayerView](#youtub
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         
-        app:videoId="S0Q4gqBUs7c" />
+        app:videoId="S0Q4gqBUs7c"
+        app:autoPlay="true" />
 </LinearLayout>
 ```
-That's all you need, a YouTube video is now playing in your app.
 
-It is not mandatory, but it's recommended that you add `YouTubePlayerView` as a lifecycle observer of its parent Activity/Fragment. You can [read why in the documentation](#lifecycleobserver).
-
-*(If you have problems adding `YouTubePlayerView` as a `LifecycleObserver`, you probably aren't using androidx, [I suggest you migrate your dependencies](https://developer.android.com/jetpack/androidx/migrate))*
+It is recommended that you add `YouTubePlayerView` as a lifecycle observer of its parent Activity/Fragment. You can [read why in the documentation](#lifecycleobserver).
 
 ```java
 YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
 getLifecycle().addObserver(youTubePlayerView);
 ```
+*(If you have problems adding `YouTubePlayerView` as a `LifecycleObserver`, you probably aren't using androidx, [I suggest you migrate your dependencies](https://developer.android.com/jetpack/androidx/migrate))*
+
+That's all you need, a YouTube video is now playing in your app.
 
 If you want more control, everything can be done programmatically by getting a reference to your `YouTubePlayerView` and adding a `YouTubePlayerListener` to it.
 
@@ -889,13 +890,13 @@ In order to use the Google Cast framework an app has to declare a `OptionsProvid
 
 Add this class to your project:
 ```java
-public final class CastOptionsProvider implements OptionsProvider {
-  public CastOptions getCastOptions(Context appContext) {
+public final class CastOptionsProvider implements com.google.android.gms.cast.framework.OptionsProvider {
+  public com.google.android.gms.cast.framework.CastOptions getCastOptions(Context appContext) {
 
   // Register you custom receiver on the Google Cast SDK Developer Console to get this ID.
   String receiverId = "";
 
-  return new CastOptions.Builder()
+  return new com.google.android.gms.cast.framework.CastOptions.Builder()
     .setReceiverApplicationId(receiverId)
     .build();
   }
@@ -907,7 +908,9 @@ public final class CastOptionsProvider implements OptionsProvider {
 ```
 You can read how to get a `receiverId` [here](#registration).
 
-Add the `OptionsProvider` to your `manifest.xml`file
+Add the `OptionsProvider` to your `manifest.xml`file.
+
+*(`OPTIONS_PROVIDER_CLASS_NAME` is meant to be like that, change only the `android:value` attribute)*
 ```xml
 <meta-data
   android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
@@ -923,7 +926,7 @@ Add a MediaRouterButton to your layout, in your xml file or programmatically.
   android:layout_height="match_parent"
   android:orientation="vertical" >
 
-  <android.support.v7.app.MediaRouteButton
+  <androidx.mediarouter.app.MediaRouteButton
     android:id="@+id/media_route_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
@@ -939,7 +942,7 @@ protected void onCreate(Bundle savedInstanceState) {
   super.onCreate(savedInstanceState);
   setContentView(R.layout.activity_main);
 
-  MediaRouteButton mediaRouteButton = findViewById(R.id.media_route_button);
+  androidx.mediarouter.app.MediaRouteButton mediaRouteButton = findViewById(R.id.media_route_button);
   CastButtonFactory.setUpMediaRouteButton(this, mediaRouteButton);
 
   // can't use CastContext until I'm sure the user has GooglePlayServices
@@ -953,7 +956,15 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
   // can't use CastContext until I'm sure the user has GooglePlayServices
   if(requestCode == googlePlayServicesAvailabilityRequestCode)
     PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, this::initChromecast);
- }
+}
+
+private void initChromecast() {
+  new ChromecastYouTubePlayerContext(
+    CastContext.getSharedInstance(this).getSessionManager(),
+    new SimpleChromecastConnectionListener()
+  );
+}
+
 ```
 You can easily check the GooglePlayServices status by using `PlayServicesUtils.checkGooglePlayServicesAvailability`, a utility function provided by the *chromecast-sender* library.
 
@@ -961,15 +972,6 @@ You can easily check the GooglePlayServices status by using `PlayServicesUtils.c
 If there are some problems, the result of the operation is delivered through the `onActivityResult` callback.
 
 Once you're sure the user's GooglePlayServices is all right, you can create the `ChromecastYouTubePlayerContext`. The access point to the *chromecast-sender* library.
-
-```java
-private void initChromecast() {
-  new ChromecastYouTubePlayerContext(
-    CastContext.getSharedInstance(this).getSessionManager(),
-    new SimpleChromecastConnectionListener()
-  );
-}
-```
 
 `ChromecastYouTubePlayerContext` is the entry point to the *chromecast-sender* library. Once it is created, it automatically starts listening for Chromecast connection events. The `ChromecastConnectionListener` passed to the constructor will be used to do just that.
 
@@ -984,7 +986,7 @@ private class SimpleChromecastConnectionListener implements ChromecastConnection
   }
 
   @Override
-  public void onChromecastConnected(ChromecastYouTubePlayerContext chromecastYouTubePlayerContext) {
+  public void onChromecastConnected(@NonNull ChromecastYouTubePlayerContext chromecastYouTubePlayerContext) {
     Log.d(getClass().getSimpleName(), "onChromecastConnected");
     initializeCastPlayer(chromecastYouTubePlayerContext);
   }
@@ -998,18 +1000,21 @@ private class SimpleChromecastConnectionListener implements ChromecastConnection
     chromecastYouTubePlayerContext.initialize(new AbstractYouTubePlayerListener() {
       @Override
       public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-        youTubePlayer.loadVideo("6JYIGclVQdw", 0f);
+        youTubePlayer.loadVideo("S0Q4gqBUs7c", 0f);
       }
     });
+  }
 }
 ```
 
 Only after a Chromecast connection has been established you can initialize the `ChromecastConnectionListener`.
 
-From now on it will be the same as using a local `YouTubePlayer`. You need to call `ChromecastYouTubePlayerContext.initialize`, providing a `YouTubePlayerListener`. The `YouTubePlayerListener` will notify you of changes in the playback.
-You can call `loadVideo`, `cueVideo`, `pause`, `play` etc.. on the `YouTubePlayer`, the library will take care of communication with the Google Cast device.
+From now on it will be the same as using a local `YouTubePlayer`. As you can see in the example, you need to call `ChromecastYouTubePlayerContext.initialize`, providing a `YouTubePlayerListener`.
 
-For all this you can refer to the documentation for the *core* library, [YouTubePlayer](#youtubeplayer).
+The `YouTubePlayerListener` will notify you of changes in the playback.
+You can call `loadVideo`, `cueVideo`, `pause`, `play` etc.. on the `YouTubePlayer` object as you're used to, the library will take care of the communication with the Google Cast device.
+
+For how to use the `YouTubePlayer` object and `YouTubePlayerListener`, you can refer to the documentation for the *core* library, [YouTubePlayer](#youtubeplayer).
 
 This example can also be found [in the sample app](#./chromecast-sender-sample-app/src/main/java/com/pierfrancescosoffritti/cyplayersample/examples/basicExample/BasicExampleActivity.kt), written in Kotlin.
 
