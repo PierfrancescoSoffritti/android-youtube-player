@@ -35,9 +35,9 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
     private PlaybackControllerBroadcastReceiver playbackControllerBroadcastReceiver;
 
     private YouTubePlayerView youTubePlayerView;
-    private View chromecastControlsRoot;
+    private View chromeCastControlsRoot;
 
-    private boolean connectedToChromecast = false;
+    private boolean connectedToChromeCast = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +45,13 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
         setContentView(R.layout.activity_chromecast_example);
 
         youTubePlayerView = findViewById(R.id.youtube_player_view);
-        chromecastControlsRoot = findViewById(R.id.chromecast_controls_root);
+        chromeCastControlsRoot = findViewById(R.id.chromecast_controls_root);
 
         getLifecycle().addObserver(youTubePlayerView);
 
         notificationManager = new NotificationManager(this, ChromeCastExampleActivity.class);
 
-        youTubePlayersManager = new YouTubePlayersManager(this, youTubePlayerView, chromecastControlsRoot, notificationManager);
+        youTubePlayersManager = new YouTubePlayersManager(this, youTubePlayerView, chromeCastControlsRoot, notificationManager, getLifecycle());
         mediaRouteButton = MediaRouteButtonUtils.initMediaRouteButton(this);
 
         registerBroadcastReceiver();
@@ -90,7 +90,7 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
 
     @Override
     public void onChromecastConnected(@NonNull ChromecastYouTubePlayerContext chromecastYouTubePlayerContext) {
-        connectedToChromecast = true;
+        connectedToChromeCast = true;
 
         updateUI(true);
         notificationManager.showNotification();
@@ -98,7 +98,7 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
 
     @Override
     public void onChromecastDisconnected() {
-        connectedToChromecast = false;
+        connectedToChromeCast = false;
 
         updateUI(false);
         notificationManager.dismissNotification();
@@ -106,7 +106,7 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
 
     @Override
     public void onLocalYouTubePlayerInit() {
-        if(connectedToChromecast)
+        if(connectedToChromeCast)
             return;
 
         MediaRouteButtonUtils.addMediaRouteButtonToPlayerUI(
@@ -135,7 +135,7 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
         );
 
         youTubePlayerView.setVisibility(connected ? View.GONE : View.VISIBLE);
-        chromecastControlsRoot.setVisibility(connected ? View.VISIBLE : View.GONE);
+        chromeCastControlsRoot.setVisibility(connected ? View.VISIBLE : View.GONE);
     }
 
     private MediaRouteButtonContainer chromecastPlayerUIMediaRouteButtonContainer = new MediaRouteButtonContainer() {

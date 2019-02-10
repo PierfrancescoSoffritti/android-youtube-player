@@ -1,41 +1,39 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.player;
+package com.pierfrancescosoffritti.androidyoutubeplayer.player
 
-import androidx.annotation.NonNull;
-
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener
 
 /**
  * Use this interface to control the playback of YouTube videos and to listen to their events.
  */
-public interface YouTubePlayer {
+interface YouTubePlayer {
     /**
      * Loads and automatically plays the specified video.
      * @param videoId id of the video
      * @param startSeconds the time from which the video should start playing
      */
-    void loadVideo(@NonNull final String videoId, final float startSeconds);
+    fun loadVideo(videoId: String, startSeconds: Float)
 
     /**
      * Loads the specified video's thumbnail and prepares the player to play the video. Does not automatically play the video.
      * @param videoId id of the video
      * @param startSeconds the time from which the video should start playing
      */
-    void cueVideo(@NonNull final String videoId, final float startSeconds);
+    fun cueVideo(videoId: String, startSeconds: Float)
 
-    void play();
-    void pause();
+    fun play()
+    fun pause()
 
     /**
      * @param volumePercent Integer between 0 and 100
      */
-    void setVolume(final int volumePercent);
+    fun setVolume(volumePercent: Int)
 
     /**
      *
      * @param time The absolute time in seconds to seek to
      */
-    void seekTo(final float time);
+    fun seekTo(time: Float)
 
-    boolean addListener(@NonNull YouTubePlayerListener listener);
-    boolean removeListener(@NonNull YouTubePlayerListener listener);
+    fun addListener(listener: YouTubePlayerListener): Boolean
+    fun removeListener(listener: YouTubePlayerListener): Boolean
 }

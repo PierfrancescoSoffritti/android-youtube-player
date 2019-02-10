@@ -3,6 +3,7 @@ package com.pierfrancescosoffritti.aytplayersample.examples.liveVideoExample;
 import android.os.Bundle;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.YouTubePlayerUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.aytplayersample.R;
@@ -31,7 +32,10 @@ public class LiveVideoActivity extends AppCompatActivity {
         youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                youTubePlayer.loadVideo(VideoIdsProvider.getNextLiveVideoId(),0f);
+                YouTubePlayerUtils.loadOrCueVideo(
+                        youTubePlayer, getLifecycle(),
+                        VideoIdsProvider.getNextLiveVideoId(),0f
+                );
             }
         }, true);
     }

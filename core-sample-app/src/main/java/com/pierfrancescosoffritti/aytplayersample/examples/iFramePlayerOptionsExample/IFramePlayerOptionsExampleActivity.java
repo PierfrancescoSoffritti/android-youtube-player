@@ -3,6 +3,7 @@ package com.pierfrancescosoffritti.aytplayersample.examples.iFramePlayerOptionsE
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.YouTubePlayerUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.options.IFramePlayerOptions;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
@@ -44,25 +45,25 @@ public class IFramePlayerOptionsExampleActivity extends AppCompatActivity {
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 setPlayNextVideoButtonClickListener(youTubePlayer);
 
-                loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
+                YouTubePlayerUtils.loadOrCueVideo(
+                        youTubePlayer, getLifecycle(),
+                        VideoIdsProvider.getNextVideoId(),0f
+                );
             }
         }, true, iFramePlayerOptions);
     }
 
-    private void loadVideo(YouTubePlayer youTubePlayer, String videoId) {
-        if(getLifecycle().getCurrentState() == Lifecycle.State.RESUMED)
-            youTubePlayer.loadVideo(videoId, 0);
-        else
-            youTubePlayer.cueVideo(videoId, 0);
-    }
     /**
      * Set a click listener on the "Play next video" button
      */
     private void setPlayNextVideoButtonClickListener(final YouTubePlayer youTubePlayer) {
         Button playNextVideoButton = findViewById(R.id.next_video_button);
 
-        playNextVideoButton.setOnClickListener(view -> {
-            loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
-        });
+        playNextVideoButton.setOnClickListener(view ->
+                YouTubePlayerUtils.loadOrCueVideo(
+                        youTubePlayer, getLifecycle(),
+                        VideoIdsProvider.getNextVideoId(),0f
+                )
+        );
     }
 }

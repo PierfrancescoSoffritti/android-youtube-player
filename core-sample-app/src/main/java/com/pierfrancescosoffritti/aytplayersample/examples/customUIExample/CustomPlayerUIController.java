@@ -15,6 +15,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerFullScreenListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.utils.YouTubePlayerTracker;
 import com.pierfrancescosoffritti.aytplayersample.R;
 
 class CustomPlayerUIController extends AbstractYouTubePlayerListener implements YouTubePlayerFullScreenListener {
@@ -30,10 +31,8 @@ class CustomPlayerUIController extends AbstractYouTubePlayerListener implements 
     private View progressbar;
     private TextView videoCurrentTimeTextView;
     private TextView videoDurationTextView;
-    private Button playPauseButton;
-    private Button enterExitFullscreenButton;
 
-    private boolean playing = true;
+    private final YouTubePlayerTracker playerTracker;
     private boolean fullscreen = false;
 
     CustomPlayerUIController(Context context, View customPlayerUI, YouTubePlayer youTubePlayer, YouTubePlayerView youTubePlayerView) {
@@ -41,6 +40,9 @@ class CustomPlayerUIController extends AbstractYouTubePlayerListener implements 
         this.context = context;
         this.youTubePlayer = youTubePlayer;
         this.youTubePlayerView = youTubePlayerView;
+
+        playerTracker = new YouTubePlayerTracker();
+        youTubePlayer.addListener(playerTracker);
 
         initViews(customPlayerUI);
     }
@@ -50,14 +52,12 @@ class CustomPlayerUIController extends AbstractYouTubePlayerListener implements 
         progressbar = playerUI.findViewById(R.id.progressbar);
         videoCurrentTimeTextView = playerUI.findViewById(R.id.video_current_time);
         videoDurationTextView = playerUI.findViewById(R.id.video_duration);
-        playPauseButton = playerUI.findViewById(R.id.play_pause_button);
-        enterExitFullscreenButton = playerUI.findViewById(R.id.enter_exit_fullscreen_button);
+        Button playPauseButton = playerUI.findViewById(R.id.play_pause_button);
+        Button enterExitFullscreenButton = playerUI.findViewById(R.id.enter_exit_fullscreen_button);
 
         playPauseButton.setOnClickListener( (view) -> {
-            if(playing) youTubePlayer.pause();
+            if(playerTracker.getState() == PlayerConstants.PlayerState.PLAYING) youTubePlayer.pause();
             else youTubePlayer.play();
-
-            playing = !playing;
         });
 
         enterExitFullscreenButton.setOnClickListener( (view) -> {

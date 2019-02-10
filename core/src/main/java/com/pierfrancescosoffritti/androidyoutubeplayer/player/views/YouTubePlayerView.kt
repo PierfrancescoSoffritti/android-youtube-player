@@ -23,8 +23,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.FullScreenHe
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.PlaybackResumer
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.DefaultPlayerUIController
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.PlayerUIController
-import com.pierfrancescosoffritti.androidyoutubeplayer.utils.NetworkListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.utils.SixteenByNineFrameLayout
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.NetworkListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.SixteenByNineFrameLayout
 
 class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0):
         SixteenByNineFrameLayout(context, attrs, defStyleAttr), LifecycleObserver {
@@ -42,6 +42,9 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
     internal var isYouTubePlayerReady = false
     private var initialize = { }
     private val youTubePlayerCallbacks = HashSet<YouTubePlayerCallback>()
+
+    internal var canPlay = false
+        private set
 
     var isUsingCustomUI = false
         private set
@@ -70,7 +73,7 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
             if (!isYouTubePlayerReady)
                 initialize()
             else
-                playbackResumer.resume(youTubePlayer)
+                playbackResumer.resume(youTubePlayer, canPlay)
         }
     }
 
@@ -168,8 +171,16 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
         }
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    internal fun onResume() {
+        canPlay = true
+    }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    private fun onStop() = youTubePlayer.pause()
+    internal fun onStop() {
+        youTubePlayer.pause()
+        canPlay = false
+    }
 
     /**
      * Don't use this method if you want to publish your app on the PlayStore.

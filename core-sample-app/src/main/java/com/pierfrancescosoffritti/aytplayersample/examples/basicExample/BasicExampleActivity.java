@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.YouTubePlayerUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.views.ManagedYouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
@@ -72,7 +73,12 @@ public class BasicExampleActivity extends AppCompatActivity {
         youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
+                YouTubePlayerUtils.loadOrCueVideo(
+                        youTubePlayer,
+                        getLifecycle(),
+                        VideoIdsProvider.getNextVideoId(),
+                        0f
+                );
 
                 addFullScreenListenerToPlayer(youTubePlayer);
                 setPlayNextVideoButtonClickListener(youTubePlayer);
@@ -88,22 +94,6 @@ public class BasicExampleActivity extends AppCompatActivity {
         youTubePlayerView.getPlayerUIController().getMenu().addItem(
                 new MenuItem("example", R.drawable.ic_settings_24dp, (view) -> Toast.makeText(this, "item clicked", Toast.LENGTH_SHORT).show())
         );
-    }
-
-    /**
-     * Load a video if the activity is resumed, cue it otherwise.
-     * See difference between {@link YouTubePlayer#cueVideo(String, float)} and {@link YouTubePlayer#loadVideo(String, float)}
-     *
-     * With this library is possible to play videos even if the player is not visible.
-     * But this goes against YouTube's terms of service therefore,
-     * if you plan to publish your app on the Play Store, always pause the video when the player is not visible.
-     * If you don't intend to publish your app on the Play Store you can play and pause whenever you want.
-     */
-    private void loadVideo(YouTubePlayer youTubePlayer, String videoId) {
-        if(getLifecycle().getCurrentState() == Lifecycle.State.RESUMED)
-            youTubePlayer.loadVideo(videoId, 0);
-        else
-            youTubePlayer.cueVideo(videoId, 0);
     }
 
     private void addFullScreenListenerToPlayer(final YouTubePlayer youTubePlayer) {
@@ -148,9 +138,11 @@ public class BasicExampleActivity extends AppCompatActivity {
     private void setPlayNextVideoButtonClickListener(final YouTubePlayer youTubePlayer) {
         Button playNextVideoButton = findViewById(R.id.next_video_button);
 
-        playNextVideoButton.setOnClickListener(view -> {
-            loadVideo(youTubePlayer, VideoIdsProvider.getNextVideoId());
-        });
+        playNextVideoButton.setOnClickListener(view ->
+                YouTubePlayerUtils.loadOrCueVideo(
+                        youTubePlayer, getLifecycle(),
+                        VideoIdsProvider.getNextVideoId(),0f
+                ));
     }
 
     /**

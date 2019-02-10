@@ -18,7 +18,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubeP
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.FullScreenHelper
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.PlayerUIController
-import com.pierfrancescosoffritti.androidyoutubeplayer.utils.SixteenByNineFrameLayout
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.SixteenByNineFrameLayout
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.YouTubePlayerUtils.loadOrCueVideo
 
 
 class ManagedYouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0):
@@ -29,8 +30,6 @@ class ManagedYouTubePlayerView(context: Context, attrs: AttributeSet? = null, de
 
     private val youTubePlayerView: YouTubePlayerView = YouTubePlayerView(context)
     private val fullScreenHelper = FullScreenHelper(this)
-
-    private var canPlay = false
 
     var enableAutomaticInitialization: Boolean
 
@@ -64,7 +63,7 @@ class ManagedYouTubePlayerView(context: Context, attrs: AttributeSet? = null, de
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 videoId?.let {
                     if(autoPlay)
-                        cueOrLoadVideo(videoId, 0f)
+                        youTubePlayer.loadOrCueVideo(youTubePlayerView.canPlay, videoId, 0f)
                     else
                         youTubePlayer.cueVideo(videoId, 0f)
                 }
@@ -131,13 +130,6 @@ class ManagedYouTubePlayerView(context: Context, attrs: AttributeSet? = null, de
         else youTubePlayerView.initializeWithWebUI(youTubePlayerListener, handleNetworkEvents)
     }
 
-    fun cueOrLoadVideo(videoId: String, startSeconds: Float) {
-        if (canPlay)
-            youTubePlayerView.youTubePlayer.loadVideo(videoId, startSeconds)
-        else
-            youTubePlayerView.youTubePlayer.cueVideo(videoId, startSeconds)
-    }
-
     fun addListener(youTubePlayerListener: YouTubePlayerListener) {
         youTubePlayerView.youTubePlayer.addListener(youTubePlayerListener)
     }
@@ -165,15 +157,10 @@ class ManagedYouTubePlayerView(context: Context, attrs: AttributeSet? = null, de
     fun release() = youTubePlayerView.release()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    private fun onResume() {
-        canPlay = true
-    }
+    private fun onResume() = youTubePlayerView.onResume()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    private fun onStop() {
-        canPlay = false
-        youTubePlayerView.youTubePlayer.pause()
-    }
+    private fun onStop() = youTubePlayerView.onStop()
 
     /**
      * @see YouTubePlayerView.enableBackgroundPlayback

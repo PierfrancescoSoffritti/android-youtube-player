@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.YouTubePlayerUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.aytplayersample.R;
@@ -31,7 +32,10 @@ public class CustomUIActivity extends AppCompatActivity {
                 youTubePlayer.addListener(customPlayerUIController);
                 youTubePlayerView.addFullScreenListener(customPlayerUIController);
 
-                youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0);
+                YouTubePlayerUtils.loadOrCueVideo(
+                        youTubePlayer, getLifecycle(),
+                        VideoIdsProvider.getNextVideoId(),0f
+                );
             }
         }, true);
     }

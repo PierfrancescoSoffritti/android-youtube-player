@@ -14,13 +14,13 @@ import android.webkit.WebView
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.options.IFramePlayerOptions
-import com.pierfrancescosoffritti.androidyoutubeplayer.utils.Utils
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.Utils
 
 import java.util.Collections
 import java.util.HashSet
 
 /**
- * WebView running IFrame YouTube Player.
+ * WebView implementation of [YouTubePlayer]. The player runs inside the WebView, using the IFrame Player API.
  */
 internal class WebViewYouTubePlayer constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
     : WebView(context, attrs, defStyleAttr), YouTubePlayer, YouTubePlayerBridge.YouTubePlayerBridgeCallbacks {

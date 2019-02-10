@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.utils
+package com.pierfrancescosoffritti.androidyoutubeplayer.player.utils
 
 import android.content.Context
 import android.net.ConnectivityManager

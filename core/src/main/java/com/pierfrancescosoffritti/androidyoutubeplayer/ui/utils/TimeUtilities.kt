@@ -8,6 +8,7 @@ object TimeUtilities {
      * Transform the time in seconds in a string with format "M:SS".
      */
     @SuppressLint("DefaultLocale")
+    @JvmStatic
     fun formatTime(timeInSeconds: Float): String {
         val minutes = (timeInSeconds / 60).toInt()
         val seconds = (timeInSeconds % 60).toInt()
