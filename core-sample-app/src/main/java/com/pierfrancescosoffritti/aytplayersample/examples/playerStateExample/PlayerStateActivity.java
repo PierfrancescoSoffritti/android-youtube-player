@@ -4,7 +4,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.util.Pair;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Lifecycle;
 
 import android.widget.Button;
 import android.widget.TextView;
@@ -37,10 +36,9 @@ public class PlayerStateActivity extends AppCompatActivity {
 
     private void initYouTubePlayerView() {
         YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
-        youTubePlayerView.getPlayerUIController().showYouTubeButton(false);
         getLifecycle().addObserver(youTubePlayerView);
 
-        youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+        youTubePlayerView.addListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 addToList("READY", playerStatesHistory);
@@ -62,7 +60,7 @@ public class PlayerStateActivity extends AppCompatActivity {
             public void onError(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerError error) {
                 addToList("ERROR: " +error.name(), playerStatesHistory);
             }
-        }, true);
+        });
     }
 
     private void onNewState(PlayerConstants.PlayerState newState) {

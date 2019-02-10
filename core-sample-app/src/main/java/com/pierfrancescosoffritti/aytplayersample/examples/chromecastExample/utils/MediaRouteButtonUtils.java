@@ -22,7 +22,7 @@ public class MediaRouteButtonUtils {
         return mediaRouteButton;
     }
 
-    static public void addMediaRouteButtonToPlayerUI(
+    static public void addMediaRouteButtonToPlayerUi(
             MediaRouteButton mediaRouteButton, int tintColor,
             @Nullable ChromeCastExampleActivity.MediaRouteButtonContainer disabledContainer, ChromeCastExampleActivity.MediaRouteButtonContainer activatedContainer) {
 

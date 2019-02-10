@@ -23,7 +23,7 @@ object MediaRouteButtonUtils {
         return mediaRouteButton
     }
 
-    fun addMediaRouteButtonToPlayerUI(
+    fun addMediaRouteButtonToPlayerUi(
             mediaRouteButton: MediaRouteButton, tintColor: Int,
             disabledContainer: MediaRouteButtonContainer?, activatedContainer: MediaRouteButtonContainer) {
 

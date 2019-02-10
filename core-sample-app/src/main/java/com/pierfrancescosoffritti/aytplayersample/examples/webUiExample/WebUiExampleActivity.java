@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.aytplayersample.examples.webUIExample;
+package com.pierfrancescosoffritti.aytplayersample.examples.webUiExample;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -12,9 +12,8 @@ import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Lifecycle;
 
-public class WebUIExampleActivity extends AppCompatActivity {
+public class WebUiExampleActivity extends AppCompatActivity {
 
     private YouTubePlayerView youTubePlayerView;
 
@@ -30,7 +29,7 @@ public class WebUIExampleActivity extends AppCompatActivity {
 
     private void initYouTubePlayerView() {
         getLifecycle().addObserver(youTubePlayerView);
-        youTubePlayerView.initializeWithWebUI(new AbstractYouTubePlayerListener() {
+        youTubePlayerView.addListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 setPlayNextVideoButtonClickListener(youTubePlayer);
@@ -40,7 +39,7 @@ public class WebUIExampleActivity extends AppCompatActivity {
                         VideoIdsProvider.getNextVideoId(),0f
                 );
             }
-        }, true);
+        });
     }
 
 

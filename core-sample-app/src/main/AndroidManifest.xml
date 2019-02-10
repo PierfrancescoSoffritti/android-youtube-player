@@ -40,7 +40,7 @@
             android:hardwareAccelerated="true"
             android:label="@string/view_pager_example" />
         <activity
-            android:name=".examples.customUIExample.CustomUIActivity"
+            android:name=".examples.customUiExample.CustomUiActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/custom_ui_example" />
@@ -67,7 +67,7 @@
             android:hardwareAccelerated="true"
             android:label="@string/iframe_player_options_example" />
         <activity
-            android:name=".examples.webUIExample.WebUIExampleActivity"
+            android:name=".examples.webUiExample.WebUiExampleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/web_ui_example" />
@@ -76,11 +76,6 @@
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/chromecast_example" />
-        <activity
-            android:name=".examples.managedPlayerExample.ManagedPlayerActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
-            android:hardwareAccelerated="true"
-            android:label="@string/managed_player_example"></activity>
 
         <meta-data
             android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"

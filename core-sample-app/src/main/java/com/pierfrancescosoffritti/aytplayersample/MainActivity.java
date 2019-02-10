@@ -5,16 +5,15 @@ import android.os.Bundle;
 
 import com.pierfrancescosoffritti.aytplayersample.examples.basicExample.BasicExampleActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.ChromeCastExampleActivity;
-import com.pierfrancescosoffritti.aytplayersample.examples.customUIExample.CustomUIActivity;
+import com.pierfrancescosoffritti.aytplayersample.examples.customUiExample.CustomUiActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.fragmentExample.FragmentExampleActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.iFramePlayerOptionsExample.IFramePlayerOptionsExampleActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.liveVideoExample.LiveVideoActivity;
-import com.pierfrancescosoffritti.aytplayersample.examples.managedPlayerExample.ManagedPlayerActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.pictureInPictureExample.PictureInPictureActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.playerStateExample.PlayerStateActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.recyclerViewExample.RecyclerViewActivity;
 import com.pierfrancescosoffritti.aytplayersample.examples.viewPagerExample.ViewPagerActivity;
-import com.pierfrancescosoffritti.aytplayersample.examples.webUIExample.WebUIExampleActivity;
+import com.pierfrancescosoffritti.aytplayersample.examples.webUiExample.WebUiExampleActivity;
 import com.psoffritti.librarysampleapptemplate.core.Constants;
 import com.psoffritti.librarysampleapptemplate.core.SampleAppTemplateActivity;
 import com.psoffritti.librarysampleapptemplate.core.utils.ExampleActivityDetails;
@@ -36,9 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
         ExampleActivityDetails[] examples = new ExampleActivityDetails[]{
                 new ExampleActivityDetails(R.string.basic_example,null, BasicExampleActivity.class),
-                new ExampleActivityDetails(R.string.web_ui_example,null, WebUIExampleActivity.class),
-                new ExampleActivityDetails(R.string.custom_ui_example,null, CustomUIActivity.class),
-                new ExampleActivityDetails(R.string.managed_player_example,null, ManagedPlayerActivity.class),
+                new ExampleActivityDetails(R.string.web_ui_example,null, WebUiExampleActivity.class),
+                new ExampleActivityDetails(R.string.custom_ui_example,null, CustomUiActivity.class),
                 new ExampleActivityDetails(R.string.recycler_view_example,null, RecyclerViewActivity.class),
                 new ExampleActivityDetails(R.string.view_pager_example,null, ViewPagerActivity.class),
                 new ExampleActivityDetails(R.string.fragment_example,null, FragmentExampleActivity.class),

@@ -14,9 +14,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.ui.utils.TimeUtilities
 import com.pierfrancescosoffritti.cyplayersample.R
 
 /**
-* Class used to control a simple UI for the cast player.
+* Class used to control a simple Ui for the cast player.
 */
-class SimpleChromeCastUIController(private val controls_view: View) : AbstractYouTubePlayerListener(), SeekBar.OnSeekBarChangeListener {
+class SimpleChromeCastUiController(private val controls_view: View) : AbstractYouTubePlayerListener(), SeekBar.OnSeekBarChangeListener {
     lateinit var youTubePlayer: YouTubePlayer
 
     private var isPlaying = false
@@ -96,7 +96,7 @@ class SimpleChromeCastUIController(private val controls_view: View) : AbstractYo
             PlayerConstants.PlayerState.PAUSED -> isPlaying = false
             PlayerConstants.PlayerState.PLAYING -> isPlaying = true
             PlayerConstants.PlayerState.BUFFERING -> isPlaying = false
-            PlayerConstants.PlayerState.UNSTARTED -> resetUI()
+            PlayerConstants.PlayerState.UNSTARTED -> resetUi()
             else -> {
             }
         }
@@ -104,7 +104,7 @@ class SimpleChromeCastUIController(private val controls_view: View) : AbstractYo
         updatePlayPauseButtonIcon(!isPlaying)
     }
 
-    fun resetUI() {
+    fun resetUi() {
         seekBar.progress = 0
         seekBar.max = 0
         playPauseButton.visibility = View.INVISIBLE

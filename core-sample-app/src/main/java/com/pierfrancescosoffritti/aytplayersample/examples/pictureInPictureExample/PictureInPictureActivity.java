@@ -32,12 +32,11 @@ public class PictureInPictureActivity extends AppCompatActivity {
 
     private void initYouTubePlayerView() {
         youTubePlayerView = findViewById(R.id.youtube_player_view);
-        youTubePlayerView.getPlayerUIController().showFullscreenButton(false);
 
         getLifecycle().addObserver(youTubePlayerView);
         initPictureInPicture(youTubePlayerView);
 
-        youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+        youTubePlayerView.addListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 YouTubePlayerUtils.loadOrCueVideo(
@@ -45,14 +44,14 @@ public class PictureInPictureActivity extends AppCompatActivity {
                         VideoIdsProvider.getNextVideoId(),0f
                 );
             }
-        }, true);
+        });
     }
 
     private void initPictureInPicture(YouTubePlayerView youTubePlayerView) {
-        ImageView pictureInPictureView = new ImageView(this);
-        pictureInPictureView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_picture_in_picture_24dp));
+        ImageView pictureInPictureIcon = new ImageView(this);
+        pictureInPictureIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_picture_in_picture_24dp));
 
-        pictureInPictureView.setOnClickListener( view -> {
+        pictureInPictureIcon.setOnClickListener( view -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 boolean supportsPIP = getPackageManager().hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE);
                 if(supportsPIP)
@@ -65,7 +64,7 @@ public class PictureInPictureActivity extends AppCompatActivity {
             }
         });
 
-        youTubePlayerView.getPlayerUIController().addView( pictureInPictureView );
+        youTubePlayerView.getPlayerUiController().addView(pictureInPictureIcon);
     }
 
     @Override
@@ -74,10 +73,10 @@ public class PictureInPictureActivity extends AppCompatActivity {
 
         if(isInPictureInPictureMode) {
             youTubePlayerView.enterFullScreen();
-            youTubePlayerView.getPlayerUIController().showUI(false);
+            youTubePlayerView.getPlayerUiController().showUi(false);
         } else {
             youTubePlayerView.exitFullScreen();
-            youTubePlayerView.getPlayerUIController().showUI(true);
+            youTubePlayerView.getPlayerUiController().showUi(true);
         }
     }
 }

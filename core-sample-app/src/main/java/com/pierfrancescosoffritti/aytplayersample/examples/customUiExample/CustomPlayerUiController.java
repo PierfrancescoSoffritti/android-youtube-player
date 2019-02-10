@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.aytplayersample.examples.customUIExample;
+package com.pierfrancescosoffritti.aytplayersample.examples.customUiExample;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -18,9 +18,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubeP
 import com.pierfrancescosoffritti.androidyoutubeplayer.utils.YouTubePlayerTracker;
 import com.pierfrancescosoffritti.aytplayersample.R;
 
-class CustomPlayerUIController extends AbstractYouTubePlayerListener implements YouTubePlayerFullScreenListener {
+class CustomPlayerUiController extends AbstractYouTubePlayerListener implements YouTubePlayerFullScreenListener {
 
-    private final View playerUI;
+    private final View playerUi;
 
     private Context context;
     private YouTubePlayer youTubePlayer;
@@ -35,8 +35,8 @@ class CustomPlayerUIController extends AbstractYouTubePlayerListener implements 
     private final YouTubePlayerTracker playerTracker;
     private boolean fullscreen = false;
 
-    CustomPlayerUIController(Context context, View customPlayerUI, YouTubePlayer youTubePlayer, YouTubePlayerView youTubePlayerView) {
-        this.playerUI = customPlayerUI;
+    CustomPlayerUiController(Context context, View customPlayerUi, YouTubePlayer youTubePlayer, YouTubePlayerView youTubePlayerView) {
+        this.playerUi = customPlayerUi;
         this.context = context;
         this.youTubePlayer = youTubePlayer;
         this.youTubePlayerView = youTubePlayerView;
@@ -44,16 +44,16 @@ class CustomPlayerUIController extends AbstractYouTubePlayerListener implements 
         playerTracker = new YouTubePlayerTracker();
         youTubePlayer.addListener(playerTracker);
 
-        initViews(customPlayerUI);
+        initViews(customPlayerUi);
     }
 
-    private void initViews(View playerUI) {
-        panel = playerUI.findViewById(R.id.panel);
-        progressbar = playerUI.findViewById(R.id.progressbar);
-        videoCurrentTimeTextView = playerUI.findViewById(R.id.video_current_time);
-        videoDurationTextView = playerUI.findViewById(R.id.video_duration);
-        Button playPauseButton = playerUI.findViewById(R.id.play_pause_button);
-        Button enterExitFullscreenButton = playerUI.findViewById(R.id.enter_exit_fullscreen_button);
+    private void initViews(View playerUi) {
+        panel = playerUi.findViewById(R.id.panel);
+        progressbar = playerUi.findViewById(R.id.progressbar);
+        videoCurrentTimeTextView = playerUi.findViewById(R.id.video_current_time);
+        videoDurationTextView = playerUi.findViewById(R.id.video_duration);
+        Button playPauseButton = playerUi.findViewById(R.id.play_pause_button);
+        Button enterExitFullscreenButton = playerUi.findViewById(R.id.enter_exit_fullscreen_button);
 
         playPauseButton.setOnClickListener( (view) -> {
             if(playerTracker.getState() == PlayerConstants.PlayerState.PLAYING) youTubePlayer.pause();
@@ -96,17 +96,17 @@ class CustomPlayerUIController extends AbstractYouTubePlayerListener implements 
 
     @Override
     public void onYouTubePlayerEnterFullScreen() {
-        ViewGroup.LayoutParams viewParams = playerUI.getLayoutParams();
+        ViewGroup.LayoutParams viewParams = playerUi.getLayoutParams();
         viewParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
         viewParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        playerUI.setLayoutParams(viewParams);
+        playerUi.setLayoutParams(viewParams);
     }
 
     @Override
     public void onYouTubePlayerExitFullScreen() {
-        ViewGroup.LayoutParams viewParams = playerUI.getLayoutParams();
+        ViewGroup.LayoutParams viewParams = playerUi.getLayoutParams();
         viewParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         viewParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        playerUI.setLayoutParams(viewParams);
+        playerUi.setLayoutParams(viewParams);
     }
 }

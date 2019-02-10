@@ -2,7 +2,7 @@
     <string name="app_name">android-youtube-player</string>
     <string name="basic_example">Basic example</string>
     <string name="recycler_view_example">RecyclerView example</string>
-    <string name="custom_ui_example">Custom UI example</string>
+    <string name="custom_ui_example">Custom Ui example</string>
     <string name="view_pager_example">ViewPager example</string>
     <string name="live_video_example">Live video example</string>
     <string name="player_status_example">Player state example</string>
@@ -10,6 +10,5 @@
     <string name="chromecast_example">Chromecast example</string>
     <string name="fragment_example">Fragment Example</string>
     <string name="iframe_player_options_example">IFrame Player Options Example</string>
-    <string name="web_ui_example">Web UI Example</string>
-    <string name="managed_player_example">Managed player example</string>
+    <string name="web_ui_example">Web Ui Example</string>
 </resources>

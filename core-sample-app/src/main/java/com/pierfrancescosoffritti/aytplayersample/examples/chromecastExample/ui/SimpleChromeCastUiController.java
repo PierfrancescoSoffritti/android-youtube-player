@@ -17,9 +17,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.ui.utils.TimeUtilities;
 import com.pierfrancescosoffritti.aytplayersample.R;
 
 /**
- * Class used to control a simple UI for the cast player.
+ * Class used to control a simple Ui for the cast player.
  */
-public class SimpleChromeCastUIController extends AbstractYouTubePlayerListener implements SeekBar.OnSeekBarChangeListener {
+public class SimpleChromeCastUiController extends AbstractYouTubePlayerListener implements SeekBar.OnSeekBarChangeListener {
 
     private final View controls_view;
 
@@ -37,7 +37,7 @@ public class SimpleChromeCastUIController extends AbstractYouTubePlayerListener 
 
     private final FrameLayout newViewsContainer;
 
-    public SimpleChromeCastUIController(View controls_view){
+    public SimpleChromeCastUiController(View controls_view){
         this.controls_view = controls_view;
 
         progressBar = controls_view.findViewById(R.id.progress_bar);
@@ -120,13 +120,13 @@ public class SimpleChromeCastUIController extends AbstractYouTubePlayerListener 
             case PAUSED: isPlaying = false; break;
             case PLAYING: isPlaying = true; break;
             case BUFFERING: isPlaying = false; break;
-            case UNSTARTED: resetUI();
+            case UNSTARTED: resetUi();
         }
 
         updatePlayPauseButtonIcon(!isPlaying);
     }
 
-    public void resetUI() {
+    public void resetUi() {
         seekBar.setProgress(0);
         seekBar.setMax(0);
         playPauseButton.setVisibility(View.INVISIBLE);

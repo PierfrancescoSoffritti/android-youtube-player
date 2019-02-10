@@ -71,7 +71,7 @@ class LocalPlayerInitExampleActivity : AppCompatActivity(), YouTubePlayersManage
     override fun onChromecastConnected(chromecastYouTubePlayerContext: ChromecastYouTubePlayerContext) {
         connectedToChromecast = true
 
-        updateUI(true)
+        updateUi(true)
 
         notificationManager.showNotification()
     }
@@ -79,7 +79,7 @@ class LocalPlayerInitExampleActivity : AppCompatActivity(), YouTubePlayersManage
     override fun onChromecastDisconnected() {
         connectedToChromecast = false
 
-        updateUI(false)
+        updateUi(false)
 
         notificationManager.dismissNotification()
     }
@@ -88,9 +88,9 @@ class LocalPlayerInitExampleActivity : AppCompatActivity(), YouTubePlayersManage
         if(connectedToChromecast)
             return
 
-        MediaRouteButtonUtils.addMediaRouteButtonToPlayerUI(
+        MediaRouteButtonUtils.addMediaRouteButtonToPlayerUi(
                 mediaRouteButton, android.R.color.white,
-                null, localPlayerUIMediaRouteButtonContainer
+                null, localPlayerUiMediaRouteButtonContainer
         )
     }
 
@@ -101,15 +101,15 @@ class LocalPlayerInitExampleActivity : AppCompatActivity(), YouTubePlayersManage
         applicationContext.registerReceiver(playbackControllerBroadcastReceiver, filter)
     }
 
-    private fun updateUI(connected: Boolean) {
+    private fun updateUi(connected: Boolean) {
 
-        val disabledContainer = if(connected) localPlayerUIMediaRouteButtonContainer else chromecastPlayerUIMediaRouteButtonContainer
-        val enabledContainer = if(connected) chromecastPlayerUIMediaRouteButtonContainer else localPlayerUIMediaRouteButtonContainer
+        val disabledContainer = if(connected) localPlayerUiMediaRouteButtonContainer else chromecastPlayerUiMediaRouteButtonContainer
+        val enabledContainer = if(connected) chromecastPlayerUiMediaRouteButtonContainer else localPlayerUiMediaRouteButtonContainer
         val mediaRouteButtonColor = if(connected) android.R.color.black else android.R.color.white
 
         // the media route button has a single instance.
-        // therefore it has to be moved from the local YouTube player UI to the chromecast YouTube player UI, and vice versa.
-        MediaRouteButtonUtils.addMediaRouteButtonToPlayerUI(
+        // therefore it has to be moved from the local YouTube player Ui to the chromecast YouTube player Ui, and vice versa.
+        MediaRouteButtonUtils.addMediaRouteButtonToPlayerUi(
                 mediaRouteButton, mediaRouteButtonColor,
                 disabledContainer, enabledContainer
         )
@@ -118,13 +118,13 @@ class LocalPlayerInitExampleActivity : AppCompatActivity(), YouTubePlayersManage
         chromecast_controls_root.visibility = if(connected) View.VISIBLE else View.GONE
     }
 
-    private val chromecastPlayerUIMediaRouteButtonContainer = object: MediaRouteButtonContainer {
-        override fun addMediaRouteButton(mediaRouteButton: MediaRouteButton) = youTubePlayersManager.chromecastUIController.addView(mediaRouteButton)
-        override fun removeMediaRouteButton(mediaRouteButton: MediaRouteButton) = youTubePlayersManager.chromecastUIController.removeView(mediaRouteButton)
+    private val chromecastPlayerUiMediaRouteButtonContainer = object: MediaRouteButtonContainer {
+        override fun addMediaRouteButton(mediaRouteButton: MediaRouteButton) = youTubePlayersManager.chromecastUiController.addView(mediaRouteButton)
+        override fun removeMediaRouteButton(mediaRouteButton: MediaRouteButton) = youTubePlayersManager.chromecastUiController.removeView(mediaRouteButton)
     }
 
-    private val localPlayerUIMediaRouteButtonContainer = object: MediaRouteButtonContainer {
-        override fun addMediaRouteButton(mediaRouteButton: MediaRouteButton) = youtube_player_view.getPlayerUIController().addView(mediaRouteButton)
-        override fun removeMediaRouteButton(mediaRouteButton: MediaRouteButton) = youtube_player_view.getPlayerUIController().removeView(mediaRouteButton)
+    private val localPlayerUiMediaRouteButtonContainer = object: MediaRouteButtonContainer {
+        override fun addMediaRouteButton(mediaRouteButton: MediaRouteButton) = youtube_player_view.getPlayerUiController().addView(mediaRouteButton)
+        override fun removeMediaRouteButton(mediaRouteButton: MediaRouteButton) = youtube_player_view.getPlayerUiController().removeView(mediaRouteButton)
     }
 }

@@ -8,14 +8,14 @@ import android.view.View;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.menu.YouTubePlayerMenu;
 
 
-public interface PlayerUIController {
-    void showUI(boolean show);
+public interface PlayerUiController {
+    void showUi(boolean show);
     void showPlayPauseButton(boolean show);
 
     void showVideoTitle(boolean show);
     void setVideoTitle(@NonNull String videoTitle);
 
-    void enableLiveVideoUI(boolean enable);
+    void enableLiveVideoUi(boolean enable);
 
     void setCustomAction1(@NonNull Drawable icon, @Nullable View.OnClickListener clickListener);
     void setCustomAction2(@NonNull Drawable icon, @Nullable View.OnClickListener clickListener);

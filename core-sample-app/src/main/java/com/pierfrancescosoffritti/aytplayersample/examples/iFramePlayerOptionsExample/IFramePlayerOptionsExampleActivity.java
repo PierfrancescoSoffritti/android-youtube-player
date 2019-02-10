@@ -13,7 +13,6 @@ import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Lifecycle;
 
 public class IFramePlayerOptionsExampleActivity extends AppCompatActivity {
 
@@ -30,7 +29,7 @@ public class IFramePlayerOptionsExampleActivity extends AppCompatActivity {
     }
 
     private void initYouTubePlayerView() {
-        youTubePlayerView.inflateCustomPlayerUI(R.layout.ayp_empty_layout);
+        youTubePlayerView.inflateCustomPlayerUi(R.layout.ayp_empty_layout);
 
         IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
                 .controls(0)

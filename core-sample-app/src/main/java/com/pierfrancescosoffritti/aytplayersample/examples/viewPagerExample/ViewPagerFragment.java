@@ -26,15 +26,14 @@ public class ViewPagerFragment extends Fragment {
         YouTubePlayerView youTubePlayerView = view.findViewById(R.id.youtube_player_view);
 
         getLifecycle().addObserver(youTubePlayerView);
-        youTubePlayerView.getPlayerUIController().showFullscreenButton(false);
 
-        youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+        youTubePlayerView.addListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 youTubePlayer.cueVideo(videoId, 0);
                 initializedYouTubePlayer = youTubePlayer;
             }
-        }, true);
+        });
 
         return view;
     }

@@ -83,12 +83,12 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null): Linea
             PlayerConstants.PlayerState.ENDED -> isPlaying = false
             PlayerConstants.PlayerState.PAUSED -> isPlaying = false
             PlayerConstants.PlayerState.PLAYING -> isPlaying = true
-            PlayerConstants.PlayerState.UNSTARTED -> resetUI()
+            PlayerConstants.PlayerState.UNSTARTED -> resetUi()
             else -> { }
         }
     }
 
-    private fun resetUI() {
+    private fun resetUi() {
         seekBar.progress = 0
         seekBar.max = 0
         videoDurationTextView.post { videoDurationTextView.text = "" }

@@ -53,8 +53,8 @@ public class IFramePlayerOptions {
         }
 
         /**
-         * Controls whether the web-based UI of the IFrame player is used or not.
-         * @param controls If set to 0: web UI is not used. If set to 1: web UI is used.
+         * Controls whether the web-based Ui of the IFrame player is used or not.
+         * @param controls If set to 0: web Ui is not used. If set to 1: web Ui is used.
          */
         public Builder controls(int controls) {
             addInt(CONTROLS, controls);

@@ -28,7 +28,7 @@ public class FullScreenHelper {
     public void enterFullScreen() {
         View decorView = context.getWindow().getDecorView();
 
-        hideSystemUI(decorView);
+        hideSystemUi(decorView);
 
         for(View view : views) {
             view.setVisibility(View.GONE);
@@ -42,7 +42,7 @@ public class FullScreenHelper {
     public void exitFullScreen() {
         View decorView = context.getWindow().getDecorView();
 
-        showSystemUI(decorView);
+        showSystemUi(decorView);
 
         for(View view : views) {
             view.setVisibility(View.VISIBLE);
@@ -50,7 +50,7 @@ public class FullScreenHelper {
         }
     }
 
-    private void hideSystemUI(View mDecorView) {
+    private void hideSystemUi(View mDecorView) {
         mDecorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -60,7 +60,7 @@ public class FullScreenHelper {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
-    private void showSystemUI(View mDecorView) {
+    private void showSystemUi(View mDecorView) {
         mDecorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
     }
 }

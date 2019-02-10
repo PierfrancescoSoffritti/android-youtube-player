@@ -16,7 +16,7 @@
         android:id="@+id/text_text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="custom UI example"
+        android:text="custom Ui example"
         android:textSize="20sp"
         android:textColor="@android:color/white"
 

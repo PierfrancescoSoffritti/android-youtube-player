@@ -25,7 +25,6 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         YouTubePlayerView youTubePlayerView = (YouTubePlayerView) LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_item, parent, false);
-        youTubePlayerView.getPlayerUIController().showFullscreenButton(false);
         lifecycle.addObserver(youTubePlayerView);
 
         return new ViewHolder(youTubePlayerView);
@@ -51,13 +50,13 @@ class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewH
             super(playerView);
             youTubePlayerView = playerView;
 
-            youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+            youTubePlayerView.addListener(new AbstractYouTubePlayerListener() {
                 @Override
                 public void onReady(@NonNull YouTubePlayer initializedYouTubePlayer) {
                     youTubePlayer = initializedYouTubePlayer;
                     youTubePlayer.cueVideo(currentVideoId, 0);
                 }
-            }, true);
+            });
         }
 
         void cueVideo(String videoId) {

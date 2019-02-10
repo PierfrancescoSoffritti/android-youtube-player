@@ -13,7 +13,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.Abstract
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.utils.YouTubePlayerTracker;
 import com.pierfrancescosoffritti.aytplayersample.R;
-import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.ui.SimpleChromeCastUIController;
+import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.ui.SimpleChromeCastUiController;
 import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 
 import androidx.annotation.NonNull;
@@ -31,7 +31,7 @@ public class YouTubePlayersManager implements ChromecastConnectionListener {
     private final YouTubePlayerView youtubePlayerView;
     private final YouTubePlayerListener chromecastPlayerListener;
 
-    private final SimpleChromeCastUIController chromecastUIController;
+    private final SimpleChromeCastUiController chromecastUiController;
 
     @Nullable private YouTubePlayer localYouTubePlayer = null;
     @Nullable private YouTubePlayer chromecastYouTubePlayer = null;
@@ -52,7 +52,7 @@ public class YouTubePlayersManager implements ChromecastConnectionListener {
         this.lifeCycle = lifeCycle;
 
         Button nextVideoButton = chromecastControls.findViewById(R.id.next_video_button);
-        chromecastUIController = new SimpleChromeCastUIController(chromecastControls);
+        chromecastUiController = new SimpleChromeCastUiController(chromecastControls);
 
         initLocalYouTube(localYouTubePlayerInitListener);
         nextVideoButton.setOnClickListener(view -> {
@@ -86,12 +86,12 @@ public class YouTubePlayersManager implements ChromecastConnectionListener {
                 localYouTubePlayer.cueVideo(chromecastPlayerStateTracker.getVideoId(), chromecastPlayerStateTracker.getCurrentSecond());
         }
 
-        chromecastUIController.resetUI();
+        chromecastUiController.resetUi();
         playingOnCastPlayer = false;
     }
 
-    public SimpleChromeCastUIController getChromecastUIController() {
-        return chromecastUIController;
+    public SimpleChromeCastUiController getChromecastUiController() {
+        return chromecastUiController;
     }
 
     public void togglePlayback() {
@@ -108,7 +108,7 @@ public class YouTubePlayersManager implements ChromecastConnectionListener {
     }
 
     private void initLocalYouTube(LocalYouTubePlayerInitListener localYouTubePlayerInitListener) {
-        youtubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+        youtubePlayerView.addListener(new AbstractYouTubePlayerListener() {
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 localYouTubePlayer = youTubePlayer;
                 youTubePlayer.addListener(localPlayerStateTracker);
@@ -126,7 +126,7 @@ public class YouTubePlayersManager implements ChromecastConnectionListener {
                 if (playingOnCastPlayer && localPlayerStateTracker.getState() == PlayerConstants.PlayerState.PLAYING)
                     youTubePlayer.pause();
             }
-        }, true);
+        });
     }
 
     private void initializeCastPlayer(ChromecastYouTubePlayerContext chromecastYouTubePlayerContext) {
@@ -135,11 +135,11 @@ public class YouTubePlayersManager implements ChromecastConnectionListener {
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 chromecastYouTubePlayer = youTubePlayer;
 
-                chromecastUIController.setYouTubePlayer(youTubePlayer);
+                chromecastUiController.setYouTubePlayer(youTubePlayer);
 
                 youTubePlayer.addListener(chromecastPlayerListener);
                 youTubePlayer.addListener(chromecastPlayerStateTracker);
-                youTubePlayer.addListener(chromecastUIController);
+                youTubePlayer.addListener(chromecastUiController);
 
                 if(localPlayerStateTracker.getVideoId() != null)
                     youTubePlayer.loadVideo(localPlayerStateTracker.getVideoId(), localPlayerStateTracker.getCurrentSecond());

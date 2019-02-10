@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.aytplayersample.examples.customUIExample;
+package com.pierfrancescosoffritti.aytplayersample.examples.customUiExample;
 
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +13,7 @@ import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class CustomUIActivity extends AppCompatActivity {
+public class CustomUiActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,20 +23,20 @@ public class CustomUIActivity extends AppCompatActivity {
         YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
         getLifecycle().addObserver(youTubePlayerView);
 
-        View customPlayerUI = youTubePlayerView.inflateCustomPlayerUI(R.layout.custom_player_ui);
+        View customPlayerUi = youTubePlayerView.inflateCustomPlayerUi(R.layout.custom_player_ui);
 
-        youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+        youTubePlayerView.addListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                CustomPlayerUIController customPlayerUIController = new CustomPlayerUIController(CustomUIActivity.this, customPlayerUI, youTubePlayer, youTubePlayerView);
-                youTubePlayer.addListener(customPlayerUIController);
-                youTubePlayerView.addFullScreenListener(customPlayerUIController);
+                CustomPlayerUiController customPlayerUiController = new CustomPlayerUiController(CustomUiActivity.this, customPlayerUi, youTubePlayer, youTubePlayerView);
+                youTubePlayer.addListener(customPlayerUiController);
+                youTubePlayerView.addFullScreenListener(customPlayerUiController);
 
                 YouTubePlayerUtils.loadOrCueVideo(
                         youTubePlayer, getLifecycle(),
                         VideoIdsProvider.getNextVideoId(),0f
                 );
             }
-        }, true);
+        });
     }
 }

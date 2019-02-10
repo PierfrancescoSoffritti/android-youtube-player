@@ -14,7 +14,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener;
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.views.YouTubePlayerView;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.views.LegacyYouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.menu.YouTubePlayerMenu;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.menu.defaultMenu.DefaultYouTubePlayerMenu;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.utils.FadeViewHelper;
@@ -25,8 +25,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
-public class DefaultPlayerUIController implements PlayerUIController, YouTubePlayerListener, YouTubePlayerFullScreenListener, View.OnClickListener, YouTubePlayerSeekBarListener {
-    @NonNull private final YouTubePlayerView youTubePlayerView;
+public class DefaultPlayerUiController implements PlayerUiController, YouTubePlayerListener, YouTubePlayerFullScreenListener, View.OnClickListener, YouTubePlayerSeekBarListener {
+    @NonNull private final LegacyYouTubePlayerView youTubePlayerView;
     @NonNull private final YouTubePlayer youTubePlayer;
 
     @NonNull private YouTubePlayerMenu youTubePlayerMenu;
@@ -65,12 +65,12 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     private boolean isCustomActionLeftEnabled = false;
     private boolean isCustomActionRightEnabled = false;
 
-    public DefaultPlayerUIController(@NonNull YouTubePlayerView youTubePlayerView, @NonNull YouTubePlayer youTubePlayer) {
+    public DefaultPlayerUiController(@NonNull LegacyYouTubePlayerView youTubePlayerView, @NonNull YouTubePlayer youTubePlayer) {
         this.youTubePlayerView = youTubePlayerView;
         this.youTubePlayer = youTubePlayer;
 
-        View defaultPlayerUI = View.inflate(youTubePlayerView.getContext(), R.layout.ayp_default_player_ui, youTubePlayerView);
-        initViews(defaultPlayerUI);
+        View defaultPlayerUi = View.inflate(youTubePlayerView.getContext(), R.layout.ayp_default_player_ui, youTubePlayerView);
+        initViews(defaultPlayerUi);
 
         youTubePlayerMenu = new DefaultYouTubePlayerMenu(youTubePlayerView.getContext());
     }
@@ -118,7 +118,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     }
 
     @Override
-    public void showUI(boolean show) {
+    public void showUi(boolean show) {
         fadeControlsContainer.setDisabled(!show);
         controlsContainer.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
     }
@@ -131,7 +131,7 @@ public class DefaultPlayerUIController implements PlayerUIController, YouTubePla
     }
 
     @Override
-    public void enableLiveVideoUI(boolean enable) {
+    public void enableLiveVideoUi(boolean enable) {
         youtubePlayerSeekBar.setVisibility(enable ? View.INVISIBLE : View.VISIBLE);
         liveVideoIndicator.setVisibility(enable ? View.VISIBLE : View.GONE);
     }

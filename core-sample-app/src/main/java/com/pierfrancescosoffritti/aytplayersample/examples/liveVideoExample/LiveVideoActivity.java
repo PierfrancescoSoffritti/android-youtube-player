@@ -24,12 +24,10 @@ public class LiveVideoActivity extends AppCompatActivity {
 
     private void initYouTubePlayerView() {
         YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
-        youTubePlayerView.getPlayerUIController().showFullscreenButton(false);
-        youTubePlayerView.getPlayerUIController().enableLiveVideoUI(true);
 
         getLifecycle().addObserver(youTubePlayerView);
 
-        youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+        youTubePlayerView.addListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 YouTubePlayerUtils.loadOrCueVideo(
@@ -37,6 +35,6 @@ public class LiveVideoActivity extends AppCompatActivity {
                         VideoIdsProvider.getNextLiveVideoId(),0f
                 );
             }
-        }, true);
+        });
     }
 }

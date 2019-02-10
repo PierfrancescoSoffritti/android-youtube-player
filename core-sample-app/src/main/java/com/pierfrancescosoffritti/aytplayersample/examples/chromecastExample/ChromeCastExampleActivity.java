@@ -92,7 +92,7 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
     public void onChromecastConnected(@NonNull ChromecastYouTubePlayerContext chromecastYouTubePlayerContext) {
         connectedToChromeCast = true;
 
-        updateUI(true);
+        updateUi(true);
         notificationManager.showNotification();
     }
 
@@ -100,7 +100,7 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
     public void onChromecastDisconnected() {
         connectedToChromeCast = false;
 
-        updateUI(false);
+        updateUi(false);
         notificationManager.dismissNotification();
     }
 
@@ -109,9 +109,9 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
         if(connectedToChromeCast)
             return;
 
-        MediaRouteButtonUtils.addMediaRouteButtonToPlayerUI(
+        MediaRouteButtonUtils.addMediaRouteButtonToPlayerUi(
                 mediaRouteButton, android.R.color.white,
-                null, localPlayerUIMediaRouteButtonContainer
+                null, localPlayerUiMediaRouteButtonContainer
         );
     }
 
@@ -122,14 +122,14 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
         getApplicationContext().registerReceiver(playbackControllerBroadcastReceiver, filter);
     }
 
-    private void updateUI(boolean connected) {
-        MediaRouteButtonContainer disabledContainer = connected ? localPlayerUIMediaRouteButtonContainer : chromecastPlayerUIMediaRouteButtonContainer;
-        MediaRouteButtonContainer enabledContainer = connected ? chromecastPlayerUIMediaRouteButtonContainer : localPlayerUIMediaRouteButtonContainer;
+    private void updateUi(boolean connected) {
+        MediaRouteButtonContainer disabledContainer = connected ? localPlayerUiMediaRouteButtonContainer : chromecastPlayerUiMediaRouteButtonContainer;
+        MediaRouteButtonContainer enabledContainer = connected ? chromecastPlayerUiMediaRouteButtonContainer : localPlayerUiMediaRouteButtonContainer;
         int mediaRouteButtonColor = connected ? android.R.color.black : android.R.color.white;
 
         // the media route button has a single instance.
-        // therefore it has to be moved from the local YouTube player UI to the chromecast YouTube player UI, and vice versa.
-        MediaRouteButtonUtils.addMediaRouteButtonToPlayerUI(
+        // therefore it has to be moved from the local YouTube player Ui to the chromecast YouTube player Ui, and vice versa.
+        MediaRouteButtonUtils.addMediaRouteButtonToPlayerUi(
                 mediaRouteButton, mediaRouteButtonColor,
                 disabledContainer, enabledContainer
         );
@@ -138,14 +138,14 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
         chromeCastControlsRoot.setVisibility(connected ? View.VISIBLE : View.GONE);
     }
 
-    private MediaRouteButtonContainer chromecastPlayerUIMediaRouteButtonContainer = new MediaRouteButtonContainer() {
-        public void addMediaRouteButton(MediaRouteButton mediaRouteButton) { youTubePlayersManager.getChromecastUIController().addView(mediaRouteButton); }
-        public void removeMediaRouteButton(MediaRouteButton mediaRouteButton) { youTubePlayersManager.getChromecastUIController().removeView(mediaRouteButton); }
+    private MediaRouteButtonContainer chromecastPlayerUiMediaRouteButtonContainer = new MediaRouteButtonContainer() {
+        public void addMediaRouteButton(MediaRouteButton mediaRouteButton) { youTubePlayersManager.getChromecastUiController().addView(mediaRouteButton); }
+        public void removeMediaRouteButton(MediaRouteButton mediaRouteButton) { youTubePlayersManager.getChromecastUiController().removeView(mediaRouteButton); }
     };
 
-    private MediaRouteButtonContainer localPlayerUIMediaRouteButtonContainer = new MediaRouteButtonContainer() {
-        public void addMediaRouteButton(MediaRouteButton mediaRouteButton) { youTubePlayerView.getPlayerUIController().addView(mediaRouteButton); }
-        public void removeMediaRouteButton(MediaRouteButton mediaRouteButton) { youTubePlayerView.getPlayerUIController().removeView(mediaRouteButton); }
+    private MediaRouteButtonContainer localPlayerUiMediaRouteButtonContainer = new MediaRouteButtonContainer() {
+        public void addMediaRouteButton(MediaRouteButton mediaRouteButton) { youTubePlayerView.getPlayerUiController().addView(mediaRouteButton); }
+        public void removeMediaRouteButton(MediaRouteButton mediaRouteButton) { youTubePlayerView.getPlayerUiController().removeView(mediaRouteButton); }
     };
 
     public interface MediaRouteButtonContainer {

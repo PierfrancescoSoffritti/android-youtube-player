@@ -15,7 +15,6 @@ import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Lifecycle;
 
 public class FragmentExampleFragment extends Fragment {
 
@@ -36,14 +35,12 @@ public class FragmentExampleFragment extends Fragment {
     }
 
     private void initYouTubePlayerView() {
-        youTubePlayerView.getPlayerUIController().showFullscreenButton(false);
-
         // The player will automatically release itself when the fragment is destroyed.
         // The player will automatically pause when the fragment is stopped
         // If you don't add YouTubePlayerView as a lifecycle observer, you will have to release it manually.
         getLifecycle().addObserver(youTubePlayerView);
 
-        youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+        youTubePlayerView.addListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 setPlayNextVideoButtonClickListener(youTubePlayer);
@@ -53,7 +50,7 @@ public class FragmentExampleFragment extends Fragment {
                         VideoIdsProvider.getNextVideoId(),0f
                 );
             }
-        }, true);
+        });
     }
 
     private void setPlayNextVideoButtonClickListener(final YouTubePlayer youTubePlayer) {

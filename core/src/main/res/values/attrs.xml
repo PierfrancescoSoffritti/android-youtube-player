@@ -5,7 +5,7 @@
         <attr name="color" format="color" />
     </declare-styleable>
 
-    <declare-styleable name="ManagedYouTubePlayerView">
+    <declare-styleable name="YouTubePlayerView">
         <attr name="enableAutomaticInitialization" format="boolean" />
         <attr name="useWebUi" format="boolean" />
         <attr name="enableLiveVideoUi" format="boolean" />

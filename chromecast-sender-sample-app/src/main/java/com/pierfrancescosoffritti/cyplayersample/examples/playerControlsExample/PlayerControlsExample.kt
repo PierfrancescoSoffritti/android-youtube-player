@@ -17,7 +17,7 @@ import com.pierfrancescosoffritti.cyplayersample.utils.MediaRouteButtonUtils
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.utils.PlayServicesUtils
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer
 import com.pierfrancescosoffritti.cyplayersample.utils.VideoIdsProvider
-import com.pierfrancescosoffritti.cyplayersample.ui.SimpleChromeCastUIController
+import com.pierfrancescosoffritti.cyplayersample.ui.SimpleChromeCastUiController
 import kotlinx.android.synthetic.main.activity_player_controls_example.*
 
 @SuppressLint("SetTextI18n")
@@ -49,7 +49,7 @@ class PlayerControlsExample : AppCompatActivity() {
 
     inner class SimpleChromecastConnectionListener : ChromecastConnectionListener {
 
-        private val chromecastUIController = SimpleChromeCastUIController(chromecast_controls_root)
+        private val chromecastUiController = SimpleChromeCastUiController(chromecast_controls_root)
         private val chromecastConnectionStatusTextView = chromecast_controls_root.findViewById<TextView>(R.id.chromecast_connection_status)!!
         private val playerStatusTextView = chromecast_controls_root.findViewById<TextView>(R.id.player_status)!!
 
@@ -68,7 +68,7 @@ class PlayerControlsExample : AppCompatActivity() {
         override fun onChromecastDisconnected() {
             Log.d(javaClass.simpleName, "onChromecastDisconnected")
             chromecastConnectionStatusTextView.text = "not connected to chromecast"
-            chromecastUIController.resetUI()
+            chromecastUiController.resetUi()
             playerStatusTextView.text = ""
         }
 
@@ -80,9 +80,9 @@ class PlayerControlsExample : AppCompatActivity() {
                             .findViewById<Button>(R.id.next_video_button)
                             .setOnClickListener { youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f) }
 
-                    chromecastUIController.youTubePlayer = youTubePlayer
+                    chromecastUiController.youTubePlayer = youTubePlayer
 
-                    youTubePlayer.addListener(chromecastUIController)
+                    youTubePlayer.addListener(chromecastUiController)
 
                     youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f)
                 }

@@ -59,7 +59,7 @@ A list of published apps that are using this library: ([let me know](https://git
         4. [Player state](#player-state)
         5. [YouTubePlayerTracker](#youtubeplayertracker)
     3. [YouTubePlayerListener](#youtubeplayerlistener)
-    4. [PlayerUIController](#playeruicontroller)
+    4. [PlayerUiController](#playeruicontroller)
         1. [Show video title](#show-video-title)
         2. [Live videos](#live-videos)
         3. [Custom actions](#custom-actions)
@@ -210,7 +210,7 @@ YouTubePlayerView.initialize(YouTubePlayerListener listener)
 YouTubePlayerView.initialize(YouTubePlayerListener listener, boolean handleNetworkEvents)
 ```
 ```java
-YouTubePlayerView.initializeWithWebUI(YouTubePlayerListener listener, boolean handleNetworkEvents)
+YouTubePlayerView.initializeWithWebUi(YouTubePlayerListener listener, boolean handleNetworkEvents)
 ```
 ```java
 YouTubePlayerView.initialize(YouTubePlayerListener listener, boolean handleNetworkEvents, IFramePlayerOptions iframePlayerOptions)
@@ -228,10 +228,10 @@ By passing an `IFramePlayerOptions` to the initialize method it is possible to s
 
 All the possible parameters and values are listed [here](https://developers.google.com/youtube/player_parameters#Parameters). Not all of them are supported in this library because some don't make sense in this context. [Open an issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues) if you need a parameter that is not currently supported.
 
-#### `initializeWithWebUI(YouTubePlayerListener, boolean)`
+#### `initializeWithWebUi(YouTubePlayerListener, boolean)`
 This method is identical to `initialize(YouTubePlayerListener, boolean)` but it disables the native UI of the player and uses the web-based UI of the IFrame Player API.
 
-Because the native UI is disabled trying to call `YouTubePlayerView.getPlayerUIController()` will throw an exception.
+Because the native UI is disabled trying to call `YouTubePlayerView.getPlayerUiController()` will throw an exception.
 
 YouTube added some non-removable buttons to the IFrame Player, as mentioned in [this issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues/242). Using the web-based UI is the only way to have access to these non-removable buttons.
 
@@ -307,12 +307,12 @@ By default Android recreates Activities and Fragments when the orientation chang
 If you don't do that the player will lose all the data it has buffered and re-start from zero after the orientation has changed.
 
 ### UI
-If you want to interact with the UI of the player you need to get a reference to the `PlayerUIController` from the `YouTubePlayerView` by calling this method
+If you want to interact with the UI of the player you need to get a reference to the `PlayerUiController` from the `YouTubePlayerView` by calling this method
 
 ```java
-PlayerUIController YouTubePlayerView.getPlayerUIController();
+PlayerUiController YouTubePlayerView.getPlayerUiController();
 ```
-You can read more about PlayerUIController [here](#playeruicontroller).
+You can read more about PlayerUiController [here](#playeruicontroller).
 
 You can also build your own custom UI, [read more here](#create-your-own-custom-ui).
 
@@ -436,29 +436,29 @@ If you don't want to implement all the methods of this interface, you can extend
 
 For more information on the methods defined in the `YouTubePlayerListener` interface, please refer to the documentation defined above each method [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/listeners/YouTubePlayerListener.kt).
 
-## PlayerUIController
-The `PlayerUIController` is responsible for controlling the UI of a `YouTubePlayerView`.
+## PlayerUiController
+The `PlayerUiController` is responsible for controlling the UI of a `YouTubePlayerView`.
 
-You can get a reference to the `PlayerUIController` from the `YouTubePlayerView`
+You can get a reference to the `PlayerUiController` from the `YouTubePlayerView`
 
 ```java
-youtubePlayerView.getPlayerUIController();
+youtubePlayerView.getPlayerUiController();
 ```
 
 ### Show video title
 Due to changes to the IFrame API, the web player will always show the title of the video.
 
-Nevertheless, the `PlayerUIController` exposes a method called `setVideoTitle(String videoTitle)` that can be used to set the title on the Android side (unfortunately setting this title won't remove the title from the Webview).
+Nevertheless, the `PlayerUiController` exposes a method called `setVideoTitle(String videoTitle)` that can be used to set the title on the Android side (unfortunately setting this title won't remove the title from the Webview).
 
 The library doesn't know the title of the videos it plays. Therefore, if you want to use this method to set the real title of the video, you need to find it first. The best way to do that is by using the [YouTube Data API](https://developers.google.com/youtube/v3/docs/)  to fetch the video title from the video id.
 
-You can see an example in the method `setVideoTitle(PlayerUIController playerUIController, String videoId)` from the [sample app](./core-sample-app/src/main/java/com/pierfrancescosoffritti/aytplayersample/examples/basicExample/BasicExampleActivity.java#L177).
+You can see an example in the method `setVideoTitle(PlayerUiController playerUiController, String videoId)` from the [sample app](./core-sample-app/src/main/java/com/pierfrancescosoffritti/aytplayersample/examples/basicExample/BasicExampleActivity.java#L177).
 
 ### Live videos
 If you want to play live videos you must setup the UI accordingly, by calling this method
 
 ```java
-PlayerUIController.enableLiveVideoUI(boolean enable);
+PlayerUiController.enableLiveVideoUi(boolean enable);
 ```
 
 Unfortunately there is no way for the player to automatically know if it is playing a live video or not, therefore is up to the developer to change the UI accordingly.
@@ -467,17 +467,17 @@ Unfortunately there is no way for the player to automatically know if it is play
 You can set custom actions on the right and left side of the Play/Pause button of the player
 
 ```java
-PlayerUIController.setCustomAction1(Drawable icon, OnClickListener listener);
-PlayerUIController.setCustomAction2(Drawable icon, OnClickListener listener);
-PlayerUIController.showCustomAction1(boolean show);
-PlayerUIController.showCustomAction2(boolean show);
+PlayerUiController.setCustomAction1(Drawable icon, OnClickListener listener);
+PlayerUiController.setCustomAction2(Drawable icon, OnClickListener listener);
+PlayerUiController.showCustomAction1(boolean show);
+PlayerUiController.showCustomAction2(boolean show);
 ```
 
 You can **also add any type of View to the UI**, this can be useful if you want to add a new icon to the UI.
 
 ```java
-PlayerUIController.addView(View view);
-PlayerUIController.removeView(View view);
+PlayerUiController.addView(View view);
+PlayerUiController.removeView(View view);
 ```
 
 The View will be added to the top of the player.
@@ -488,28 +488,28 @@ Customization is an important aspect of this library. If need to, you can comple
 `YouTubePlayerView`'s method
 
 ```java
-View inflateCustomPlayerUI(@LayoutRes int customUILayoutID)
+View inflateCustomPlayerUi(@LayoutRes int customUiLayoutID)
 ```
 
 can be used to replace the default UI of the player.
 
 This method takes in the id of a layout resource, which is a regular XML file defining a layout. The default UI of the player is removed and replaced with the new UI. The method returns the View object corresponding to the newly inflated layout.
 
-After calling this method, the default [PlayerUIController](#playeruicontroller) won't be available anymore. Calling `YouTubePlayerView.getPlayerUIController()` will throw an exception.
+After calling this method, the default [PlayerUiController](#playeruicontroller) won't be available anymore. Calling `YouTubePlayerView.getPlayerUiController()` will throw an exception.
 
-You are now responsible for managing your custom UI with your own code. Meaning: you should write your own class to manage the UI. A simple but complete example can be seen [here, in the sample app](./core-sample-app/src/main/java/com/pierfrancescosoffritti/aytplayersample/examples/customUIExample), I recommend taking a few minutes to read it, it should be trivial to understand.
+You are now responsible for managing your custom UI with your own code. Meaning: you should write your own class to manage the UI. A simple but complete example can be seen [here, in the sample app](./core-sample-app/src/main/java/com/pierfrancescosoffritti/aytplayersample/examples/customUiExample), I recommend taking a few minutes to read it, it should be trivial to understand.
 
 Example (taken from sample app):
 
 ```java
-View customPlayerUI = youTubePlayerView.inflateCustomPlayerUI(R.layout.custom_player_ui);
+View customPlayerUi = youTubePlayerView.inflateCustomPlayerUi(R.layout.custom_player_ui);
 
 youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
   @Override
   public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-    YourCustomPlayerUIController customPlayerUIController = new YourCustomPlayerUIController(youTubePlayer, youTubePlayerView);
-    youTubePlayer.addListener(customPlayerUIController);
-    youTubePlayerView.addFullScreenListener(customPlayerUIController);
+    YourCustomPlayerUiController customPlayerUiController = new YourCustomPlayerUiController(youTubePlayer, youTubePlayerView, customPlayerUi);
+    youTubePlayer.addListener(customPlayerUiController);
+    youTubePlayerView.addFullScreenListener(customPlayerUiController);
 
     // ...
   }
@@ -597,8 +597,8 @@ Use `fun formatTime(timeInSeconds: Float): String` to transform the time in seco
 You can use these methods to control the menu's behavior:
 
 ``` java
-PlayerUIController.showMenuButton(boolean show);
-PlayerUIController.setMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener);
+PlayerUiController.showMenuButton(boolean show);
+PlayerUiController.setMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener);
 ```
 
 By default the menu icon is not visible.
@@ -608,10 +608,10 @@ The default `OnClickListener` opens the default menu.
 ### YouTubePlayerMenu
 Internally the menu is represented by a `YouTubePlayerMenu`. You can see its contract [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/ui/menu/YouTubePlayerMenu.java).
 
-You can get a reference of the `YouTubePlayerMenu` from the `PlayerUIController`, using the method
-`PlayerUIController.getMenu()`.
+You can get a reference of the `YouTubePlayerMenu` from the `PlayerUiController`, using the method
+`PlayerUiController.getMenu()`.
 
-You can add your own implementation of `YouTubePlayerMenu` using `PlayerUIController.setMenu(YouTubePlayerMenu youTubePlayerMenu)`.
+You can add your own implementation of `YouTubePlayerMenu` using `PlayerUiController.setMenu(YouTubePlayerMenu youTubePlayerMenu)`.
 
 ### DefaultYouTubePlayerMenu
 The default implementation of `YouTubePlayerMenu` (provided by the library) shows a popup window when its `show()` method is called. The popup window contains a list of `MenuItem`s. You can see the implementation of the default menu [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/ui/menu/defaultMenu/DefaultYouTubePlayerMenu.java).

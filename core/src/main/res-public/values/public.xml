@@ -5,16 +5,16 @@
     <public name="YouTubePlayerSeekBar_fontSize" type="attr" />
     <public name="YouTubePlayerSeekBar_color" type="attr" />
 
-    <public name="ManagedYouTubePlayerView_enableAutomaticInitialization" type="attr" />
-    <public name="ManagedYouTubePlayerView_useWebUi" type="attr" />
-    <public name="ManagedYouTubePlayerView_enableLiveVideoUi" type="attr" />
-    <public name="ManagedYouTubePlayerView_videoId" type="attr" />
-    <public name="ManagedYouTubePlayerView_autoPlay" type="attr" />
-    <public name="ManagedYouTubePlayerView_handleNetworkEvents" type="attr" />
-    <public name="ManagedYouTubePlayerView_showYouTubeButton" type="attr" />
-    <public name="ManagedYouTubePlayerView_showFullScreenButton" type="attr" />
-    <public name="ManagedYouTubePlayerView_showVideoCurrentTime" type="attr" />
-    <public name="ManagedYouTubePlayerView_showVideoDuration" type="attr" />
-    <public name="ManagedYouTubePlayerView_showSeekBar" type="attr" />
+    <public name="YouTubePlayerView_enableAutomaticInitialization" type="attr" />
+    <public name="YouTubePlayerView_useWebUi" type="attr" />
+    <public name="YouTubePlayerView_enableLiveVideoUi" type="attr" />
+    <public name="YouTubePlayerView_videoId" type="attr" />
+    <public name="YouTubePlayerView_autoPlay" type="attr" />
+    <public name="YouTubePlayerView_handleNetworkEvents" type="attr" />
+    <public name="YouTubePlayerView_showYouTubeButton" type="attr" />
+    <public name="YouTubePlayerView_showFullScreenButton" type="attr" />
+    <public name="YouTubePlayerView_showVideoCurrentTime" type="attr" />
+    <public name="YouTubePlayerView_showVideoDuration" type="attr" />
+    <public name="YouTubePlayerView_showSeekBar" type="attr" />
 
 </resources>

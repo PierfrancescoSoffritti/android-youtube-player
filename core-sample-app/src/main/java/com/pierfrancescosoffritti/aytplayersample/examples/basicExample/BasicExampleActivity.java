@@ -10,11 +10,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.YouTubePlayerUtils;
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.views.ManagedYouTubePlayerView;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerFullScreenListener;
-import com.pierfrancescosoffritti.androidyoutubeplayer.ui.PlayerUIController;
+import com.pierfrancescosoffritti.androidyoutubeplayer.ui.PlayerUiController;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.menu.MenuItem;
 import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
 import com.pierfrancescosoffritti.aytplayersample.utils.VideoInfo;
@@ -31,7 +31,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class BasicExampleActivity extends AppCompatActivity {
 
-    private ManagedYouTubePlayerView youTubePlayerView;
+    private YouTubePlayerView youTubePlayerView;
     private FullScreenHelper fullScreenHelper = new FullScreenHelper(this);
 
     // a list of videos not available in some countries, to test if they're handled gracefully.
@@ -50,7 +50,7 @@ public class BasicExampleActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfiguration) {
         super.onConfigurationChanged(newConfiguration);
-        youTubePlayerView.getPlayerUIController().getMenu().dismiss();
+        youTubePlayerView.getPlayerUiController().getMenu().dismiss();
     }
 
     @Override
@@ -69,7 +69,7 @@ public class BasicExampleActivity extends AppCompatActivity {
         // If you don't add YouTubePlayerView as a lifecycle observer, you will have to release it manually.
         getLifecycle().addObserver(youTubePlayerView);
 
-        youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+        youTubePlayerView.addListener(new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 YouTubePlayerUtils.loadOrCueVideo(
@@ -89,8 +89,8 @@ public class BasicExampleActivity extends AppCompatActivity {
      * Shows the menu button in the player and adds an item to it.
      */
     private void initPlayerMenu() {
-        youTubePlayerView.getPlayerUIController().showMenuButton(true);
-        youTubePlayerView.getPlayerUIController().getMenu().addItem(
+        youTubePlayerView.getPlayerUiController().showMenuButton(true);
+        youTubePlayerView.getPlayerUiController().getMenu().addItem(
                 new MenuItem("example", R.drawable.ic_settings_24dp, (view) -> Toast.makeText(this, "item clicked", Toast.LENGTH_SHORT).show())
         );
     }
@@ -122,13 +122,13 @@ public class BasicExampleActivity extends AppCompatActivity {
     private void addCustomActionToPlayer(YouTubePlayer youTubePlayer) {
         Drawable customActionIcon = ContextCompat.getDrawable(this, R.drawable.ayp_ic_pause_36dp);
 
-        youTubePlayerView.getPlayerUIController().setCustomAction1(customActionIcon, view -> {
+        youTubePlayerView.getPlayerUiController().setCustomAction1(customActionIcon, view -> {
             if(youTubePlayer != null) youTubePlayer.pause();
         });
     }
 
     private void removeCustomActionFromPlayer() {
-        youTubePlayerView.getPlayerUIController().showCustomAction1(false);
+        youTubePlayerView.getPlayerUiController().showCustomAction1(false);
     }
 
     /**
@@ -158,7 +158,7 @@ public class BasicExampleActivity extends AppCompatActivity {
      * For simplicity I have used RxJava to implement the asynchronous logic. You can use whatever you want: Threads, AsyncTask ecc.
      */
     @SuppressLint("CheckResult")
-    private void setVideoTitle(PlayerUIController playerUIController, String videoId) {
+    private void setVideoTitle(PlayerUiController playerUiController, String videoId) {
 
         Single<VideoInfo> observable = YouTubeDataEndpoint.getVideoInfoFromYouTubeDataAPIs(videoId);
 
@@ -166,7 +166,7 @@ public class BasicExampleActivity extends AppCompatActivity {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        videoInfo -> playerUIController.setVideoTitle(videoInfo.getVideoTitle()),
+                        videoInfo -> playerUiController.setVideoTitle(videoInfo.getVideoTitle()),
                         error -> { Log.e(getClass().getSimpleName(), "Can't retrieve video title, are you connected to the internet?"); }
                 );
     }
