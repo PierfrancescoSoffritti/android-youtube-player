@@ -129,10 +129,9 @@ dependencies {
 ```
 
 ### Chromecast
-The *chromecast-sender* module is an optional extension library for the *core* module. Use this if you need to cast YouTube videos from your app to a Chromecast device.
+The *chromecast-sender* module contains the Chromecast YouTube Player. Use it if you need to cast YouTube videos from your app to a Chromecast device.
 ```
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:9.0.1'
   implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.17'
 }
 ```
@@ -154,7 +153,8 @@ In order to start using the player you need to add a [YouTubePlayerView](#youtub
         android:layout_height="wrap_content"
         
         app:videoId="S0Q4gqBUs7c"
-        app:autoPlay="true" />
+        app:autoPlay="true"
+        app:showFullScreenButton="false" />
 </LinearLayout>
 ```
 
@@ -272,6 +272,10 @@ This attribute expects a `boolean`. Its default value is `false`.
 YouTube added some non-removable buttons to the IFrame Player, as mentioned in [this issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues/242). Using the web-based UI is the only way to have access to these non-removable buttons.
 
 Read the documentation of the [`initializeWithWebUi`](#initializeWithWebUi(YouTubePlayerListener,-boolean)) method to learn more about the effects of this attribute.
+
+Web UI screenshot:
+
+![web-ui screenshot](./images/web_based_ui_screenshot.jpg)
 
 #### enableLiveVideoUi
 This attribute expects a `boolean`. Its default value is `false`.
@@ -860,28 +864,27 @@ If you want to be able to click them, you should [use the web-based UI](#web-bas
 
 <img align="right" width="180px" src="./images/chromecast-youtube-player-icon_512x512.png" title="chromecast-youtube-player logo" />
 
-The *chromecast-sender* extension library extends the *core* library with chromecast functionalities. It shares some interfaces with the *core* library, therefore they must be used together.
+The *chromecast-sender* extension library extends the *core* library with chromecast functionalities. It shares some interfaces with the *core* library, therefore they can be used together.
 
-The scope of this library is to provide the basic framework and utilities, needed to play YouTube videos on a Chromecast device.
+The scope of this library is to provide the basic framework and utilities needed to cast YouTube videos to a Chromecast device.
 
 **The api of this library is not 100% finalized yet, but is stable. You can use it in your apps.**
 
 # Quick start - Chromecast
 A Google Cast application is made of two components: a Sender and a Receiver.
 
-* Sender: is responsible for initiating the cast sessions. In our case the sender is an Android app.
-* Receiver: a web app that gets downloaded on the Chromecast when a sender initiates a cast sessions.
+* [Sender](#sender): is responsible for initiating the cast sessions. In our case the sender is an Android app.
+* [Receiver](#receiver): a web app that gets downloaded on the Chromecast when a sender initiates a cast sessions.
 
 ### Download extra dependencies
-To use Google Cast functionalities in your app you are going to need two extra libraries, other than the *chromecast-sender* and the *core* libraries:
+To use Google Cast functionalities add the *chromecast-sender* module to your dependencies:
 
 [last-version](#download).
 
 ```
-implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:last-version'
 implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:last-version'
 
-// this is not necessarily needed to use the library, it provides the cast button.
+// this is not needed to use the library, but it provides the quite useful cast button.
 implementation 'androidx.mediarouter:mediarouter:last-version'
 ```
 
@@ -1029,3 +1032,7 @@ In order to use your receiver you need a receiverId. This is the ID of your rece
 
 ### Hosting the chromecast-receiver
 You will be required to host your receiver somewhere, host it where you prefer. Firebase free hosting may be a good option, for development.
+
+---
+
+For any question feel free to [open an issue on the GitHub repository](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues).
