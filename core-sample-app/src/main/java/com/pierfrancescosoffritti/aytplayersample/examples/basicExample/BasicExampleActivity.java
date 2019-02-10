@@ -11,10 +11,8 @@ import android.widget.Toast;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.ManagedYouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerFullScreenListener;
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.PlayerUIController;
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.menu.MenuItem;
 import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;
@@ -22,8 +20,6 @@ import com.pierfrancescosoffritti.aytplayersample.utils.VideoInfo;
 import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.aytplayersample.utils.FullScreenHelper;
 import com.pierfrancescosoffritti.aytplayersample.utils.YouTubeDataEndpoint;
-
-import org.jetbrains.annotations.NotNull;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

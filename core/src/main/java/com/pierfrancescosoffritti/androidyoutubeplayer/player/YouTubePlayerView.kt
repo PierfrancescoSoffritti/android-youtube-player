@@ -14,7 +14,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerFullScreenListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerCallback
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.FullScreenHelper
@@ -37,9 +37,9 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
     private val playbackResumer = PlaybackResumer()
     private val fullScreenHelper = FullScreenHelper(this)
 
-    internal var isInitialized = false
+    internal var isYouTubePlayerReady = false
     private var initialize = { }
-    private var initListener: YouTubePlayerInitListener? = null
+    private val youTubePlayerCallbacks = HashSet<YouTubePlayerCallback>()
 
     var isUsingCustomUI = false
         private set
@@ -55,14 +55,17 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
 
         youTubePlayer.addListener(object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
-                isInitialized = true
-                initListener?.onInitSuccess(youTubePlayer)
+                isYouTubePlayerReady = true
+
+                youTubePlayerCallbacks.forEach { it.onYouTubePlayer(youTubePlayer) }
+                youTubePlayerCallbacks.clear()
+
                 youTubePlayer.removeListener(this)
             }
         })
 
         networkListener.onNetworkAvailable = {
-            if (!isInitialized)
+            if (!isYouTubePlayerReady)
                 initialize()
             else
                 playbackResumer.resume(youTubePlayer)
@@ -77,7 +80,7 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
      * @param playerOptions customizable options for the embedded video player, can be null.
      */
     fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean, playerOptions: IFramePlayerOptions?) {
-        if(isInitialized)
+        if(isYouTubePlayerReady)
             throw IllegalStateException("This YouTubePlayerView has already been initialized.")
 
         if (handleNetworkEvents)
@@ -117,10 +120,15 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
     }
 
     /**
-     * @see YouTubePlayerView.initListener
+     * @param youTubePlayerCallback A callback that will be called when the YouTubePlayer is ready.
+     * If the player is already ready, the callback is called immediately.
+     * This function is called only once.
      */
-    fun onInitSuccess(youTubePlayerInitListener: YouTubePlayerInitListener) {
-        initListener = youTubePlayerInitListener
+    fun getYouTubePlayerWhenReady(youTubePlayerCallback: YouTubePlayerCallback) {
+        if(isYouTubePlayerReady)
+            youTubePlayerCallback.onYouTubePlayer(youTubePlayer)
+        else
+            youTubePlayerCallbacks.add(youTubePlayerCallback)
     }
 
     /**

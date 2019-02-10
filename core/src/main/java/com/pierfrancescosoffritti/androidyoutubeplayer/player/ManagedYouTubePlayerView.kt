@@ -12,7 +12,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerFullScreenListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerInitListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerCallback
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.FullScreenHelper
@@ -147,10 +147,10 @@ class ManagedYouTubePlayerView(context: Context, attrs: AttributeSet? = null, de
     }
 
     /**
-     * @see YouTubePlayerView.onInitSuccess
+     * @see YouTubePlayerView.getYouTubePlayerWhenReady
      */
-    fun onInitSuccess(youTubePlayerInitListener: YouTubePlayerInitListener) {
-        youTubePlayerView.onInitSuccess(youTubePlayerInitListener)
+    fun getYouTubePlayerWhenReady(youTubePlayerCallback: YouTubePlayerCallback) {
+        youTubePlayerView.getYouTubePlayerWhenReady(youTubePlayerCallback)
     }
 
     /**
