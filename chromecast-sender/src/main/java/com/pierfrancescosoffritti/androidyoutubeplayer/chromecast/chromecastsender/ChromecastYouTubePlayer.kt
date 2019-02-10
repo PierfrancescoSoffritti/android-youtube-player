@@ -23,7 +23,7 @@ class ChromecastYouTubePlayer internal constructor(private val chromecastCommuni
         chromecastCommunicationChannel.addObserver(inputMessageDispatcher)
     }
 
-    override fun onYouTubeIframeAPIReady() {
+    override fun onYouTubeIFrameAPIReady() {
         youTubePlayerInitListener(this)
     }
 

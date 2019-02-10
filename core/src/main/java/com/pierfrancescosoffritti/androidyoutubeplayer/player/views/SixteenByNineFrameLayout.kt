@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.player.utils
+package com.pierfrancescosoffritti.androidyoutubeplayer.player.views
 
 import android.content.Context
 import android.util.AttributeSet

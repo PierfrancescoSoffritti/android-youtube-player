@@ -12,7 +12,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.WebViewYouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerFullScreenListener
@@ -24,7 +23,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.PlaybackResu
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.DefaultPlayerUiController
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.PlayerUiController
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.NetworkListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.SixteenByNineFrameLayout
 
 internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0):
         SixteenByNineFrameLayout(context, attrs, defStyleAttr), LifecycleObserver {

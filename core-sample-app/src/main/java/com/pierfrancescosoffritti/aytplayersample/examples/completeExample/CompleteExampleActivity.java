@@ -92,10 +92,12 @@ public class CompleteExampleActivity extends AppCompatActivity {
         youTubePlayerView.getPlayerUiController()
                 .showMenuButton(true)
                 .getMenu()
-                    .addItem(
-                            new MenuItem("example", R.drawable.ic_settings_24dp,
-                                    view -> Toast.makeText(this, "item clicked", Toast.LENGTH_SHORT).show()
-                            ));
+                    .addItem(new MenuItem("menu item1", R.drawable.ic_android_black_24dp,
+                                    view -> Toast.makeText(this, "item1 clicked", Toast.LENGTH_SHORT).show())
+                    ).addItem(new MenuItem("menu item2", R.drawable.ic_mood_black_24dp,
+                                    view -> Toast.makeText(this, "item2 clicked", Toast.LENGTH_SHORT).show())
+                    ).addItem(new MenuItem("menu item no icon",
+                                    view -> Toast.makeText(this, "item no icon clicked", Toast.LENGTH_SHORT).show()));
     }
 
     private void addFullScreenListenerToPlayer(final YouTubePlayer youTubePlayer) {

@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.player
+package com.pierfrancescosoffritti.androidyoutubeplayer.player.views
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -12,6 +12,8 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerBridge
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.Utils
@@ -34,10 +36,10 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
 
     internal fun initialize(initListener: (YouTubePlayer) -> Unit, playerOptions: IFramePlayerOptions?) {
         youTubePlayerInitListener = initListener
-        initWebView(playerOptions ?: IFramePlayerOptions.getDefault())
+        initWebView(playerOptions ?: IFramePlayerOptions.default)
     }
 
-    override fun onYouTubeIframeAPIReady() = youTubePlayerInitListener(this)
+    override fun onYouTubeIFrameAPIReady() = youTubePlayerInitListener(this)
 
     override fun getInstance(): YouTubePlayer = this
 

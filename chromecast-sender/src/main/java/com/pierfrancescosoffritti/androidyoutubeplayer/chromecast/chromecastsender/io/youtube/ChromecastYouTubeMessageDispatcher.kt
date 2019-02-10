@@ -10,7 +10,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerBridg
 internal class ChromecastYouTubeMessageDispatcher(private val bridge: YouTubePlayerBridge) : ChromecastCommunicationChannel.ChromecastChannelObserver {
     override fun onMessageReceived(messageFromReceiver: MessageFromReceiver) {
         when (messageFromReceiver.type) {
-            ChromecastCommunicationConstants.IFRAME_API_READY -> bridge.sendYouTubeIframeAPIReady()
+            ChromecastCommunicationConstants.IFRAME_API_READY -> bridge.sendYouTubeIFrameAPIReady()
             ChromecastCommunicationConstants.READY -> bridge.sendReady()
             ChromecastCommunicationConstants.STATE_CHANGED -> bridge.sendStateChange(messageFromReceiver.data)
             ChromecastCommunicationConstants.PLAYBACK_QUALITY_CHANGED -> bridge.sendPlaybackQualityChange(messageFromReceiver.data)

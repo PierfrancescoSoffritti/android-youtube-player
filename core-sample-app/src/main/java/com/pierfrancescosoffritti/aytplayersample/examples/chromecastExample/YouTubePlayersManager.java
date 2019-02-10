@@ -11,7 +11,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.YouTubePlaye
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubePlayerListener;
-import com.pierfrancescosoffritti.androidyoutubeplayer.utils.YouTubePlayerTracker;
+import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.YouTubePlayerTracker;
 import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.ui.SimpleChromeCastUiController;
 import com.pierfrancescosoffritti.aytplayersample.utils.VideoIdsProvider;

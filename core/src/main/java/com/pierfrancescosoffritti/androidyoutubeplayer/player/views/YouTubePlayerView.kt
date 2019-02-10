@@ -18,7 +18,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.YouTubeP
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.FullScreenHelper
 import com.pierfrancescosoffritti.androidyoutubeplayer.ui.PlayerUiController
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.SixteenByNineFrameLayout
 import com.pierfrancescosoffritti.androidyoutubeplayer.player.utils.loadOrCueVideo
 
 
