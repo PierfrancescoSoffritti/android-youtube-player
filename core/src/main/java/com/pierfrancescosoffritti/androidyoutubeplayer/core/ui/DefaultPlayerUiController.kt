@@ -21,7 +21,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.utils.FadeViewHel
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.views.YouTubePlayerSeekBar
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.views.YouTubePlayerSeekBarListener
 import androidx.core.content.ContextCompat
-import kotlinx.android.synthetic.main.ayp_default_player_ui.view.*
 
 internal class DefaultPlayerUiController(private val youTubePlayerView: LegacyYouTubePlayerView, private val youTubePlayer: YouTubePlayer) : PlayerUiController, YouTubePlayerListener, YouTubePlayerFullScreenListener, YouTubePlayerSeekBarListener {
 
@@ -66,23 +65,23 @@ internal class DefaultPlayerUiController(private val youTubePlayerView: LegacyYo
 
         youTubePlayerMenu = DefaultYouTubePlayerMenu(youTubePlayerView.context)
 
-        panel = controlsView.panel
-        controlsContainer = controlsView.controls_container
-        extraViewsContainer = controlsView.extra_views_container
+        panel = controlsView.findViewById(R.id.panel)
+        controlsContainer = controlsView.findViewById(R.id.controls_container)
+        extraViewsContainer = controlsView.findViewById(R.id.extra_views_container)
 
-        videoTitle = controlsView.video_title
-        liveVideoIndicator = controlsView.live_video_indicator
+        videoTitle = controlsView.findViewById(R.id.video_title)
+        liveVideoIndicator = controlsView.findViewById(R.id.live_video_indicator)
 
-        progressBar = controlsView.progress
-        menuButton = controlsView.menu_button
-        playPauseButton = controlsView.play_pause_button
-        youTubeButton = controlsView.youtube_button
-        fullScreenButton = controlsView.fullscreen_button
+        progressBar = controlsView.findViewById(R.id.progress)
+        menuButton = controlsView.findViewById(R.id.menu_button)
+        playPauseButton = controlsView.findViewById(R.id.play_pause_button)
+        youTubeButton = controlsView.findViewById(R.id.youtube_button)
+        fullScreenButton = controlsView.findViewById(R.id.fullscreen_button)
 
-        customActionLeft = controlsView.custom_action_left_button
-        customActionRight = controlsView.custom_action_right_button
+        customActionLeft = controlsView.findViewById(R.id.custom_action_left_button)
+        customActionRight = controlsView.findViewById(R.id.custom_action_right_button)
 
-        youtubePlayerSeekBar = controlsView.youtube_player_seekbar
+        youtubePlayerSeekBar = controlsView.findViewById(R.id.youtube_player_seekbar)
 
         fadeControlsContainer = FadeViewHelper(controlsContainer)
 
