@@ -59,6 +59,8 @@ youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
 }</SyntaxHighlighter>
 
 You can <a href="https://github.com/PierfrancescoSoffritti/android-youtube-player#table-of-contents-core" target="_blank" rel="noopener noreferrer">read the complete documentation here</a>.
+<br/><br/>
+For any question feel free to <a href="https://github.com/PierfrancescoSoffritti/android-youtube-player/issues" target="_blank" rel="noopener noreferrer">open an issue on GitHub</a>.
 
             </div>
         </section>
