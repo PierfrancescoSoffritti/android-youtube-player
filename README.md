@@ -220,6 +220,18 @@ If the height of the View is set to `wrap_content`, the View will automatically 
 ### XML attributes
 If you add the view to your XML layout you have the possibility to set a few custom attributes, to customize the view's look and behavior. Everything can also be done programmatically.
 
+- [videoId](#videoId)
+- [autoPlay](#autoPlay)
+- [enableAutomaticInitialization](#enableAutomaticInitialization)
+- [handleNetworkEvents](#handleNetworkEvents)
+- [useWebUi](#useWebUi)
+- [enableLiveVideoUi](#enableLiveVideoUi)
+- [showYouTubeButton](#showYouTubeButton)
+- [showFullScreenButton](#showFullScreenButton)
+- [showVideoCurrentTime](#showVideoCurrentTime)
+- [showVideoDuration](#showVideoDuration)
+- [showSeekBar](#showSeekBar)
+
 #### videoId
 This attribute expects a `String`, which is the id of a YouTube video.
 
