@@ -4,10 +4,10 @@ ext.versions = [
         compileSdk                      : 28,
         buildTools                      : '28.0.3',
 
-        publishVersion_core             : '10.0.0-rc1',
+        publishVersion_core             : '10.0.0-rc3',
         publishVersionCode_core         : 10,
 
-        publishVersion_chromecast       : '0.18-rc1',
+        publishVersion_chromecast       : '0.18-rc3',
         publishVersionCode_chromecast   : 3,
 
         // Plugins
@@ -25,6 +25,7 @@ ext.versions = [
         androidxRecyclerView            : '1.0.0',
         androidxMediarouter             : '1.0.0',
         androidxPalette                 : '1.0.0',
+        androidxLifecycleRuntime        : '2.0.0',
 
         // Google Play
         googlePlayServicesCastFramework : '16.1.2',
