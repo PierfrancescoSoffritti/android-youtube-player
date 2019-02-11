@@ -37,7 +37,7 @@ A list of published apps that are using this library: ([let me know](https://git
 - [Mobile Movie Database](https://play.google.com/store/apps/details?id=com.tmdb.themoviedatabase)
 - [Curated](https://play.google.com/store/apps/details?id=com.rockspin.weaveapp)
 
-<img src="./images/showcase.jpg" />
+![showcase](./images/showcase.jpg)
 
 # Table of Contents (Core)
 1. [Sample app](#sample-app)
