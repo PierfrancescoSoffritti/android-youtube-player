@@ -1,15 +1,15 @@
 {
   "main.css": "/android-youtube-player/static/css/main.272a7cbc.chunk.css",
-  "main.js": "/android-youtube-player/static/js/main.e1a0445f.chunk.js",
-  "main.js.map": "/android-youtube-player/static/js/main.e1a0445f.chunk.js.map",
-  "static/js/1.526b102f.chunk.js": "/android-youtube-player/static/js/1.526b102f.chunk.js",
-  "static/js/1.526b102f.chunk.js.map": "/android-youtube-player/static/js/1.526b102f.chunk.js.map",
+  "main.js": "/android-youtube-player/static/js/main.eb81c7e2.chunk.js",
+  "main.js.map": "/android-youtube-player/static/js/main.eb81c7e2.chunk.js.map",
+  "static/js/1.ade9b423.chunk.js": "/android-youtube-player/static/js/1.ade9b423.chunk.js",
+  "static/js/1.ade9b423.chunk.js.map": "/android-youtube-player/static/js/1.ade9b423.chunk.js.map",
   "runtime~main.js": "/android-youtube-player/static/js/runtime~main.d9c46bd2.js",
   "runtime~main.js.map": "/android-youtube-player/static/js/runtime~main.d9c46bd2.js.map",
   "static/css/main.272a7cbc.chunk.css.map": "/android-youtube-player/static/css/main.272a7cbc.chunk.css.map",
   "static/media/android-youtube-player_300px.png": "/android-youtube-player/static/media/android-youtube-player_300px.29ca9fe6.png",
   "static/media/android-youtube-player_300px.webp": "/android-youtube-player/static/media/android-youtube-player_300px.9f66fcf4.webp",
   "index.html": "/android-youtube-player/index.html",
-  "precache-manifest.672d844d5d5b86be1c91c87ad7c9405e.js": "/android-youtube-player/precache-manifest.672d844d5d5b86be1c91c87ad7c9405e.js",
+  "precache-manifest.c43dc0d8de09d12c268592a717aeaf17.js": "/android-youtube-player/precache-manifest.c43dc0d8de09d12c268592a717aeaf17.js",
   "service-worker.js": "/android-youtube-player/service-worker.js"
 }
