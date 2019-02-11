@@ -793,11 +793,26 @@ Takes in the time in seconds and returns a String with the time formatted as "M:
 ## Web based UI
 YouTube added some non-removable buttons to the IFrame Player, as mentioned in [this issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues/242). Using the web-based UI is the only way to have access to these non-removable buttons.
 
-To use the web-based UI you can set the attribute `app:useWebUi="true"` in the `YouTubePlayerView` or you can use [the appropriate initialization method](#initialization).
+To use the web-based UI you can set the attribute `app:useWebUi="true"` in the `YouTubePlayerView`.
 
-When using the web-based UI, calling `YouTubePlayerView.getPlayerUiController()` throws exception and it not possible to apply any UI customization.
+```xml
+<com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+  android:id="@+id/youtube_player_view"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
 
-This is how the player will look:
+  app:useWebUi="true" />
+```
+
+Or you can use [the appropriate initialization method](#initialization).
+
+```java
+YouTubePlayerView.initializeWithWebUi(YouTubePlayerListener listener, boolean handleNetworkEvents)
+```
+
+When using the web-based UI, calling `YouTubePlayerView.getPlayerUiController()` throws exception and it is not possible to apply any UI customization.
+
+*This is how the player will look when using the web-based ui:*
 
 ![web-based UI](./images/web_based_ui_screenshot.jpg)
 
