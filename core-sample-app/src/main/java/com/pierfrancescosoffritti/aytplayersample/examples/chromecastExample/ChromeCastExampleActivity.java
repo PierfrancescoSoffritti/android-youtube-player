@@ -9,7 +9,7 @@ import com.google.android.gms.cast.framework.CastContext;
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.ChromecastYouTubePlayerContext;
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.infrastructure.ChromecastConnectionListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.utils.PlayServicesUtils;
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.views.YouTubePlayerView;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.notifications.NotificationManager;
 import com.pierfrancescosoffritti.aytplayersample.examples.chromecastExample.notifications.PlaybackControllerBroadcastReceiver;

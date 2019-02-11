@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.views.YouTubePlayerView;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.aytplayersample.R;
 
 public class SimpleExampleActivity extends AppCompatActivity {

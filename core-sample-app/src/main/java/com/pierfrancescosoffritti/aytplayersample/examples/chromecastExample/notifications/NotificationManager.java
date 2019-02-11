@@ -8,9 +8,9 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants;
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer;
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.aytplayersample.R;
 import com.pierfrancescosoffritti.aytplayersample.utils.VideoInfo;
 import com.pierfrancescosoffritti.aytplayersample.utils.YouTubeDataEndpoint;

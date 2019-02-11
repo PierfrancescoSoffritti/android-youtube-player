@@ -147,7 +147,7 @@ In order to start using the player you need to add a [YouTubePlayerView](#youtub
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.pierfrancescosoffritti.androidyoutubeplayer.player.views.YouTubePlayerView
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
         android:id="@+id/youtube_player_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -201,7 +201,7 @@ You can add the View to your layout.
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <com.pierfrancescosoffritti.androidyoutubeplayer.player.views.YouTubePlayerView
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
         android:id="@+id/youtube_player_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -480,7 +480,7 @@ Adding `YouTubePlayerView` as an observer to a lifecycle will allow `YouTubePlay
 If you want your app to keep [playing when the Activity/Fragment is not visible](#play-youtube-videos-in-the-background) (remember that this behavior is not allowed, if you want to publish your app on the PlayStore), don't register the `YouTubePlayerView` as a lifecycle observer. But remember to manually call `release()` when the Activity/Fragment is being destroyed.
 
 ## YouTubePlayer
-`YouTubePlayer` is the component responsible for controlling the playback of YouTube videos. You can see its contract [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/YouTubePlayer.kt).
+`YouTubePlayer` is the component responsible for controlling the playback of YouTube videos. You can see its contract [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/YouTubePlayer.kt).
 
 Every [`YouTubePlayerView`](#youtubeplayerview) contains a `YouTubePlayer`.
 
@@ -603,13 +603,13 @@ void onApiChange(@NonNull YouTubePlayer youTubePlayer)
 
 If you don't want to implement all the methods of this interface, you can extend `AbstractYouTubePlayerListener` instead of implementing `YouTubePlayerListener` and override only the methods you are interested in.
 
-For more information on the methods defined in the `YouTubePlayerListener` interface, please refer to the documentation defined above each method [in the codebase](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/listeners/YouTubePlayerListener.kt).
+For more information on the methods defined in the `YouTubePlayerListener` interface, please refer to the documentation defined above each method [in the codebase](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/listeners/YouTubePlayerListener.kt).
 
 ### onReady callback
 The onReady callback of a `YouTubePlayerListener` is called once, when the `YouTubePlayer` is ready to be used for the first time. **You can't use a `YouTubePlayer` before it is ready**.
 
 ### onStateChanged callback
-The `YouTubePlayer` has a state, that changes accordingly to the playback changes. The [list of possible states](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/player/PlayerConstants.kt) is the same of the YouTube [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference#Playback_status).
+The `YouTubePlayer` has a state, that changes accordingly to the playback changes. The [list of possible states](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/PlayerConstants.kt) is the same of the YouTube [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference#Playback_status).
 
 ```
 UNKNOWN
@@ -727,7 +727,7 @@ This component is useful to display and control the time of the playback. It sho
 You can add it to your layout programmatically or in your xml.
 
 ```xml
-<com.pierfrancescosoffritti.androidyoutubeplayer.ui.views.YouTubePlayerSeekBar
+<com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.views.YouTubePlayerSeekBar
   android:id="@+id/youtube_player_seekbar"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"

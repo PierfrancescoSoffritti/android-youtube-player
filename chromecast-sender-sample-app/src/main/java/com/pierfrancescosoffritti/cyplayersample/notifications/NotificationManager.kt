@@ -13,9 +13,9 @@ import androidx.core.content.ContextCompat
 import androidx.media.app.NotificationCompat.MediaStyle
 import androidx.palette.graphics.Palette
 import android.util.Log
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.PlayerConstants
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.cyplayersample.R
 import com.pierfrancescosoffritti.cyplayersample.utils.YouTubeDataEndpoint
 import io.reactivex.android.schedulers.AndroidSchedulers

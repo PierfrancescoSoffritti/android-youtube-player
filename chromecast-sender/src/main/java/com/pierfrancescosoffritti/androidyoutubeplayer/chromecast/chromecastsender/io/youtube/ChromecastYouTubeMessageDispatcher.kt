@@ -2,7 +2,7 @@ package com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsen
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.infrastructure.ChromecastCommunicationChannel
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.infrastructure.MessageFromReceiver
-import com.pierfrancescosoffritti.androidyoutubeplayer.player.YouTubePlayerBridge
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayerBridge
 
 /**
  * Class responsible for dispatching messages received from the cast receiver.
