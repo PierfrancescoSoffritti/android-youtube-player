@@ -47,7 +47,7 @@ public class PlayerStateActivity extends AppCompatActivity {
 
                 YouTubePlayerUtils.loadOrCueVideo(
                         youTubePlayer, getLifecycle(),
-                        VideoIdsProvider.getNextVideoId(),0f
+                        VideoIdsProvider.getNextVideoId(), 0f
                 );
             }
 
@@ -72,7 +72,7 @@ public class PlayerStateActivity extends AppCompatActivity {
     }
 
     private void addToList(String playerState, List<Pair<Date, String>> stateHistory) {
-        if(stateHistory.size() >= 20)
+        if(stateHistory.size() >= 15)
             stateHistory.remove(0);
         stateHistory.add(new Pair<>(new Date(), playerState));
     }
