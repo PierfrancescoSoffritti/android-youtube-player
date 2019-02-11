@@ -714,7 +714,7 @@ A blog post going deeper on this is available [at this link](https://medium.com/
 
 *Example of a custom UI: (this is just a ugly example, but here your design skills are the limit :))*
 
-![Sample app example](https://media.giphy.com/media/SradsoNdy1DNVGHGy5/giphy.gif)
+![custom ui example](./images/custom_ui_screenshot.jpg)
 
 ### Reusable UI components
 The library provides some pre-built UI components, these components are useful to reduce the time needed to build your own UI and controllers.
