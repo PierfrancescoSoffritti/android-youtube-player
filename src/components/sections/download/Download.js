@@ -25,10 +25,7 @@ The <b>chromecast-sender</b> module is an optional extension library. Use it onl
 
 <SyntaxHighlighter language='groovy' style={ agate }>{
 `dependencies {
-    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:{latest-version}'
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:{latest-version}'
-    
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:{latest-version}'
 }`
 }</SyntaxHighlighter>
 
