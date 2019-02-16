@@ -28,6 +28,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
             private const val SHOW_INFO = "showinfo"
             private const val IV_LOAD_POLICY = "iv_load_policy"
             private const val MODEST_BRANDING = "modestbranding"
+            private const val CC_LOAD_POLICY = "cc_load_policy"
         }
 
         private val builderOptions = JSONObject()
@@ -42,6 +43,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
             addInt(SHOW_INFO, 0)
             addInt(IV_LOAD_POLICY, 3)
             addInt(MODEST_BRANDING, 1)
+            addInt(CC_LOAD_POLICY, 0)
         }
 
         fun build(): IFramePlayerOptions {
@@ -72,6 +74,16 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
          */
         fun ivLoadPolicy(ivLoadPolicy: Int): Builder {
             addInt(IV_LOAD_POLICY, ivLoadPolicy)
+            return this
+        }
+
+
+        /**
+         * Controls video captions.
+         * @param ccLoadPolicy Setting the parameter's value to 1 causes closed captions to be shown by default.
+         */
+        fun ccLoadPolicy(ccLoadPolicy : Int): Builder {
+            addInt(CC_LOAD_POLICY, ccLoadPolicy)
             return this
         }
 
