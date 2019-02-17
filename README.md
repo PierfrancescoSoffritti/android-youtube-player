@@ -413,16 +413,23 @@ If set to 1: web UI is visible.
 ##### `rel`
 This option controls the related videos shown at the end of a video.
 
-If set to 0, related videos will come from the same channel as the video that was just played.
+If set to 0: related videos will come from the same channel as the video that was just played.
 
-If set to 1, related videos will come from multiple channels.
+If set to 1: related videos will come from multiple channels.
 
 ##### `ivLoadPolicy`
 This option controls video annotations.
 
-If set to 1: causes video annotations to be shown by default.
+If set to 1: the player will show annotations.
 
-If set to 3 causes video annotations to not be shown by default.
+If set to 3: the player won't show annotations.
+
+##### `ccLoadPolicy`
+This option controls video captions. It doesn't work with automatically generated captions.
+
+If set to 0: the player will show captions.
+
+If set to 1: the player won't show captions.
 
 ### Full screen
 You can use the `YouTubePlayerView` to enter and exit full-screen.

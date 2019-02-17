@@ -3,7 +3,7 @@ package com.pierfrancescosoffritti.aytplayersample.utils;
 import java.util.Random;
 
 public class VideoIdsProvider {
-    private static String[] videoIds = {"6JYIGclVQdw", "LvetJ9U_tVY", "S0Q4gqBUs7c", "zOa-rSM4nms"};
+    private static String[] videoIds = {"6JYIGclVQdw", "LvetJ9U_tVY", "S0Q4gqBUs7c", "zOa-rSM4nms", "6Dh-RL__uN4"};
     private static String[] liveVideoIds = {"hHW1oY26kxQ"};
     private static Random random = new Random();
 

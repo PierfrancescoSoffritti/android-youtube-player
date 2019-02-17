@@ -61,7 +61,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
 
         /**
          * Controls the related videos shown at the end of a video.
-         * @param rel If set to 0, related videos will come from the same channel as the video that was just played. If set to 1, related videos will come from multiple channels.
+         * @param rel If set to 0: related videos will come from the same channel as the video that was just played. If set to 1: related videos will come from multiple channels.
          */
         fun rel(rel: Int): Builder {
             addInt(REL, rel)
@@ -70,7 +70,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
 
         /**
          * Controls video annotations.
-         * @param ivLoadPolicy if set to 1: causes video annotations to be shown by default. If set to 3 causes video annotations to not be shown by default.
+         * @param ivLoadPolicy if set to 1: the player will show video annotations. If set to 3: they player won't show video annotations.
          */
         fun ivLoadPolicy(ivLoadPolicy: Int): Builder {
             addInt(IV_LOAD_POLICY, ivLoadPolicy)
@@ -79,10 +79,10 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
 
 
         /**
-         * Controls video captions.
-         * @param ccLoadPolicy Setting the parameter's value to 1 causes closed captions to be shown by default.
+         * Controls video captions. It doesn't work with automatically generated captions.
+         * @param ccLoadPolicy if set to 1: the player will show captions. If set to 0: the player won't show captions.
          */
-        fun ccLoadPolicy(ccLoadPolicy : Int): Builder {
+        fun ccLoadPolicy(ccLoadPolicy: Int): Builder {
             addInt(CC_LOAD_POLICY, ccLoadPolicy)
             return this
         }

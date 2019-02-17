@@ -35,6 +35,7 @@ public class IFramePlayerOptionsExampleActivity extends AppCompatActivity {
                 .controls(0)
                 .rel(0)
                 .ivLoadPolicy(1)
+                .ccLoadPolicy(1)
                 .build();
 
         getLifecycle().addObserver(youTubePlayerView);
