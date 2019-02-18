@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">chromecast-youtube-player</string>
+    <string name="app_name">cyp API</string>
 
     <string name="basic_example">Basic example</string>
     <string name="player_controls_example">Player Controls example</string>

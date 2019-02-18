@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">android-youtube-player</string>
+    <string name="app_name">ayp API</string>
     <string name="simple_example">Simple example</string>
     <string name="complete_example">Complete example</string>
     <string name="recycler_view_example">RecyclerView example</string>
