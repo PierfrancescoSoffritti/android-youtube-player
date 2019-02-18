@@ -124,7 +124,7 @@ The minimum API level supported by this library is API 17. Also, your app needs 
 The *core* module contains the YouTube Player. It's all you need to play YouTube videos in your app.
 ```
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.0'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.1'
 }
 ```
 
@@ -132,7 +132,7 @@ dependencies {
 The *chromecast-sender* module contains the Chromecast YouTube Player. Use it if you need to cast YouTube videos from your app to a Chromecast device.
 ```
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.18'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.19'
 }
 ```
 
