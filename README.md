@@ -102,7 +102,7 @@ You can download the apks of the two sample app [here (core)](./core-sample-app/
 
 core:
 
-<a href='https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.ayp.core.sampleapp&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
+<a href='https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.aytplayersample&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
     <img width='200px' alt='Get it on Google Play'
          src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/>
 </a>
