@@ -390,7 +390,7 @@ YouTube added some non-removable buttons to the IFrame Player, as mentioned in [
 ### IFramePlayerOptions
 The `IFramePlayerOptions` is an optional argument that can be passed to `YouTubePlayerView.initialize(YouTubePlayerListener, boolean, IFramePlayerOptions)`, it can be used to set some of the parameters of the IFrame YouTubePlayer.
 
-A simple example of how to use `IFramePlayerOptions` can be found in the sample app [here](./core-sample-app/src/main/java/com/pierfrancescosoffritti/ayp/core/sampleapp/examples/iFramePlayerOptionsExample/IFramePlayerOptionsExampleActivity.java).
+A simple example of how to use `IFramePlayerOptions` can be found in the sample app [here](./core-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/sampleapp/examples/iFramePlayerOptionsExample/IFramePlayerOptionsExampleActivity.java).
 
 Use the Builder to get a `IFramePlayerOptions` object.
 
@@ -453,7 +453,7 @@ youTubePlayerView.removeFullScreenListener(YouTubePlayerFullScreenListener fullS
 - set `YouTubePlayerView`'s height and width to `MATCH_PARENT`
 - update the UI of the player to match the new state. (eg: update the full-screen button)
 
-It is responsibility of the developer to hide other Views in the Activity, change the orientation of the Activity etc. The sample app contains an [helper class](./core-sample-app/src/main/java/com/pierfrancescosoffritti/ayp/core/sampleapp/utils/FullScreenHelper.java) that can help you to update your app state, but this is not part of the library.
+It is responsibility of the developer to hide other Views in the Activity, change the orientation of the Activity etc. The sample app contains an [helper class](./core-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/sampleapp/utils/FullScreenHelper.java) that can help you to update your app state, but this is not part of the library.
 
 If you need to change the orientation of your Activity/Fragment, remember that by default Android recreates Activities and Fragments when the orientation changes. Make sure that you manually handle orientation changes by adding the attribute `android:configChanges` to your Activity definition in the manifest.
 
@@ -711,7 +711,7 @@ This method takes in the `id` of a layout resource, which is a regular XML file 
 
 After calling this method, the default [PlayerUiController](#playeruicontroller) won't be available anymore. Calling `YouTubePlayerView.getPlayerUiController()` will throw an exception.
 
-You are now responsible for managing your custom UI with your own code. Meaning: you should write your own class to manage the UI. A simple but complete example can be seen [here, in the sample app](./core-sample-app/src/main/java/com/pierfrancescosoffritti/ayp/core/sampleapp/examples/customUiExample), I recommend taking a few minutes to read it, it should be trivial to understand.
+You are now responsible for managing your custom UI with your own code. Meaning: you should write your own class to manage the UI. A simple but complete example can be seen [here, in the sample app](./core-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/sampleapp/examples/customUiExample), I recommend taking a few minutes to read it, it should be trivial to understand.
 
 Example (taken from sample app):
 
@@ -1077,7 +1077,7 @@ You can call `loadVideo`, `cueVideo`, `pause`, `play` etc.. on the `YouTubePlaye
 
 For how to use the `YouTubePlayer` object and `YouTubePlayerListener`, you can refer to the documentation for the *core* library, [YouTubePlayer](#youtubeplayer).
 
-This example can be found [in the chromecast-sender sample app](./chromecast-sender-sample-app/src/main/java/com/pierfrancescosoffritti/cyplayersample/examples/basicExample/BasicExampleActivity.kt), written in Kotlin and in the [core sample app](./core-sample-app/src/main/java/com/pierfrancescosoffritti/ayp/core/sampleapp/examples/chromecastExample/), wirtten in Java.
+This example can be found [in the chromecast-sender sample app](./chromecast-sender-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/chromecast/sampleapp/examples/basicExample/BasicExampleActivity.kt), written in Kotlin and in the [core sample app](./core-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/sampleapp/examples/chromecastExample/), wirtten in Java.
 
 *Screenshot of the CastButton added to the YouTubePlayerView:*
 
