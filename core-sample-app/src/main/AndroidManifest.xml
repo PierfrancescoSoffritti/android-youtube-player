@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.pierfrancescosoffritti.ayp.core.sampleapp">
+    package="com.pierfrancescosoffritti.aytplayersample">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:label="@string/app_name">
             <intent-filter>
@@ -19,64 +19,64 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".examples.completeExample.CompleteExampleActivity"
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.completeExample.CompleteExampleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/complete_example" />
         <activity
-            android:name=".examples.fragmentExample.FragmentExampleActivity"
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.fragmentExample.FragmentExampleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/fragment_example" />
         <activity
-            android:name=".examples.recyclerViewExample.RecyclerViewActivity"
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.recyclerViewExample.RecyclerViewActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/recycler_view_example" />
         <activity
-            android:name=".examples.viewPagerExample.ViewPagerActivity"
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.viewPagerExample.ViewPagerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/view_pager_example" />
         <activity
-            android:name=".examples.customUiExample.CustomUiActivity"
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.customUiExample.CustomUiActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/custom_ui_example" />
         <activity
-            android:name=".examples.liveVideoExample.LiveVideoActivity"
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.liveVideoExample.LiveVideoActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/live_video_example" />
         <activity
-            android:name=".examples.playerStateExample.PlayerStateActivity"
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.playerStateExample.PlayerStateActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/player_status_example" />
         <activity
-            android:name=".examples.pictureInPictureExample.PictureInPictureActivity"
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.pictureInPictureExample.PictureInPictureActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/picture_in_picture_example"
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true" />
         <activity
-            android:name=".examples.iFramePlayerOptionsExample.IFramePlayerOptionsExampleActivity"
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.iFramePlayerOptionsExample.IFramePlayerOptionsExampleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/iframe_player_options_example" />
         <activity
-            android:name=".examples.webUiExample.WebUiExampleActivity"
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.webUiExample.WebUiExampleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/web_ui_example" />
         <activity
-            android:name=".examples.chromecastExample.ChromeCastExampleActivity"
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.chromecastExample.ChromeCastExampleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/chromecast_example" />
         <activity
-            android:name=".examples.simpleExample.SimpleExampleActivity"
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.simpleExample.SimpleExampleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/simple_example" />
@@ -85,7 +85,7 @@
 
         <meta-data
             android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
-            android:value="com.pierfrancescosoffritti.ayp.core.sampleapp.examples.chromecastExample.CastOptionsProvider" />
+            android:value="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.chromecastExample.CastOptionsProvider" />
     </application>
 
 </manifest>

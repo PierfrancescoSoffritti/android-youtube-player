@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.psoffritti.librarysampleapptemplate.core.SampleAppTemplateActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -18,26 +18,26 @@
         </activity>
 
         <activity
-            android:name=".examples.basicExample.BasicExampleActivity"
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.examples.basicExample.BasicExampleActivity"
             android:label="@string/basic_example" />
 
         <activity
-            android:name=".examples.playerControlsExample.PlayerControlsExample"
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.examples.playerControlsExample.PlayerControlsExample"
             android:label="@string/player_controls_example" />
 
         <activity
-            android:name=".examples.notificationExample.NotificationExampleActivity"
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.examples.notificationExample.NotificationExampleActivity"
             android:label="@string/notification_example"
             android:launchMode="singleInstance" />
 
         <activity
-            android:name=".examples.localPlayerExample.LocalPlayerInitExampleActivity"
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.examples.localPlayerExample.LocalPlayerInitExampleActivity"
             android:label="@string/local_player_example"
             android:launchMode="singleInstance" />
 
         <meta-data
             android:name="com.google.android.gms.cast.framework.OPTIONS_PROVIDER_CLASS_NAME"
-            android:value="com.pierfrancescosoffritti.cyplayersample.examples.CastOptionsProvider" />
+            android:value="com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.examples.CastOptionsProvider" />
     </application>
 
 </manifest>

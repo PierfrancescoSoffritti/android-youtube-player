@@ -35,7 +35,7 @@ dependencies {
     implementation project(':core')
     implementation project(':chromecast-sender')
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
 
     implementation "androidx.appcompat:appcompat:$versions.androidxCore"
     implementation "androidx.recyclerview:recyclerview:$versions.androidxRecyclerView"
