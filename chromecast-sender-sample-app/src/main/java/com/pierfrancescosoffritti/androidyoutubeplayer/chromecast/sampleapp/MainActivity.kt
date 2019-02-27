@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra(Constants.TITLE.name, getString(R.string.app_name))
         intent.putExtra(Constants.GITHUB_URL.name, "https://github.com/PierfrancescoSoffritti/android-youtube-player/")
         intent.putExtra(Constants.HOMEPAGE_URL.name, "https://pierfrancescosoffritti.github.io/android-youtube-player/")
-        intent.putExtra(Constants.PLAYSTORE_PACKAGE_NAME.name, "com.pierfrancescosoffritti.cyplayersample")
 
         val examples = arrayOf(
                 ExampleActivityDetails(R.string.basic_example, null, BasicExampleActivity::class.java),

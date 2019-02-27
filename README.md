@@ -96,25 +96,17 @@ A list of published apps that are using this library: ([let me know](https://git
 
 
 # Sample app
-This repository has two sample modules that show how to use different functionalities of the library. One [sample module for the core library](./core-sample-app/) and [one sample module for the Chromecast extension](./chromecast-sender-sample-app).
+:memo: Both the **core module** and the **chromecast module** have a sample app, to provide examples of usage of the libraries.
 
-You can download the apks of the two sample app [here (core)](./core-sample-app/apk) and [here (chromecast)](./chromecast-sender-sample-app/apk), or on the PlayStore.
+* [Go to source code of **core** sample app](./core-sample-app/).
+* [Go to soruce code of **chromecast-sender** sample app](./chromecast-sender-sample-app).
 
-core:
+:calling: You can also download and install the apks of both sample apps.
 
-<a href='https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.aytplayersample&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
-    <img width='200px' alt='Get it on Google Play'
-         src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/>
-</a>
+* [Download apk of **core** sample app](./core-sample-app/apk).
+* [Download apk of **chromecast-sender** sample app](./chromecast-sender-sample-app/apk).
 
-chromecast:
-
-<a href='https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.cyplayersample&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
-    <img width='200px' alt='Get it on Google Play'
-          src='https://play.google.com/intl/en_gb/badges/images/generic/en_badge_web_generic.png'/>
-</a>
-
-Having the sample apps installed is a good way to be notified of new releases. Although watching this repository will allow GitHub to email you whenever a new release is published.
+:eyes: If you want to know when a new release of the library is published: [watch this repository on GitHub](https://github.com/PierfrancescoSoffritti/android-youtube-player/watchers).
 
 # Download
 The Gradle dependency is available via [jCenter](https://bintray.com/pierfrancescosoffritti/maven). jCenter is the default Maven repository used by Android Studio.
