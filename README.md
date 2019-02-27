@@ -12,7 +12,7 @@
 
 android-youtube-player is a stable and customizable open source YouTube player for Android. It provides a simple View that can be easily integrated in every Activity/Fragment.
 
-To interact with YouTube the library uses the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference), inside of a WebView, therefore the YouTube app is not required on the user's device.
+To interact with YouTube the library uses the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference), inside of a WebView, therefore the YouTube app is not required on the user's device and there are [no issues with YouTube Terms of Service](#does-this-library-breaks-youtube-terms-of-service?).
 
 The web UI of the IFrame Player player is hidden. Instead, a native UI built on top of Android is used to interact with the player, providing a native experience to the users.
 
@@ -39,6 +39,18 @@ A list of published apps that are using this library: ([let me know](https://git
 - [Curated](https://play.google.com/store/apps/details?id=com.rockspin.weaveapp)
 
 ![showcase](./images/showcase.jpg)
+
+## Does this library breaks YouTube terms of service?
+**TL;DR** No. 
+
+The library uses YouTube's own web player to play videos. Therefore it is 100% compliant with  terms of service.
+[You can see here](https://developers.google.com/youtube/v3/guides/ios_youtube_helper) how this is also the official way of playing YouTube videos on iOS.
+
+If you want to be 200% sure to be safe, [disable the native UI and enable the web player's built in web UI](#web-based-ui).
+
+That said how you use the library matters, be sure to play videos only when the player is visible. If you follow the instructions in the documentation, the library will automatically handle this for you.
+
+Also remember when publishing your app on the PlayStore to write title and description in a way that makes it obvious that your app doesn't have any affiliation with YouTube (the company). **This is issue has nothing to do with the library itself**, but I figured it may be useful knowledge for many of you considering to use it.
 
 # Table of Contents (Core)
 1. [Sample app](#sample-app)
