@@ -509,7 +509,7 @@ If you want your app to keep [playing when the Activity/Fragment is not visible]
 Every [`YouTubePlayerView`](#youtubeplayerview) contains a `YouTubePlayer`.
 
 ### Get a reference to YouTubePlayer
-There are tow ways to get a reference to the `YouTubePlayer`, through the `YouTubePlayerView`.
+There are two ways to get a reference to the `YouTubePlayer`, through the `YouTubePlayerView`.
 
 #### 1. YouTubePlayerView.getYouTubePlayerWhenReady
 `YouTubePlayerView.getYouTubePlayerWhenReady` can be used to get a reference to the `YouTubePlayer`. As the name of the method says, you'll only get the player when it is ready.
