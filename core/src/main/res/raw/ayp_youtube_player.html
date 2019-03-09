@@ -41,11 +41,17 @@
             
     		player = new YT.Player('youTubePlayerDOM', {
     			
-                height: '100%',
+                height: '800px',
     			width: '100%',
     			
                 events: {
-    				onReady: function(event) { YouTubePlayerBridge.sendReady() },
+    				onReady: function(event) {
+    				    try {
+    				        document.querySelector("#youTubePlayerDOM").contentDocument.querySelector('.ytp-chrome-top').style.display = "none"
+    				        document.querySelector("#youTubePlayerDOM").contentDocument.querySelector('.ytp-icon-watermark').style.display = "none"
+    				    } catch(err) {}
+    				    YouTubePlayerBridge.sendReady()
+    				},
     				onStateChange: function(event) { sendPlayerStateChange(event.data) },
     				onPlaybackQualityChange: function(event) { YouTubePlayerBridge.sendPlaybackQualityChange(event.data) },
     				onPlaybackRateChange: function(event) { YouTubePlayerBridge.sendPlaybackRateChange(event.data) },
@@ -123,7 +129,7 @@
         }
 
         function loadVideo(videoId, startSeconds) {
-            player.loadVideoById(videoId, startSeconds);
+            player.loadVideoById(videoId, startSeconds, 'hd720');
             YouTubePlayerBridge.sendVideoId(videoId);
         }
 
