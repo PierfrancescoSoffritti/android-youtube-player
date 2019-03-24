@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -12,6 +13,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener
@@ -55,6 +57,14 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
 
         youTubePlayer.addListener(defaultPlayerUiController)
         youTubePlayer.addListener(playbackResumer)
+
+        // stop playing if the user loads a video but then leaves the app before the video starts playing.
+        youTubePlayer.addListener(object : AbstractYouTubePlayerListener() {
+            override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
+                if(state == PlayerConstants.PlayerState.PLAYING && !canPlay)
+                    youTubePlayer.pause()
+            }
+        })
 
         youTubePlayer.addListener(object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
@@ -182,6 +192,7 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     internal fun onStop() {
+        Log.d(javaClass.simpleName, "on stop called")
         youTubePlayer.pause()
         canPlay = false
     }
