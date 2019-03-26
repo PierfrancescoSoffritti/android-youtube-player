@@ -10,13 +10,14 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
  */
 internal class PlaybackResumer : AbstractYouTubePlayerListener() {
 
+    private var canLoad = false
     private var isPlaying = false
     private var error: PlayerConstants.PlayerError? = null
 
     private var currentVideoId: String? = null
     private var currentSecond: Float = 0f
 
-    fun resume(youTubePlayer: YouTubePlayer, canLoad: Boolean) {
+    fun resume(youTubePlayer: YouTubePlayer) {
         currentVideoId?.let { videoId ->
             if (isPlaying && error == PlayerConstants.PlayerError.HTML_5_PLAYER)
                 youTubePlayer.loadOrCueVideo(canLoad, videoId, currentSecond)
@@ -56,5 +57,13 @@ internal class PlaybackResumer : AbstractYouTubePlayerListener() {
 
     override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) {
         currentVideoId = videoId
+    }
+
+    fun onLifecycleResume() {
+        canLoad = true
+    }
+
+    fun onLifecycleStop() {
+        canLoad = false
     }
 }

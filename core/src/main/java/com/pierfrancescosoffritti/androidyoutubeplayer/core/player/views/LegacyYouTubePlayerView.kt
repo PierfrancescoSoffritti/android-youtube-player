@@ -43,7 +43,7 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
     private var initialize = { }
     private val youTubePlayerCallbacks = HashSet<YouTubePlayerCallback>()
 
-    internal var canPlay = false
+    internal var canPlay = true
         private set
 
     var isUsingCustomUi = false
@@ -81,7 +81,7 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
             if (!isYouTubePlayerReady)
                 initialize()
             else
-                playbackResumer.resume(youTubePlayer, canPlay)
+                playbackResumer.resume(youTubePlayer)
         }
     }
 
@@ -187,13 +187,14 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     internal fun onResume() {
+        playbackResumer.onLifecycleResume()
         canPlay = true
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     internal fun onStop() {
-        Log.d(javaClass.simpleName, "on stop called")
         youTubePlayer.pause()
+        playbackResumer.onLifecycleStop()
         canPlay = false
     }
 
