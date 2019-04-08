@@ -198,7 +198,7 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
     }
 
     /**
-     * Checks whether the player is in an eligible for playback in
+     * Checks whether the player is in an eligible state for playback in
      * respect of the {@link WebViewYouTubePlayer#isBackgroundPlaybackEnabled}
      * property.
      */
