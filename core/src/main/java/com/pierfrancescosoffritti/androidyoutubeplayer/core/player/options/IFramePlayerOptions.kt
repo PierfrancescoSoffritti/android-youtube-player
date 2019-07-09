@@ -7,7 +7,7 @@ import org.json.JSONObject
  * Options used to configure the IFrame Player. All the options are listed here:
  * [IFrame player parameters](https://developers.google.com/youtube/player_parameters#Parameters)
  */
-class IFramePlayerOptions private constructor(private val playerOptions: JSONObject) {
+class IFramePlayerOptions private constructor(private val playerOptions: JSONObject, val origin: String) {
 
     companion object {
         val default = Builder().build()
@@ -47,7 +47,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
         }
 
         fun build(): IFramePlayerOptions {
-            return IFramePlayerOptions(builderOptions)
+            return IFramePlayerOptions(builderOptions, builderOptions[ORIGIN].toString())
         }
 
         /**
@@ -84,6 +84,16 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
          */
         fun ccLoadPolicy(ccLoadPolicy: Int): Builder {
             addInt(CC_LOAD_POLICY, ccLoadPolicy)
+            return this
+        }
+
+        /**
+         *  If you are using the IFrame API, which means you are setting the enablejsapi parameter value to 1, you should always specify your domain as the origin parameter value.
+         * @param origin - provides an extra security measure for the IFrame API and is only supported for IFrame embeds.
+         */
+        fun origin(origin: String): Builder {
+            addInt(ENABLE_JS_API, 1)
+            addString(ORIGIN, origin)
             return this
         }
 

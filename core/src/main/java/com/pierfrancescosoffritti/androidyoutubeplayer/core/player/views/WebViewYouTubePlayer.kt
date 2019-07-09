@@ -10,16 +10,13 @@ import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
-
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayerBridge
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.Utils
-
-import java.util.Collections
-import java.util.HashSet
+import java.util.*
 
 /**
  * WebView implementation of [YouTubePlayer]. The player runs inside the WebView, using the IFrame Player API.
@@ -100,7 +97,7 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
                 .readHTMLFromUTF8File(resources.openRawResource(R.raw.ayp_youtube_player))
                 .replace("<<injectedPlayerVars>>", playerOptions.toString())
 
-        loadDataWithBaseURL("https://www.youtube.com", htmlPage, "text/html", "utf-8", null)
+        loadDataWithBaseURL(playerOptions.origin, htmlPage, "text/html", "utf-8", null)
 
         // if the video's thumbnail is not in memory, show a black screen
         webChromeClient = object : WebChromeClient() {
