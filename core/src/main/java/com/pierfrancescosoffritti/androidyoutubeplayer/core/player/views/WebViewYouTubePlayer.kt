@@ -97,7 +97,7 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
                 .readHTMLFromUTF8File(resources.openRawResource(R.raw.ayp_youtube_player))
                 .replace("<<injectedPlayerVars>>", playerOptions.toString())
 
-        loadDataWithBaseURL(playerOptions.origin, htmlPage, "text/html", "utf-8", null)
+        loadDataWithBaseURL(playerOptions.getOrigin(), htmlPage, "text/html", "utf-8", null)
 
         // if the video's thumbnail is not in memory, show a black screen
         webChromeClient = object : WebChromeClient() {

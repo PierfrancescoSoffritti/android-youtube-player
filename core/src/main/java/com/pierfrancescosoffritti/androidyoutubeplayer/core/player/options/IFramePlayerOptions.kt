@@ -7,7 +7,7 @@ import org.json.JSONObject
  * Options used to configure the IFrame Player. All the options are listed here:
  * [IFrame player parameters](https://developers.google.com/youtube/player_parameters#Parameters)
  */
-class IFramePlayerOptions private constructor(private val playerOptions: JSONObject, val origin: String) {
+class IFramePlayerOptions private constructor(private val playerOptions: JSONObject) {
 
     companion object {
         val default = Builder().build()
@@ -17,13 +17,17 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
         return playerOptions.toString()
     }
 
+    fun getOrigin(): String {
+        return playerOptions.getString(Builder.ORIGIN)
+    }
+
     class Builder {
         companion object {
             private const val AUTO_PLAY = "autoplay"
             private const val CONTROLS = "controls"
             private const val ENABLE_JS_API = "enablejsapi"
             private const val FS = "fs"
-            private const val ORIGIN = "origin"
+            const val ORIGIN = "origin"
             private const val REL = "rel"
             private const val SHOW_INFO = "showinfo"
             private const val IV_LOAD_POLICY = "iv_load_policy"
@@ -47,7 +51,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
         }
 
         fun build(): IFramePlayerOptions {
-            return IFramePlayerOptions(builderOptions, builderOptions[ORIGIN].toString())
+            return IFramePlayerOptions(builderOptions)
         }
 
         /**
@@ -88,11 +92,10 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
         }
 
         /**
-         *  If you are using the IFrame API, which means you are setting the enablejsapi parameter value to 1, you should always specify your domain as the origin parameter value.
-         * @param origin - provides an extra security measure for the IFrame API and is only supported for IFrame embeds.
+         * Controls domain as the origin parameter value.
+         * @param origin your domain
          */
         fun origin(origin: String): Builder {
-            addInt(ENABLE_JS_API, 1)
             addString(ORIGIN, origin)
             return this
         }
