@@ -9,8 +9,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.VideoIdsProvider;
 import com.pierfrancescosoffritti.aytplayersample.R;
 
-import org.jetbrains.annotations.NotNull;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class NoLifecycleObserverExampleActivity extends AppCompatActivity {
@@ -25,7 +24,7 @@ public class NoLifecycleObserverExampleActivity extends AppCompatActivity {
         youTubePlayerView = findViewById(R.id.youtube_player_view);
         youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
             @Override
-            public void onReady(@NotNull YouTubePlayer youTubePlayer) {
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 super.onReady(youTubePlayer);
                 YouTubePlayerUtils.loadOrCueVideo(youTubePlayer, getLifecycle(), VideoIdsProvider.getNextVideoId(), 0f);
             }

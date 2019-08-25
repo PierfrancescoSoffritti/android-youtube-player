@@ -1,11 +1,11 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.utils
 
 import android.content.Context
+import android.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import androidx.mediarouter.app.MediaRouteButton
 import androidx.mediarouter.R
-import android.view.ContextThemeWrapper
+import androidx.mediarouter.app.MediaRouteButton
 import com.google.android.gms.cast.framework.CastButtonFactory
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.examples.localPlayerExample.MediaRouteButtonContainer
 
@@ -40,7 +40,7 @@ object MediaRouteButtonUtils {
         val drawable = styledAttributes.getDrawable(R.styleable.MediaRouteButton_externalRouteEnabledDrawable)
 
         styledAttributes.recycle()
-        DrawableCompat.setTint(drawable, ContextCompat.getColor(mediaRouterButton.context, color))
+        drawable?.let { DrawableCompat.setTint(it, ContextCompat.getColor(mediaRouterButton.context, color)) }
 
         mediaRouterButton.setRemoteIndicatorDrawable(drawable)
     }

@@ -4,8 +4,6 @@ package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils
 import androidx.lifecycle.Lifecycle
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 
-//object YouTubePlayerUtils {
-
 /**
  * Calls [YouTubePlayer.cueVideo] or [YouTubePlayer.loadVideo] depending on which one is more appropriate.
  * If it can't decide, calls [YouTubePlayer.cueVideo] by default.

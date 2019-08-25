@@ -17,7 +17,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
         return playerOptions.toString()
     }
 
-    fun getOrigin(): String {
+    internal fun getOrigin(): String {
         return playerOptions.getString(Builder.ORIGIN)
     }
 
