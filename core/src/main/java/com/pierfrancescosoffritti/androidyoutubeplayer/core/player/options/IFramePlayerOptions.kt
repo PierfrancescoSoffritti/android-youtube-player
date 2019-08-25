@@ -29,6 +29,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
             private const val IV_LOAD_POLICY = "iv_load_policy"
             private const val MODEST_BRANDING = "modestbranding"
             private const val CC_LOAD_POLICY = "cc_load_policy"
+            private const val CC_LANG_PREF = "cc_lang_pref"
         }
 
         private val builderOptions = JSONObject()
@@ -74,6 +75,20 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
          */
         fun ivLoadPolicy(ivLoadPolicy: Int): Builder {
             addInt(IV_LOAD_POLICY, ivLoadPolicy)
+            return this
+        }
+
+        /**
+         *  This parameter specifies the default language that the player will use to display captions.
+         *  If you use this parameter and also set the cc_load_policy parameter to 1, then the player
+         *  will show captions in the specified language when the player loads.
+         *  If you do not also set the cc_load_policy parameter, then captions will not display by default,
+         *  but will display in the specified language if the user opts to turn captions on.
+         *
+         * @param languageCode ISO 639-1 two-letter language code
+         */
+        fun langPref(languageCode: String): Builder {
+            addString(CC_LANG_PREF, languageCode)
             return this
         }
 
