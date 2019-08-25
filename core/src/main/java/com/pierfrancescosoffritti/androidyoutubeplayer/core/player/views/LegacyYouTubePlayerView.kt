@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -61,7 +60,7 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
         // stop playing if the user loads a video but then leaves the app before the video starts playing.
         youTubePlayer.addListener(object : AbstractYouTubePlayerListener() {
             override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
-                if(state == PlayerConstants.PlayerState.PLAYING && !canPlay)
+                if(state == PlayerConstants.PlayerState.PLAYING && !isEligibleForPlayback())
                     youTubePlayer.pause()
             }
         })
@@ -196,6 +195,15 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
         youTubePlayer.pause()
         playbackResumer.onLifecycleStop()
         canPlay = false
+    }
+
+    /**
+     * Checks whether the player is in an eligible state for playback in
+     * respect of the {@link WebViewYouTubePlayer#isBackgroundPlaybackEnabled}
+     * property.
+     */
+    internal fun isEligibleForPlayback(): Boolean {
+        return canPlay || youTubePlayer.isBackgroundPlaybackEnabled
     }
 
     /**
