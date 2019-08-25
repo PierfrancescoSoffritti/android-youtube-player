@@ -17,13 +17,17 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
         return playerOptions.toString()
     }
 
+    fun getOrigin(): String {
+        return playerOptions.getString(Builder.ORIGIN)
+    }
+
     class Builder {
         companion object {
             private const val AUTO_PLAY = "autoplay"
             private const val CONTROLS = "controls"
             private const val ENABLE_JS_API = "enablejsapi"
             private const val FS = "fs"
-            private const val ORIGIN = "origin"
+            const val ORIGIN = "origin"
             private const val REL = "rel"
             private const val SHOW_INFO = "showinfo"
             private const val IV_LOAD_POLICY = "iv_load_policy"
@@ -99,6 +103,15 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
          */
         fun ccLoadPolicy(ccLoadPolicy: Int): Builder {
             addInt(CC_LOAD_POLICY, ccLoadPolicy)
+            return this
+        }
+
+        /**
+         * Controls domain as the origin parameter value.
+         * @param origin your domain
+         */
+        fun origin(origin: String): Builder {
+            addString(ORIGIN, origin)
             return this
         }
 
