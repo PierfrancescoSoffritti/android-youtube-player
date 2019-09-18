@@ -67,6 +67,10 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
         mainThreadHandler.post { loadUrl("javascript:seekTo($time)") }
     }
 
+    override fun setPlaybackRate(rate: Float) {
+        mainThreadHandler.post { loadUrl("javascript:setPlaybackRate($rate)") }
+    }
+
     override fun destroy() {
         youTubePlayerListeners.clear()
         mainThreadHandler.removeCallbacksAndMessages(null)

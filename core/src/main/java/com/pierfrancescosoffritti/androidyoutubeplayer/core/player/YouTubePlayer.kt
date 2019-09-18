@@ -34,6 +34,12 @@ interface YouTubePlayer {
      */
     fun seekTo(time: Float)
 
+    /**
+     *
+     * @param rate Float between 0.5 and 2.0
+     */
+    fun setPlaybackRate(rate: Float)
+
     fun addListener(listener: YouTubePlayerListener): Boolean
     fun removeListener(listener: YouTubePlayerListener): Boolean
 }

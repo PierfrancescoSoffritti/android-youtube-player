@@ -243,6 +243,8 @@ internal class DefaultPlayerUiController(private val youTubePlayerView: LegacyYo
 
     override fun seekTo(time: Float) = youTubePlayer.seekTo(time)
 
+    override fun setPlaybackRate(rate: Float) = youTubePlayer.setPlaybackRate(rate)
+
     // YouTubePlayer callbacks
 
     override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
