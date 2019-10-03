@@ -56,6 +56,14 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
         mainThreadHandler.post { loadUrl("javascript:pauseVideo()") }
     }
 
+    override fun mute() {
+        mainThreadHandler.post { loadUrl("javascript:mute()") }
+    }
+
+    override fun unMute() {
+        mainThreadHandler.post { loadUrl("javascript:unMute()") }
+    }
+
     override fun setVolume(volumePercent: Int) {
         if (volumePercent < 0 || volumePercent > 100)
             throw IllegalArgumentException("Volume must be between 0 and 100")
