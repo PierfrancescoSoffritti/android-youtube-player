@@ -66,6 +66,21 @@ class ChromecastYouTubePlayer internal constructor(private val chromecastCommuni
 
         chromecastCommunicationChannel.sendMessage(message)
     }
+    override fun mute() {
+        val message = JSONUtils.buildFlatJson(
+                "command" to ChromecastCommunicationConstants.MUTE
+        )
+
+        chromecastCommunicationChannel.sendMessage(message)
+    }
+
+    override fun unMute() {
+        val message = JSONUtils.buildFlatJson(
+                "command" to ChromecastCommunicationConstants.UNMUTE
+        )
+
+        chromecastCommunicationChannel.sendMessage(message)
+    }
 
     override fun setVolume(volumePercent: Int) {
         val message = JSONUtils.buildFlatJson(

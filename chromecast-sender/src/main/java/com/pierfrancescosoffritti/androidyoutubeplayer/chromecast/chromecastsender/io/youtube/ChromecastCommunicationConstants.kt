@@ -27,6 +27,8 @@ internal object ChromecastCommunicationConstants {
     const val PAUSE = "PAUSE"
     const val SET_VOLUME = "SET_VOLUME"
     const val SEEK_TO = "SEEK_TO"
+    const val MUTE = "MUTE"
+    const val UNMUTE = "UNMUTE"
 
     fun asJson() = JSONUtils.buildFlatJson(
             IFRAME_API_READY to IFRAME_API_READY,
@@ -45,6 +47,8 @@ internal object ChromecastCommunicationConstants {
             PLAY to PLAY,
             PAUSE to PAUSE,
             SET_VOLUME to SET_VOLUME,
-            SEEK_TO to SEEK_TO
+            SEEK_TO to SEEK_TO,
+            MUTE to MUTE,
+            UNMUTE to UNMUTE
     )
 }
