@@ -2,6 +2,7 @@ package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -29,6 +30,8 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
 
     private val legacyTubePlayerView: LegacyYouTubePlayerView = LegacyYouTubePlayerView(context)
     private val fullScreenHelper = FullScreenHelper(this)
+    private var onTouchEvent: OnTouchEvent? = null
+    private var actionDownReceived = false
 
     var enableAutomaticInitialization: Boolean
 
@@ -96,6 +99,29 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
                 fullScreenHelper.exitFullScreen()
             }
         })
+    }
+
+    /*Ontouch event override function*/
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        when (event.actionMasked) {
+            MotionEvent.ACTION_DOWN -> {
+                actionDownReceived = true
+            }
+
+            MotionEvent.ACTION_MOVE -> {
+                // No longer a click, probably a gesture.
+                actionDownReceived = false
+            }
+
+            MotionEvent.ACTION_UP -> {
+                if (actionDownReceived) {
+                    if (onTouchEvent != null) {
+                        onTouchEvent!!.onTouchReceived()
+                    }
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event)
     }
 
     /**
@@ -200,4 +226,15 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
 
     fun removeFullScreenListener(fullScreenListener: YouTubePlayerFullScreenListener): Boolean =
             fullScreenHelper.removeFullScreenListener(fullScreenListener)
+
+    /*function which sets OntouchEvent Listener*/
+    fun setOnTouchListener(onTouchEvent: OnTouchEvent) {
+        if (this.onTouchEvent == null) {
+            this.onTouchEvent = onTouchEvent
+        }
+    }
+
+    interface OnTouchEvent {
+        fun onTouchReceived()
+    }
 }
