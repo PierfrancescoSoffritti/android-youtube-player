@@ -3,13 +3,13 @@ package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
 import android.view.View
-import android.webkit.WebChromeClient
-import android.webkit.WebSettings
-import android.webkit.WebView
+import android.webkit.*
+import androidx.annotation.RequiresApi
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayerBridge
@@ -17,6 +17,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.You
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.Utils
 import java.util.*
+import java.util.regex.Pattern
 
 /**
  * WebView implementation of [YouTubePlayer]. The player runs inside the WebView, using the IFrame Player API.
@@ -114,12 +115,36 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
                 return result ?: Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565)
             }
         }
+
+        webViewClient = object : WebViewClient() {
+            @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+            override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+                val ytId = extractYTId(request?.url.toString())
+                mainThreadHandler.post { loadUrl("javascript:loadVideo('$ytId', 0)") }
+                return true
+            }
+        }
     }
+
 
     override fun onWindowVisibilityChanged(visibility: Int) {
         if (isBackgroundPlaybackEnabled && (visibility == View.GONE || visibility == View.INVISIBLE))
             return
 
         super.onWindowVisibilityChanged(visibility)
+    }
+
+
+    fun extractYTId(ytUrl: String): String? {
+        var vId: String? = null
+        println("WEBVIEW $ytUrl")
+        val pattern = Pattern.compile(
+                "http(?:s)?://(?:www\\.)?youtu(?:\\.be/|be\\.com/(?:watch\\?v=|v/|embed/|user/(?:[\\w#]+/)+))([^&#?\\n]+)",
+                Pattern.CASE_INSENSITIVE)
+        val matcher = pattern.matcher(ytUrl)
+        if (matcher.matches()) {
+            vId = matcher.group(1)
+        }
+        return vId
     }
 }
