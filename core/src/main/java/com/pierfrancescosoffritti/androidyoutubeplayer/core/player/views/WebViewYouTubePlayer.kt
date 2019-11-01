@@ -10,7 +10,6 @@ import android.util.AttributeSet
 import android.view.View
 import android.webkit.*
 import androidx.annotation.RequiresApi
-import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayerBridge
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
@@ -18,6 +17,12 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFram
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.Utils
 import java.util.*
 import java.util.regex.Pattern
+import androidx.core.content.ContextCompat.startActivity
+import android.content.Intent
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.net.Uri
+import com.pierfrancescosoffritti.androidyoutubeplayer.R
+
 
 /**
  * WebView implementation of [YouTubePlayer]. The player runs inside the WebView, using the IFrame Player API.
@@ -119,9 +124,15 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
         webViewClient = object : WebViewClient() {
             @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
-                val ytId = extractYTId(request?.url.toString())
-                mainThreadHandler.post { loadUrl("javascript:loadVideo('$ytId', 0)") }
-                return true
+                if ("?v=" in request?.url.toString()) {
+                    val ytId = extractYTId(request?.url.toString())
+                    mainThreadHandler.post { loadUrl("javascript:loadVideo('$ytId', 0)") }
+                    return true
+                } else {
+                    val browserIntent = Intent("android.intent.action.VIEW", Uri.parse(request?.url.toString()))
+                    context.startActivity(browserIntent)
+                    return true
+                }
             }
         }
     }
