@@ -126,7 +126,11 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
             @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
                 if ("?v=" in request?.url.toString()&& "action" !in request?.url.toString()) {
+
                     val ytId = extractYTId(request?.url.toString())
+
+                    youTubePlayerListeners.firstOrNull()?.onRecommendedVideoClick()
+
                     mainThreadHandler.post { loadUrl("javascript:loadVideo('$ytId', 0)") }
                     return true
                 } else {
@@ -160,4 +164,6 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
         }
         return vId
     }
+
+
 }

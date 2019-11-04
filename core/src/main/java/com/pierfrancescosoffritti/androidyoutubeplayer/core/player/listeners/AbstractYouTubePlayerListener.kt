@@ -17,4 +17,5 @@ abstract class AbstractYouTubePlayerListener : YouTubePlayerListener {
     override fun onVideoDuration(youTubePlayer: YouTubePlayer, duration: Float) {}
     override fun onVideoLoadedFraction(youTubePlayer: YouTubePlayer, loadedFraction: Float) {}
     override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) {}
+    override fun onRecommendedVideoClick() {}
 }

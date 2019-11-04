@@ -60,4 +60,10 @@ interface YouTubePlayerListener {
     fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String)
 
     fun onApiChange(youTubePlayer: YouTubePlayer)
+
+    /**
+     * Called when the click on suggested videos list
+     * @param ytId the id of the video going to play
+     */
+    fun onRecommendedVideoClick(){}
 }
