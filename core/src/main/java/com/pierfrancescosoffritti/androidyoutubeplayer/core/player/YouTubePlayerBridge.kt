@@ -193,20 +193,11 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
 
     private fun parsePlayerError(error: String): PlayerConstants.PlayerError {
         return when {
-            error.equals(
-                ERROR_INVALID_PARAMETER_IN_REQUEST,
-                ignoreCase = true
-            ) -> PlayerConstants.PlayerError.INVALID_PARAMETER_IN_REQUEST
+            error.equals(ERROR_INVALID_PARAMETER_IN_REQUEST, ignoreCase = true) -> PlayerConstants.PlayerError.INVALID_PARAMETER_IN_REQUEST
             error.equals(ERROR_HTML_5_PLAYER, ignoreCase = true) -> PlayerConstants.PlayerError.HTML_5_PLAYER
             error.equals(ERROR_VIDEO_NOT_FOUND, ignoreCase = true) -> PlayerConstants.PlayerError.VIDEO_NOT_FOUND
-            error.equals(
-                ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER1,
-                ignoreCase = true
-            ) -> PlayerConstants.PlayerError.VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER
-            error.equals(
-                ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER2,
-                ignoreCase = true
-            ) -> PlayerConstants.PlayerError.VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER
+            error.equals(ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER1, ignoreCase = true) -> PlayerConstants.PlayerError.VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER
+            error.equals(ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER2, ignoreCase = true) -> PlayerConstants.PlayerError.VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER
             else -> PlayerConstants.PlayerError.UNKNOWN
         }
     }
