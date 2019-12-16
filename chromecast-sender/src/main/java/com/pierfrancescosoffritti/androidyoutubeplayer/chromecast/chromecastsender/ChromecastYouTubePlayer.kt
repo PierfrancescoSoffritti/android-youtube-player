@@ -4,6 +4,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsend
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.youtube.ChromecastCommunicationConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.youtube.ChromecastYouTubeMessageDispatcher
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.utils.JSONUtils
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayerBridge
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
@@ -31,6 +32,10 @@ class ChromecastYouTubePlayer internal constructor(private val chromecastCommuni
         return this
     }
 
+    override fun loadVideo(videoId: String, startSeconds: Float, suggestedQuality: PlayerConstants.PlaybackQuality) {
+        loadVideo(videoId, startSeconds)
+    }
+
     override fun loadVideo(videoId: String, startSeconds: Float) {
         val message = JSONUtils.buildFlatJson(
                 "command" to ChromecastCommunicationConstants.LOAD,
@@ -39,6 +44,10 @@ class ChromecastYouTubePlayer internal constructor(private val chromecastCommuni
         )
 
         chromecastCommunicationChannel.sendMessage(message)
+    }
+
+    override fun cueVideo(videoId: String, startSeconds: Float, suggestedQuality: PlayerConstants.PlaybackQuality) {
+        cueVideo(videoId, startSeconds)
     }
 
     override fun cueVideo(videoId: String, startSeconds: Float) {

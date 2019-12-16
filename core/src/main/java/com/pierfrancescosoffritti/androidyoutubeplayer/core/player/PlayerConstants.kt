@@ -6,8 +6,15 @@ class PlayerConstants {
         UNKNOWN, UNSTARTED, ENDED, PLAYING, PAUSED, BUFFERING, VIDEO_CUED
     }
 
-    enum class PlaybackQuality {
-        UNKNOWN, SMALL, MEDIUM, LARGE, HD720, HD1080, HIGH_RES, DEFAULT
+    enum class PlaybackQuality(val jsValue: String? = null) {
+        UNKNOWN,
+        SMALL("small"),
+        MEDIUM("medium"),
+        LARGE("large"),
+        HD720("hd720"),
+        HD1080("hd1080"),
+        HIGH_RES("highres"),
+        DEFAULT("default")
     }
 
     enum class PlayerError {

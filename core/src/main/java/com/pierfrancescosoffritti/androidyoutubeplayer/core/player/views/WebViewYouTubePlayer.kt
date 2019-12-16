@@ -11,6 +11,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayerBridge
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
@@ -41,11 +42,23 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
     override fun getInstance(): YouTubePlayer = this
 
     override fun loadVideo(videoId: String, startSeconds: Float) {
-        mainThreadHandler.post { loadUrl("javascript:loadVideo('$videoId', $startSeconds)") }
+        loadVideo(videoId, startSeconds, PlayerConstants.PlaybackQuality.DEFAULT)
+    }
+
+    override fun loadVideo(videoId: String, startSeconds: Float, suggestedQuality: PlayerConstants.PlaybackQuality) {
+        mainThreadHandler.post {
+            loadUrl("javascript:loadVideo('$videoId', $startSeconds, '${suggestedQuality.jsValue}')")
+        }
     }
 
     override fun cueVideo(videoId: String, startSeconds: Float) {
-        mainThreadHandler.post { loadUrl("javascript:cueVideo('$videoId', $startSeconds)") }
+        cueVideo(videoId, startSeconds, PlayerConstants.PlaybackQuality.DEFAULT)
+    }
+
+    override fun cueVideo(videoId: String, startSeconds: Float, suggestedQuality: PlayerConstants.PlaybackQuality) {
+        mainThreadHandler.post {
+            loadUrl("javascript:cueVideo('$videoId', $startSeconds, '${suggestedQuality.jsValue}')")
+        }
     }
 
     override fun play() {

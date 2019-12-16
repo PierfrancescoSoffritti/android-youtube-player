@@ -122,13 +122,13 @@
         	player.playVideo();
         }
 
-        function loadVideo(videoId, startSeconds) {
-            player.loadVideoById(videoId, startSeconds);
+        function loadVideo(videoId, startSeconds, suggestedQuality) {
+            player.loadVideoById(videoId, startSeconds, suggestedQuality);
             YouTubePlayerBridge.sendVideoId(videoId);
         }
 
-        function cueVideo(videoId, startSeconds) {
-            player.cueVideoById(videoId, startSeconds);
+        function cueVideo(videoId, startSeconds, suggestedQuality) {
+            player.cueVideoById(videoId, startSeconds, suggestedQuality);
             YouTubePlayerBridge.sendVideoId(videoId);
         }
 

@@ -14,11 +14,27 @@ interface YouTubePlayer {
     fun loadVideo(videoId: String, startSeconds: Float)
 
     /**
+     * Loads and automatically plays the video.
+     * @param videoId id of the video
+     * @param startSeconds the time from which the video should start playing
+     * @param suggestedQuality the quality to launch with, use [PlayerConstants.PlaybackQuality.DEFAULT] for default
+     */
+    fun loadVideo(videoId: String, startSeconds: Float, suggestedQuality: PlayerConstants.PlaybackQuality)
+
+    /**
      * Loads the video's thumbnail and prepares the player to play the video. Does not automatically play the video.
      * @param videoId id of the video
      * @param startSeconds the time from which the video should start playing
      */
     fun cueVideo(videoId: String, startSeconds: Float)
+
+    /**
+     * Loads the video's thumbnail and prepares the player to play the video. Does not automatically play the video.
+     * @param videoId id of the video
+     * @param startSeconds the time from which the video should start playing
+     * @param suggestedQuality the quality to launch with, use [PlayerConstants.PlaybackQuality.DEFAULT] for default
+     */
+    fun cueVideo(videoId: String, startSeconds: Float, suggestedQuality: PlayerConstants.PlaybackQuality)
 
     fun play()
     fun pause()
