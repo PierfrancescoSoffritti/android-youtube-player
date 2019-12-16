@@ -150,6 +150,7 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null): Linea
     override fun onPlaybackQualityChange(youTubePlayer: YouTubePlayer, playbackQuality: PlayerConstants.PlaybackQuality) { }
     override fun onPlaybackRateChange(youTubePlayer: YouTubePlayer, playbackRate: PlayerConstants.PlaybackRate) { }
     override fun onError(youTubePlayer: YouTubePlayer, error: PlayerConstants.PlayerError) { }
+    override fun onVideoAvailableQualities(youTubePlayer: YouTubePlayer, qualities: List<PlayerConstants.PlaybackQuality>) {}
 }
 
 interface YouTubePlayerSeekBarListener {

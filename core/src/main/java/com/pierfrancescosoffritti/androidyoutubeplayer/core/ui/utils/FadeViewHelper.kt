@@ -104,4 +104,5 @@ class FadeViewHelper(val targetView: View): YouTubePlayerListener {
     override fun onVideoDuration(youTubePlayer: YouTubePlayer, duration: Float) { }
     override fun onVideoLoadedFraction(youTubePlayer: YouTubePlayer, loadedFraction: Float) { }
     override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) { }
+    override fun onVideoAvailableQualities(youTubePlayer: YouTubePlayer, qualities: List<PlayerConstants.PlaybackQuality>) {}
 }

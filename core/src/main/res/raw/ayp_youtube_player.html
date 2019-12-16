@@ -92,8 +92,8 @@
 
             function sendVideoData(player) {
                 var videoDuration = player.getDuration();
-
                 YouTubePlayerBridge.sendVideoDuration(videoDuration);
+                YouTubePlayerBridge.sendVideoQualities(player.getAvailableQualityLevels());
             }
 
             function sendStateChange(newState) {

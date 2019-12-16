@@ -48,6 +48,12 @@ interface YouTubePlayerListener {
     fun onVideoDuration(youTubePlayer: YouTubePlayer, duration: Float)
 
     /**
+     * Called when the video is loaded with the available qualities.
+     * @param qualities available qualities
+     */
+    fun onVideoAvailableQualities(youTubePlayer: YouTubePlayer, qualities: List<PlayerConstants.PlaybackQuality>)
+
+    /**
      * Called periodically by the player, the argument is the percentage of the video that has been buffered.
      * @param loadedFraction a number between 0 and 1 that represents the percentage of the video that has been buffered.
      */
