@@ -189,6 +189,25 @@ youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
 });
 ```
 
+## Manifest.xml
+Pay attention to parameters inside your **`Manifest.xml`** file. 
+
+On Android API lower or equls to 27 inside tag **`<application/>`** parameter **`android:usesCleartextTraffic`** should be **`false`** otherwise the player will load the only preview and while playback it will be invisible. After Android 28 and higher this parameter is **`false`** by default. 
+
+From documentation:
+
+Indicates whether the app intends to use cleartext network traffic, such as cleartext HTTP.
+The default value for apps that target API level 27 or lower is "true".
+Apps that target API level 28 or higher default to "false".
+
+When the attribute is set to "false", platform components (for example, HTTP and FTP stacks,
+DownloadManager, and MediaPlayer) will refuse the app's requests to use cleartext traffic.
+Third-party libraries are strongly encouraged to honor this setting as well.
+The key reason for avoiding cleartext traffic is the lack of confidentiality, authenticity,
+and protections against tampering; a network attacker can eavesdrop on transmitted data
+and also modify it without being detected.
+
+
 ----
 
 # API documentation
