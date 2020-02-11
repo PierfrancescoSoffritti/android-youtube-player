@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.webUiExample;
+package com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.nativeUiExample;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -13,14 +13,14 @@ import com.pierfrancescosoffritti.aytplayersample.R;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class WebUiExampleActivity extends AppCompatActivity {
+public class NativeUiExampleActivity extends AppCompatActivity {
 
     private YouTubePlayerView youTubePlayerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.web_ui_example);
+        setContentView(R.layout.native_ui_example);
 
         youTubePlayerView = findViewById(R.id.youtube_player_view);
 

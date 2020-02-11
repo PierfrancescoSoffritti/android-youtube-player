@@ -10,6 +10,7 @@
         android:id="@+id/youtube_player_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:useNativeUi="true"
 
         app:showFullScreenButton="false" />
 </LinearLayout>
