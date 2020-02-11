@@ -15,15 +15,15 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.FullScreenHelper
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.NetworkListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.PlaybackResumer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.DefaultPlayerUiController
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.PlayerUiController
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.NetworkListener
 
 internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0):
         SixteenByNineFrameLayout(context, attrs, defStyleAttr), LifecycleObserver {
@@ -45,6 +45,8 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
     internal var canPlay = true
         private set
 
+    var isUsingWebUi = false
+    var shouldUseWebUi = true
     var isUsingCustomUi = false
         private set
 
@@ -98,6 +100,11 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
         if (handleNetworkEvents)
             context.registerReceiver(networkListener, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
 
+        if(shouldUseWebUi){
+            inflateCustomPlayerUi(R.layout.ayp_empty_layout)
+            isUsingWebUi = true
+        }
+
         initialize = {
             youTubePlayer.initialize({it.addListener(youTubePlayerListener)}, playerOptions)
         }
@@ -107,14 +114,16 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
     }
 
     /**
-     * Initialize the player.
+     * Initialize the player using the native Ui instead pf the web-based Ui.
      * @param handleNetworkEvents if set to true a broadcast receiver will be registered and network events will be handled automatically.
      * If set to false, you should handle network events with your own broadcast receiver.
      *
      * @see LegacyYouTubePlayerView.initialize
      */
-    fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean) =
-            initialize(youTubePlayerListener, handleNetworkEvents, null)
+    fun initializeWithNativeUi(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean) {
+        shouldUseWebUi = false
+        initialize(youTubePlayerListener, handleNetworkEvents, null)
+    }
 
     /**
      * Initialize the player. Network events are automatically handled by the player.
@@ -126,14 +135,14 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
             initialize(youTubePlayerListener, true)
 
     /**
-     * Initialize a player using the web-base Ui instead pf the native Ui.
+     * Initialize the player.
      * The default PlayerUiController will be removed and [LegacyYouTubePlayerView.getPlayerUiController] will throw exception.
-     *
+     * @param youTubePlayerListener listener for player events
+     * @param handleNetworkEvents if set to true a broadcast receiver will be registered and network events will be handled automatically.
      * @see LegacyYouTubePlayerView.initialize
      */
-    fun initializeWithWebUi(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean) {
+    fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean) {
         val iFramePlayerOptions = IFramePlayerOptions.Builder().controls(1).build()
-        inflateCustomPlayerUi(R.layout.ayp_empty_layout)
         initialize(youTubePlayerListener, handleNetworkEvents, iFramePlayerOptions)
     }
 
@@ -214,6 +223,11 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
     }
 
     fun getPlayerUiController(): PlayerUiController {
+        if (isUsingWebUi)
+            throw RuntimeException("You called 'getPlayerUiController()' on a player instance that is " +
+                    "using the web-based UI. You should set 'useNativeUi=\"true\"' in your xml view or " +
+                    "initialize your player object using 'initializeWithNativeUi' ")
+
         if (isUsingCustomUi)
             throw RuntimeException("You have inflated a custom player Ui. You must manage it with your own controller.")
 
