@@ -16,6 +16,9 @@ android {
         targetSdkVersion versions.compileSdk
         versionCode versions.publishVersionCode_core
         versionName versions.publishVersion_core
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
 
     sourceSets {
@@ -30,6 +33,8 @@ dependencies {
     testImplementation "junit:junit:$versions.junit"
     androidTestImplementation "androidx.test:runner:$versions.runner"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
+    androidTestImplementation "androidx.test:rules:$versions.rules"
+    implementation "com.android.support:multidex:$versions.multidex"
 
     api "androidx.annotation:annotation:$versions.androidxAnnotations"
     api "androidx.lifecycle:lifecycle-runtime:$versions.androidxLifecycleRuntime"

@@ -44,5 +44,9 @@ ext.versions = [
         // Tests
         junit                           : '4.12',
         runner                          : '1.1.1',
-        espressoCore                    : '3.1.1'
+        rules                           : '1.1.1',
+        espressoCore                    : '3.1.1',
+
+        // Multidex
+        multidex                        : '1.0.3'
 ]
