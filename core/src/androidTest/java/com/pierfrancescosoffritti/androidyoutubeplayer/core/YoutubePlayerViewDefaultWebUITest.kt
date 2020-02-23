@@ -71,24 +71,23 @@ class YoutubePlayerViewDefaultWebUITest {
     private fun getNativeUiViewGroup(youtubePlayerId: Int): Matcher<View> {
         return allOf(
                 isDescendantOfA(withId(youtubePlayerId)),
-                withId(R.id.default_native_ui_layout)
+                withId(R.id.ayp_default_native_ui_layout)
         )
     }
 
 
     @Test
-    fun testIfDefaultIsWebUi() {
+    fun testDefaultIsWebUi() {
         // Prepare
 
         // Act
 
         // Assert
-        onView(getNativeUiViewGroup(R.id.youtube_player_view)).
-                check(doesNotExist())
+        onView(getNativeUiViewGroup(R.id.youtube_player_view)).check(doesNotExist())
     }
 
     @Test
-    fun testIfNativeViewIsSetByXMLAttribute() {
+    fun testNativeUiIsDisabledByDefault() {
         // Prepare
 
         // Act
@@ -99,7 +98,7 @@ class YoutubePlayerViewDefaultWebUITest {
     }
 
     @Test
-    fun testIfDefaultWebUiInitializedProgrammaticallyUsingInitializer1() {
+    fun testDefaultWebUiInitializedProgrammaticallyUsingInitializer1() {
         // Prepare
 
         // Act
@@ -115,7 +114,7 @@ class YoutubePlayerViewDefaultWebUITest {
     }
 
     @Test
-    fun testIfDefaultWebUiInitializedProgrammaticallyUsingInitializer2() {
+    fun testDefaultWebUiInitializedProgrammaticallyUsingInitializer2() {
         // Prepare
 
         // Act
@@ -131,7 +130,7 @@ class YoutubePlayerViewDefaultWebUITest {
     }
 
     @Test
-    fun testIfDefaultWebUiInitializedProgrammaticallyUsingInitializer3() {
+    fun testDefaultWebUiInitializedProgrammaticallyUsingInitializer3() {
         // Prepare
 
         // Act
@@ -147,7 +146,7 @@ class YoutubePlayerViewDefaultWebUITest {
     }
 
     @Test
-    fun testIfNativeUiInitializedProgrammatically() {
+    fun testNativeUiInitializedProgrammatically() {
         // Prepare
         youTubePlayerViewUsingInitializeWithNativeUi.initializeWithNativeUi(object : AbstractYouTubePlayerListener() {
 
