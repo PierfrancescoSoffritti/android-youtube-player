@@ -54,22 +54,13 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
 
         if(!enableAutomaticInitialization && useNativeUi) {
             throw IllegalStateException("YouTubePlayerView: 'enableAutomaticInitialization' is false and 'useNativeUi' is set to false. " +
-                    "This is not possible, if you want to manually initialize YouTubePlayerView and use the web ui, " +
+                    "This is not possible, if you want to manually initialize YouTubePlayerView and use the native ui, " +
                     "you should manually initialize the YouTubePlayerView using 'initializeWithNativeUi'")
         }
 
         if(videoId == null && autoPlay)
             throw IllegalStateException("YouTubePlayerView: videoId is not set but autoPlay is set to true. This combination is not possible.")
 
-        if(useNativeUi) {
-            legacyTubePlayerView.getPlayerUiController()
-                    .enableLiveVideoUi(enableLiveVideoUi)
-                    .showYouTubeButton(showYouTubeButton)
-                    .showFullscreenButton(showFullScreenButton)
-                    .showCurrentTime(showVideoCurrentTime)
-                    .showDuration(showVideoDuration)
-                    .showSeekBar(showSeekBar)
-        }
 
         val youTubePlayerListener = object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
@@ -86,6 +77,15 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
             else legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents)
         }
 
+        if(useNativeUi) {
+            legacyTubePlayerView.getPlayerUiController()
+                    .enableLiveVideoUi(enableLiveVideoUi)
+                    .showYouTubeButton(showYouTubeButton)
+                    .showFullscreenButton(showFullScreenButton)
+                    .showCurrentTime(showVideoCurrentTime)
+                    .showDuration(showVideoDuration)
+                    .showSeekBar(showSeekBar)
+        }
 
         legacyTubePlayerView.addFullScreenListener(object : YouTubePlayerFullScreenListener {
             override fun onYouTubePlayerEnterFullScreen() {

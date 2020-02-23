@@ -2,15 +2,14 @@ package com.pierfrancescosoffritti.androidyoutubeplayer.core
 
 import android.app.Activity
 import android.view.View
-import android.widget.FrameLayout
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.LegacyYouTubePlayerView
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.testActivity.TestActivity
 import com.pierfrancescosoffritti.androidyoutubeplayer.test.R
@@ -41,9 +40,25 @@ class YoutubePlayerViewDefaultWebUITest {
     @Before
     fun setup() {
         testActivity = activityRule.activity
+        /**
+         * youTubePlayerViewUsingInitializer1 is manually initialized using:
+         *  initialize(object : AbstractYouTubePlayerListener() {})
+         */
         youTubePlayerViewUsingInitializer1 = testActivity.findViewById(R.id.youtube_player_view_manual_initialize_1)
+        /**
+         * youTubePlayerViewUsingInitializer2 is manually initialized using:
+         *  initialize(object : AbstractYouTubePlayerListener() {}, true)
+         */
         youTubePlayerViewUsingInitializer2 = testActivity.findViewById(R.id.youtube_player_view_manual_initialize_2)
+        /**
+         * youTubePlayerViewUsingInitializer3 is manually initialized using:
+         *  initialize(object : AbstractYouTubePlayerListener() {}, true, IFramePlayerOptions.Builder().controls(1).build())
+         */
         youTubePlayerViewUsingInitializer3 = testActivity.findViewById(R.id.youtube_player_view_manual_initialize_3)
+        /**
+         * youTubePlayerViewUsingInitializeWithNativeUi is manually initialized using:
+         *  initializeWithNativeUi(object : AbstractYouTubePlayerListener() {}, true)
+         */
         youTubePlayerViewUsingInitializeWithNativeUi = testActivity.findViewById(R.id.youtube_player_view_manual_initialize_native)
     }
 
@@ -55,19 +70,8 @@ class YoutubePlayerViewDefaultWebUITest {
      */
     private fun getNativeUiViewGroup(youtubePlayerId: Int): Matcher<View> {
         return allOf(
-                isDescendantOfA(
-                        withId(youtubePlayerId)
-                ),
-                withClassName(
-                        containsString(
-                                FrameLayout::class.java.canonicalName)
-                ),
-                withParent(
-                        withClassName(
-                                containsString(
-                                        LegacyYouTubePlayerView::class.java.canonicalName)
-                        )
-                )
+                isDescendantOfA(withId(youtubePlayerId)),
+                withId(R.id.default_native_ui_layout)
         )
     }
 
@@ -79,9 +83,8 @@ class YoutubePlayerViewDefaultWebUITest {
         // Act
 
         // Assert
-        onView(
-                getNativeUiViewGroup(R.id.youtube_player_view)
-        ).check(matches(hasChildCount(0)))
+        onView(getNativeUiViewGroup(R.id.youtube_player_view)).
+                check(doesNotExist())
     }
 
     @Test
@@ -91,13 +94,8 @@ class YoutubePlayerViewDefaultWebUITest {
         // Act
 
         // Assert
-        onView(
-                getNativeUiViewGroup(R.id.youtube_player_view_native)
-        ).check(
-                matches(
-                        not(hasChildCount(0))
-                )
-        )
+        onView(getNativeUiViewGroup(R.id.youtube_player_view_native)).
+                check(matches(not(doesNotExist())))
     }
 
     @Test
@@ -112,9 +110,8 @@ class YoutubePlayerViewDefaultWebUITest {
         }
 
         // Assert
-        onView(
-                getNativeUiViewGroup(R.id.youtube_player_view_manual_initialize_1)
-        ).check(matches(hasChildCount(0)))
+        onView(getNativeUiViewGroup(R.id.youtube_player_view_manual_initialize_1)).
+                check(doesNotExist())
     }
 
     @Test
@@ -129,8 +126,8 @@ class YoutubePlayerViewDefaultWebUITest {
         }
 
         // Assert
-        onView(getNativeUiViewGroup(R.id.youtube_player_view_manual_initialize_2)
-        ).check(matches(hasChildCount(0)))
+        onView(getNativeUiViewGroup(R.id.youtube_player_view_manual_initialize_2)).
+                check(doesNotExist())
     }
 
     @Test
@@ -145,9 +142,8 @@ class YoutubePlayerViewDefaultWebUITest {
         }
 
         // Assert
-        onView(
-                getNativeUiViewGroup(R.id.youtube_player_view_manual_initialize_3)
-        ).check(matches(hasChildCount(0)))
+        onView(getNativeUiViewGroup(R.id.youtube_player_view_manual_initialize_3)).
+                check(doesNotExist())
     }
 
     @Test
@@ -159,12 +155,7 @@ class YoutubePlayerViewDefaultWebUITest {
         // Act
 
         // Assert
-        onView(
-                getNativeUiViewGroup(R.id.youtube_player_view_manual_initialize_native)
-        ).check(
-                matches(
-                        not(hasChildCount(0))
-                )
-        )
+        onView(withId(R.id.youtube_player_view_manual_initialize_native)).
+                check(matches(not(doesNotExist())))
     }
 }
