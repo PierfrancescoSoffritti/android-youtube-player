@@ -45,8 +45,7 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
     internal var canPlay = true
         private set
 
-    var isUsingWebUi = false
-    var shouldUseWebUi = true
+    var isUsingWebUi = true
     var isUsingCustomUi = false
         private set
 
@@ -100,9 +99,8 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
         if (handleNetworkEvents)
             context.registerReceiver(networkListener, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
 
-        if(shouldUseWebUi){
+        if(isUsingWebUi){
             inflateCustomPlayerUi(R.layout.ayp_empty_layout)
-            isUsingWebUi = true
         }
 
         initialize = {
@@ -121,7 +119,7 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
      * @see LegacyYouTubePlayerView.initialize
      */
     fun initializeWithNativeUi(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean) {
-        shouldUseWebUi = false
+        isUsingWebUi = false
         initialize(youTubePlayerListener, handleNetworkEvents, null)
     }
 
