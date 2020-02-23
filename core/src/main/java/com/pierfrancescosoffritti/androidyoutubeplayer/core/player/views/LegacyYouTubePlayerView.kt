@@ -45,7 +45,7 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
     internal var canPlay = true
         private set
 
-    var isUsingWebUi = true
+    private var isUsingWebUi = true
     var isUsingCustomUi = false
         private set
 
@@ -99,9 +99,8 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
         if (handleNetworkEvents)
             context.registerReceiver(networkListener, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
 
-        if(isUsingWebUi){
+        if (isUsingWebUi)
             inflateCustomPlayerUi(R.layout.ayp_empty_layout)
-        }
 
         initialize = {
             youTubePlayer.initialize({it.addListener(youTubePlayerListener)}, playerOptions)
@@ -112,7 +111,7 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
     }
 
     /**
-     * Initialize the player using the native Ui instead pf the web-based Ui.
+     * Initialize the player using the native Ui instead of the web-based Ui.
      * @param handleNetworkEvents if set to true a broadcast receiver will be registered and network events will be handled automatically.
      * If set to false, you should handle network events with your own broadcast receiver.
      *
@@ -222,9 +221,10 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
 
     fun getPlayerUiController(): PlayerUiController {
         if (isUsingWebUi)
-            throw RuntimeException("You called 'getPlayerUiController()' on a player instance that is " +
-                    "using the web-based UI. You should set 'useNativeUi=\"true\"' in your xml view or " +
-                    "initialize your player object using 'initializeWithNativeUi' ")
+            throw RuntimeException("To call 'getPlayerUiController' you need to enable native UI. " +
+                    "But you are currently using web UI instead. To enable native UI set " +
+                    "'useNativeUi=\"true\"' in your xml view or initialize your player object using " +
+                    "'initializeWithNativeUi'")
 
         if (isUsingCustomUi)
             throw RuntimeException("You have inflated a custom player Ui. You must manage it with your own controller.")

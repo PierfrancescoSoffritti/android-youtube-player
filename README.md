@@ -707,6 +707,8 @@ The View will be added to the top corner of the player.
 ## Create your own custom UI
 Customization is an important aspect of this library. If need to, you can completely replace the native UI of the player.
 
+Note: You need to enable the native UI to use a custom UI: [see useNativeUi](#native-ui)
+
 `YouTubePlayerView` has method for that. 
 
 ```java
