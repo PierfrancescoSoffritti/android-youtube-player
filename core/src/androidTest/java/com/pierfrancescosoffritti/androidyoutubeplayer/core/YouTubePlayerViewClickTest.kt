@@ -7,6 +7,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.LargeTest
+import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 import androidx.test.rule.ActivityTestRule
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.testActivity.TestActivity
@@ -40,7 +41,9 @@ class YouTubePlayerViewClickTest {
     fun testSingleClickListener() {
         // Prepare
         val mockClickListener = mock(View.OnClickListener::class.java)
-        youTubePlayerView.setOnClickListener(mockClickListener)
+        runOnUiThread {
+            youTubePlayerView.setOnClickListener(mockClickListener)
+        }
 
         // Act
         onView(withId(R.id.youtube_player_view)).perform(click())
