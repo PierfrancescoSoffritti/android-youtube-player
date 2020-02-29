@@ -12,7 +12,18 @@ class TestActivity : AppCompatActivity() {
         setContentView(R.layout.test_activity)
 
         val youTubePlayerView = findViewById<YouTubePlayerView>(R.id.youtube_player_view)
+        val youTubePlayerViewNative = findViewById<YouTubePlayerView>(R.id.youtube_player_view_native_ui)
+        val youTubePlayerViewInitializeWithPlayerListener = findViewById<YouTubePlayerView>(R.id.youtube_player_view_manual_initialize_player_listener)
+        val youTubePlayerViewInitializeWithPlayerListenerAndHandleNetworkEvents = findViewById<YouTubePlayerView>(R.id.youtube_player_view_manual_initialize_player_listener_and_handle_network_events)
+        val youTubePlayerViewInitializeWithPlayerListenerAndHandleNetworkEventsAndIframeOptions = findViewById<YouTubePlayerView>(R.id.youtube_player_view_manual_initialize_player_listener_and_handle_network_events_and_iframe_options)
+        val youTubePlayerViewUsingInitializeWithNativeUi = findViewById<YouTubePlayerView>(R.id.youtube_player_view_manual_initialize_native)
 
         lifecycle.addObserver(youTubePlayerView)
+        lifecycle.addObserver(youTubePlayerViewNative)
+        lifecycle.addObserver(youTubePlayerViewInitializeWithPlayerListener)
+        lifecycle.addObserver(youTubePlayerViewInitializeWithPlayerListenerAndHandleNetworkEvents)
+        lifecycle.addObserver(youTubePlayerViewInitializeWithPlayerListenerAndHandleNetworkEventsAndIframeOptions)
+        lifecycle.addObserver(youTubePlayerViewUsingInitializeWithNativeUi)
+
     }
 }

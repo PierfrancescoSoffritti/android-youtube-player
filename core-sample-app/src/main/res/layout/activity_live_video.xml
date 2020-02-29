@@ -12,5 +12,6 @@
         android:layout_height="wrap_content"
 
         app:enableLiveVideoUi="true"
-        app:showFullScreenButton="false" />
+        app:showFullScreenButton="false"
+        app:useNativeUi="true" />
 </LinearLayout>

@@ -66,10 +66,10 @@
             android:hardwareAccelerated="true"
             android:label="@string/iframe_player_options_example" />
         <activity
-            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.webUiExample.WebUiExampleActivity"
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.nativeUiExample.NativeUiExampleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
-            android:label="@string/web_ui_example" />
+            android:label="@string/native_ui_example" />
         <activity
             android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.chromecastExample.ChromeCastExampleActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
