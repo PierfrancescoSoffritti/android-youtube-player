@@ -13,6 +13,5 @@
 
         app:enableLiveVideoUi="true"
         app:showFullScreenButton="false"
-        app:useNativeUi="true"
-        />
+        app:useNativeUi="true" />
 </LinearLayout>

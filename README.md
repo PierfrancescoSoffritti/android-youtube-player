@@ -838,8 +838,7 @@ This is how you can enable the native UI using xml attributes
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
 
-  android:useNativeUi="true"
- />
+  android:useNativeUi="true" />
 ```
 
 Or you can use [the appropriate initialization method](#initialization).
