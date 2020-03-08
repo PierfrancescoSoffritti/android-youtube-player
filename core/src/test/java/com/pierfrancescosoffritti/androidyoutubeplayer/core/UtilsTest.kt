@@ -14,7 +14,7 @@ class UtilsTest {
     @Test
     fun readHTMLFromUTF8File_isCorrect() {
         // ARRANGE
-        val html = "<div>some<span>fake</span>html</div>\n<div>some<span>fake</span>html</div>"
+        val html = "<div>some<span>fake\u0000</span>html</div>\n<div>臺some<span>fake\u0007</span>html</div>"
         val inputStream = html.byteInputStream(StandardCharsets.UTF_8)
 
         // ACT
