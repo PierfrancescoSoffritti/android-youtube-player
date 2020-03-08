@@ -13,14 +13,14 @@ import java.nio.charset.StandardCharsets
 class UtilsTest {
     @Test
     fun readHTMLFromUTF8File_isCorrect() {
-        // ARRANGE
+        // Prepare
         val html = "<div>some<span>fake\u0000</span>html</div>\n<div>臺some<span>fake\u0007</span>html</div>"
         val inputStream = html.byteInputStream(StandardCharsets.UTF_8)
 
-        // ACT
+        // Act
         val string = Utils.readHTMLFromUTF8File(inputStream)
 
-        // ASSERT
+        // Assert
         assertEquals(string, html+"\n")
     }
 }
