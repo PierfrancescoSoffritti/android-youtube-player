@@ -9,9 +9,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
  * This is a YouTubePlayerListener, therefore to work it has to be added as listener to a YouTubePlayer.
  */
 class YouTubePlayerTracker : AbstractYouTubePlayerListener() {
-    /**
-     * @return the player state. A value from [PlayerConstants.PlayerState]
-     */
     var state: PlayerConstants.PlayerState = PlayerConstants.PlayerState.UNKNOWN
         private set
     var currentSecond: Float = 0f
