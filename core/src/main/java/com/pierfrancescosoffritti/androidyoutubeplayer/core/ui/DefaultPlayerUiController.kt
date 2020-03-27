@@ -19,6 +19,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.LegacyY
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.menu.YouTubePlayerMenu
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.menu.defaultMenu.DefaultYouTubePlayerMenu
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.utils.FadeViewHelper
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.views.YouTubePlayerFastForwardRewind
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.views.YouTubePlayerSeekBar
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.views.YouTubePlayerSeekBarListener
 
@@ -48,6 +49,11 @@ internal class DefaultPlayerUiController(private val youTubePlayerView: LegacyYo
     private val customActionRight: ImageView
 
     private val youtubePlayerSeekBar: YouTubePlayerSeekBar
+
+    private var currentSecond = 0F
+
+    private val fastRewind: YouTubePlayerFastForwardRewind
+    private val fastForward: YouTubePlayerFastForwardRewind
 
     private var onFullScreenButtonListener: View.OnClickListener
     private var onMenuButtonClickListener: View.OnClickListener
@@ -83,10 +89,25 @@ internal class DefaultPlayerUiController(private val youTubePlayerView: LegacyYo
 
         youtubePlayerSeekBar = controlsView.findViewById(R.id.youtube_player_seekbar)
 
+        fastRewind = controlsView.findViewById(R.id.fast_rewind_layout)
+        fastForward = controlsView.findViewById(R.id.fast_forward_layout)
+
         fadeControlsContainer = FadeViewHelper(controlsContainer)
 
         onFullScreenButtonListener = View.OnClickListener { youTubePlayerView.toggleFullScreen() }
         onMenuButtonClickListener = View.OnClickListener { youTubePlayerMenu.show(menuButton) }
+
+        fastForward.addOtherFastForwardRewindView(fastRewind)
+        fastRewind.addOtherFastForwardRewindView(fastForward)
+
+        fastRewind.addOnSeekAction { seekBy ->
+            currentSecond += seekBy
+            youTubePlayer.seekTo(currentSecond)
+        }
+        fastForward.addOnSeekAction { seekBy ->
+            currentSecond += seekBy
+            youTubePlayer.seekTo(currentSecond)
+        }
 
         initClickListeners()
     }
@@ -293,7 +314,7 @@ internal class DefaultPlayerUiController(private val youTubePlayerView: LegacyYo
     override fun onPlaybackRateChange(youTubePlayer: YouTubePlayer, playbackRate: PlayerConstants.PlaybackRate) {}
     override fun onError(youTubePlayer: YouTubePlayer, error: PlayerConstants.PlayerError) {}
     override fun onApiChange(youTubePlayer: YouTubePlayer) {}
-    override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {}
+    override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) { currentSecond = second }
     override fun onVideoDuration(youTubePlayer: YouTubePlayer, duration: Float) {}
     override fun onVideoLoadedFraction(youTubePlayer: YouTubePlayer, loadedFraction: Float) {}
 }

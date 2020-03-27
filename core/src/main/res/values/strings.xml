@@ -6,4 +6,6 @@
     <string name="ayp_live">LIVE</string>
     <string name="ayp_custom_action_left">YouTube player Custom action left</string>
     <string name="ayp_custom_action_right">YouTube player custom action right</string>
+    <string name="ayp_fast_rewind">Fast rewind</string>
+    <string name="ayp_fast_forward">Fast forward</string>
 </resources>

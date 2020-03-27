@@ -74,6 +74,16 @@
 
         </LinearLayout>
 
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.views.YouTubePlayerFastForwardRewind
+            android:id="@+id/fast_rewind_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toStartOf="@+id/play_pause_button"
+
+            android:contentDescription="@string/ayp_fast_rewind"
+
+            app:useFastRewindLayout="true" />
+
         <ImageView
             android:id="@+id/play_pause_button"
             android:layout_width="wrap_content"
@@ -96,6 +106,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true" />
+
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.views.YouTubePlayerFastForwardRewind
+            android:id="@+id/fast_forward_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:contentDescription="@string/ayp_fast_forward"
+
+            android:layout_toEndOf="@+id/play_pause_button" />
 
         <LinearLayout
             android:layout_width="match_parent"
