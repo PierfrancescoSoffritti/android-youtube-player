@@ -195,6 +195,10 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
         youTubePlayer.pause()
         playbackResumer.onLifecycleStop()
         canPlay = false
+        try {
+            context.unregisterReceiver(networkListener)
+        } catch (ignore: Exception) {
+        }
     }
 
     /**
