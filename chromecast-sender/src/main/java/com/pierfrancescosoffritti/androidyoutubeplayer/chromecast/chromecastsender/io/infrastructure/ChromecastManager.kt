@@ -19,7 +19,7 @@ internal class ChromecastManager(
     private val castSessionManagerListener = CastSessionManagerListener(this)
 
     override fun onCastSessionConnecting() {
-        chromecastConnectionListeners.forEach { it.onChromecastConnecting() }
+        chromecastConnectionListeners.forEach { if(it != null) it.onChromecastConnecting() }
     }
 
     override fun onCastSessionConnected(castSession: CastSession) {
@@ -29,14 +29,14 @@ internal class ChromecastManager(
         sendCommunicationConstants(chromecastCommunicationChannel)
 
         chromecastYouTubePlayerContext.onChromecastConnected(chromecastYouTubePlayerContext)
-        chromecastConnectionListeners.forEach { it.onChromecastConnected(chromecastYouTubePlayerContext) }
+        chromecastConnectionListeners.forEach { if(it != null) it.onChromecastConnected(chromecastYouTubePlayerContext) }
     }
 
     override fun onCastSessionDisconnected(castSession: CastSession) {
         castSession.removeMessageReceivedCallbacks(chromecastCommunicationChannel.namespace)
 
         chromecastYouTubePlayerContext.onChromecastDisconnected()
-        chromecastConnectionListeners.forEach { it.onChromecastDisconnected() }
+        chromecastConnectionListeners.forEach { if(it != null) it.onChromecastDisconnected() }
     }
 
     fun restoreSession() {
