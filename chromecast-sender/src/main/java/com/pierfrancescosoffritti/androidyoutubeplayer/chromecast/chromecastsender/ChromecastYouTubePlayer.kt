@@ -91,10 +91,11 @@ class ChromecastYouTubePlayer internal constructor(private val chromecastCommuni
         chromecastCommunicationChannel.sendMessage(message)
     }
 
-    override fun seekTo(time: Float) {
+    override fun seekTo(time: Float, allowSeekAhead: Boolean) {
         val message = JSONUtils.buildFlatJson(
                 "command" to ChromecastCommunicationConstants.SEEK_TO,
-                "time" to time.toString()
+                "time" to time.toString(),
+                "allowSeekAhead" to allowSeekAhead.toString()
         )
 
         chromecastCommunicationChannel.sendMessage(message)

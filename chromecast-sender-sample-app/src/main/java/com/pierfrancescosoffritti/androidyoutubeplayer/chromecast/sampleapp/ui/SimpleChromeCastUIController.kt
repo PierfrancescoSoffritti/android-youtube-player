@@ -148,7 +148,7 @@ class SimpleChromeCastUiController(private val controls_view: View) : AbstractYo
         if (isPlaying)
             newSeekBarProgress = seekBar.progress
 
-        youTubePlayer.seekTo(seekBar.progress.toFloat())
+        youTubePlayer.seekTo(seekBar.progress.toFloat(), true)
         seekBarTouchStarted = false
     }
 }

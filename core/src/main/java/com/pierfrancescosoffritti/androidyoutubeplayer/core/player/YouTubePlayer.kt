@@ -35,7 +35,7 @@ interface YouTubePlayer {
      *
      * @param time The absolute time in seconds to seek to
      */
-    fun seekTo(time: Float)
+    fun seekTo(time: Float, allowSeekAhead:Boolean = true)
 
     fun addListener(listener: YouTubePlayerListener): Boolean
     fun removeListener(listener: YouTubePlayerListener): Boolean

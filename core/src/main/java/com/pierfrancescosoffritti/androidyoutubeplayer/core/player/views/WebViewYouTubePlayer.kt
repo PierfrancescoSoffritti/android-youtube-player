@@ -70,8 +70,8 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
         mainThreadHandler.post { loadUrl("javascript:setVolume($volumePercent)") }
     }
 
-    override fun seekTo(time: Float) {
-        mainThreadHandler.post { loadUrl("javascript:seekTo($time)") }
+    override fun seekTo(time: Float, allowSeekAhead:Boolean) {
+        mainThreadHandler.post { loadUrl("javascript:seekTo($time, $allowSeekAhead)") }
     }
 
     override fun destroy() {
