@@ -172,7 +172,7 @@ public class SimpleChromeCastUiController extends AbstractYouTubePlayerListener 
             newSeekBarProgress = seekBar.getProgress();
 
         if(youTubePlayer != null)
-            youTubePlayer.seekTo(seekBar.getProgress());
+            youTubePlayer.seekTo(seekBar.getProgress(), true);
         seekBarTouchStarted = false;
     }
 }
