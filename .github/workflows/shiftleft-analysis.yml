@@ -12,12 +12,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+    - name: Setup Java JDK
+      uses: actions/setup-java@v1.3.0
+      with:
+        java-version: 1.11
+    - name: Android build
+      run: |
+        chmod +x gradlew
+        ./gradlew compileDebugSources  
     - name: Perform ShiftLeft Scan
       uses: ShiftLeftSecurity/scan-action@master
       env:
         WORKSPACE: ""
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SCAN_AUTO_BUILD: true
       with:
         output: reports
     - uses: actions/upload-artifact@v1
