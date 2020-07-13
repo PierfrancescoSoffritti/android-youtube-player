@@ -41,8 +41,8 @@ public class ViewPagerActivity extends AppCompatActivity {
         }
 
         @Override
-        public CharSequence getPageTitle (int position) {
-            return "Page " +position;
+        public CharSequence getPageTitle(int position) {
+            return "Page " + position;
         }
     }
 }

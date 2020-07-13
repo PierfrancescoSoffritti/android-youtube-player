@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/HBAndroidProjects-android-youtube-player.iml" filepath="$PROJECT_DIR$/.idea/modules/HBAndroidProjects-android-youtube-player.iml" group="android-youtube-player" />
       <module fileurl="file://$PROJECT_DIR$/android-youtube-player.iml" filepath="$PROJECT_DIR$/android-youtube-player.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/chromecast-sender/android-youtube-player-chromecast-sender.iml" filepath="$PROJECT_DIR$/.idea/modules/chromecast-sender/android-youtube-player-chromecast-sender.iml" group="android-youtube-player/chromecast-sender" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/chromecast-sender-sample-app/android-youtube-player-chromecast-sender-sample-app.iml" filepath="$PROJECT_DIR$/.idea/modules/chromecast-sender-sample-app/android-youtube-player-chromecast-sender-sample-app.iml" group="android-youtube-player/chromecast-sender-sample-app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/android-youtube-player-core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/android-youtube-player-core.iml" group="android-youtube-player/core" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core-sample-app/android-youtube-player-core-sample-app.iml" filepath="$PROJECT_DIR$/.idea/modules/core-sample-app/android-youtube-player-core-sample-app.iml" group="android-youtube-player/core-sample-app" />
       <module fileurl="file://$PROJECT_DIR$/chromecast-sender/chromecast-sender.iml" filepath="$PROJECT_DIR$/chromecast-sender/chromecast-sender.iml" />
       <module fileurl="file://$PROJECT_DIR$/chromecast-sender-sample-app/chromecast-sender-sample-app.iml" filepath="$PROJECT_DIR$/chromecast-sender-sample-app/chromecast-sender-sample-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />

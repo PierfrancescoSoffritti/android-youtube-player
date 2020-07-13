@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <View
         android:id="@+id/panel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/black"
         android:clickable="true"
-        android:focusable="true"
-        android:background="@android:color/black" />
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/text_text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="custom Ui example"
-        android:textSize="20sp"
-        android:textColor="@android:color/white"
-
+        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:text="custom Ui example"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/progressbar"
@@ -29,43 +28,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
 
     <TextView
         android:id="@+id/video_current_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:textColor="@color/ayp_red"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/ayp_red"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/video_duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:textColor="@color/ayp_red"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:textColor="@color/ayp_red"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/play_pause_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Play/Pause"
-
+        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true" />
+        android:text="Play/Pause"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/enter_exit_fullscreen_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter/exit fullscreen"
-
+        android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
+        android:text="Enter/exit fullscreen"
+        android:visibility="gone" />
 
 </RelativeLayout>
