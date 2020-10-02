@@ -2,6 +2,7 @@ package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -58,8 +59,10 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
                     "you should manually initialize the YouTubePlayerView using 'initializeWithWebUi'")
         }
 
-        if(videoId == null && autoPlay)
-            throw IllegalStateException("YouTubePlayerView: videoId is not set but autoPlay is set to true. This combination is not possible.")
+        if(videoId == null && autoPlay) {
+            Log.e("YoutubePlayerView", "", IllegalStateException("videoId is not set but autoPlay is set to true. This combination is not possible."))
+            legacyTubePlayerView.getPlayerUiController().showUi(false)
+        }
 
         if(!useWebUi) {
             legacyTubePlayerView.getPlayerUiController()
