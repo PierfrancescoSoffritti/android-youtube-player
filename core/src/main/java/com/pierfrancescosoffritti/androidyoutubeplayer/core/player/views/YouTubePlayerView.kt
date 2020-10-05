@@ -2,7 +2,6 @@ package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -32,8 +31,8 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
     private val fullScreenHelper = FullScreenHelper(this)
 
     var enableAutomaticInitialization: Boolean
-    var autoPlay: Boolean
-    val videoId: String?
+    private val autoPlay: Boolean
+    private val videoId: String?
 
     init {
         addView(legacyTubePlayerView, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
