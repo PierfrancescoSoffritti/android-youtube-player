@@ -45,7 +45,7 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
         val handleNetworkEvents = typedArray.getBoolean(R.styleable.YouTubePlayerView_handleNetworkEvents, true)
         videoId = typedArray.getString(R.styleable.YouTubePlayerView_videoId)
 
-        val useWebUi = typedArray.getBoolean(R.styleable.YouTubePlayerView_useWebUi, false)
+        val useNativeUi = typedArray.getBoolean(R.styleable.YouTubePlayerView_useNativeUi, false)
         val enableLiveVideoUi = typedArray.getBoolean(R.styleable.YouTubePlayerView_enableLiveVideoUi, false)
         val showYouTubeButton = typedArray.getBoolean(R.styleable.YouTubePlayerView_showYouTubeButton, true)
         val showFullScreenButton = typedArray.getBoolean(R.styleable.YouTubePlayerView_showFullScreenButton, true)
@@ -55,20 +55,10 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
 
         typedArray.recycle()
 
-        if(!enableAutomaticInitialization && useWebUi) {
-            throw IllegalStateException("YouTubePlayerView: 'enableAutomaticInitialization' is false and 'useWebUi' is set to true. " +
-                    "This is not possible, if you want to manually initialize YouTubePlayerView and use the web ui, " +
-                    "you should manually initialize the YouTubePlayerView using 'initializeWithWebUi'")
-        }
-
-        if(!useWebUi) {
-            legacyTubePlayerView.getPlayerUiController()
-                    .enableLiveVideoUi(enableLiveVideoUi)
-                    .showYouTubeButton(showYouTubeButton)
-                    .showFullscreenButton(showFullScreenButton)
-                    .showCurrentTime(showVideoCurrentTime)
-                    .showDuration(showVideoDuration)
-                    .showSeekBar(showSeekBar)
+        if(!enableAutomaticInitialization && useNativeUi) {
+            throw IllegalStateException("YouTubePlayerView: 'enableAutomaticInitialization' is false and 'useNativeUi' is set to false. " +
+                    "This is not possible, if you want to manually initialize YouTubePlayerView and use the native ui, " +
+                    "you should manually initialize the YouTubePlayerView using 'initializeWithNativeUi'")
         }
 
         val youTubePlayerListener = object : AbstractYouTubePlayerListener() {
@@ -82,10 +72,19 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
         }
 
         if(enableAutomaticInitialization) {
-            if(useWebUi) legacyTubePlayerView.initializeWithWebUi(youTubePlayerListener, handleNetworkEvents)
+            if(useNativeUi) legacyTubePlayerView.initializeWithNativeUi(youTubePlayerListener, handleNetworkEvents)
             else legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents)
         }
 
+        if(useNativeUi) {
+            legacyTubePlayerView.getPlayerUiController()
+                    .enableLiveVideoUi(enableLiveVideoUi)
+                    .showYouTubeButton(showYouTubeButton)
+                    .showFullscreenButton(showFullScreenButton)
+                    .showCurrentTime(showVideoCurrentTime)
+                    .showDuration(showVideoDuration)
+                    .showSeekBar(showSeekBar)
+        }
 
         legacyTubePlayerView.addFullScreenListener(object : YouTubePlayerFullScreenListener {
             override fun onYouTubePlayerEnterFullScreen() {
@@ -141,14 +140,13 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
     }
 
     /**
-     * Initialize a player using the web-base Ui instead pf the native Ui.
-     * The default PlayerUiController will be removed and [YouTubePlayerView.getPlayerUiController] will throw exception.
+     * Initialize a player using the native Ui instead of the web-based Ui.
      *
      * @see YouTubePlayerView.initialize
      */
-    fun initializeWithWebUi(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean) {
+    fun initializeWithNativeUi(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean) {
         if(enableAutomaticInitialization) throw IllegalStateException("YouTubePlayerView: If you want to initialize this view manually, you need to set 'enableAutomaticInitialization' to false")
-        else legacyTubePlayerView.initializeWithWebUi(youTubePlayerListener, handleNetworkEvents)
+        else legacyTubePlayerView.initializeWithNativeUi(youTubePlayerListener, handleNetworkEvents)
     }
 
     /**

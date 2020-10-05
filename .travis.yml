@@ -3,6 +3,19 @@ notifications:
  
 language: android
 
+env:
+  global:
+    - EMULATOR_ABI=x86_64
+    - EMULATOR_API=28
+    - EMULATOR_FLAVOR=default # use google_apis flavor if no default flavor emulator
+
+    - ADB_INSTALL_TIMEOUT=8 # minutes (2 minutes by default)
+    
+     # PATH order is incredibly important. e.g. the 'emulator' script exists in more than one place!
+    - ANDROID_HOME=/usr/local/android-sdk
+    - TOOLS=${ANDROID_HOME}/tools
+    - PATH=${ANDROID_HOME}:${ANDROID_HOME}/emulator:${TOOLS}:${TOOLS}/bin:${ANDROID_HOME}/platform-tools:${PATH}
+
 android:
  components:
   - tools
@@ -12,7 +25,32 @@ android:
   - extra-android-support
   - extra-android-m2repository
   - extra-google-m2repository
+
+  # emulator sdk and system image
+  - android-${EMULATOR_API}
+  - sys-img-${EMULATOR_ABI}-android-${EMULATOR_API}
+
+# downloads latest sdk tools, starts the emulator,
+# disables all animations then dismisses all ANR dialogs
+install:
+  # sdk tools are downloaded again, this is needed to get the *latest* emulator and avdmanager
+  # https://github.com/travis-ci/travis-ci/issues/7331#issuecomment-308416405
+  - echo y | sdkmanager "tools"  
+  - echo no | avdmanager create avd --force -n test -k "system-images;android-${EMULATOR_API};${EMULATOR_FLAVOR};${EMULATOR_ABI}" -c 800M
+  - emulator -verbose -avd test -no-accel -delay-adb -memory 2048 -no-boot-anim -skip-adb-auth -no-window -no-snapshot -camera-back none -camera-front none -selinux permissive &
+  
+  - android-wait-for-emulator
+
+  - adb shell settings put global window_animation_scale 0.0
+  - adb shell settings put global transition_animation_scale 0.0
+  - adb shell settings put global animator_duration_scale 0.0
+
+  - chmod +x ./test-tools/dismiss-system-not-responding-dialogs.sh
+  - ./test-tools/dismiss-system-not-responding-dialogs.sh
+
 script:
+ - ./gradlew :core:connectedAndroidTest
  - ./gradlew test
+
 licenses:
  - '.+'

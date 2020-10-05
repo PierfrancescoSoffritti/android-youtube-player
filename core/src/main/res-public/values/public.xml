@@ -6,7 +6,7 @@
     <public name="YouTubePlayerSeekBar_color" type="attr" />
 
     <public name="YouTubePlayerView_enableAutomaticInitialization" type="attr" />
-    <public name="YouTubePlayerView_useWebUi" type="attr" />
+    <public name="YouTubePlayerView_useNativeUi" type="attr" />
     <public name="YouTubePlayerView_enableLiveVideoUi" type="attr" />
     <public name="YouTubePlayerView_videoId" type="attr" />
     <public name="YouTubePlayerView_autoPlay" type="attr" />

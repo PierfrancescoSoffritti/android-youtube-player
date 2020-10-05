@@ -40,7 +40,7 @@ public class CompleteExampleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_basic_example);
+        setContentView(R.layout.activity_complete_example);
 
         youTubePlayerView = findViewById(R.id.youtube_player_view);
 
