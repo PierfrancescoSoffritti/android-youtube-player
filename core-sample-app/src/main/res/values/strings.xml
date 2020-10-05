@@ -11,6 +11,6 @@
     <string name="chromecast_example">Chromecast example</string>
     <string name="fragment_example">Fragment Example</string>
     <string name="iframe_player_options_example">IFrame Player Options Example</string>
-    <string name="web_ui_example">Web UI Example</string>
+    <string name="native_ui_example">Native UI Example</string>
     <string name="no_lifecycle_observer_example">NoLifecycleObserver Example</string>
 </resources>

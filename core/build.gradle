@@ -16,6 +16,8 @@ android {
         targetSdkVersion versions.compileSdk
         versionCode versions.publishVersionCode_core
         versionName versions.publishVersion_core
+        
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     sourceSets {
@@ -30,6 +32,9 @@ dependencies {
     testImplementation "junit:junit:$versions.junit"
     androidTestImplementation "androidx.test:runner:$versions.runner"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
+    androidTestImplementation "androidx.test:rules:$versions.rules"
+    androidTestImplementation "org.mockito:mockito-core:$versions.mockito"
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$versions.dexmaker"
 
     api "androidx.annotation:annotation:$versions.androidxAnnotations"
     api "androidx.lifecycle:lifecycle-runtime:$versions.androidxLifecycleRuntime"
