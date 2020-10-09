@@ -136,6 +136,11 @@
             player.mute();
         }
 
+        function setPlaybackRate(suggestedRate) {
+            player.setPlaybackRate(suggestedRate);
+            YouTubePlayerBridge.setPlaybackRate(videoId);
+        }
+
         function unMute() {
             player.unMute();
         }

@@ -84,6 +84,10 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
         return Collections.unmodifiableCollection(HashSet(youTubePlayerListeners))
     }
 
+    override fun setPlaybackRate(suggestedRate: Float) {
+        mainThreadHandler.post { loadUrl("javascript:setPlaybackRate($suggestedRate)") }
+    }
+
     override fun addListener(listener: YouTubePlayerListener): Boolean {
         return youTubePlayerListeners.add(listener)
     }

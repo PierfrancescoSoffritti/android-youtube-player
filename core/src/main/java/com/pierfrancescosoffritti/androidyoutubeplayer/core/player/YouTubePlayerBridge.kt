@@ -33,12 +33,6 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
         private const val QUALITY_HIGH_RES = "highres"
         private const val QUALITY_DEFAULT = "default"
 
-        private const val RATE_0_25 = "0.25"
-        private const val RATE_0_5 = "0.5"
-        private const val RATE_1 = "1"
-        private const val RATE_1_5 = "1.5"
-        private const val RATE_2 = "2"
-
         private const val ERROR_INVALID_PARAMETER_IN_REQUEST = "2"
         private const val ERROR_HTML_5_PLAYER = "5"
         private const val ERROR_VIDEO_NOT_FOUND = "100"
@@ -88,7 +82,13 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
 
     @JavascriptInterface
     fun sendPlaybackRateChange(rate: String) {
-        val playbackRate = parsePlaybackRate(rate)
+        val playbackRate: Float
+        try {
+            playbackRate = rate.toFloat()
+        } catch (e: NumberFormatException) {
+            e.printStackTrace()
+            return
+        }
 
         mainThreadHandler.post {
             for (listener in youTubePlayerOwner.getListeners())
@@ -194,17 +194,6 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
             quality.equals(QUALITY_HIGH_RES, ignoreCase = true) -> PlayerConstants.PlaybackQuality.HIGH_RES
             quality.equals(QUALITY_DEFAULT, ignoreCase = true) -> PlayerConstants.PlaybackQuality.DEFAULT
             else -> PlayerConstants.PlaybackQuality.UNKNOWN
-        }
-    }
-
-    private fun parsePlaybackRate(rate: String): PlayerConstants.PlaybackRate {
-        return when {
-            rate.equals(RATE_0_25, ignoreCase = true) -> PlayerConstants.PlaybackRate.RATE_0_25
-            rate.equals(RATE_0_5, ignoreCase = true) -> PlayerConstants.PlaybackRate.RATE_0_5
-            rate.equals(RATE_1, ignoreCase = true) -> PlayerConstants.PlaybackRate.RATE_1
-            rate.equals(RATE_1_5, ignoreCase = true) -> PlayerConstants.PlaybackRate.RATE_1_5
-            rate.equals(RATE_2, ignoreCase = true) -> PlayerConstants.PlaybackRate.RATE_2
-            else -> PlayerConstants.PlaybackRate.UNKNOWN
         }
     }
 
