@@ -112,7 +112,7 @@ Also remember when publishing your app on the PlayStore to write title and descr
 :memo: Both the **core module** and the **chromecast module** have a sample app, to provide examples of usage of the libraries.
 
 * [Go to source code of **core** sample app](./core-sample-app/).
-* [Go to soruce code of **chromecast-sender** sample app](./chromecast-sender-sample-app).
+* [Go to source code of **chromecast-sender** sample app](./chromecast-sender-sample-app).
 
 :calling: You can also download and install the apks of both sample apps.
 
@@ -245,7 +245,7 @@ This attribute expects a `String`, which is the id of a YouTube video.
 
 **If not set**, the player won't automatically play.
 
-In general you should use this attribute if you want your player to play only one video. This is not a rule, just best practice. In fact, even if you set the attribute it is still possible to play other videos programatically.
+In general you should use this attribute if you want your player to play only one video. This is not a rule, just best practice. In fact, even if you set the attribute it is still possible to play other videos programmatically.
 
 #### autoPlay
 This attribute expects a `boolean`. Its default value is `false`.
@@ -851,7 +851,7 @@ PlayerUiController.setMenuButtonClickListener(@NonNull View.OnClickListener cust
 
 By default the menu icon is not visible. 
 
-The default `OnClickListener` opens the menu when the menu icon is clicked. You can change this behaviour, for example to open a menu with a different UX, like a bottom sheet panel. Obviously if you want a UX different from the one provided by the library, you are responsible for creating your own components.
+The default `OnClickListener` opens the menu when the menu icon is clicked. You can change this behavior, for example to open a menu with a different UX, like a bottom sheet panel. Obviously if you want a UX different from the one provided by the library, you are responsible for creating your own components.
 
 *Menu screenshot:*
 
@@ -974,7 +974,7 @@ public final class CastOptionsProvider implements com.google.android.gms.cast.fr
 ```
 You can read how to get a `receiverId` [here](#registration).
 
-Add the `OptionsProvider` to your `manifest.xml`file.
+Add the `OptionsProvider` to your `manifest.xml` file.
 
 *(`OPTIONS_PROVIDER_CLASS_NAME` is meant to be like that, change only the `android:value` attribute)*
 ```xml
@@ -1082,7 +1082,7 @@ You can call `loadVideo`, `cueVideo`, `pause`, `play` etc.. on the `YouTubePlaye
 
 For how to use the `YouTubePlayer` object and `YouTubePlayerListener`, you can refer to the documentation for the *core* library, [YouTubePlayer](#youtubeplayer).
 
-This example can be found [in the chromecast-sender sample app](./chromecast-sender-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/chromecast/sampleapp/examples/basicExample/BasicExampleActivity.kt), written in Kotlin and in the [core sample app](./core-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/sampleapp/examples/chromecastExample/), wirtten in Java.
+This example can be found [in the chromecast-sender sample app](./chromecast-sender-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/chromecast/sampleapp/examples/basicExample/BasicExampleActivity.kt), written in Kotlin and in the [core sample app](./core-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/sampleapp/examples/chromecastExample/), written in Java.
 
 *Screenshot of the CastButton added to the YouTubePlayerView:*
 
@@ -1095,7 +1095,7 @@ You don't need to change anything here, it just works.
 Take this code and upload it (as it is) on your server. (Read the [hosting paragraph](#hosting-the-chromecast-receiver) to learn more about hosting).
 
 ### Registration
-In order to use your receiver you need a receiverId. This is the ID of your receiver app. To get a receiver ID you need to register your receiver on the Google Cast SDK developer console, you can learn how to do it by reading the [official documentation](https://developers.google.com/cast/docs/registration). Rember to register a **Custom Receiver**, this is the type of receiver you need for this library.
+In order to use your receiver you need a receiverId. This is the ID of your receiver app. To get a receiver ID you need to register your receiver on the Google Cast SDK developer console, you can learn how to do it by reading the [official documentation](https://developers.google.com/cast/docs/registration). Remember to register a **Custom Receiver**, this is the type of receiver you need for this library.
 
 ### Hosting the chromecast-receiver
 You will be required to host your receiver somewhere, host it where you prefer. Firebase free hosting may be a good option, for development.
