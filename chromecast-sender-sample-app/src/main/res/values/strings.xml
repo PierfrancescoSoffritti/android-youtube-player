@@ -1,8 +1,0 @@
-<resources>
-    <string name="app_name">cyp API</string>
-
-    <string name="basic_example">Basic example</string>
-    <string name="player_controls_example">Player Controls example</string>
-    <string name="notification_example">Notification example</string>
-    <string name="local_player_example">Local Player example</string>
-</resources>
