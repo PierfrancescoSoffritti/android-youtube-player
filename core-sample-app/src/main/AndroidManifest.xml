@@ -53,6 +53,13 @@
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/player_status_example" />
+
+        <activity
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.playlist.PlaylistActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:hardwareAccelerated="true"
+            android:label="@string/playlist_example" />
+
         <activity
             android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.pictureInPictureExample.PictureInPictureActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"

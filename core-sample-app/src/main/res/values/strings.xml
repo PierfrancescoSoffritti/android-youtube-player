@@ -7,6 +7,7 @@
     <string name="view_pager_example">ViewPager example</string>
     <string name="live_video_example">Live video example</string>
     <string name="player_status_example">Player state example</string>
+    <string name="playlist_example">Playlist example</string>
     <string name="picture_in_picture_example">PictureInPicture example</string>
     <string name="chromecast_example">Chromecast example</string>
     <string name="fragment_example">Fragment Example</string>

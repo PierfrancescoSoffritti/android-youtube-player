@@ -12,6 +12,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.l
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.noLifecycleObserverExample.NoLifecycleObserverExampleActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.pictureInPictureExample.PictureInPictureActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.playerStateExample.PlayerStateActivity;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.playlist.PlaylistActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.recyclerViewExample.RecyclerViewActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.simpleExample.SimpleExampleActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.viewPagerExample.ViewPagerActivity;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 new ExampleActivityDetails(R.string.fragment_example,null, FragmentExampleActivity.class),
                 new ExampleActivityDetails(R.string.live_video_example,null, LiveVideoActivity.class),
                 new ExampleActivityDetails(R.string.player_status_example,null, PlayerStateActivity.class),
+                new ExampleActivityDetails(R.string.playlist_example,null, PlaylistActivity.class),
                 new ExampleActivityDetails(R.string.picture_in_picture_example,null, PictureInPictureActivity.class),
                 new ExampleActivityDetails(R.string.chromecast_example,null, ChromeCastExampleActivity.class),
                 new ExampleActivityDetails(R.string.iframe_player_options_example,null, IFramePlayerOptionsExampleActivity.class),
