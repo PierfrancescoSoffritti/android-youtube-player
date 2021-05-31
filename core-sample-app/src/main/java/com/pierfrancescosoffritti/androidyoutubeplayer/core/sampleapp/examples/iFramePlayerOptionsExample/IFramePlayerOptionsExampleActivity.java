@@ -59,11 +59,13 @@ public class IFramePlayerOptionsExampleActivity extends AppCompatActivity {
     private void setPlayNextVideoButtonClickListener(final YouTubePlayer youTubePlayer) {
         Button playNextVideoButton = findViewById(R.id.next_video_button);
 
-        playNextVideoButton.setOnClickListener(view ->
+        playNextVideoButton.setOnClickListener(view ->{
+                VideoIdsProvider.incrementIndex();
                 YouTubePlayerUtils.loadOrCueVideo(
                         youTubePlayer, getLifecycle(),
                         VideoIdsProvider.getNextVideoId(),0f
-                )
+                );
+            }
         );
     }
 }

@@ -54,11 +54,14 @@ public class FragmentExampleFragment extends Fragment {
     }
 
     private void setPlayNextVideoButtonClickListener(final YouTubePlayer youTubePlayer) {
-        playNextVideoButton.setOnClickListener(view ->
+        playNextVideoButton.setOnClickListener(view ->{
+            VideoIdsProvider.incrementIndex();
             YouTubePlayerUtils.loadOrCueVideo(
                     youTubePlayer, getLifecycle(),
                     VideoIdsProvider.getNextVideoId(),0f
-            )
+            );
+        }
+
         );
     }
 }
