@@ -20,10 +20,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LifecycleObserver;
-import androidx.palette.graphics.Palette;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class NotificationManager extends AbstractYouTubePlayerListener implements LifecycleObserver {
 
@@ -104,22 +100,7 @@ public class NotificationManager extends AbstractYouTubePlayerListener implement
     @SuppressLint("CheckResult")
     @Override
     public void onVideoId(@NonNull YouTubePlayer youTubePlayer, @NonNull String videoId) {
-        Single<VideoInfo> observable = YouTubeDataEndpoint.getVideoInfoFromYouTubeDataAPIs(videoId);
-
-        observable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        videoInfo -> {
-                            notificationBuilder.setContentTitle(videoInfo.getVideoTitle());
-                            notificationBuilder.setContentText(videoInfo.getChannelTitle());
-                            notificationBuilder.setLargeIcon(videoInfo.getThumbnail());
-
-                            int color = Palette.from(videoInfo.getThumbnail()).generate().getDominantColor(ContextCompat.getColor(context, android.R.color.black));
-                            notificationBuilder.setColor(color);
-                            showNotification();
-                        },
-                        error -> Log.e(getClass().getSimpleName(), "Can't retrieve video title, are you connected to the internet?")
-                );
+        notificationBuilder.setContentTitle(videoId);
+        showNotification();
     }
 }

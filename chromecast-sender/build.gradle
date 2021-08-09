@@ -5,11 +5,9 @@ apply from: '../dependencies.gradle'
 ext.shard = 'chromecast-sender'
 ext.libVersion = versions.publishVersion_chromecast
 ext.libDescription = 'Extension for the android-youtube-player:core library, that enables Chromecast compatibility.'
-apply from: '../bintrayconfig.gradle'
 
 android {
     compileSdkVersion versions.compileSdk
-    buildToolsVersion versions.buildTools
 
     defaultConfig {
         minSdkVersion versions.minSdk

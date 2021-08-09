@@ -9,17 +9,11 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
 import androidx.media.app.NotificationCompat.MediaStyle
-import androidx.palette.graphics.Palette
-import android.util.Log
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.cyplayersample.R
-import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.utils.YouTubeDataEndpoint
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 
 class NotificationManager(private val context: Context, private val notificationHostActivity: Class<*>) : AbstractYouTubePlayerListener() {
@@ -80,26 +74,5 @@ class NotificationManager(private val context: Context, private val notification
         }
 
         showNotification()
-    }
-
-    override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) {
-        val observable = YouTubeDataEndpoint.getVideoInfoFromYouTubeDataAPIs(videoId)
-
-        observable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {
-                            notificationBuilder.setContentTitle(it.videoTitle)
-                            notificationBuilder.setContentText(it.channelTitle)
-                            notificationBuilder.setLargeIcon(it?.thumbnail)
-
-                            val color = Palette.from(it?.thumbnail!!).generate().getDominantColor(ContextCompat.getColor(context, android.R.color.black))
-                            notificationBuilder.color = color
-
-                            showNotification()
-                        },
-                        { Log.e(javaClass.simpleName, "Can't retrieve video title, are you connected to the internet?") }
-                )
     }
 }

@@ -5,7 +5,6 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -25,9 +24,6 @@ import com.pierfrancescosoffritti.aytplayersample.R;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class CompleteExampleActivity extends AppCompatActivity {
 
@@ -166,19 +162,11 @@ public class CompleteExampleActivity extends AppCompatActivity {
      * https://developers.google.com/apis-explorer/#p/youtube/v3/youtube.videos.list?part=snippet&id=6JYIGclVQdw&fields=items(snippet(title))&_h=9&
      *
      * This method does network operations, therefore it cannot be executed on the main thread.
-     * For simplicity I have used RxJava to implement the asynchronous logic. You can use whatever you want: Threads, AsyncTask ecc.
+     * It's up to you to make sure that it does not run on the UI thread, you can use whatever you want: Threads, AsyncTask, Coroutines, RxJava etc.
      */
     @SuppressLint("CheckResult")
     private void setVideoTitle(PlayerUiController playerUiController, String videoId) {
-
-        Single<VideoInfo> observable = YouTubeDataEndpoint.getVideoInfoFromYouTubeDataAPIs(videoId);
-
-        observable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        videoInfo -> playerUiController.setVideoTitle(videoInfo.getVideoTitle()),
-                        error -> { Log.e(getClass().getSimpleName(), "Can't retrieve video title, are you connected to the internet?"); }
-                );
+        VideoInfo videoInfo = YouTubeDataEndpoint.getVideoInfoFromYouTubeDataAPIs(videoId);
+        playerUiController.setVideoTitle(videoInfo.getVideoTitle());
     }
 }
