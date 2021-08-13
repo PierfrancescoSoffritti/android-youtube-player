@@ -100,6 +100,15 @@ class ChromecastYouTubePlayer internal constructor(private val chromecastCommuni
         chromecastCommunicationChannel.sendMessage(message)
     }
 
+    override fun setPlaybackRate(suggestedRate: Float) {
+        val message = JSONUtils.buildFlatJson(
+                "command" to ChromecastCommunicationConstants.SET_PLAYBACK_RATE,
+                "suggestedRate" to suggestedRate.toString()
+        )
+
+        chromecastCommunicationChannel.sendMessage(message)
+    }
+
     override fun addListener(listener: YouTubePlayerListener): Boolean = youTubePlayerListeners.add(listener)
     override fun removeListener(listener: YouTubePlayerListener): Boolean = youTubePlayerListeners.remove(listener)
     override fun getListeners(): MutableCollection<YouTubePlayerListener> = youTubePlayerListeners

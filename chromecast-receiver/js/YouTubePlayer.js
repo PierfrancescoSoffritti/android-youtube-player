@@ -95,7 +95,7 @@ function YouTubePlayer(communicationConstants, communicationChannel) {
     }
 
     // JAVA to WEB functions
-    function seekTo(startSeconds) {        	
+    function seekTo(startSeconds) {
         player.seekTo(startSeconds, true)
     }
 
@@ -133,11 +133,15 @@ function YouTubePlayer(communicationConstants, communicationChannel) {
         player.setVolume(volumePercent)
     }
 
+    function setPlaybackRate(suggestedRate) {
+        player.setPlaybackRate(suggestedRate)
+    }
+
     function getActions() {
         return actions
     }
 
-    const actions = { seekTo, pauseVideo, playVideo, loadVideo, cueVideo, mute, unMute, setVolume }
+    const actions = { seekTo, pauseVideo, playVideo, loadVideo, cueVideo, mute, unMute, setVolume, setPlaybackRate }
     
     return {
         initialize,
