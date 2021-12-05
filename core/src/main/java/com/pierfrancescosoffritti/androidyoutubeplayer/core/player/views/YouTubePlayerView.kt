@@ -156,6 +156,12 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
 
     fun isFullScreen() = fullScreenHelper.isFullScreen
 
+    /**
+     * Adds a [YouTubePlayerFullScreenListener] to the view.
+     *
+     * [YouTubePlayerFullScreenListener.onYouTubePlayerEnterFullScreen] and [YouTubePlayerFullScreenListener.onYouTubePlayerExitFullScreen]
+     * are called when [YouTubePlayerView.enterFullScreen] and [YouTubePlayerView.exitFullScreen] are called.
+     */
     fun addFullScreenListener(fullScreenListener: YouTubePlayerFullScreenListener) = fullScreenHelper.addFullScreenListener(fullScreenListener)
 
     fun removeFullScreenListener(fullScreenListener: YouTubePlayerFullScreenListener) = fullScreenHelper.removeFullScreenListener(fullScreenListener)

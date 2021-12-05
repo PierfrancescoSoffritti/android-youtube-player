@@ -1,5 +1,6 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.noLifecycleObserverExample;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
@@ -41,5 +42,18 @@ public class NoLifecycleObserverExampleActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         youTubePlayerView.release();
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            youTubePlayerView.enterFullScreen();
+        }
+        else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            youTubePlayerView.exitFullScreen();
+        }
     }
 }

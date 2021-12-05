@@ -70,10 +70,8 @@ public class PictureInPictureActivity extends AppCompatActivity {
 
         if(isInPictureInPictureMode) {
             youTubePlayerView.enterFullScreen();
-//            youTubePlayerView.getPlayerUiController().showUi(false);
         } else {
             youTubePlayerView.exitFullScreen();
-//            youTubePlayerView.getPlayerUiController().showUi(true);
         }
     }
 }

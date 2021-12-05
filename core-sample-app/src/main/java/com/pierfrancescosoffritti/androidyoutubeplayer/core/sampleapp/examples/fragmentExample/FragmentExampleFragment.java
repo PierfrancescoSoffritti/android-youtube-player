@@ -1,5 +1,6 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.fragmentExample;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,19 @@ public class FragmentExampleFragment extends Fragment {
         initYouTubePlayerView();
 
         return view;
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            youTubePlayerView.enterFullScreen();
+        }
+        else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            youTubePlayerView.exitFullScreen();
+        }
     }
 
     private void initYouTubePlayerView() {

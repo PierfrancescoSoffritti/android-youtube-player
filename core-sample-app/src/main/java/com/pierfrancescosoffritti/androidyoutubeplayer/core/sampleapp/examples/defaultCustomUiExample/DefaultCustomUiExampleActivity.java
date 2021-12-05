@@ -1,5 +1,6 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.defaultCustomUiExample;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -56,6 +57,19 @@ public class DefaultCustomUiExampleActivity extends AppCompatActivity {
         IFramePlayerOptions options = new IFramePlayerOptions.Builder().controls(0).build();
 
         youTubePlayerView.initialize(listener, options);
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            youTubePlayerView.enterFullScreen();
+        }
+        else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            youTubePlayerView.exitFullScreen();
+        }
     }
 
     /**

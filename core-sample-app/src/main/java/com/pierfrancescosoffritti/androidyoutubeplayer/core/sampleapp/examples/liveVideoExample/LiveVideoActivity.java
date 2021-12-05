@@ -1,5 +1,6 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.liveVideoExample;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
@@ -14,17 +15,32 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LiveVideoActivity extends AppCompatActivity {
 
+    private YouTubePlayerView youTubePlayerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_live_video);
 
+        youTubePlayerView = findViewById(R.id.youtube_player_view);
+
         initYouTubePlayerView();
     }
 
-    private void initYouTubePlayerView() {
-        YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
 
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            youTubePlayerView.enterFullScreen();
+        }
+        else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            youTubePlayerView.exitFullScreen();
+        }
+    }
+
+    private void initYouTubePlayerView() {
         getLifecycle().addObserver(youTubePlayerView);
 
         youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
