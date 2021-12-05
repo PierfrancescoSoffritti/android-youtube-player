@@ -4,6 +4,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
@@ -34,7 +35,7 @@ public class PictureInPictureActivity extends AppCompatActivity {
         youTubePlayerView = findViewById(R.id.youtube_player_view);
 
         getLifecycle().addObserver(youTubePlayerView);
-        initPictureInPicture(youTubePlayerView);
+        initPictureInPicture();
 
         youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
             @Override
@@ -47,11 +48,9 @@ public class PictureInPictureActivity extends AppCompatActivity {
         });
     }
 
-    private void initPictureInPicture(YouTubePlayerView youTubePlayerView) {
-        ImageView pictureInPictureIcon = new ImageView(this);
-        pictureInPictureIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_picture_in_picture_24dp));
-
-        pictureInPictureIcon.setOnClickListener( view -> {
+    private void initPictureInPicture() {
+        Button enterPipMode = findViewById(R.id.enter_pip);
+        enterPipMode.setOnClickListener( view -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 boolean supportsPIP = getPackageManager().hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE);
                 if(supportsPIP)
@@ -63,8 +62,6 @@ public class PictureInPictureActivity extends AppCompatActivity {
                         .show();
             }
         });
-
-        youTubePlayerView.getPlayerUiController().addView(pictureInPictureIcon);
     }
 
     @Override
@@ -73,10 +70,10 @@ public class PictureInPictureActivity extends AppCompatActivity {
 
         if(isInPictureInPictureMode) {
             youTubePlayerView.enterFullScreen();
-            youTubePlayerView.getPlayerUiController().showUi(false);
+//            youTubePlayerView.getPlayerUiController().showUi(false);
         } else {
             youTubePlayerView.exitFullScreen();
-            youTubePlayerView.getPlayerUiController().showUi(true);
+//            youTubePlayerView.getPlayerUiController().showUi(true);
         }
     }
 }

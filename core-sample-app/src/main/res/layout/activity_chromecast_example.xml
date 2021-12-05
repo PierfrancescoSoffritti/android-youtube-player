@@ -13,6 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <LinearLayout
+        android:id="@+id/media_route_button_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/chromecast_controls_root"
         android:layout_width="match_parent"

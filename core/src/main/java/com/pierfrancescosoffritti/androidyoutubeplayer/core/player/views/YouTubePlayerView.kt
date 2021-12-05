@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
@@ -20,7 +19,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.FullScr
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.PlayerUiController
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
 
-
 class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0):
         SixteenByNineFrameLayout(context, attrs, defStyleAttr), LifecycleObserver {
 
@@ -30,10 +28,10 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
     private val legacyTubePlayerView: LegacyYouTubePlayerView = LegacyYouTubePlayerView(context)
     private val fullScreenHelper = FullScreenHelper(this)
 
-    var enableAutomaticInitialization: Boolean
+    private var enableAutomaticInitialization: Boolean
 
     init {
-        addView(legacyTubePlayerView, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+        addView(legacyTubePlayerView, LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
 
         val typedArray = context.theme.obtainStyledAttributes(attrs, R.styleable.YouTubePlayerView, 0, 0)
 
@@ -42,33 +40,10 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
         val handleNetworkEvents = typedArray.getBoolean(R.styleable.YouTubePlayerView_handleNetworkEvents, true)
         val videoId = typedArray.getString(R.styleable.YouTubePlayerView_videoId)
 
-        val useWebUi = typedArray.getBoolean(R.styleable.YouTubePlayerView_useWebUi, false)
-        val enableLiveVideoUi = typedArray.getBoolean(R.styleable.YouTubePlayerView_enableLiveVideoUi, false)
-        val showYouTubeButton = typedArray.getBoolean(R.styleable.YouTubePlayerView_showYouTubeButton, true)
-        val showFullScreenButton = typedArray.getBoolean(R.styleable.YouTubePlayerView_showFullScreenButton, true)
-        val showVideoCurrentTime = typedArray.getBoolean(R.styleable.YouTubePlayerView_showVideoCurrentTime, true)
-        val showVideoDuration = typedArray.getBoolean(R.styleable.YouTubePlayerView_showVideoDuration, true)
-        val showSeekBar = typedArray.getBoolean(R.styleable.YouTubePlayerView_showSeekBar, true)
-
         typedArray.recycle()
 
-        if(!enableAutomaticInitialization && useWebUi) {
-            throw IllegalStateException("YouTubePlayerView: 'enableAutomaticInitialization' is false and 'useWebUi' is set to true. " +
-                    "This is not possible, if you want to manually initialize YouTubePlayerView and use the web ui, " +
-                    "you should manually initialize the YouTubePlayerView using 'initializeWithWebUi'")
-        }
-
-        if(videoId == null && autoPlay)
-            throw IllegalStateException("YouTubePlayerView: videoId is not set but autoPlay is set to true. This combination is not possible.")
-
-        if(!useWebUi) {
-            legacyTubePlayerView.getPlayerUiController()
-                    .enableLiveVideoUi(enableLiveVideoUi)
-                    .showYouTubeButton(showYouTubeButton)
-                    .showFullscreenButton(showFullScreenButton)
-                    .showCurrentTime(showVideoCurrentTime)
-                    .showDuration(showVideoDuration)
-                    .showSeekBar(showSeekBar)
+        if(autoPlay && videoId == null) {
+            throw IllegalStateException("YouTubePlayerView: videoId is not set but autoPlay is set to true. This combination is not allowed.")
         }
 
         val youTubePlayerListener = object : AbstractYouTubePlayerListener() {
@@ -82,20 +57,8 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
         }
 
         if(enableAutomaticInitialization) {
-            if(useWebUi) legacyTubePlayerView.initializeWithWebUi(youTubePlayerListener, handleNetworkEvents)
-            else legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents)
+            legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, IFramePlayerOptions.default)
         }
-
-
-        legacyTubePlayerView.addFullScreenListener(object : YouTubePlayerFullScreenListener {
-            override fun onYouTubePlayerEnterFullScreen() {
-                fullScreenHelper.enterFullScreen()
-            }
-
-            override fun onYouTubePlayerExitFullScreen() {
-                fullScreenHelper.exitFullScreen()
-            }
-        })
     }
 
     /**
@@ -103,9 +66,9 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
      * @param youTubePlayerListener listener for player events
      * @param handleNetworkEvents if set to true a broadcast receiver will be registered and network events will be handled automatically.
      * If set to false, you should handle network events with your own broadcast receiver.
-     * @param playerOptions customizable options for the embedded video player, can be null.
+     * @param playerOptions customizable options for the embedded video player.
      */
-    fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean, playerOptions: IFramePlayerOptions?) {
+    fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean, playerOptions: IFramePlayerOptions) {
         if (enableAutomaticInitialization) throw IllegalStateException("YouTubePlayerView: If you want to initialize this view manually, you need to set 'enableAutomaticInitialization' to false")
         else legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, playerOptions)
     }
@@ -119,7 +82,17 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
      */
     fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean) {
         if(enableAutomaticInitialization) throw IllegalStateException("YouTubePlayerView: If you want to initialize this view manually, you need to set 'enableAutomaticInitialization' to false")
-        else legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, null)
+        else legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, IFramePlayerOptions.default)
+    }
+
+    /**
+     * Initialize the player with player options.
+     *
+     * @see YouTubePlayerView.initialize
+     */
+    fun initialize(youTubePlayerListener: YouTubePlayerListener, playerOptions: IFramePlayerOptions) {
+        if(enableAutomaticInitialization) throw IllegalStateException("YouTubePlayerView: If you want to initialize this view manually, you need to set 'enableAutomaticInitialization' to false")
+        else legacyTubePlayerView.initialize(youTubePlayerListener, true, playerOptions)
     }
 
     /**
@@ -134,35 +107,25 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
     }
 
     /**
-     * Initialize a player using the web-base Ui instead pf the native Ui.
-     * The default PlayerUiController will be removed and [YouTubePlayerView.getPlayerUiController] will throw exception.
-     *
-     * @see YouTubePlayerView.initialize
-     */
-    fun initializeWithWebUi(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean) {
-        if(enableAutomaticInitialization) throw IllegalStateException("YouTubePlayerView: If you want to initialize this view manually, you need to set 'enableAutomaticInitialization' to false")
-        else legacyTubePlayerView.initializeWithWebUi(youTubePlayerListener, handleNetworkEvents)
-    }
-
-    /**
      * @param youTubePlayerCallback A callback that will be called when the YouTubePlayer is ready.
-     * If the player is ready when the function is called, the callback is called immediately.
+     * If the player is ready when the function is called, the callback will return immediately.
      * This function is called only once.
      */
-    fun getYouTubePlayerWhenReady(youTubePlayerCallback: YouTubePlayerCallback) =
-        legacyTubePlayerView.getYouTubePlayerWhenReady(youTubePlayerCallback)
+    fun getYouTubePlayerWhenReady(youTubePlayerCallback: YouTubePlayerCallback) = legacyTubePlayerView.getYouTubePlayerWhenReady(youTubePlayerCallback)
 
     /**
-     * Use this method to replace the default Ui of the player with a custom Ui.
+     * Use this method to add your own custom UI to the player.
      *
-     * You will be responsible to manage the custom Ui from your application,
-     * the default controller obtained through [YouTubePlayerView.getPlayerUiController] won't be available anymore.
+     * You will be responsible to manage the custom Ui from your application.
+     *
+     * WARNING: if yoy intend to publish your app on the PlayStore, using a custom UI might break YouTube terms of service.
+     *
      * @param layoutId the ID of the layout defining the custom Ui.
      * @return The inflated View
      */
-    fun inflateCustomPlayerUi(@LayoutRes layoutId: Int): View = legacyTubePlayerView.inflateCustomPlayerUi(layoutId)
+    fun inflateCustomPlayerUi(@LayoutRes layoutId: Int) = legacyTubePlayerView.inflateCustomPlayerUi(layoutId)
 
-    fun getPlayerUiController(): PlayerUiController = legacyTubePlayerView.getPlayerUiController()
+    fun setCustomPlayerUi(view: View) = legacyTubePlayerView.setCustomPlayerUi(view)
 
     /**
      * Don't use this method if you want to publish your app on the PlayStore. Background playback is against YouTube terms of service.
@@ -181,23 +144,19 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     private fun onStop() = legacyTubePlayerView.onStop()
 
-    fun addYouTubePlayerListener(youTubePlayerListener: YouTubePlayerListener) =
-            legacyTubePlayerView.youTubePlayer.addListener(youTubePlayerListener)
+    fun addYouTubePlayerListener(youTubePlayerListener: YouTubePlayerListener) = legacyTubePlayerView.youTubePlayer.addListener(youTubePlayerListener)
 
-    fun removeYouTubePlayerListener(youTubePlayerListener: YouTubePlayerListener) =
-            legacyTubePlayerView.youTubePlayer.removeListener(youTubePlayerListener)
+    fun removeYouTubePlayerListener(youTubePlayerListener: YouTubePlayerListener) = legacyTubePlayerView.youTubePlayer.removeListener(youTubePlayerListener)
 
-    fun enterFullScreen() = legacyTubePlayerView.enterFullScreen()
+    fun enterFullScreen() = fullScreenHelper.enterFullScreen()
 
-    fun exitFullScreen() = legacyTubePlayerView.exitFullScreen()
+    fun exitFullScreen() = fullScreenHelper.exitFullScreen()
 
-    fun toggleFullScreen() = legacyTubePlayerView.toggleFullScreen()
+    fun toggleFullScreen() = fullScreenHelper.toggleFullScreen()
 
-    fun isFullScreen(): Boolean = fullScreenHelper.isFullScreen
+    fun isFullScreen() = fullScreenHelper.isFullScreen
 
-    fun addFullScreenListener(fullScreenListener: YouTubePlayerFullScreenListener): Boolean =
-            fullScreenHelper.addFullScreenListener(fullScreenListener)
+    fun addFullScreenListener(fullScreenListener: YouTubePlayerFullScreenListener) = fullScreenHelper.addFullScreenListener(fullScreenListener)
 
-    fun removeFullScreenListener(fullScreenListener: YouTubePlayerFullScreenListener): Boolean =
-            fullScreenHelper.removeFullScreenListener(fullScreenListener)
+    fun removeFullScreenListener(fullScreenListener: YouTubePlayerFullScreenListener) = fullScreenHelper.removeFullScreenListener(fullScreenListener)
 }

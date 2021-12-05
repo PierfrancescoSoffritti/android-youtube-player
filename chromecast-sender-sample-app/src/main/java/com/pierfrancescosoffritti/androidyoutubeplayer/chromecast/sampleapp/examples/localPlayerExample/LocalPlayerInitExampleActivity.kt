@@ -89,7 +89,7 @@ class LocalPlayerInitExampleActivity : AppCompatActivity(), YouTubePlayersManage
             return
 
         MediaRouteButtonUtils.addMediaRouteButtonToPlayerUi(
-                mediaRouteButton, android.R.color.white,
+                mediaRouteButton, android.R.color.black,
                 null, localPlayerUiMediaRouteButtonContainer
         )
     }
@@ -105,12 +105,11 @@ class LocalPlayerInitExampleActivity : AppCompatActivity(), YouTubePlayersManage
 
         val disabledContainer = if(connected) localPlayerUiMediaRouteButtonContainer else chromecastPlayerUiMediaRouteButtonContainer
         val enabledContainer = if(connected) chromecastPlayerUiMediaRouteButtonContainer else localPlayerUiMediaRouteButtonContainer
-        val mediaRouteButtonColor = if(connected) android.R.color.black else android.R.color.white
 
         // the media route button has a single instance.
         // therefore it has to be moved from the local YouTube player Ui to the chromecast YouTube player Ui, and vice versa.
         MediaRouteButtonUtils.addMediaRouteButtonToPlayerUi(
-                mediaRouteButton, mediaRouteButtonColor,
+                mediaRouteButton, android.R.color.black,
                 disabledContainer, enabledContainer
         )
 
@@ -124,7 +123,7 @@ class LocalPlayerInitExampleActivity : AppCompatActivity(), YouTubePlayersManage
     }
 
     private val localPlayerUiMediaRouteButtonContainer = object: MediaRouteButtonContainer {
-        override fun addMediaRouteButton(mediaRouteButton: MediaRouteButton) { youtube_player_view.getPlayerUiController().addView(mediaRouteButton) }
-        override fun removeMediaRouteButton(mediaRouteButton: MediaRouteButton) { youtube_player_view.getPlayerUiController().removeView(mediaRouteButton) }
+        override fun addMediaRouteButton(mediaRouteButton: MediaRouteButton) { media_route_button_root.addView(mediaRouteButton) }
+        override fun removeMediaRouteButton(mediaRouteButton: MediaRouteButton) { media_route_button_root.removeView(mediaRouteButton) }
     }
 }

@@ -29,11 +29,13 @@ public class MediaRouteButtonUtils {
 
         setMediaRouterButtonTint(mediaRouteButton, tintColor);
 
-        if(disabledContainer != null)
-        disabledContainer.removeMediaRouteButton(mediaRouteButton);
+        if(disabledContainer != null) {
+            disabledContainer.removeMediaRouteButton(mediaRouteButton);
+        }
 
-        if(mediaRouteButton.getParent() != null)
+        if(mediaRouteButton.getParent() != null) {
             return;
+        }
 
         activatedContainer.addMediaRouteButton(mediaRouteButton);
     }

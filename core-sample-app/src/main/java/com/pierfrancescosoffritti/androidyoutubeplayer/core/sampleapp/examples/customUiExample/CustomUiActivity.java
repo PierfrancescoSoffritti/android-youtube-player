@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
@@ -25,7 +27,7 @@ public class CustomUiActivity extends AppCompatActivity {
 
         View customPlayerUi = youTubePlayerView.inflateCustomPlayerUi(R.layout.custom_player_ui);
 
-        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+        YouTubePlayerListener listener = new AbstractYouTubePlayerListener() {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 CustomPlayerUiController customPlayerUiController = new CustomPlayerUiController(CustomUiActivity.this, customPlayerUi, youTubePlayer, youTubePlayerView);
@@ -37,6 +39,11 @@ public class CustomUiActivity extends AppCompatActivity {
                         VideoIdsProvider.getNextVideoId(),0f
                 );
             }
-        });
+        };
+
+        // disable web ui
+        IFramePlayerOptions options = new IFramePlayerOptions.Builder().controls(0).build();
+
+        youTubePlayerView.initialize(listener, options);
     }
 }

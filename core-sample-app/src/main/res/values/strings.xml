@@ -9,8 +9,8 @@
     <string name="player_status_example">Player state example</string>
     <string name="picture_in_picture_example">PictureInPicture example</string>
     <string name="chromecast_example">Chromecast example</string>
-    <string name="fragment_example">Fragment Example</string>
-    <string name="iframe_player_options_example">IFrame Player Options Example</string>
-    <string name="web_ui_example">Web UI Example</string>
-    <string name="no_lifecycle_observer_example">NoLifecycleObserver Example</string>
+    <string name="fragment_example">Fragment example</string>
+    <string name="iframe_player_options_example">IFrame Player Options example</string>
+    <string name="default_custom_ui_example">Default custom UI example</string>
+    <string name="no_lifecycle_observer_example">NoLifecycleObserver example</string>
 </resources>

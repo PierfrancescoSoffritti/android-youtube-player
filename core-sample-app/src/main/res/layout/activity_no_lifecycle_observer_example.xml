@@ -11,7 +11,6 @@
         android:id="@+id/youtube_player_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:enableAutomaticInitialization="false"
-        app:showFullScreenButton="false" />
+        app:enableAutomaticInitialization="false" />
 
 </LinearLayout>

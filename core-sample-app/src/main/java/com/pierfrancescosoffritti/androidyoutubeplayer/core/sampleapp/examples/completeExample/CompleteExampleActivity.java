@@ -46,9 +46,16 @@ public class CompleteExampleActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfiguration) {
-        super.onConfigurationChanged(newConfiguration);
-        youTubePlayerView.getPlayerUiController().getMenu().dismiss();
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        // Checks the orientation of the screen
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            youTubePlayerView.enterFullScreen();
+        }
+        else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            youTubePlayerView.exitFullScreen();
+        }
     }
 
     @Override
@@ -60,8 +67,6 @@ public class CompleteExampleActivity extends AppCompatActivity {
     }
 
     private void initYouTubePlayerView() {
-        initPlayerMenu();
-
         // The player will automatically release itself when the activity is destroyed.
         // The player will automatically pause when the activity is stopped
         // If you don't add YouTubePlayerView as a lifecycle observer, you will have to release it manually.
@@ -77,7 +82,6 @@ public class CompleteExampleActivity extends AppCompatActivity {
                         0f
                 );
 
-                addFullScreenListenerToPlayer();
                 setPlayNextVideoButtonClickListener(youTubePlayer);
                 setPlaybackSpeedButtonsClickListeners(youTubePlayer);
             }
@@ -89,63 +93,6 @@ public class CompleteExampleActivity extends AppCompatActivity {
                 playbackSpeedTextView.setText(playbackSpeed + playbackRate);
             }
         });
-    }
-
-    /**
-     * Shows the menu button in the player and adds an item to it.
-     */
-    private void initPlayerMenu() {
-        youTubePlayerView.getPlayerUiController()
-                .showMenuButton(true)
-                .getMenu()
-                    .addItem(new MenuItem("menu item1", R.drawable.ic_android_black_24dp,
-                                    view -> Toast.makeText(this, "item1 clicked", Toast.LENGTH_SHORT).show())
-                    ).addItem(new MenuItem("menu item2", R.drawable.ic_mood_black_24dp,
-                                    view -> Toast.makeText(this, "item2 clicked", Toast.LENGTH_SHORT).show())
-                    ).addItem(new MenuItem("menu item no icon",
-                                    view -> Toast.makeText(this, "item no icon clicked", Toast.LENGTH_SHORT).show()));
-    }
-
-    private void addFullScreenListenerToPlayer() {
-        youTubePlayerView.addFullScreenListener(new YouTubePlayerFullScreenListener() {
-            @Override
-            public void onYouTubePlayerEnterFullScreen() {
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                fullScreenHelper.enterFullScreen();
-
-                addCustomActionsToPlayer();
-            }
-
-            @Override
-            public void onYouTubePlayerExitFullScreen() {
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                fullScreenHelper.exitFullScreen();
-
-                removeCustomActionsFromPlayer();
-            }
-        });
-    }
-
-    /**
-     * This method adds a new custom action to the player.
-     * Custom actions are shown next to the Play/Pause button in the middle of the player.
-     */
-    private void addCustomActionsToPlayer() {
-        Drawable customAction1Icon = ContextCompat.getDrawable(this, R.drawable.ic_fast_rewind_white_24dp);
-        Drawable customAction2Icon = ContextCompat.getDrawable(this, R.drawable.ic_fast_forward_white_24dp);
-        assert customAction1Icon != null;
-        assert customAction2Icon != null;
-
-        youTubePlayerView.getPlayerUiController().setCustomAction1(customAction1Icon, view ->
-                Toast.makeText(this, "custom action1 clicked", Toast.LENGTH_SHORT).show());
-
-        youTubePlayerView.getPlayerUiController().setCustomAction2(customAction2Icon, view ->
-                Toast.makeText(this, "custom action1 clicked", Toast.LENGTH_SHORT).show());
-    }
-
-    private void removeCustomActionsFromPlayer() {
-        youTubePlayerView.getPlayerUiController().showCustomAction1(false);
-        youTubePlayerView.getPlayerUiController().showCustomAction2(false);
     }
 
     /**

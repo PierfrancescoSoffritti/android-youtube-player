@@ -6,25 +6,23 @@ import android.net.ConnectivityManager
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
-import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.FullScreenHelper
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.PlaybackResumer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.DefaultPlayerUiController
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.PlayerUiController
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.NetworkListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.PlaybackResumer
 
+/**
+ * Legacy internal implementation of YouTubePlayerView. The user facing YouTubePlayerView delegates
+ * most of its actions to this one.
+ */
 internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0):
         SixteenByNineFrameLayout(context, attrs, defStyleAttr), LifecycleObserver {
 
@@ -32,11 +30,9 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
     constructor(context: Context, attrs: AttributeSet? = null): this(context, attrs, 0)
 
     internal val youTubePlayer: WebViewYouTubePlayer = WebViewYouTubePlayer(context)
-    private val defaultPlayerUiController: DefaultPlayerUiController
 
     private val networkListener = NetworkListener()
     private val playbackResumer = PlaybackResumer()
-    private val fullScreenHelper = FullScreenHelper(this)
 
     internal var isYouTubePlayerReady = false
     private var initialize = { }
@@ -49,12 +45,7 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
         private set
 
     init {
-        addView(youTubePlayer, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
-        defaultPlayerUiController = DefaultPlayerUiController(this, youTubePlayer)
-
-        fullScreenHelper.addFullScreenListener(defaultPlayerUiController)
-
-        youTubePlayer.addListener(defaultPlayerUiController)
+        addView(youTubePlayer, LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
         youTubePlayer.addListener(playbackResumer)
 
         // stop playing if the user loads a video but then leaves the app before the video starts playing.
@@ -91,7 +82,7 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
      * If set to false, you should handle network events with your own broadcast receiver.
      * @param playerOptions customizable options for the embedded video player, can be null.
      */
-    fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean, playerOptions: IFramePlayerOptions?) {
+    fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean, playerOptions: IFramePlayerOptions) {
         if(isYouTubePlayerReady)
             throw IllegalStateException("This YouTubePlayerView has already been initialized.")
 
@@ -102,8 +93,9 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
             youTubePlayer.initialize({it.addListener(youTubePlayerListener)}, playerOptions)
         }
 
-        if(!handleNetworkEvents)
+        if(!handleNetworkEvents) {
             initialize()
+        }
     }
 
     /**
@@ -113,8 +105,7 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
      *
      * @see LegacyYouTubePlayerView.initialize
      */
-    fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean) =
-            initialize(youTubePlayerListener, handleNetworkEvents, null)
+    fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean) = initialize(youTubePlayerListener, handleNetworkEvents, IFramePlayerOptions.default)
 
     /**
      * Initialize the player. Network events are automatically handled by the player.
@@ -122,20 +113,7 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
      *
      * @see LegacyYouTubePlayerView.initialize
      */
-    fun initialize(youTubePlayerListener: YouTubePlayerListener) =
-            initialize(youTubePlayerListener, true)
-
-    /**
-     * Initialize a player using the web-base Ui instead pf the native Ui.
-     * The default PlayerUiController will be removed and [LegacyYouTubePlayerView.getPlayerUiController] will throw exception.
-     *
-     * @see LegacyYouTubePlayerView.initialize
-     */
-    fun initializeWithWebUi(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean) {
-        val iFramePlayerOptions = IFramePlayerOptions.Builder().controls(1).build()
-        inflateCustomPlayerUi(R.layout.ayp_empty_layout)
-        initialize(youTubePlayerListener, handleNetworkEvents, iFramePlayerOptions)
-    }
+    fun initialize(youTubePlayerListener: YouTubePlayerListener) = initialize(youTubePlayerListener, true)
 
     /**
      * @param youTubePlayerCallback A callback that will be called when the YouTubePlayer is ready.
@@ -159,15 +137,14 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
      */
     fun inflateCustomPlayerUi(@LayoutRes layoutId: Int): View {
         removeViews(1, childCount - 1)
-
-        if (!isUsingCustomUi) {
-            youTubePlayer.removeListener(defaultPlayerUiController)
-            fullScreenHelper.removeFullScreenListener(defaultPlayerUiController)
-        }
-
         isUsingCustomUi = true
-
         return View.inflate(context, layoutId, this)
+    }
+
+    fun setCustomPlayerUi(view: View) {
+        removeViews(1, childCount - 1)
+        isUsingCustomUi = true
+        addView(view)
     }
 
     /**
@@ -212,25 +189,4 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
     fun enableBackgroundPlayback(enable: Boolean) {
         youTubePlayer.isBackgroundPlaybackEnabled = enable
     }
-
-    fun getPlayerUiController(): PlayerUiController {
-        if (isUsingCustomUi)
-            throw RuntimeException("You have inflated a custom player Ui. You must manage it with your own controller.")
-
-        return defaultPlayerUiController
-    }
-
-    fun enterFullScreen() = fullScreenHelper.enterFullScreen()
-
-    fun exitFullScreen() = fullScreenHelper.exitFullScreen()
-
-    fun toggleFullScreen() = fullScreenHelper.toggleFullScreen()
-
-    fun isFullScreen(): Boolean = fullScreenHelper.isFullScreen
-
-    fun addFullScreenListener(fullScreenListener: YouTubePlayerFullScreenListener): Boolean =
-            fullScreenHelper.addFullScreenListener(fullScreenListener)
-
-    fun removeFullScreenListener(fullScreenListener: YouTubePlayerFullScreenListener): Boolean =
-            fullScreenHelper.removeFullScreenListener(fullScreenListener)
 }

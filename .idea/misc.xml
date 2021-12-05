@@ -9,7 +9,22 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="chromecast-sender-sample-app/src/main/res/layout/activity_basic_example.xml" value="0.34646739130434784" />
+        <entry key="chromecast-sender-sample-app/src/main/res/layout/local_and_cast_player_example.xml" value="0.23177083333333334" />
         <entry key="core-sample-app/src/main/res/layout/activity_basic_example.xml" value="0.34646739130434784" />
+        <entry key="core-sample-app/src/main/res/layout/activity_chromecast_example.xml" value="0.23177083333333334" />
+        <entry key="core-sample-app/src/main/res/layout/activity_custom_ui_example.xml" value="0.34148550724637683" />
+        <entry key="core-sample-app/src/main/res/layout/activity_default_custom_ui_example.xml" value="0.34148550724637683" />
+        <entry key="core-sample-app/src/main/res/layout/activity_live_video.xml" value="0.23177083333333334" />
+        <entry key="core-sample-app/src/main/res/layout/activity_no_lifecycle_observer_example.xml" value="0.23177083333333334" />
+        <entry key="core-sample-app/src/main/res/layout/activity_picture_in_picture_example.xml" value="0.23177083333333334" />
+        <entry key="core-sample-app/src/main/res/layout/activity_player_status_example.xml" value="0.23177083333333334" />
+        <entry key="core-sample-app/src/main/res/layout/activity_simple_example.xml" value="0.23177083333333334" />
+        <entry key="core-sample-app/src/main/res/layout/default_custom_ui_example.xml" value="0.34646739130434784" />
+        <entry key="core-sample-app/src/main/res/layout/empty_layout.xml" value="0.34646739130434784" />
+        <entry key="core-sample-app/src/main/res/layout/fragment_fragment_example.xml" value="0.23177083333333334" />
+        <entry key="core-sample-app/src/main/res/layout/fragment_view_pager.xml" value="0.23177083333333334" />
+        <entry key="core-sample-app/src/main/res/layout/recycler_view_item.xml" value="0.23177083333333334" />
+        <entry key="core-sample-app/src/main/res/layout/web_ui_example.xml" value="0.34646739130434784" />
       </map>
     </option>
   </component>

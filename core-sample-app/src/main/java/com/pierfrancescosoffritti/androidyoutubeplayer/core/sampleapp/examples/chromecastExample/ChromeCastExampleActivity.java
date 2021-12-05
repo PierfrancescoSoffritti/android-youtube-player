@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.google.android.gms.cast.framework.CastContext;
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.ChromecastYouTubePlayerContext;
@@ -35,6 +36,7 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
 
     private YouTubePlayerView youTubePlayerView;
     private View chromeCastControlsRoot;
+    private ViewGroup mediaRouteButtonRoot;
 
     private boolean connectedToChromeCast = false;
 
@@ -44,6 +46,7 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
         setContentView(R.layout.activity_chromecast_example);
 
         youTubePlayerView = findViewById(R.id.youtube_player_view);
+        mediaRouteButtonRoot = findViewById(R.id.media_route_button_root);
         chromeCastControlsRoot = findViewById(R.id.chromecast_controls_root);
 
         getLifecycle().addObserver(youTubePlayerView);
@@ -107,7 +110,7 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
             return;
 
         MediaRouteButtonUtils.addMediaRouteButtonToPlayerUi(
-                mediaRouteButton, android.R.color.white,
+                mediaRouteButton, android.R.color.black,
                 null, localPlayerUiMediaRouteButtonContainer
         );
     }
@@ -122,12 +125,11 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
     private void updateUi(boolean connected) {
         MediaRouteButtonContainer disabledContainer = connected ? localPlayerUiMediaRouteButtonContainer : chromecastPlayerUiMediaRouteButtonContainer;
         MediaRouteButtonContainer enabledContainer = connected ? chromecastPlayerUiMediaRouteButtonContainer : localPlayerUiMediaRouteButtonContainer;
-        int mediaRouteButtonColor = connected ? android.R.color.black : android.R.color.white;
 
         // the media route button has a single instance.
         // therefore it has to be moved from the local YouTube player Ui to the chromecast YouTube player Ui, and vice versa.
         MediaRouteButtonUtils.addMediaRouteButtonToPlayerUi(
-                mediaRouteButton, mediaRouteButtonColor,
+                mediaRouteButton, android.R.color.black,
                 disabledContainer, enabledContainer
         );
 
@@ -141,8 +143,8 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
     };
 
     private MediaRouteButtonContainer localPlayerUiMediaRouteButtonContainer = new MediaRouteButtonContainer() {
-        public void addMediaRouteButton(MediaRouteButton mediaRouteButton) { youTubePlayerView.getPlayerUiController().addView(mediaRouteButton); }
-        public void removeMediaRouteButton(MediaRouteButton mediaRouteButton) { youTubePlayerView.getPlayerUiController().removeView(mediaRouteButton); }
+        public void addMediaRouteButton(MediaRouteButton mediaRouteButton) { mediaRouteButtonRoot.addView(mediaRouteButton); }
+        public void removeMediaRouteButton(MediaRouteButton mediaRouteButton) { mediaRouteButtonRoot.removeView(mediaRouteButton); }
     };
 
     public interface MediaRouteButtonContainer {
