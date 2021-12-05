@@ -6,8 +6,10 @@ import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
@@ -77,6 +79,14 @@ public class CompleteExampleActivity extends AppCompatActivity {
 
                 addFullScreenListenerToPlayer();
                 setPlayNextVideoButtonClickListener(youTubePlayer);
+                setPlaybackSpeedButtonsClickListeners(youTubePlayer);
+            }
+
+            @Override
+            public void onPlaybackRateChange(YouTubePlayer youTubePlayer, PlayerConstants.PlaybackRate playbackRate) {
+                TextView playbackSpeedTextView = findViewById(R.id.playback_speed_text_view);
+                String playbackSpeed = "Playback speed: ";
+                playbackSpeedTextView.setText(playbackSpeed + playbackRate);
             }
         });
     }
@@ -149,6 +159,19 @@ public class CompleteExampleActivity extends AppCompatActivity {
                         youTubePlayer, getLifecycle(),
                         VideoIdsProvider.getNextVideoId(),0f
                 ));
+    }
+
+    /**
+     * Set the click listeners for the "playback speed" buttons
+     */
+    private void setPlaybackSpeedButtonsClickListeners(YouTubePlayer youTubePlayer) {
+        Button playbackSpeed_0_25 = findViewById(R.id.playback_speed_0_25);
+        Button playbackSpeed_1 = findViewById(R.id.playback_speed_1);
+        Button playbackSpeed_2 = findViewById(R.id.playback_speed_2);
+
+        playbackSpeed_0_25.setOnClickListener(view -> youTubePlayer.setPlaybackRate(PlayerConstants.PlaybackRate.RATE_0_25));
+        playbackSpeed_1.setOnClickListener(view -> youTubePlayer.setPlaybackRate(PlayerConstants.PlaybackRate.RATE_1));
+        playbackSpeed_2.setOnClickListener(view -> youTubePlayer.setPlaybackRate(PlayerConstants.PlaybackRate.RATE_2));
     }
 
     /**

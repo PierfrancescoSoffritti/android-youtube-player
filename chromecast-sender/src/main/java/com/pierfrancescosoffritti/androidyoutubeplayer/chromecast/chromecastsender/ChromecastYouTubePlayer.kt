@@ -4,9 +4,11 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsend
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.youtube.ChromecastCommunicationConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.youtube.ChromecastYouTubeMessageDispatcher
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.utils.JSONUtils
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayerBridge
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.toFloat
 
 class ChromecastYouTubePlayer internal constructor(private val chromecastCommunicationChannel: ChromecastCommunicationChannel) : YouTubePlayer, YouTubePlayerBridge.YouTubePlayerBridgeCallbacks {
 
@@ -95,6 +97,15 @@ class ChromecastYouTubePlayer internal constructor(private val chromecastCommuni
         val message = JSONUtils.buildFlatJson(
                 "command" to ChromecastCommunicationConstants.SEEK_TO,
                 "time" to time.toString()
+        )
+
+        chromecastCommunicationChannel.sendMessage(message)
+    }
+
+    override fun setPlaybackRate(playbackRate: PlayerConstants.PlaybackRate) {
+        val message = JSONUtils.buildFlatJson(
+            "command" to ChromecastCommunicationConstants.SET_PLAYBACK_RATE,
+            "playbackRate" to playbackRate.toFloat().toString()
         )
 
         chromecastCommunicationChannel.sendMessage(message)

@@ -18,3 +18,14 @@ class PlayerConstants {
         UNKNOWN, RATE_0_25, RATE_0_5, RATE_1, RATE_1_5, RATE_2
     }
 }
+
+fun PlayerConstants.PlaybackRate.toFloat(): Float {
+    return when (this) {
+        PlayerConstants.PlaybackRate.UNKNOWN -> 1f
+        PlayerConstants.PlaybackRate.RATE_0_25 -> 0.25f
+        PlayerConstants.PlaybackRate.RATE_0_5 -> 0.5f
+        PlayerConstants.PlaybackRate.RATE_1 -> 1f
+        PlayerConstants.PlaybackRate.RATE_1_5 -> 1.5f
+        PlayerConstants.PlaybackRate.RATE_2 -> 2f
+    }
+}

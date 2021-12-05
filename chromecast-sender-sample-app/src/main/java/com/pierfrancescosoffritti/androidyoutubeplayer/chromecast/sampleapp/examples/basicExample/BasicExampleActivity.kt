@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.TextView
 import com.google.android.gms.cast.framework.CastContext
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.ChromecastYouTubePlayerContext
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.infrastructure.ChromecastConnectionListener
@@ -13,6 +16,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.util
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.utils.PlayServicesUtils
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.utils.VideoIdsProvider
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.toFloat
 import kotlinx.android.synthetic.main.activity_basic_example.*
 
 class BasicExampleActivity : AppCompatActivity() {
@@ -60,8 +65,25 @@ class BasicExampleActivity : AppCompatActivity() {
             chromecastYouTubePlayerContext.initialize(object: AbstractYouTubePlayerListener() {
                 override fun onReady(youTubePlayer: YouTubePlayer) {
                     youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f)
+
+                    initPlaybackSpeedButtons(youTubePlayer)
+                }
+
+                override fun onPlaybackRateChange(youTubePlayer: YouTubePlayer, playbackRate: PlayerConstants.PlaybackRate) {
+                    val playbackSpeedTextView = findViewById<TextView>(R.id.playback_speed_text_view)
+                    playbackSpeedTextView.text = "Playback speed: ${playbackRate.toFloat()}"
                 }
             })
         }
+    }
+
+    fun initPlaybackSpeedButtons(youTubePlayer: YouTubePlayer) {
+        val playbackSpeed_0_25 = findViewById<Button>(R.id.playback_speed_0_25)
+        val playbackSpeed_1 = findViewById<Button>(R.id.playback_speed_1)
+        val playbackSpeed_2 = findViewById<Button>(R.id.playback_speed_2)
+
+        playbackSpeed_0_25.setOnClickListener { youTubePlayer.setPlaybackRate(PlayerConstants.PlaybackRate.RATE_0_25)  }
+        playbackSpeed_1.setOnClickListener { youTubePlayer.setPlaybackRate(PlayerConstants.PlaybackRate.RATE_1) }
+        playbackSpeed_2.setOnClickListener { youTubePlayer.setPlaybackRate(PlayerConstants.PlaybackRate.RATE_2) }
     }
 }
