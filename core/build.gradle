@@ -12,8 +12,6 @@ android {
     defaultConfig {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.compileSdk
-        versionCode versions.publishVersionCode_core
-        versionName versions.publishVersion_core
     }
 
     sourceSets {

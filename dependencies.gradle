@@ -10,7 +10,7 @@ ext.versions = [
         publishVersionCode_chromecast   : 8,
 
         // Plugins
-        gradlePlugin                    : '4.2.2',
+        gradlePlugin                    : '7.0.3',
 
         // Kotlin
         kotlin                          : '1.5.21',

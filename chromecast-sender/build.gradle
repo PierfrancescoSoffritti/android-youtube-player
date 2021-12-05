@@ -12,8 +12,6 @@ android {
     defaultConfig {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.compileSdk
-        versionCode versions.publishVersionCode_chromecast
-        versionName versions.publishVersion_chromecast
     }
 
     sourceSets {
