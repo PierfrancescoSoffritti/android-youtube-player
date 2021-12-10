@@ -10,17 +10,16 @@
 
 android-youtube-player is a stable and customizable open source YouTube player for Android. It provides a simple View that can be easily integrated in every Activity/Fragment.
 
-To interact with YouTube the library uses the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference), inside of a WebView, therefore the YouTube app is not required on the user's device and there are [no issues with YouTube Terms of Service](#does-this-library-breaks-youtube-terms-of-service).
+The library is a wrapper over the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference), which runs inside of a WebView. Therefore the YouTube app is not required on the user's device and there are [no issues with YouTube Terms of Service](#does-this-library-breaks-youtube-terms-of-service).
 
-The web UI of the IFrame Player player is hidden. Instead, a native UI built on top of Android is used to interact with the player, providing a native experience to the users.
-
-The UI of the player is 100% customizable. [The default UI can be changed](#playeruicontroller), to show and hide new views, or can be [completely replaced by a custom UI](#create-your-own-custom-ui).
+The UI of the player is 100% customizable. The UI can be [completely replaced with a custom UI](#create-your-own-custom-ui).
+However this should be done with cuation, as altering the UI of the IFrame player might break YouTube's terms of service.
 
 This library also provides a [Chromecast YouTube player](#chromecast-extension-library), that you can use to cast YouTube videos from your app to a Chromecast device.
 
 ## Why does this library exist?
 The official library provided by Google to integrate YouTube videos in Android apps is the [YouTube Android Player API](https://developers.google.com/youtube/android/player/).
-The official library is quite buggy ([some bugs are 5+ years old](https://code.google.com/p/gdata-issues/issues/detail?id=4395)) and lacks in support from Google. I found it to be quite unreliable and therefore unusable in production.
+Unfortunately this library is quite buggy ([some bugs are 5+ years old](https://code.google.com/p/gdata-issues/issues/detail?id=4395)) and has receive no updates in years. I personally found it quite unreliable and therefore impossible to use in production.
 
 This, added to its limited options for customization and lack of Chromecast support, lead me to the development of this open source library.
 
@@ -41,8 +40,6 @@ A list of published apps that are using this library: ([let me know](https://git
 
 The library uses YouTube's own web player to play videos. Therefore it is 100% compliant with  terms of service.
 [You can see here](https://developers.google.com/youtube/v3/guides/ios_youtube_helper) how this is also the official way of playing YouTube videos on iOS.
-
-If you want to be 200% sure to be safe, [disable the native UI and enable the web player's built in web UI](#web-based-ui).
 
 That said how you use the library matters, be sure to play videos only when the player is visible. If you follow the instructions in the documentation, the library will automatically handle this for you.
 
@@ -83,7 +80,6 @@ Also remember when publishing your app on the PlayStore to write title and descr
         1. [Hardware acceleration](#hardware-acceleration)
         2. [Play YouTube videos in the background](#play-youtube-videos-in-the-background)
         3. [minSdk](#minsdk)
-        4. [How to disable share and watch later buttons](#how-to-disable-share-and-watch-later-buttons)
 
 # Table of Contents (Chromecast)
 1. [Chromecast extension library](#chromecast-extension-library)
@@ -109,13 +105,27 @@ Also remember when publishing your app on the PlayStore to write title and descr
 :eyes: If you want to know when a new release of the library is published: [watch this repository on GitHub](https://github.com/PierfrancescoSoffritti/android-youtube-player/watchers).
 
 # Download
-The Gradle dependency is available via [jCenter](https://bintray.com/pierfrancescosoffritti/maven). jCenter is the default Maven repository used by Android Studio.
+The Gradle dependency is available via [JitPack](https://jitpack.io/).
 
-The minimum API level supported by this library is API 17. Also, your app needs to be using the [androidx libraries](https://developer.android.com/jetpack/androidx/) instead of the old support libraries.
+The minimum API level supported by this library is API 17.
 
 ### Core
 The *core* module contains the YouTube Player. It's all you need to play YouTube videos in your app.
+
+Add this to your root `build.gradle` file.
+
+```gradle
+allprojects {
+  repositories {
+	  ...
+		maven { url 'https://jitpack.io' }
+  }
+}
 ```
+
+Add this to your module level `build.gradle` file.
+
+```gradle
 dependencies {
   implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 }
@@ -123,7 +133,21 @@ dependencies {
 
 ### Chromecast
 The *chromecast-sender* module contains the Chromecast YouTube Player. Use it if you need to cast YouTube videos from your app to a Chromecast device.
+
+Add this to your root `build.gradle` file.
+
+```gradle
+allprojects {
+  repositories {
+	  ...
+		maven { url 'https://jitpack.io' }
+  }
+}
 ```
+
+Add this to your module level `build.gradle` file.
+
+```gradle
 dependencies {
   implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.23'
 }
@@ -146,8 +170,7 @@ In order to start using the player you need to add a [YouTubePlayerView](#youtub
         android:layout_height="wrap_content"
         
         app:videoId="S0Q4gqBUs7c"
-        app:autoPlay="true"
-        app:showFullScreenButton="false" />
+        app:autoPlay="true" />
 </LinearLayout>
 ```
 
@@ -159,7 +182,7 @@ getLifecycle().addObserver(youTubePlayerView);
 ```
 *(If you have problems adding `YouTubePlayerView` as a `LifecycleObserver`, you probably aren't using androidx, [I suggest you migrate your dependencies](https://developer.android.com/jetpack/androidx/migrate))*
 
-That's all you need, a YouTube video is now playing in your app.
+This is all you need, a YouTube video is now playing in your app.
 
 If you want more control, everything can be done programmatically by getting a reference to your `YouTubePlayerView` and adding a `YouTubePlayerListener` to it.
 
@@ -176,15 +199,17 @@ youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
 });
 ```
 
+If you decde to initialize the player programmatically, remember to remove the `autoPlay` and `videoId` attributes from the `YouTubePlayerView` in your XML file.
+
 ----
 
 # API documentation
-The following sections provide detailed documentation for every component of the library.
+The following sections provides detailed documentation for every component in the library.
 
 If you see any problem or mistake in the documentation, feel free to contribute by opening an issue an/or sending a pull request.
 
 ## YouTubePlayerView
-`YouTubePlayerView` is the access point to the YouTubePlayer.
+`YouTubePlayerView` is the access point to the `YouTubePlayer`.
 
 You can add the View to your layout.
 
@@ -217,13 +242,6 @@ If you add the view to your XML layout you have the possibility to set a few cus
 - [autoPlay](#autoPlay)
 - [enableAutomaticInitialization](#enableAutomaticInitialization)
 - [handleNetworkEvents](#handleNetworkEvents)
-- [useWebUi](#useWebUi)
-- [enableLiveVideoUi](#enableLiveVideoUi)
-- [showYouTubeButton](#showYouTubeButton)
-- [showFullScreenButton](#showFullScreenButton)
-- [showVideoCurrentTime](#showVideoCurrentTime)
-- [showVideoDuration](#showVideoDuration)
-- [showSeekBar](#showSeekBar)
 
 #### videoId
 This attribute expects a `String`, which is the id of a YouTube video.
@@ -267,79 +285,6 @@ If you decide to set it to `false` you should also disable `enableAutomaticIniti
 
 Read more about network events [here](#network-events).
 
-#### useWebUi
-This attribute expects a `boolean`. Its default value is `false`.
-
-**If `true`**, `YouTubePlayerView` will use the web-based UI of the IFrame YouTubePlayer.
-
-**If `false`**, `YouTubePlayerView` will use the native UI of the library.
-
-YouTube added some non-removable buttons to the IFrame Player, as mentioned in [this issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues/242). Using the web-based UI is the only way to have access to these non-removable buttons.
-
-Read the documentation of the [`initializeWithWebUi`](#initializeWithWebUi(YouTubePlayerListener,-boolean)) method to learn more about the effects of this attribute.
-
-*Web UI screenshot:*
-
-![web-ui screenshot](./images/web_based_ui_screenshot.jpg)
-
-#### enableLiveVideoUi
-This attribute expects a `boolean`. Its default value is `false`.
-
-**If `true`**, `YouTubePlayerView` will use UI for live videos.
-
-**If `false`**, `YouTubePlayerView` will use the UI normal videos.
-
-This attribute does nothing if `useWebUi` is `true`.
-
-*Live UI screenshot:*
-
-![live-ui screenshot](./images/live_ui_screenshot.jpg)
-
-#### showYouTubeButton
-This attribute expects a `boolean`. Its default value is `true`.
-
-**If `true`**, `YouTubePlayerView` will show a small clickable YouTube icon in the lower right corner of the player.
-
-**If `false`**, `YouTubePlayerView` will not show a small clickable YouTube icon in the lower right corner of the player.
-
-This attribute does nothing if `useWebUi` is `true`.
-
-#### showFullScreenButton
-This attribute expects a `boolean`. Its default value is `true`.
-
-**If `true`**, `YouTubePlayerView` will show a button to enter and exit full-screen.
-
-**If `false`**, `YouTubePlayerView` will not show a button to enter and exit full-screen.
-
-This attribute does nothing if `useWebUi` is `true`.
-
-#### showVideoCurrentTime
-This attribute expects a `boolean`. Its default value is `true`.
-
-**If `true`**, `YouTubePlayerView` will show the current time of the current video.
-
-**If `false`**, `YouTubePlayerView` will not show the current time of the current video.
-
-This attribute does nothing if `useWebUi` is `true`.
-
-#### showVideoDuration
-This attribute expects a `boolean`. Its default value is `true`.
-
-**If `true`**, `YouTubePlayerView` will show the time duration of the current video.
-
-**If `false`**, `YouTubePlayerView` will not show the time duration of the current video.
-
-This attribute does nothing if `useWebUi` is `true`.
-
-#### showSeekBar
-This attribute expects a `boolean`. Its default value is `true`.
-
-**If `true`**, `YouTubePlayerView` will show a SeekBar to control video playback.
-
-**If `false`**, `YouTubePlayerView` will not show a SeekBar to control video playback.
-
-This attribute does nothing if `useWebUi` is `true`.
-
 ### Initialization
 If you need to initialize `YouTubePlayerView` programmatically, you can set its xml attribute `enableAutomaticInitialization` to false.
 You can do the same programmatically by calling `youTubePlayerView.setEnableAutomaticInitialization(false)`.
@@ -351,10 +296,10 @@ You can use these methods:
 YouTubePlayerView.initialize(YouTubePlayerListener listener)
 ```
 ```java
-YouTubePlayerView.initialize(YouTubePlayerListener listener, boolean handleNetworkEvents)
+YouTubePlayerView.initialize(YouTubePlayerListener listener, IFramePlayerOptions iframePlayerOptions)
 ```
 ```java
-YouTubePlayerView.initializeWithWebUi(YouTubePlayerListener listener, boolean handleNetworkEvents)
+YouTubePlayerView.initialize(YouTubePlayerListener listener, boolean handleNetworkEvents)
 ```
 ```java
 YouTubePlayerView.initialize(YouTubePlayerListener listener, boolean handleNetworkEvents, IFramePlayerOptions iframePlayerOptions)
@@ -371,13 +316,6 @@ Initialize the `YouTubePlayer`. By using the `boolean` is possible to decide if 
 By passing an `IFramePlayerOptions` to the initialize method it is possible to set some of the parameters of the IFrame YouTubePlayer. Read more about `IFramePlayerOptions` [here](#iframeplayeroptions).
 
 All the possible parameters and values are listed [here](https://developers.google.com/youtube/player_parameters#Parameters). Not all of them are supported in this library because some don't make sense in this context. [Open an issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues) if you need a parameter that is not currently supported.
-
-#### `initializeWithWebUi(YouTubePlayerListener, boolean)`
-This method is identical to `initialize(YouTubePlayerListener, boolean)` but it disables the native UI of the player and instead uses the web-based UI of the IFrame Player API.
-
-Because the native UI is disabled trying to call `YouTubePlayerView.getPlayerUiController()` will throw an exception.
-
-YouTube added some non-removable buttons to the IFrame Player, as mentioned in [this issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues/242). Using the web-based UI is the only way to have access to these non-removable buttons.
 
 ### IFramePlayerOptions
 The `IFramePlayerOptions` is an optional argument that can be passed to `YouTubePlayerView.initialize(YouTubePlayerListener, boolean, IFramePlayerOptions)`, it can be used to set some of the parameters of the IFrame YouTubePlayer.
@@ -441,9 +379,7 @@ youTubePlayerView.addFullScreenListener(YouTubePlayerFullScreenListener fullScre
 youTubePlayerView.removeFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
 ```
 
-`enterFullScreen()` and `exitFullScreen()` will:
-- set `YouTubePlayerView`'s height and width to `MATCH_PARENT`
-- update the UI of the player to match the new state. (eg: update the full-screen button)
+Keep in mind that `enterFullScreen()` and `exitFullScreen()` will only set `YouTubePlayerView`'s height and width to `MATCH_PARENT`.
 
 It is responsibility of the developer to hide other Views in the Activity, change the orientation of the Activity etc. The sample app contains an [helper class](./core-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/sampleapp/utils/FullScreenHelper.java) that can help you to update your app state, but this is not part of the library.
 
@@ -455,15 +391,6 @@ If you need to change the orientation of your Activity/Fragment, remember that b
     android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout" />
 </application>
 ```
-
-### UI
-If you want to interact with the UI of the player you need to get a reference to the `PlayerUiController` from the `YouTubePlayerView` by calling this method
-
-```java
-PlayerUiController YouTubePlayerView.getPlayerUiController();
-```
-
-[Read the documentation of PlayerUiController](#playeruicontroller).
 
 ### Release the YouTubePlayerView
 Remember to release the `YouTubePlayerView` when you're done using it, by calling `YouTubePlayerView.release()`.
@@ -633,100 +560,121 @@ BUFFERING
 VIDEO_CUED
 ```
 
-## PlayerUiController
-The `PlayerUiController` is responsible for controlling the UI of a [`YouTubePlayerView`](#youtubeplayerview).
-
-You can get a reference to the `PlayerUiController` from the `YouTubePlayerView`
-
-```java
-youTubePlayerView.getPlayerUiController();
-```
-
-`PlayerUiController` offers a lot of method to control the UI, only a few of them are presented in the following sections.
-
-### Show video title
-Due to changes to the IFrame API, the web-based IFrame player will always show the title of the video.
-
-Nevertheless, the `PlayerUiController` exposes a method called `setVideoTitle(String videoTitle)` that can be used to set the title on the Android side (unfortunately setting this title won't remove the title from the WebView).
-
-### Live videos
-If you want to play live videos you must setup the UI accordingly, by calling this method.
-
-```java
-PlayerUiController.enableLiveVideoUi(boolean enable);
-```
-
-Unfortunately there is no way for the player to automatically know if it is playing a live video or not, therefore is up to the developer to change the UI.
-
-You can obtain the same result by setting the xml attribute `app:enableLiveVideoUi="true"` of `YouTubePlayerView`.
-
-*Live-ui screenshot:*
-
-![live-ui screenshot](./images/live_ui_screenshot.jpg)
-
-### Custom actions
-You can set custom actions on the right and left side of the Play/Pause button of the player
-
-```java
-PlayerUiController.setCustomAction1(Drawable icon, OnClickListener listener);
-PlayerUiController.setCustomAction2(Drawable icon, OnClickListener listener);
-PlayerUiController.showCustomAction1(boolean show);
-PlayerUiController.showCustomAction2(boolean show);
-```
-*Custom actions example:*
-
-![custom actions screenshot](./images/custom_actions_screenshot.jpg)
-
-You can **also add any type of View to the UI**, this can be useful if you want to add a new icon.
-
-```java
-PlayerUiController.addView(View view);
-PlayerUiController.removeView(View view);
-```
-
-The View will be added to the top corner of the player.
-
-*Example of views added to the player (see Chromecast icon in the top-right corner):*
-
-![custom actions screenshot](./images/chromecast_screenshot.jpg)
-
 ## Create your own custom UI
 Customization is an important aspect of this library. If need to, you can completely replace the default UI of the player.
 
-`YouTubePlayerView` has method for that. 
+`YouTubePlayerView` has methods for that. 
 
 ```java
 View inflateCustomPlayerUi(@LayoutRes int customUiLayoutID)
+void setCustomPlayerUi(View view)
 ```
 
-This method takes in the `id` of a layout resource, which is a regular XML file containing the definition of a layout. The default UI of the player is removed and replaced with the new UI. The method returns the View object corresponding to the newly inflated layout.
+This method takes in the `id` of a layout resource, which is a regular XML file containing the definition of a layout, or a `View`. 
 
-After calling this method, the default [PlayerUiController](#playeruicontroller) won't be available anymore. Calling `YouTubePlayerView.getPlayerUiController()` will throw an exception.
+The new UI will be overlayed over the player.
+For this reason it is recommended to disable the UI of the IFrame player, by initializing the `YouTubePlayerView` with `IFramePlayerOptions`.
 
-You are now responsible for managing your custom UI with your own code. Meaning: you should write your own class to manage the UI. A simple but complete example can be seen [here, in the sample app](./core-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/sampleapp/examples/customUiExample), I recommend taking a few minutes to read it, it should be trivial to understand.
+```java
+// disable web ui
+IFramePlayerOptions options = new IFramePlayerOptions.Builder().controls(0).build();
+youTubePlayerView.initialize(listener, options);
+```
+
+You are responsible for managing your custom UI with your own code. Meaning: you should write your own class to manage the UI. A simple but complete example can be seen [here, in the sample app](./core-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/sampleapp/examples/customUiExample), I recommend taking a few minutes to read it, it should be trivial to understand.
 
 Example (taken from sample app):
 
 ```java
 View customPlayerUi = youTubePlayerView.inflateCustomPlayerUi(R.layout.custom_player_ui);
 
-youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+YouTubePlayerListener listener = new AbstractYouTubePlayerListener() {
+
   @Override
   public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-    YourCustomPlayerUiController customPlayerUiController = new YourCustomPlayerUiController(youTubePlayer, youTubePlayerView, customPlayerUi, ...);
+    CustomPlayerUiController customPlayerUiController = new CustomPlayerUiController(CustomUiActivity.this, customPlayerUi, youTubePlayer, youTubePlayerView);
     youTubePlayer.addListener(customPlayerUiController);
     youTubePlayerView.addFullScreenListener(customPlayerUiController);
 
-    // ...
+    YouTubePlayerUtils.loadOrCueVideo(
+      youTubePlayer, getLifecycle(),
+      VideoIdsProvider.getNextVideoId(),0f
+    );
   }
-});
+};
 
+// disable iframe ui
+IFramePlayerOptions options = new IFramePlayerOptions.Builder().controls(0).build();
+youTubePlayerView.initialize(listener, options);
 ```
 A blog post going deeper on this is available [at this link](https://medium.com/@soffritti.pierfrancesco/customize-android-youtube-players-ui-9f32da9e8505).
 
 *Example of a custom UI: (this is just a ugly example, but here your design skills are the limit :))*
 
 ![custom ui example](./images/custom_ui_screenshot.jpg)
+
+Warning: when replacing the IFrame UI, be carfeul not to break YouTube's terms of service. Altering the player look and feel might be an issue if you intend to publish your app on the PlayStore.
+
+### DefaultPlayerUiController
+`DefaultPlayerUiController` is a pre-made custom UI available in the library. You can use it like this:
+
+```java
+YouTubePlayerListener listener = new AbstractYouTubePlayerListener() {
+  @Override
+  public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+    // using pre-made custom ui
+    DefaultPlayerUiController defaultPlayerUiController = new DefaultPlayerUiController(youTubePlayerView, youTubePlayer);
+    youTubePlayerView.setCustomPlayerUi(defaultPlayerUiController.getRootView());
+  }
+};
+
+// disable iframe ui
+IFramePlayerOptions options = new IFramePlayerOptions.Builder().controls(0).build();
+youTubePlayerView.initialize(listener, options);
+```
+
+The UI will look something like this.
+
+![YouTubePlayerSeekBar](./images/chromecast_screenshot.jpg)
+
+You can use the `DefaultPlayerUiController` to hide views, add new view etc.
+
+#### Menu
+`DefaultPlayerUiController` has an optional menu. You can use these methods to control the menu's behavior:
+
+``` java
+PlayerUiController.showMenuButton(boolean show);
+PlayerUiController.setMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener);
+```
+
+By default the menu icon is not visible. 
+
+The default `OnClickListener` opens the menu when the menu icon is clicked. You can change this behavior, for example to open a menu with a different UX, like a bottom sheet panel. Obviously if you want a UX different from the one provided by the library, you are responsible for creating your own components.
+
+*Menu screenshot:*
+
+![menu screenshot](./images/menu_screenshot.jpg)
+
+##### YouTubePlayerMenu
+You can get a reference of the `YouTubePlayerMenu` from the `PlayerUiController`.
+```java
+YouTubePlayerMenu PlayerUiController.getMenu()
+```
+Once you get a `YouTubePlayerMenu` object you can add and remove items to it, show it and dismiss it.
+
+```java
+YouTubePlayerMenu addItem(MenuItem menuItem)
+YouTubePlayerMenu removeItem(MenuItem menuItem)
+YouTubePlayerMenu removeItem(int itemIndex)
+
+void show(View anchorView)
+void dismiss()
+```
+
+Initially the `YouTubePlayerMenu` doesn't contain any item. You need to add them.
+
+##### MenuItem
+`MenuItem`s are the items of the `YouTubePlayerMenu`. They have a title, an optional icon and a `OnClickListener` that is called when the item is clicked.
 
 ### Reusable UI components
 The library provides some pre-built UI components, these components are useful to reduce the time needed to build your own UI and controllers.
@@ -802,69 +750,6 @@ String TimeUtilities.formatTime(float timeInSeconds)
 ```
 Takes in the time in seconds and returns a String with the time formatted as "M:SS". (M = minutes, S = seconds).
 
-## Web based UI
-YouTube added some non-removable buttons to the IFrame Player, as mentioned in [this issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues/242). Using the web-based UI is the only way to have access to these non-removable buttons.
-
-To use the web-based UI you can set the attribute `app:useWebUi="true"` in the `YouTubePlayerView`.
-
-```xml
-<com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-  android:id="@+id/youtube_player_view"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-
-  app:useWebUi="true" />
-```
-
-Or you can use [the appropriate initialization method](#initialization).
-
-```java
-YouTubePlayerView.initializeWithWebUi(YouTubePlayerListener listener, boolean handleNetworkEvents)
-```
-
-When using the web-based UI, calling `YouTubePlayerView.getPlayerUiController()` throws exception and it is not possible to apply any UI customization.
-
-*This is how the player will look when using the web-based ui:*
-
-![web-based UI](./images/web_based_ui_screenshot.jpg)
-
-## Menu
-`PlayerUiController` has an optional menu. You can use these methods to control the menu's behavior:
-
-``` java
-PlayerUiController.showMenuButton(boolean show);
-PlayerUiController.setMenuButtonClickListener(@NonNull View.OnClickListener customMenuButtonClickListener);
-```
-
-By default the menu icon is not visible. 
-
-The default `OnClickListener` opens the menu when the menu icon is clicked. You can change this behavior, for example to open a menu with a different UX, like a bottom sheet panel. Obviously if you want a UX different from the one provided by the library, you are responsible for creating your own components.
-
-*Menu screenshot:*
-
-![menu screenshot](./images/menu_screenshot.jpg)
-
-### YouTubePlayerMenu
-You can get a reference of the `YouTubePlayerMenu` from the `PlayerUiController`.
-```java
-YouTubePlayerMenu PlayerUiController.getMenu()
-```
-Once you get a `YouTubePlayerMenu` object you can add and remove items to it, show it and dismiss it.
-
-```java
-YouTubePlayerMenu addItem(MenuItem menuItem)
-YouTubePlayerMenu removeItem(MenuItem menuItem)
-YouTubePlayerMenu removeItem(int itemIndex)
-
-void show(View anchorView)
-void dismiss()
-```
-
-Initially the `YouTubePlayerMenu` doesn't contain any item. You need to add them.
-
-### MenuItem
-`MenuItem`s are the items of the `YouTubePlayerMenu`. They have a title, an optional icon and a `OnClickListener` that is called when the item is clicked.
-
 ## Network events
 [`YouTubePlayerView`](#youtubeplayerview) automatically handles network events, using an internal BroadcastReceiver. You can choose to enable or disable this feature [when initializing the player](#initialization), or by setting the xml attribute `app:handleNetworkEvents="false"`.
 
@@ -898,15 +783,6 @@ Use this functionality only if you plan to build the app for personal use or if 
 The minSdk of the library is 17. [At this point in time](https://developer.android.com/about/dashboards/index.html) it doesn't make much sense for new apps to support older versions of Android.
 
 I'm not sure how WebView will behave on older versions of Android, but technically it should be possible to lower the minSdk. If you absolutely need to support older devices, I suggest you fork the library and lower the minSdk yourself.
-
-### How to disable share and watch later buttons
-YouTube made some changes to the IFrame player, unfortunately it's not possible to remove those buttons.
-
-If you want to be able to click them, you should [use the web-based UI](#web-based-ui) of the player instead of the native UI.
-
-*Watch later and share button are in the top right corner, they are visible when the ui is visible:*
-
-![web-ui screenshot](./images/web_based_ui_screenshot.jpg)
 
 ---
 
