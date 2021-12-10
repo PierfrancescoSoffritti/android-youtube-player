@@ -105,7 +105,7 @@ Also remember when publishing your app on the PlayStore to write title and descr
 :eyes: If you want to know when a new release of the library is published: [watch this repository on GitHub](https://github.com/PierfrancescoSoffritti/android-youtube-player/watchers).
 
 # Download
-The Gradle dependency is available via [JitPack](https://jitpack.io/).
+The Gradle dependency is available via [JitPack](https://jitpack.io/#PierfrancescoSoffritti/android-youtube-player).
 
 The minimum API level supported by this library is API 17.
 
@@ -117,8 +117,8 @@ Add this to your root `build.gradle` file.
 ```gradle
 allprojects {
   repositories {
-	  ...
-		maven { url 'https://jitpack.io' }
+    // ...
+    maven { url 'https://jitpack.io' }
   }
 }
 ```
@@ -139,8 +139,8 @@ Add this to your root `build.gradle` file.
 ```gradle
 allprojects {
   repositories {
-	  ...
-		maven { url 'https://jitpack.io' }
+    // ...
+    maven { url 'https://jitpack.io' }
   }
 }
 ```
