@@ -19,10 +19,10 @@ Add this to your root level build.gradle file.
 
 <SyntaxHighlighter language='groovy' style={ agate }>{
 `allprojects {
-  repositories {
-    // ...
-    maven { url 'https://jitpack.io' }
-  }
+    repositories {
+      // ...
+      maven { url 'https://jitpack.io' }
+    }
 }`
 }</SyntaxHighlighter>
 
