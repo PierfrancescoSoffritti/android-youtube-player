@@ -1,7 +1,7 @@
 {
   "main.css": "/android-youtube-player/static/css/main.db56dbd7.chunk.css",
-  "main.js": "/android-youtube-player/static/js/main.262106de.chunk.js",
-  "main.js.map": "/android-youtube-player/static/js/main.262106de.chunk.js.map",
+  "main.js": "/android-youtube-player/static/js/main.af8827a8.chunk.js",
+  "main.js.map": "/android-youtube-player/static/js/main.af8827a8.chunk.js.map",
   "static/js/1.bad1599a.chunk.js": "/android-youtube-player/static/js/1.bad1599a.chunk.js",
   "static/js/1.bad1599a.chunk.js.map": "/android-youtube-player/static/js/1.bad1599a.chunk.js.map",
   "runtime~main.js": "/android-youtube-player/static/js/runtime~main.d9c46bd2.js",
@@ -10,6 +10,6 @@
   "static/media/android-youtube-player_300px.webp": "/android-youtube-player/static/media/android-youtube-player_300px.9f66fcf4.webp",
   "static/css/main.db56dbd7.chunk.css.map": "/android-youtube-player/static/css/main.db56dbd7.chunk.css.map",
   "index.html": "/android-youtube-player/index.html",
-  "precache-manifest.7503e2fcf7cffebd48f86bc0c4ea905f.js": "/android-youtube-player/precache-manifest.7503e2fcf7cffebd48f86bc0c4ea905f.js",
+  "precache-manifest.abff704011ab4780a854e12a0b37beab.js": "/android-youtube-player/precache-manifest.abff704011ab4780a854e12a0b37beab.js",
   "service-worker.js": "/android-youtube-player/service-worker.js"
 }
