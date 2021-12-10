@@ -8,12 +8,25 @@ const Download = () => {
         <section>
             <div className="section-title">Download</div>
             <div>
-The Gradle dependency is available via <a href="https://bintray.com/pierfrancescosoffritti/maven" target="_blank" rel="noopener noreferrer">jCenter</a>.
+The Gradle dependency is available via <a href="https://jitpack.io/#PierfrancescoSoffritti/android-youtube-player" target="_blank" rel="noopener noreferrer">JitPack</a>.
 <br/>The minimum API level supported by this library is API 17. Also, starting from version 9 your app needs to be using the androidx libraries instead of the old support libraries.
 
 <br/><br/>
 
 The <b>core</b> module is all you need to start playing YouTube videos in your app.
+
+Add this to your root level build.gradle file.
+
+<SyntaxHighlighter language='groovy' style={ agate }>{
+`allprojects {
+  repositories {
+    // ...
+    maven { url 'https://jitpack.io' }
+  }
+}`
+}</SyntaxHighlighter>
+
+Then add this to your module level build.gralde file.
 
 <SyntaxHighlighter language='groovy' style={ agate }>{
 `dependencies {

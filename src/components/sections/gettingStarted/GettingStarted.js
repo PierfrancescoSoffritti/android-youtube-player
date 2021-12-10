@@ -26,8 +26,7 @@ In order to start using the player you need to add a YouTubePlayerView to your l
     android:layout_height="wrap_content"
     
     app:videoId="S0Q4gqBUs7c"
-    app:autoPlay="true"
-    app:showFullScreenButton="false" />
+    app:autoPlay="true" />
 
 </LinearLayout>`
 }</SyntaxHighlighter>

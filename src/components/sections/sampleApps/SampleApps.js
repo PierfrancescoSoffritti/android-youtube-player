@@ -4,8 +4,8 @@ import "./SampleApps.css";
 const SampleApps = () => {
 
     const buttons = [ 
-        { text: "Core sample app", store: "https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.aytplayersample", github: "https://github.com/PierfrancescoSoffritti/android-youtube-player/tree/master/core-sample-app" },
-        { text: "Chromecast sample app", store: "https://play.google.com/store/apps/details?id=com.pierfrancescosoffritti.cyplayersample", github: "https://github.com/PierfrancescoSoffritti/android-youtube-player/tree/master/chromecast-sender-sample-app" }
+        { text: "Core sample app", store: "https://github.com/PierfrancescoSoffritti/android-youtube-player/tree/dev/core-sample-app/apk", github: "https://github.com/PierfrancescoSoffritti/android-youtube-player/tree/master/core-sample-app" },
+        { text: "Chromecast sample app", store: "https://github.com/PierfrancescoSoffritti/android-youtube-player/tree/dev/chromecast-sender-sample-app/apk", github: "https://github.com/PierfrancescoSoffritti/android-youtube-player/tree/master/chromecast-sender-sample-app" }
     ]
 
     return (
