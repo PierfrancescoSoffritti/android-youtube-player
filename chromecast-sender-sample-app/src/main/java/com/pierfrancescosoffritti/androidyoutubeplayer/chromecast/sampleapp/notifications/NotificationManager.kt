@@ -37,14 +37,19 @@ class NotificationManager(private val context: Context, private val notification
     }
 
     private fun initNotificationBuilder() : NotificationCompat.Builder {
+        var flags = 0
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            flags = PendingIntent.FLAG_IMMUTABLE
+        }
+
         val openActivityExplicitIntent = Intent(context.applicationContext, notificationHostActivity)
-        val openActivityPendingIntent = PendingIntent.getActivity(context.applicationContext, 0, openActivityExplicitIntent, 0)
+        val openActivityPendingIntent = PendingIntent.getActivity(context.applicationContext, 0, openActivityExplicitIntent, flags)
 
         val togglePlaybackImplicitIntent = Intent(PlaybackControllerBroadcastReceiver.TOGGLE_PLAYBACK)
-        val togglePlaybackPendingIntent = PendingIntent.getBroadcast(context, 0, togglePlaybackImplicitIntent, 0)
+        val togglePlaybackPendingIntent = PendingIntent.getBroadcast(context, 0, togglePlaybackImplicitIntent, flags)
 
         val stopCastSessionImplicitIntent = Intent(PlaybackControllerBroadcastReceiver.STOP_CAST_SESSION)
-        val stopCastSessionPendingIntent = PendingIntent.getBroadcast(context, 0, stopCastSessionImplicitIntent, 0)
+        val stopCastSessionPendingIntent = PendingIntent.getBroadcast(context, 0, stopCastSessionImplicitIntent, flags)
 
         return NotificationCompat.Builder(context, channelId)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)

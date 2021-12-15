@@ -51,13 +51,17 @@ public class NotificationManager extends AbstractYouTubePlayerListener implement
 
     private NotificationCompat.Builder initNotificationBuilder() {
         Intent openActivityExplicitIntent = new Intent(context.getApplicationContext(), notificationHostActivity);
-        PendingIntent openActivityPendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, openActivityExplicitIntent, 0);
-
         Intent togglePlaybackImplicitIntent = new Intent(PlaybackControllerBroadcastReceiver.TOGGLE_PLAYBACK);
-        PendingIntent togglePlaybackPendingIntent = PendingIntent.getBroadcast(context, 0, togglePlaybackImplicitIntent, 0);
-
         Intent stopCastSessionImplicitIntent = new Intent(PlaybackControllerBroadcastReceiver.STOP_CAST_SESSION);
-        PendingIntent stopCastSessionPendingIntent = PendingIntent.getBroadcast(context, 0, stopCastSessionImplicitIntent, 0);
+
+        int flags = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            flags = PendingIntent.FLAG_IMMUTABLE;
+        }
+
+        PendingIntent openActivityPendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, openActivityExplicitIntent, flags);
+        PendingIntent togglePlaybackPendingIntent = PendingIntent.getBroadcast(context, 0, togglePlaybackImplicitIntent, flags);
+        PendingIntent stopCastSessionPendingIntent = PendingIntent.getBroadcast(context, 0, stopCastSessionImplicitIntent, flags);
 
         return new NotificationCompat.Builder(context, channelId)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
