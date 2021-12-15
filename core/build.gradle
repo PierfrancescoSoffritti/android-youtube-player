@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'maven-publish'
 apply from: '../dependencies.gradle'
 
 ext.shard = 'core'
@@ -32,4 +33,17 @@ dependencies {
 
     implementation "androidx.appcompat:appcompat:$versions.androidxCore"
     implementation "androidx.recyclerview:recyclerview:$versions.androidxRecyclerView"
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.pierfrancescosoffritti.androidyoutubeplayer'
+                artifactId = 'core'
+                version = versions.publishVersion_core
+            }
+        }
+    }
 }

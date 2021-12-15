@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'maven-publish'
 apply from: '../dependencies.gradle'
 
 ext.shard = 'chromecast-sender'
@@ -29,4 +30,17 @@ dependencies {
 
     api project(':core')
     api "com.google.android.gms:play-services-cast-framework:$versions.googlePlayServicesCastFramework"
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.pierfrancescosoffritti.androidyoutubeplayer'
+                artifactId = 'chromecast'
+                version = versions.publishVersion_chromecast
+            }
+        }
+    }
 }
