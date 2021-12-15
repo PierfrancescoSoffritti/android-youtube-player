@@ -5,6 +5,7 @@ import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.mediarouter.app.MediaRouteButton
 import com.google.android.gms.cast.framework.CastContext
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.ChromecastYouTubePlayerContext
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.infrastructure.ChromecastConnectionListener
@@ -18,7 +19,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.noti
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.utils.MediaRouteButtonUtils
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.utils.PlayServicesUtils
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.utils.VideoIdsProvider
-import kotlinx.android.synthetic.main.activity_basic_example.*
 
 /**
  * Simple example showing how to build a notification to control the cast player.
@@ -35,7 +35,8 @@ class NotificationExampleActivity : AppCompatActivity() {
 
         registerBroadcastReceiver()
 
-        MediaRouteButtonUtils.initMediaRouteButton(media_route_button)
+        val mediaRouteButton = findViewById<MediaRouteButton>(R.id.media_route_button)
+        MediaRouteButtonUtils.initMediaRouteButton(mediaRouteButton)
 
         // can't use CastContext until I'm sure the user has GooglePlayServices
         PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, Runnable { initChromecast() })

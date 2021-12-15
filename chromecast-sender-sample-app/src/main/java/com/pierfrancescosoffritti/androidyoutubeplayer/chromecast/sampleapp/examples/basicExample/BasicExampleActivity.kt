@@ -4,9 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.mediarouter.app.MediaRouteButton
 import com.google.android.gms.cast.framework.CastContext
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.ChromecastYouTubePlayerContext
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.infrastructure.ChromecastConnectionListener
@@ -18,7 +18,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.utils.VideoIdsProvider
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.toFloat
-import kotlinx.android.synthetic.main.activity_basic_example.*
 
 class BasicExampleActivity : AppCompatActivity() {
 
@@ -28,7 +27,9 @@ class BasicExampleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_basic_example)
 
-        MediaRouteButtonUtils.initMediaRouteButton(media_route_button)
+        val mediaRouteButton = findViewById<MediaRouteButton>(R.id.media_route_button)
+
+        MediaRouteButtonUtils.initMediaRouteButton(mediaRouteButton)
 
         // can't use CastContext until I'm sure the user has GooglePlayServices
         PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, Runnable { initChromecast() })

@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.mediarouter.app.MediaRouteButton
 import android.view.View
+import android.view.ViewGroup
 import com.google.android.gms.cast.framework.CastContext
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.ChromecastYouTubePlayerContext
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.infrastructure.ChromecastConnectionListener
@@ -14,7 +15,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.util
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.utils.PlayServicesUtils
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.notifications.NotificationManager
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.notifications.PlaybackControllerBroadcastReceiver
-import kotlinx.android.synthetic.main.local_and_cast_player_example.*
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
 
 class LocalPlayerInitExampleActivity : AppCompatActivity(), YouTubePlayersManager.LocalYouTubePlayerInitListener, ChromecastConnectionListener {
@@ -28,15 +29,23 @@ class LocalPlayerInitExampleActivity : AppCompatActivity(), YouTubePlayersManage
 
     private var connectedToChromecast = false
 
+    private lateinit var youtubePlayerView: YouTubePlayerView
+    private lateinit var chromecastControlsRoot: ViewGroup
+    private lateinit var mediaRouteButtonRoot: ViewGroup
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.local_and_cast_player_example)
 
-        lifecycle.addObserver(youtube_player_view)
+        youtubePlayerView = findViewById(R.id.youtube_player_view)
+        chromecastControlsRoot = findViewById(R.id.chromecast_controls_root)
+        mediaRouteButtonRoot = findViewById(R.id.media_route_button_root)
+
+        lifecycle.addObserver(youtubePlayerView)
 
         notificationManager = NotificationManager(this, LocalPlayerInitExampleActivity::class.java)
 
-        youTubePlayersManager = YouTubePlayersManager(this, youtube_player_view, chromecast_controls_root, notificationManager)
+        youTubePlayersManager = YouTubePlayersManager(this, youtubePlayerView, chromecastControlsRoot, notificationManager)
         mediaRouteButton = MediaRouteButtonUtils.initMediaRouteButton(this)
 
         registerBroadcastReceiver()
@@ -113,8 +122,8 @@ class LocalPlayerInitExampleActivity : AppCompatActivity(), YouTubePlayersManage
                 disabledContainer, enabledContainer
         )
 
-        youtube_player_view.visibility = if(connected) View.GONE else View.VISIBLE
-        chromecast_controls_root.visibility = if(connected) View.VISIBLE else View.GONE
+        youtubePlayerView.visibility = if(connected) View.GONE else View.VISIBLE
+        chromecastControlsRoot.visibility = if(connected) View.VISIBLE else View.GONE
     }
 
     private val chromecastPlayerUiMediaRouteButtonContainer = object: MediaRouteButtonContainer {
@@ -123,7 +132,7 @@ class LocalPlayerInitExampleActivity : AppCompatActivity(), YouTubePlayersManage
     }
 
     private val localPlayerUiMediaRouteButtonContainer = object: MediaRouteButtonContainer {
-        override fun addMediaRouteButton(mediaRouteButton: MediaRouteButton) { media_route_button_root.addView(mediaRouteButton) }
-        override fun removeMediaRouteButton(mediaRouteButton: MediaRouteButton) { media_route_button_root.removeView(mediaRouteButton) }
+        override fun addMediaRouteButton(mediaRouteButton: MediaRouteButton) { mediaRouteButtonRoot.addView(mediaRouteButton) }
+        override fun removeMediaRouteButton(mediaRouteButton: MediaRouteButton) { mediaRouteButtonRoot.removeView(mediaRouteButton) }
     }
 }
