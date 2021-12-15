@@ -11,8 +11,6 @@ import android.util.Log;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.VideoInfo;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.YouTubeDataEndpoint;
 import com.pierfrancescosoffritti.aytplayersample.R;
 
 import androidx.annotation.NonNull;

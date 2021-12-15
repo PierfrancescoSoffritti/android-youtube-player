@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.psoffritti.librarysampleapptemplate.core.SampleAppTemplateActivity" />
-        <activity android:name="com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.MainActivity">
+        <activity
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

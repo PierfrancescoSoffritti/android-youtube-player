@@ -4,20 +4,22 @@ buildscript {
     apply from: './dependencies.gradle'
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$versions.gradlePlugin"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
 
-        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:3.0.0-RC02'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:3.0.1'
     }
 }
 
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
 
     tasks.withType(Javadoc).all {

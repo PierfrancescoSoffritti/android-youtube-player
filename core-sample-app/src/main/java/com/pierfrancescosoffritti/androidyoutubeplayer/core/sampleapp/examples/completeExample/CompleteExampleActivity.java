@@ -18,7 +18,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.Full
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.VideoIdsProvider;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.VideoInfo;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.YouTubeDataEndpoint;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.PlayerUiController;
 import com.pierfrancescosoffritti.aytplayersample.R;
 
 public class CompleteExampleActivity extends AppCompatActivity {
@@ -129,8 +128,7 @@ public class CompleteExampleActivity extends AppCompatActivity {
      * It's up to you to make sure that it does not run on the UI thread, you can use whatever you want: Threads, AsyncTask, Coroutines, RxJava etc.
      */
     @SuppressLint("CheckResult")
-    private void setVideoTitle(PlayerUiController playerUiController, String videoId) {
+    private void setVideoTitle(String videoId) {
         VideoInfo videoInfo = YouTubeDataEndpoint.getVideoInfoFromYouTubeDataAPIs(videoId);
-        playerUiController.setVideoTitle(videoInfo.getVideoTitle());
     }
 }

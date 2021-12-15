@@ -10,6 +10,7 @@ android {
         targetSdkVersion versions.compileSdk
         versionCode versions.publishVersionCode_core
         versionName versions.publishVersion_core
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -57,7 +58,9 @@ dependencies {
         exclude group: 'com.google.http-client', module: 'google-http-client-jackson2'
     }
 
-    implementation "com.psoffritti.librarysampleapptemplate:core:$versions.sampleAppTemplate"
+    implementation "com.github.PierfrancescoSoffritti:library-sample-app-template:$versions.sampleAppTemplate"
+
+    implementation "androidx.multidex:multidex:$versions.multiDex"
 }
 
 /*
