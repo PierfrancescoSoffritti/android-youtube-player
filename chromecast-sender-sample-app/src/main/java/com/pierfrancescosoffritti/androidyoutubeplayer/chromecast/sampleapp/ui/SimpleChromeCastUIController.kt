@@ -17,7 +17,7 @@ import com.pierfrancescosoffritti.cyplayersample.R
 * Class used to control a simple Ui for the cast player.
 */
 class SimpleChromeCastUiController(private val controls_view: View) : AbstractYouTubePlayerListener(), SeekBar.OnSeekBarChangeListener {
-    lateinit var youTubePlayer: YouTubePlayer
+    var youTubePlayer: YouTubePlayer? = null
 
     private var isPlaying = false
 
@@ -125,9 +125,9 @@ class SimpleChromeCastUiController(private val controls_view: View) : AbstractYo
 
     private fun onPlayButtonPressed() {
         if (isPlaying)
-            youTubePlayer.pause()
+            youTubePlayer?.pause()
         else
-            youTubePlayer.play()
+            youTubePlayer?.play()
     }
 
     // -- SeekBar, this code will be refactored
@@ -148,7 +148,7 @@ class SimpleChromeCastUiController(private val controls_view: View) : AbstractYo
         if (isPlaying)
             newSeekBarProgress = seekBar.progress
 
-        youTubePlayer.seekTo(seekBar.progress.toFloat())
+        youTubePlayer?.seekTo(seekBar.progress.toFloat())
         seekBarTouchStarted = false
     }
 }
