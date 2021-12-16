@@ -28,7 +28,7 @@ ext.versions = [
         multiDex                        : '2.0.1',
 
         // Google Play
-        googlePlayServicesCastFramework : '16.1.2',
+        googlePlayServicesCastFramework : '21.0.0',
 
         // Google APIs
         googleApiClientAndroid          : '1.23.0',

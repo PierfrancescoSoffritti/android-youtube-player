@@ -16,6 +16,6 @@ object PlayServicesUtils {
         if(googlePlayServicesAvailabilityResult == ConnectionResult.SUCCESS)
             onSuccess.run()
         else
-            GoogleApiAvailability.getInstance().getErrorDialog(activity, googlePlayServicesAvailabilityResult, googlePlayServicesAvailabilityRequestCode, null).show()
+            GoogleApiAvailability.getInstance().getErrorDialog(activity, googlePlayServicesAvailabilityResult, googlePlayServicesAvailabilityRequestCode, null)?.show()
     }
 }

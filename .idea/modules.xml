@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Developer.android-youtube-player.iml" filepath="$PROJECT_DIR$/.idea/modules/Developer.android-youtube-player.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/android-youtube-player.iml" filepath="$PROJECT_DIR$/.idea/modules/android-youtube-player.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/chromecast-sender/android-youtube-player.chromecast-sender.iml" filepath="$PROJECT_DIR$/.idea/modules/chromecast-sender/android-youtube-player.chromecast-sender.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/chromecast-sender-sample-app/android-youtube-player.chromecast-sender-sample-app.iml" filepath="$PROJECT_DIR$/.idea/modules/chromecast-sender-sample-app/android-youtube-player.chromecast-sender-sample-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/android-youtube-player.core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/android-youtube-player.core.iml" />

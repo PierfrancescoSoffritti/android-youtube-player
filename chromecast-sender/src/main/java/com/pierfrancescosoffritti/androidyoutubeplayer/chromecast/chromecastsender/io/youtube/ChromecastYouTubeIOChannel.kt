@@ -15,8 +15,7 @@ internal class ChromecastYouTubeIOChannel(private val sessionManager: SessionMan
 
     override fun sendMessage(message: String) {
         try {
-            sessionManager.currentCastSession
-                    .sendMessage(namespace, message)
+            sessionManager.currentCastSession?.sendMessage(namespace, message)
 //                    .setResultCallback {
 //                        if(it.isSuccess)
 //                            Log.d(this.javaClass.simpleName, "message sent")
