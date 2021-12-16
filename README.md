@@ -105,51 +105,29 @@ Also remember when publishing your app on the PlayStore to write title and descr
 :eyes: If you want to know when a new release of the library is published: [watch this repository on GitHub](https://github.com/PierfrancescoSoffritti/android-youtube-player/watchers).
 
 # Download
-The Gradle dependency is available via [JitPack](https://jitpack.io/#PierfrancescoSoffritti/android-youtube-player).
+The Gradle dependency is available via [MavenCentral](https://repo1.maven.org/maven2/com/pierfrancescosoffritti/androidyoutubeplayer/core).
 
 The minimum API level supported by this library is API 17.
 
 ### Core
 The *core* module contains the YouTube Player. It's all you need to play YouTube videos in your app.
 
-Add this to your root `build.gradle` file.
-
-```gradle
-allprojects {
-  repositories {
-    // ...
-    maven { url 'https://jitpack.io' }
-  }
-}
-```
-
 Add this to your module level `build.gradle` file.
 
 ```gradle
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.0.0'
 }
 ```
 
 ### Chromecast
 The *chromecast-sender* module contains the Chromecast YouTube Player. Use it if you need to cast YouTube videos from your app to a Chromecast device.
 
-Add this to your root `build.gradle` file.
-
-```gradle
-allprojects {
-  repositories {
-    // ...
-    maven { url 'https://jitpack.io' }
-  }
-}
-```
-
 Add this to your module level `build.gradle` file.
 
 ```gradle
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.23'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.24'
 }
 ```
 
