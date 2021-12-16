@@ -6,8 +6,8 @@ ext.versions = [
         publishVersion_core             : '11.0.0',
         publishVersionCode_core         : 16,
 
-        publishVersion_chromecast       : '0.24',
-        publishVersionCode_chromecast   : 9,
+        publishVersion_chromecast       : '0.25',
+        publishVersionCode_chromecast   : 10,
 
         // Plugins
         gradlePlugin                    : '7.0.4',
