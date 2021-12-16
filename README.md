@@ -105,7 +105,7 @@ Also remember when publishing your app on the PlayStore to write title and descr
 :eyes: If you want to know when a new release of the library is published: [watch this repository on GitHub](https://github.com/PierfrancescoSoffritti/android-youtube-player/watchers).
 
 # Download
-The Gradle dependency is available via [MavenCentral](https://repo1.maven.org/maven2/com/pierfrancescosoffritti/androidyoutubeplayer/core).
+The Gradle dependency is available via [MavenCentral](https://repo1.maven.org/maven2/com/pierfrancescosoffritti/androidyoutubeplayer/).
 
 The minimum API level supported by this library is API 17.
 
