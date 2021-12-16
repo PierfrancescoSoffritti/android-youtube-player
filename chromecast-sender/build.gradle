@@ -1,11 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'maven-publish'
 apply from: '../dependencies.gradle'
-
-ext.shard = 'chromecast-sender'
-ext.libVersion = versions.publishVersion_chromecast
-ext.libDescription = 'Extension for the android-youtube-player:core library, that enables Chromecast compatibility.'
 
 android {
     compileSdkVersion versions.compileSdk
@@ -32,15 +27,11 @@ dependencies {
     api "com.google.android.gms:play-services-cast-framework:$versions.googlePlayServicesCastFramework"
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.release
-                groupId = 'com.pierfrancescosoffritti.androidyoutubeplayer'
-                artifactId = 'chromecast'
-                version = versions.publishVersion_chromecast
-            }
-        }
-    }
+ext {
+    PUBLISH_GROUP_ID = 'com.pierfrancescosoffritti.androidyoutubeplayer'
+    PUBLISH_VERSION = versions.publishVersion_chromecast
+    PUBLISH_ARTIFACT_ID = 'chromecast-sender'
+    PUBLISH_DESCRIPTION = 'Extension for the android-youtube-player:core library, that enables Chromecast compatibility.'
 }
+
+apply from: "../scripts/publish-module.gradle"

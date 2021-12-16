@@ -1,11 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'maven-publish'
 apply from: '../dependencies.gradle'
-
-ext.shard = 'core'
-ext.libVersion = versions.publishVersion_core
-ext.libDescription = 'YouTube Player library for Android, stable and customizable.'
 
 android {
     compileSdkVersion versions.compileSdk
@@ -35,15 +30,11 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$versions.androidxRecyclerView"
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.release
-                groupId = 'com.pierfrancescosoffritti.androidyoutubeplayer'
-                artifactId = 'core'
-                version = versions.publishVersion_core
-            }
-        }
-    }
+ext {
+    PUBLISH_GROUP_ID = 'com.pierfrancescosoffritti.androidyoutubeplayer'
+    PUBLISH_VERSION = versions.publishVersion_core
+    PUBLISH_ARTIFACT_ID = 'core'
+    PUBLISH_DESCRIPTION = 'YouTube Player library for Android, stable and customizable.'
 }
+
+apply from: "../scripts/publish-module.gradle"

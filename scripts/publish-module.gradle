@@ -1,0 +1,86 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+apply plugin: 'org.jetbrains.dokka'
+
+task androidSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    if (project.plugins.findPlugin("com.android.library")) {
+        from android.sourceSets.main.java.srcDirs
+        from android.sourceSets.main.kotlin.srcDirs
+    } else {
+        from sourceSets.main.java.srcDirs
+        from sourceSets.main.kotlin.srcDirs
+    }
+}
+
+tasks.withType(dokkaHtmlPartial.getClass()).configureEach {
+    pluginsMapConfiguration.set(
+            ["org.jetbrains.dokka.base.DokkaBase": """{ "separateInheritedMembers": true}"""]
+    )
+}
+
+task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
+    archiveClassifier.set('javadoc')
+    from dokkaJavadoc.outputDirectory
+}
+
+artifacts {
+    archives androidSourcesJar
+    archives javadocJar
+}
+
+group = PUBLISH_GROUP_ID
+version = PUBLISH_VERSION
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId PUBLISH_GROUP_ID
+                artifactId PUBLISH_ARTIFACT_ID
+                version PUBLISH_VERSION
+                if (project.plugins.findPlugin("com.android.library")) {
+                    from components.release
+                } else {
+                    from components.java
+                }
+
+                artifact androidSourcesJar
+                artifact javadocJar
+
+                pom {
+                    name = PUBLISH_ARTIFACT_ID
+                    description = PUBLISH_DESCRIPTION
+                    url = 'https://github.com/PierfrancescoSoffritti/android-youtube-player'
+                    licenses {
+                        license {
+                            name = 'MIT License'
+                            url = 'https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/master/LICENSE'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'psoffritti'
+                            name = 'Pierfrancesco Soffritti'
+                            email = 'soffritti.pierfrancesco@gmail.com'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:github.com/PierfrancescoSoffritti/android-youtube-player.git'
+                        developerConnection = 'scm:git:ssh://github.com/PierfrancescoSoffritti/android-youtube-player.git'
+                        url = 'https://github.com/PierfrancescoSoffritti/android-youtube-player.git'
+                    }
+                }
+            }
+        }
+    }
+}
+
+signing {
+    useInMemoryPgpKeys(
+            rootProject.ext["signing.keyId"],
+            rootProject.ext["signing.key"],
+            rootProject.ext["signing.password"],
+    )
+    sign publishing.publications
+}
