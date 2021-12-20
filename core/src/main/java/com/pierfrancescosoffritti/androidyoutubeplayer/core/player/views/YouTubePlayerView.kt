@@ -28,7 +28,8 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
     private val legacyTubePlayerView: LegacyYouTubePlayerView = LegacyYouTubePlayerView(context)
     private val fullScreenHelper = FullScreenHelper(this)
 
-    private var enableAutomaticInitialization: Boolean
+    // this is a publicly accessible API
+    var enableAutomaticInitialization: Boolean
 
     init {
         addView(legacyTubePlayerView, LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
