@@ -116,7 +116,7 @@ Add this to your module level `build.gradle` file.
 
 ```gradle
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.0.0'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.0.1'
 }
 ```
 
@@ -127,7 +127,7 @@ Add this to your module level `build.gradle` file.
 
 ```gradle
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.25'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.26'
 }
 ```
 
