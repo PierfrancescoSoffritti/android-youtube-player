@@ -943,4 +943,33 @@ You will be required to host your receiver somewhere, host it where you prefer. 
 
 ---
 
+# Use with Jetpack Compse
+``` kotlin 
+  @Composable
+    fun Player() {
+        val activityLifecycle = lifecycle
+        val context = LocalContext.current
+
+        val youtubePlayer = remember {
+            YouTubePlayerView(context).apply {
+                activityLifecycle.addObserver(this)
+                enableAutomaticInitialization = false
+                initialize(object : AbstractYouTubePlayerListener() {
+                    override fun onReady(@NonNull youTubePlayer: YouTubePlayer) {
+                        youTubePlayer.cueVideo("fV7TZJCa9c8", 0f)
+                    }
+                })
+            }
+        }
+
+        AndroidView(
+            {
+                youtubePlayer
+            }, modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+        )
+    }
+```
+
 For any question feel free to [open an issue on the GitHub repository](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues).
