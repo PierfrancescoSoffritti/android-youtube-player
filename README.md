@@ -32,6 +32,7 @@ A list of published apps that are using this library: ([let me know](https://git
 - [reddit is fun](https://play.google.com/store/apps/details?id=com.andrewshu.android.reddit)
 - [Mobile Movie Database](https://play.google.com/store/apps/details?id=com.tmdb.themoviedatabase)
 - [dingo](https://play.google.com/store/apps/details?id=com.dingo)
+- [Movie Pro : World of Movie](https://play.google.com/store/apps/details?id=id.migunani_labs.moviepro)
 
 ![showcase](./images/showcase.jpg)
 
