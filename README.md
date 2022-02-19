@@ -943,7 +943,7 @@ You will be required to host your receiver somewhere, host it where you prefer. 
 
 ---
 
-# Use with Jetpack Compse
+# Use with Jetpack Compose
 ``` kotlin 
   @Composable
     fun Player() {
