@@ -134,6 +134,7 @@ dependencies {
 # Quick start
 In order to start using the player you need to add a [YouTubePlayerView](#youtubeplayerview) to your layout.
 
+## XML 
 ```xml
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -150,6 +151,35 @@ In order to start using the player you need to add a [YouTubePlayerView](#youtub
         app:videoId="S0Q4gqBUs7c"
         app:autoPlay="true" />
 </LinearLayout>
+```
+
+## Use with Jetpack Compose
+``` kotlin 
+  @Composable
+    fun Player() {
+        val activityLifecycle = lifecycle
+        val context = LocalContext.current
+
+        val youtubePlayer = remember {
+            YouTubePlayerView(context).apply {
+                activityLifecycle.addObserver(this)
+                enableAutomaticInitialization = false
+                initialize(object : AbstractYouTubePlayerListener() {
+                    override fun onReady(@NonNull youTubePlayer: YouTubePlayer) {
+                        youTubePlayer.cueVideo("fV7TZJCa9c8", 0f)
+                    }
+                })
+            }
+        }
+
+        AndroidView(
+            {
+                youtubePlayer
+            }, modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+        )
+    }
 ```
 
 It is recommended that you add `YouTubePlayerView` as a lifecycle observer of its parent Activity/Fragment. You can [read why in the documentation](#lifecycleobserver).
@@ -943,33 +973,5 @@ You will be required to host your receiver somewhere, host it where you prefer. 
 
 ---
 
-# Use with Jetpack Compose
-``` kotlin 
-  @Composable
-    fun Player() {
-        val activityLifecycle = lifecycle
-        val context = LocalContext.current
-
-        val youtubePlayer = remember {
-            YouTubePlayerView(context).apply {
-                activityLifecycle.addObserver(this)
-                enableAutomaticInitialization = false
-                initialize(object : AbstractYouTubePlayerListener() {
-                    override fun onReady(@NonNull youTubePlayer: YouTubePlayer) {
-                        youTubePlayer.cueVideo("fV7TZJCa9c8", 0f)
-                    }
-                })
-            }
-        }
-
-        AndroidView(
-            {
-                youtubePlayer
-            }, modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-        )
-    }
-```
 
 For any question feel free to [open an issue on the GitHub repository](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues).
