@@ -36,6 +36,8 @@ interface PlayerUiController {
     fun showDuration(show: Boolean): PlayerUiController
 
     fun showSeekBar(show: Boolean): PlayerUiController
+    
+    fun showProgressBar(show: Boolean): PlayerUiController
     fun showBufferingProgress(show: Boolean): PlayerUiController
 
     fun showYouTubeButton(show: Boolean): PlayerUiController
