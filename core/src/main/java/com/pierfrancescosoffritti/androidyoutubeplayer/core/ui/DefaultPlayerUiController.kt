@@ -205,6 +205,12 @@ class DefaultPlayerUiController(private val youTubePlayerView: YouTubePlayerView
         return this
     }
 
+    
+    override fun showProgressBar(show: Boolean): PlayerUiController {
+        progressBar.visibility = if (show) View.VISIBLE else View.GONE
+        return this
+    }
+    
     override fun showBufferingProgress(show: Boolean): PlayerUiController {
         youtubePlayerSeekBar.showBufferingProgress = show
         return this
