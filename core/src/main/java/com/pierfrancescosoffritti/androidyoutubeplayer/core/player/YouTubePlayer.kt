@@ -25,6 +25,7 @@ interface YouTubePlayer {
 
     fun mute()
     fun unMute()
+    fun killCC()
 
     /**
      * @param volumePercent Integer between 0 and 100
