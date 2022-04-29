@@ -139,6 +139,10 @@
         function unMute() {
             player.unMute();
         }
+            
+        function killCC(){
+            player.unloadModule('captions');
+        }    
 
         function setVolume(volumePercent) {
             player.setVolume(volumePercent);
