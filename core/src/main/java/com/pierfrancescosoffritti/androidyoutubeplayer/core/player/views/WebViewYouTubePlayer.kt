@@ -66,8 +66,8 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
         mainThreadHandler.post { loadUrl("javascript:unMute()") }
     }
     
-    override fun killCC(){
-        mainThreadHandler.post{ loadUrl("javascript:killCC()")}
+    override fun unloadCaptions(){
+        mainThreadHandler.post{ loadUrl("javascript:unloadCaptions()")}
     }
 
     override fun setVolume(volumePercent: Int) {
