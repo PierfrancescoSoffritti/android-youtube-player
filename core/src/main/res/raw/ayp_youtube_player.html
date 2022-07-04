@@ -75,6 +75,9 @@
                     
                     startSendCurrentTimeInterval();
                     sendVideoData(player);
+
+                    sendCurrentVideoIdFromPlaylist(player);
+
                     return;
 
                 case YT.PlayerState.PAUSED:
@@ -94,6 +97,15 @@
                 var videoDuration = player.getDuration();
 
                 YouTubePlayerBridge.sendVideoDuration(videoDuration);
+            }
+
+            function sendCurrentVideoIdFromPlaylist(player) {
+                var playlist = player.getPlaylist();
+                if ( typeof playlist !== 'undefined' && Array.isArray(playlist) && playlist.length > 0 ) {
+                    var index = player.getPlaylistIndex();
+                    var videoId = playlist[index];
+                    YouTubePlayerBridge.sendVideoId(videoId);
+                }
             }
 
             function sendStateChange(newState) {

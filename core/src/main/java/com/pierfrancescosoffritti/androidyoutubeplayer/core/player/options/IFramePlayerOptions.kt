@@ -34,6 +34,8 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
             private const val MODEST_BRANDING = "modestbranding"
             private const val CC_LOAD_POLICY = "cc_load_policy"
             private const val CC_LANG_PREF = "cc_lang_pref"
+            private const val LIST = "list"
+            private const val LIST_TYPE = "listType"
         }
 
         private val builderOptions = JSONObject()
@@ -112,6 +114,16 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
          */
         fun origin(origin: String): Builder {
             addString(ORIGIN, origin)
+            return this
+        }
+
+        fun list(list: String): Builder {
+            addString(LIST, list)
+            return this
+        }
+
+        fun listType(listType: String): Builder {
+            addString(LIST_TYPE, listType)
             return this
         }
 
