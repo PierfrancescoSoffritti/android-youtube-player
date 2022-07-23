@@ -64,6 +64,7 @@
             switch (playerState) {
             	case YT.PlayerState.UNSTARTED:
                     sendStateChange(UNSTARTED);
+                    sendVideoIdFromPlaylistIfAvailable(player);
                     return;
 
             	case YT.PlayerState.ENDED:
@@ -75,8 +76,6 @@
                     
                     startSendCurrentTimeInterval();
                     sendVideoData(player);
-
-                    sendCurrentVideoIdFromPlaylist(player);
 
                     return;
 
@@ -99,7 +98,7 @@
                 YouTubePlayerBridge.sendVideoDuration(videoDuration);
             }
 
-            function sendCurrentVideoIdFromPlaylist(player) {
+            function sendVideoIdFromPlaylistIfAvailable(player) {
                 var playlist = player.getPlaylist();
                 if ( typeof playlist !== 'undefined' && Array.isArray(playlist) && playlist.length > 0 ) {
                     var index = player.getPlaylistIndex();
