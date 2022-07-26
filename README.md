@@ -13,7 +13,7 @@ android-youtube-player is a stable and customizable open source YouTube player f
 The library is a wrapper over the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference), which runs inside of a WebView. Therefore the YouTube app is not required on the user's device and there are [no issues with YouTube Terms of Service](#does-this-library-breaks-youtube-terms-of-service).
 
 The UI of the player is 100% customizable. The UI can be [completely replaced with a custom UI](#create-your-own-custom-ui).
-However this should be done with cuation, as altering the UI of the IFrame player might break YouTube's terms of service.
+However this should be done with caution, as altering the UI of the IFrame player might break YouTube's terms of service.
 
 This library also provides a [Chromecast YouTube player](#chromecast-extension-library), that you can use to cast YouTube videos from your app to a Chromecast device.
 
