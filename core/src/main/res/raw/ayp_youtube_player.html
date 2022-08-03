@@ -14,7 +14,6 @@
 
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <script src="https://www.youtube.com/iframe_api"></script>
     </head>
 
     <body>
@@ -35,6 +34,13 @@
 
         var timerId;
 
+        // load the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // creates an <iframe> (and YouTube player) after the API code downloads.
     	function onYouTubeIframeAPIReady() {
 
             YouTubePlayerBridge.sendYouTubeIFrameAPIReady();
