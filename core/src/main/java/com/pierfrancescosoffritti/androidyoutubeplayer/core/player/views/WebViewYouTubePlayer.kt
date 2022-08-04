@@ -65,6 +65,10 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
     override fun unMute() {
         mainThreadHandler.post { loadUrl("javascript:unMute()") }
     }
+    
+    override fun unloadCaptions(){
+        mainThreadHandler.post{ loadUrl("javascript:unloadCaptions()") }
+    }
 
     override fun setVolume(volumePercent: Int) {
         require(!(volumePercent < 0 || volumePercent > 100)) { "Volume must be between 0 and 100" }
