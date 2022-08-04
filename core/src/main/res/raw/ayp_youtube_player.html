@@ -21,6 +21,7 @@
     </body>
 
     <script type="text/javascript">
+        loadIFramePlayerAPI()
         
         var UNSTARTED = "UNSTARTED";
         var ENDED = "ENDED";
@@ -34,13 +35,6 @@
 
         var timerId;
 
-        // load the IFrame Player API code asynchronously.
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        // creates an <iframe> (and YouTube player) after the API code downloads.
     	function onYouTubeIframeAPIReady() {
 
             YouTubePlayerBridge.sendYouTubeIFrameAPIReady();
@@ -62,6 +56,17 @@
     			playerVars: <<injectedPlayerVars>>
                 
     		});
+    	}
+        
+        // This function synchronously loads the IFrame API.
+        // It's done with code instead of using a <script> tag
+        // to prevent race conditions, where this custom script
+        // is loaded before the library. See #830 on GitHub
+    	function loadIFramePlayerAPI() {
+    	    var script = document.createElement('script');
+            script.async = false;
+            script.src = "https://www.youtube.com/iframe_api";
+            document.body.appendChild(script);
     	}
 
     	function sendPlayerStateChange(playerState) {
