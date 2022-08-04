@@ -64,6 +64,7 @@
             switch (playerState) {
             	case YT.PlayerState.UNSTARTED:
                     sendStateChange(UNSTARTED);
+                    sendVideoIdFromPlaylistIfAvailable(player);
                     return;
 
             	case YT.PlayerState.ENDED:
@@ -94,6 +95,17 @@
                 var videoDuration = player.getDuration();
 
                 YouTubePlayerBridge.sendVideoDuration(videoDuration);
+            }
+
+            // This method checks if the player is playing a playlist.
+            // If yes, it sends out the video id of the video being played.
+            function sendVideoIdFromPlaylistIfAvailable(player) {
+                var playlist = player.getPlaylist();
+                if ( typeof playlist !== 'undefined' && Array.isArray(playlist) && playlist.length > 0 ) {
+                    var index = player.getPlaylistIndex();
+                    var videoId = playlist[index];
+                    YouTubePlayerBridge.sendVideoId(videoId);
+                }
             }
 
             function sendStateChange(newState) {

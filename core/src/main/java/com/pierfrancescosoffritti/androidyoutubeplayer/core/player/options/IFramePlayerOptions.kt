@@ -34,6 +34,8 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
             private const val MODEST_BRANDING = "modestbranding"
             private const val CC_LOAD_POLICY = "cc_load_policy"
             private const val CC_LANG_PREF = "cc_lang_pref"
+            private const val LIST = "list"
+            private const val LIST_TYPE = "listType"
         }
 
         private val builderOptions = JSONObject()
@@ -112,6 +114,30 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
          */
         fun origin(origin: String): Builder {
             addString(ORIGIN, origin)
+            return this
+        }
+
+        /**
+         * 	The list parameter, in conjunction with the [listType] parameter, identifies the content that will load in the player.
+         * 	If the [listType] parameter value is "playlist", then the [list] parameter value specifies a YouTube playlist ID.
+         * 	@param list The playlist ID to be played.
+         * 	You need to prepend the playlist ID with the letters PL, for example:
+         * 	if playlist id is 1234, you should pass PL1234.
+         */
+        fun list(list: String): Builder {
+            addString(LIST, list)
+            return this
+        }
+
+        /**
+         * Controls if the player is playing from video IDs or from playlist IDs.
+         * If set to "playlist", you should use the "list" parameter to set the playlist ID
+         * to be played.
+         * See original documentation for more info: https://developers.google.com/youtube/player_parameters#Selecting_Content_to_Play
+         * @param listType Set to "playlist" to play playlists. Then pass the playlist id to the [list] parameter.
+         */
+        fun listType(listType: String): Builder {
+            addString(LIST_TYPE, listType)
             return this
         }
 
