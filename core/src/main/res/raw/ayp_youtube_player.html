@@ -14,7 +14,10 @@
 
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <script src="https://www.youtube.com/iframe_api"></script>
+        <!-- defer forces the library to execute after the html page is fully parsed. -->
+        <!-- This is needed to avoid race conditions, where the library executes and calls `onYouTubeIframeAPIReady` before the page is fully parsed. -->
+        <!-- See #873 on GitHub -->
+        <script defer src="https://www.youtube.com/iframe_api"></script>
     </head>
 
     <body>
@@ -22,7 +25,6 @@
     </body>
 
     <script type="text/javascript">
-        
         var UNSTARTED = "UNSTARTED";
         var ENDED = "ENDED";
         var PLAYING = "PLAYING";
