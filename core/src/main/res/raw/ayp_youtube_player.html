@@ -14,6 +14,7 @@
 
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <script defer src="https://www.youtube.com/iframe_api"></script> <!-- defer the execution of the API code because it relies on onYouTubeIframeAPIReady being parsed. See #830 on GitHub -->
     </head>
 
     <body>
@@ -21,8 +22,6 @@
     </body>
 
     <script type="text/javascript">
-        loadIFramePlayerAPI()
-        
         var UNSTARTED = "UNSTARTED";
         var ENDED = "ENDED";
         var PLAYING = "PLAYING";
@@ -56,17 +55,6 @@
     			playerVars: <<injectedPlayerVars>>
                 
     		});
-    	}
-        
-        // This function synchronously loads the IFrame API.
-        // It's done with code instead of using a <script> tag
-        // to prevent race conditions, where this custom script
-        // is loaded before the library. See #830 on GitHub
-    	function loadIFramePlayerAPI() {
-    	    var script = document.createElement('script');
-            script.async = false;
-            script.src = "https://www.youtube.com/iframe_api";
-            document.body.appendChild(script);
     	}
 
     	function sendPlayerStateChange(playerState) {
