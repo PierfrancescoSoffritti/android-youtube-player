@@ -116,7 +116,7 @@ Add this to your module level `build.gradle` file.
 
 ```gradle
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.0.1'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0'
 }
 ```
 
