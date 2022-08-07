@@ -29,6 +29,7 @@ A lengthier explanation to why you may want to consider using an alternative to 
 
 A list of published apps that are using this library: ([let me know](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues) if you want to add your app to this list)
 
+- [Genius](https://play.google.com/store/apps/details?id=com.genius.android)
 - [reddit is fun](https://play.google.com/store/apps/details?id=com.andrewshu.android.reddit)
 - [Mobile Movie Database](https://play.google.com/store/apps/details?id=com.tmdb.themoviedatabase)
 - [dingo](https://play.google.com/store/apps/details?id=com.dingo)
