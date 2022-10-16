@@ -1449,6 +1449,52 @@ function hideCaption(){
 }
 ```
 
+### Play Next Video
+
+This workaround gets id from relative videos and play them as a next video
+
+If `rel` paramter is set to 0: next video will be related videos that come from the same channel as the video that was just played.
+
+If `rel` paramater is set to 1: next video will be related videos that come from multiple channels.
+
+Go to [ayp_youtube_player.html#L116](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/res/raw/ayp_youtube_player.html#L116) add this function
+
+```js
+function playNextVideo() {
+    const playerIFrame = document.querySelector("iframe");
+
+    if (!playerIFrame) {
+        return;
+    }
+    const frameDoc = playerIFrame.contentDocument;
+
+    if (!frameDoc) {
+        return;
+    }
+    var nextVideo = frameDoc.querySelectorAll('.ytp-suggestions a')
+    var video_id = nextVideo[0].href.split('v=')[1];
+    var bf_id = video_id.indexOf('&');
+    if (bf_id != -1) {
+        video_id = video_id.substring(0, bf_id);
+    }
+    player.loadVideoById(video_id, 0);
+}
+```
+
+Then go to [WebViewYouTubePlayer.kt#L56](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/views/WebViewYouTubePlayer.kt#L56)
+```kt
+override fun playNextVideo(){
+        mainThreadHandler.post { loadUrl("javascript:playNextVideo()") }
+    }
+
+```
+
+To make playNextVideo func acessible from YoutubePlayer class you should go to [YouTubePlayer.kt#L33](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/YouTubePlayer.kt#L33) and add this line
+
+```kt
+    fun playNextVideo()
+```
+
 
 
 ---
