@@ -969,7 +969,7 @@ Go to [WebViewYouTubePlayer#L106](https://github.com/PierfrancescoSoffritti/andr
  settings.domStorageEnabled = true
 ```
 
-Bring available qualities because not all videos has same quality
+Get available qualities because not all videos has same quality options
 
 Go to [ayp_youtube_player.html#L101](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/res/raw/ayp_youtube_player.html#L101) and add this line 
 
@@ -980,7 +980,26 @@ function sendVideoQuality(player){
 //eg result : "["hd1080","hd720","large","medium","small","tiny","auto"]"
 ```
 
-And add this function to set quality
+Then go to [YouTubePlayerBridge.kt#L68](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/30e6515a4ad5001b21c296cdc8f40f4cbe33e4a8/core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/YouTubePlayerBridge.kt#L68) and add this line to make 'sendVideoQuality' function accesible from java
+
+```kt
+@JavascriptInterface
+    fun sendVideoQuality(quality: String){
+        mainThreadHandler.post{
+            for(listener in youTubePlayerOwner.getListeners())
+                listener.onVideoQuality(youTubePlayerOwner.getInstance(),quality)
+        }
+    }
+```
+
+Then to add it to listener add this to [YouTubePlayerListener.kt#L49](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/listeners/YouTubePlayerListener.kt#L49)
+
+```kt
+fun onVideoQuality(youTubePlayer: YouTubePlayer,quality: String)
+```
+
+
+Then go to [ayp_youtube_player.html#L148](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/res/raw/ayp_youtube_player.html#L148)
 ```js
 function setPlaybackQuality(playbackQuality) {
         if (playbackQuality == "auto") {
@@ -1004,28 +1023,57 @@ function setPlaybackQuality(playbackQuality) {
     }
 ```
 
-
-Then go to [YouTubePlayerBridge.kt#L68](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/30e6515a4ad5001b21c296cdc8f40f4cbe33e4a8/core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/YouTubePlayerBridge.kt#L68) and add this line
-
-This will add a listener to YoutubePlayerView
+Then go to [WebViewYouTubePlayer.kt#L56](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/views/WebViewYouTubePlayer.kt#L56)
 
 ```kt
-@JavascriptInterface
-    fun sendVideoQuality(quality: String){
-        mainThreadHandler.post{
-            for(listener in youTubePlayerOwner.getListeners())
-                listener.onVideoQuality(youTubePlayerOwner.getInstance(),quality)
-        }
+override fun setPlaybackQuality(quality: String) {
+        mainThreadHandler.post { loadUrl("javascript:setPlaybackQuality('$quality')") }
     }
 ```
 
-Now go your project and add listener to your player.
+To make setPlaybackQuality func acessible from YoutubePlayer class you should go to [YouTubePlayer.kt#L33](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/YouTubePlayer.kt#L33) and add this line
+
+```kt
+    fun setPlaybackQuality(quality: String)
+```
+
+Now we are finally done implementing quality feature to the library.So you can switch to your project and start using it
+
+#### Usage
+
+To set quality call setPlaybackQuality method from YoutubePlayer class
 
 ```java
-
-
-
+youtubePlayer.setPlaybackQuality("hd720");
 ```
+
+To get available quality set listener for YoutubePlayerView
+
+This example shows how to put all available qualities to a list
+```java
+ArrayList<String> quality_list = new ArrayList<>();
+boolean isQualityRetrived = false;
+youTubePlayerView.initialize(new YouTubePlayerListener() {
+                    @Override
+                    public void onVideoQuality(@NonNull YouTubePlayer youTubePlayer, @NonNull String quality) {
+                        if (!isQualityRetrived) {
+                            quality_list.clear();
+                            try {
+                                JSONArray jsonArray = new JSONArray(quality);
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    quality_list.add(jsonArray.getString(i));
+                                }
+                                isQualityRetrived = true;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
+                
+```
+Thats it,Now you should able to change quality of the video
+
 
 
 ---
