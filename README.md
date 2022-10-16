@@ -81,13 +81,6 @@ Also remember when publishing your app on the PlayStore to write title and descr
         1. [Hardware acceleration](#hardware-acceleration)
         2. [Play YouTube videos in the background](#play-youtube-videos-in-the-background)
         3. [minSdk](#minsdk)
-5. [Workarounds](#workarounds)
-    1. [Change video quality](#change-video-quality)
-    2. [Play private videos](#playprivatevideos)
-    3. [Block Ads (Auto Ad Skip)](#adskip)
-    4. [Remove views that cannot be removed by the controls parameter](#removeviews)
-    5. [Force to hide subtitles](#forcehidesub)
-    6. [Play next video in single video](#playNextRec)
     
 
 # Table of Contents (Chromecast)
@@ -98,6 +91,15 @@ Also remember when publishing your app on the PlayStore to write title and descr
     3. [Receiver](#receiver)
     4. [Registration](#registration)
     5. [Hosting the Chromecast receiver](#hosting-the-chromecast-receiver)
+    
+# FAQ
+5. [Workarounds](#workarounds)
+    1. [Change video quality](#change-video-quality)
+    2. [Play private videos](#playprivatevideos)
+    3. [Block Ads (Auto Ad Skip)](#adskip)
+    4. [Remove views that cannot be removed by the controls parameter](#removeviews)
+    5. [Force to hide subtitles](#forcehidesub)
+    6. [Play next video in single video](#playNextRec)
     
 
 
