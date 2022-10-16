@@ -96,7 +96,7 @@ Also remember when publishing your app on the PlayStore to write title and descr
 1. [Workarounds](#workarounds)
     1. [Change video quality](#change-video-quality)
     2. [Play private videos](#playprivatevideos)
-    3. [Block Ads (Auto Ad Skip)](#adskip)
+    3. [Block Ads (Auto Ad Skip)](#block-ads)
     4. [Remove views that cannot be removed by the controls parameter](#removeviews)
     5. [Force to hide subtitles](#forcehidesub)
     6. [Play next video in single video](#playNextRec)
