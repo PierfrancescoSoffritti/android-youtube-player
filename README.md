@@ -972,8 +972,7 @@ Bring available qualities because not all videos has same quality
 Go to [ayp_youtube_player.html#L101](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/res/raw/ayp_youtube_player.html#L101) and add this line 
 
 ```js
-function sendVideoQuality(player)
-{
+function sendVideoQuality(player){
     YouTubePlayerBridge.sendVideoQuality(JSON.stringify(player.getAvailableQualityLevels()))
 }
 //eg result : "["hd1080","hd720","large","medium","small","tiny","auto"]"
