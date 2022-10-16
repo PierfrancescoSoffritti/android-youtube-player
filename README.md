@@ -1082,7 +1082,7 @@ So this workaround basically searches for the video-ads element by using a query
 
 
 ```js
-const adblockIntervalId;
+var adblockIntervalId;
 
 function initializeAdBlock() {
             if (adblockIntervalId) clearInterval(adblockIntervalId);
