@@ -93,7 +93,7 @@ Also remember when publishing your app on the PlayStore to write title and descr
     5. [Hosting the Chromecast receiver](#hosting-the-chromecast-receiver)
     
 # FAQ
-5. [Workarounds](#workarounds)
+1. [Workarounds](#workarounds)
     1. [Change video quality](#change-video-quality)
     2. [Play private videos](#playprivatevideos)
     3. [Block Ads (Auto Ad Skip)](#adskip)
