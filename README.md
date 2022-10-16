@@ -1498,6 +1498,10 @@ To make playNextVideo func acessible from YoutubePlayer class you should go to [
     fun playNextVideo()
 ```
 
+Now you can call it from YoutubePlayer classs
+```kt
+youtubePlayer.playNextVideo()
+```
 
 
 ---
