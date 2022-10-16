@@ -1416,6 +1416,35 @@ function hideTabletPopup() {
         }
 
 ```
+### Hide Captions
+
+There is actually official way to disable captions but currently official method doesnt work.But of course it might be fixed in the future
+
+Until then you can use this workaround to disable or enable captions while playing.
+
+With official method you cant disable or enable captions while video plays because you have to decide at first before playing the video
+
+To hide captions
+
+Go to [ayp_youtube_player.html#L116](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/res/raw/ayp_youtube_player.html#L116) add this function and call this function from inside onReady state and it will hide the captions
+
+```js
+function hideCaption(){
+            setInterval(() => {
+                if(!player){
+                    return;
+                }
+                player.unloadModule('captions');
+            },1000);
+        }
+```
+
+To enable captions
+```js
+function hideCaption(){
+     player.loadModule('captions');
+}
+```
 
 
 
