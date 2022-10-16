@@ -1080,6 +1080,9 @@ Thats it,Now you should able to change quality of the video
 
 So this workaround basically searches for the video-ads element by using a query selector every 100 milliseconds and if it finds it, first mutes it, then subtracts the duration of the ad from the duration of the main video and unmutes it again.
 
+Go to [ayp_youtube_player.html#L116](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/res/raw/ayp_youtube_player.html#L116) add this function
+
+Call this function from inside sendPlayerStateChange function and it will run automatically
 
 ```js
 var adblockIntervalId;
@@ -1140,6 +1143,9 @@ function initializeAdBlock() {
             }
         }
 ```
+
+
+
 ---
 
 For any question feel free to [open an issue on the GitHub repository](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues).
