@@ -1442,6 +1442,9 @@ function hideCaption(){
 To enable captions
 ```js
 function hideCaption(){
+     if(!player){
+        return;
+      }
      player.loadModule('captions');
 }
 ```
