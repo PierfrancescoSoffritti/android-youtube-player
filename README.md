@@ -1076,8 +1076,213 @@ youTubePlayerView.initialize(new YouTubePlayerListener() {
 ```
 Thats it,Now you should able to change quality of the video
 
+### Play Private Videos
+
+This workaround basically creates a webview with spesific settings that you can login with your YouTube account.
+
+First of all create main_activity like this
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
 
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/youtube_player_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        app:autoPlay="false" />
+
+
+
+    <Button
+        android:id="@+id/log_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log in to Youtube"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/play_private"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play Private"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/log_in" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+```
+Then create activity_login_dialog.xml
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <WebView
+        android:id="@+id/login_webview"
+        android:layout_width="match_parent"
+        android:layout_height="400dp" />
+
+</LinearLayout>
+```
+
+Finally create MainActivity.java
+```java
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+
+public class MainActivity extends AppCompatActivity {
+
+    private SharedPreferences sharedPreferences;
+    private Button log_in_btn, play_private_btn;
+    private BottomSheetDialog bottomSheetDialog;
+    private YouTubePlayerView youTubePlayerView;
+    private final String TAG = MainActivity.class.getSimpleName();
+    private YouTubePlayer mYoutubePlayer;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        log_in_btn = findViewById(R.id.log_in);
+        youTubePlayerView = findViewById(R.id.youtube_player_view);
+        getLifecycle().addObserver(youTubePlayerView);
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                super.onReady(youTubePlayer);
+                mYoutubePlayer = youTubePlayer;
+            }
+
+            @Override
+            public void onError(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerError error) {
+                super.onError(youTubePlayer, error);
+                if (error == PlayerConstants.PlayerError.VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER) {
+                    //if this happens auth was probably not sucessfull so show log in dialog again
+                    log_in();
+                }
+            }
+        });
+        play_private_btn = findViewById(R.id.play_private);
+        sharedPreferences = getSharedPreferences("log_check", MODE_PRIVATE);
+
+        if (sharedPreferences.getInt("isLogged", -1) == 1) {
+            youTubePlayerView.setVisibility(View.VISIBLE);
+            log_in_btn.setVisibility(View.GONE);
+            play_private_btn.setVisibility(View.VISIBLE);
+            Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show();
+
+        }
+        play_private_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                play_video();
+            }
+        });
+
+
+        log_in_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                log_in();
+            }
+        });
+
+    }
+
+    private void log_in() {
+        bottomSheetDialog = new BottomSheetDialog(MainActivity.this);
+        View contentView = View.inflate(MainActivity.this, R.layout.activity_login_dialog, null);
+        bottomSheetDialog.setContentView(contentView);
+        WebView login_web = bottomSheetDialog.findViewById(R.id.login_webview);
+        login_web.getSettings().setJavaScriptEnabled(true);
+        login_web.getSettings().setDomStorageEnabled(true);
+        login_web.getSettings().setSavePassword(true);
+        login_web.getSettings().setSaveFormData(true);
+        login_web.loadUrl("https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Dm%26hl%3Dtr%26next%3Dhttps%253A%252F%252Fm.youtube.com%252F");
+        login_web.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                //if webview redirects to youtube.com then it means it is logged in
+                if (request.getUrl().toString().startsWith("https://m.youtube.com")
+                        || request.getUrl().toString().startsWith("https://www.youtube.com")) {
+                    Log.d(TAG, "Logged in");
+                    sharedPreferences.edit().putInt("isLogged", 1).apply();
+                    youTubePlayerView.setVisibility(View.VISIBLE);
+                    log_in_btn.setVisibility(View.GONE);
+                    play_private_btn.setVisibility(View.VISIBLE);
+                    bottomSheetDialog.dismiss();
+                    Toast.makeText(MainActivity.this, "Logged in", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+                return false;
+            }
+        });
+
+        bottomSheetDialog.show();
+    }
+
+    private void play_video() {
+        if (mYoutubePlayer != null) {
+            //Enter your video id here
+            String video_id = "AOHJKPI4bDU";
+            mYoutubePlayer.loadVideo(video_id, 0);
+        } else {
+            Toast.makeText(this, "Player is not ready yet.Wait a little bit then click again", Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+
+}
+
+```
+
+Add this code if logging out constantly
+
+Go to [WebViewYouTubePlayer#L106](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/1c63557dbe74fe6b7a3b6d692ea28c278162f768/core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/views/WebViewYouTubePlayer.kt#L106) and add this line to enable domStorage
+
+```kt
+ settings.domStorageEnabled = true
+```
 
 
 ### Block Ads
