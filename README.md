@@ -81,6 +81,14 @@ Also remember when publishing your app on the PlayStore to write title and descr
         1. [Hardware acceleration](#hardware-acceleration)
         2. [Play YouTube videos in the background](#play-youtube-videos-in-the-background)
         3. [minSdk](#minsdk)
+5. [Workarounds](#workarounds)
+    1. [Change video quality](#changevideoquality)
+    2. [Play private videos](#playprivatevideos)
+    3. [Block Ads (Auto Ad Skip)](#adskip)
+    4. [Remove views that cannot be removed by the controls parameter](#removeviews)
+    5. [Force to hide subtitles](#forcehidesub)
+    6. [Play next video in single video](#playNextRec)
+    
 
 # Table of Contents (Chromecast)
 1. [Chromecast extension library](#chromecast-extension-library)
@@ -90,6 +98,7 @@ Also remember when publishing your app on the PlayStore to write title and descr
     3. [Receiver](#receiver)
     4. [Registration](#registration)
     5. [Hosting the Chromecast receiver](#hosting-the-chromecast-receiver)
+    
 
 
 # Sample app
@@ -941,6 +950,57 @@ In order to use your receiver you need a receiverId. This is the ID of your rece
 
 ### Hosting the chromecast-receiver
 You will be required to host your receiver somewhere, host it where you prefer. Firebase free hosting may be a good option, for development.
+
+# Workarounds
+The following sections provides unofficial workarounds that cant be implemented to library because they might break at anytime. 
+
+### Change Video Quality
+The official api does not support changing the quality but we can change the quality indirectly.
+
+The player keeps the quality value in a window interface called [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
+
+In order to access the player's localStorage, you need to turn on the domStorageEnabled setting in the webview.
+
+Go to [WebViewYouTubePlayer#L106](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/1c63557dbe74fe6b7a3b6d692ea28c278162f768/core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/views/WebViewYouTubePlayer.kt#L106) and add this line to enable domStorage
+
+```kt
+ settings.domStorageEnabled = true
+```
+
+Bring available qualities because not all videos has same quality
+
+Go to [ayp_youtube_player.html#L101](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/res/raw/ayp_youtube_player.html#L101) and add this line 
+
+```js
+function sendVideoQuality(player)
+{
+    YouTubePlayerBridge.sendVideoQuality(JSON.stringify(player.getAvailableQualityLevels()))
+}
+//eg result : "["hd1080","hd720","large","medium","small","tiny","auto"]"
+```
+
+Then go to [YouTubePlayerBridge.kt#L68](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/30e6515a4ad5001b21c296cdc8f40f4cbe33e4a8/core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/YouTubePlayerBridge.kt#L68) and add this line
+
+This will add a listener to YoutubePlayerView
+
+```kt
+@JavascriptInterface
+    fun sendVideoQuality(quality: String){
+        mainThreadHandler.post{
+            for(listener in youTubePlayerOwner.getListeners())
+                listener.onVideoQuality(youTubePlayerOwner.getInstance(),quality)
+        }
+    }
+```
+
+Now go your project and add listener to your player.
+
+```java
+
+
+
+```
+
 
 ---
 
