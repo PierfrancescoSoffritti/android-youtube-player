@@ -1076,6 +1076,10 @@ youTubePlayerView.initialize(new YouTubePlayerListener() {
 ```
 Thats it,Now you should able to change quality of the video
 
+
+
+
+
 ### Block Ads
 
 So this workaround basically searches for the video-ads element by using a query selector every 100 milliseconds and if it finds it, first mutes it, then subtracts the duration of the ad from the duration of the main video and unmutes it again.
@@ -1142,6 +1146,70 @@ function initializeAdBlock() {
                 }, 100);
             }
         }
+```
+
+### Remove Annoying Views
+
+This workaround will provide you ways to remove annoying wiews that cannot remove with official method.
+
+#### Hide Title
+
+Hide title and channel picture at once
+
+Go to [ayp_youtube_player.html#L116](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/res/raw/ayp_youtube_player.html#L116) add this function and call this function from inside onReady state and it will hide the title
+
+```js
+function hideVideoTitle() {
+    setInterval(() => {
+        const playerIFrame = document.querySelector("iframe");
+
+        if (!playerIFrame) {
+            return;
+        }
+
+        const frameDoc = playerIFrame.contentDocument;
+
+        if (!frameDoc) {
+            return;
+        }
+
+        const title = frameDoc.querySelector('.ytp-chrome-top');
+        if (title) {
+            title.style.display = 'none';
+        }
+
+    }, 100);
+}
+```
+#### Hide 'Relative Videos' overlay thats covering most of the video when you pause (Only visible on tablets)
+
+Go to [ayp_youtube_player.html#L116](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/res/raw/ayp_youtube_player.html#L116) add this function and call this function from inside onReady state and it will hide the popup
+
+```js
+function hideTabletPopup() {
+
+            setInterval(() => {
+                const playerIFrame = document.querySelector("iframe");
+
+                if (!playerIFrame) {
+                    return;
+                }
+
+                const frameDoc = playerIFrame.contentDocument;
+
+                if (!frameDoc) {
+                    return;
+                }
+
+                 const collection = frameDoc.getElementsByClassName("ytp-pause-overlay-container")[0];
+                  if (!collection) {
+                    return;
+                }
+                 collection.style.display = 'none';
+
+            }, 100);
+        }
+
 ```
 
 
