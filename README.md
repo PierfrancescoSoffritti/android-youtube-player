@@ -1472,6 +1472,9 @@ function playNextVideo() {
         return;
     }
     var nextVideo = frameDoc.querySelectorAll('.ytp-suggestions a')
+    if(!nextVideo){
+    	return;
+    }
     var video_id = nextVideo[0].href.split('v=')[1];
     var bf_id = video_id.indexOf('&');
     if (bf_id != -1) {
