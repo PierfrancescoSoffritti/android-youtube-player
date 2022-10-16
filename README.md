@@ -951,6 +951,8 @@ In order to use your receiver you need a receiverId. This is the ID of your rece
 ### Hosting the chromecast-receiver
 You will be required to host your receiver somewhere, host it where you prefer. Firebase free hosting may be a good option, for development.
 
+---
+
 # Workarounds
 The following sections provides unofficial workarounds that cant be implemented to library because they might break at anytime. 
 
