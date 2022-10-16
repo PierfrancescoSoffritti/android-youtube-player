@@ -979,6 +979,31 @@ function sendVideoQuality(player)
 //eg result : "["hd1080","hd720","large","medium","small","tiny","auto"]"
 ```
 
+And add this function to set quality
+```js
+function setPlaybackQuality(playbackQuality) {
+        if (playbackQuality == "auto") {
+            //this will make quality auto
+            localStorage.removeItem("yt-player-quality");
+        } else {
+            var now = Date.now();
+            //this will set quality of your choice and it will be saved and be default for every video until expires:)
+            localStorage.setItem("yt-player-quality", JSON.stringify({
+                data: playbackQuality,
+                creation: now,
+                expiration: now + 2592000000
+            }));
+        }
+        //after you set value you have to reload the player to see the effect.
+        //so this method reloads the video where you left it so it is kinda seemless
+        if (player) {
+            var currentTime = player.getCurrentTime();
+            player.loadVideoById(player.getVideoData().video_id, currentTime);
+        }
+    }
+```
+
+
 Then go to [YouTubePlayerBridge.kt#L68](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/30e6515a4ad5001b21c296cdc8f40f4cbe33e4a8/core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/YouTubePlayerBridge.kt#L68) and add this line
 
 This will add a listener to YoutubePlayerView
