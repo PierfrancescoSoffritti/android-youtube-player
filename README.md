@@ -1076,8 +1076,70 @@ youTubePlayerView.initialize(new YouTubePlayerListener() {
 ```
 Thats it,Now you should able to change quality of the video
 
+### Block Ads
+
+So this workaround basically searches for the video-ads element by using a query selector every 100 milliseconds and if it finds it, first mutes it, then subtracts the duration of the ad from the duration of the main video and unmutes it again.
 
 
+```js
+const adblockIntervalId;
+
+function initializeAdBlock() {
+            if (adblockIntervalId) clearInterval(adblockIntervalId);
+			
+            const playerIFrame = document.querySelector("iframe");
+
+            if (playerIFrame) {
+                adblockIntervalId = setInterval(() => {
+                    if (!playerIFrame) {
+                        return;
+                    }
+
+                    const frameDoc = playerIFrame.contentDocument;
+
+                    if (!frameDoc) {
+                        return;
+                    }
+
+                 
+                    const adsContainer = frameDoc.querySelector('.video-ads');
+
+                    if (!adsContainer || adsContainer.childElementCount == 0) {
+                        return;
+                    }
+
+                    const adsVideo = adsContainer.querySelector("video");
+
+                    if (adsVideo) {
+                        adsVideo.muted = true;
+                        adsVideo.style.display = 'none';
+                        adsVideo.currentTime = adsVideo.duration - 0.15;
+                        adsVideo.muted = false;
+                        adsVideo.style.display = '';
+                        if (adblockIntervalId) clearInterval(adblockIntervalId);
+                    } else {
+                        const isAdShowing = frameDoc.getElementsByClassName('ad-showing').length != 0;
+
+                        if (!isAdShowing) {
+                            return;
+                        }
+
+                        const mainVideo = frameDoc.querySelector('.html5-main-video');
+
+                        if (!mainVideo) {
+                            return;
+                        }
+
+                        mainVideo.muted = true;
+                        mainVideo.currentTime = mainVideo.duration - 0.15;
+                        mainVideo.muted = false;
+                        if (adblockIntervalId) clearInterval(adblockIntervalId);
+                    }
+
+                }, 100);
+            }
+        }
+```
 ---
 
 For any question feel free to [open an issue on the GitHub repository](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues).
