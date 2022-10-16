@@ -1013,7 +1013,7 @@ function setPlaybackQuality(playbackQuality) {
             localStorage.setItem("yt-player-quality", JSON.stringify({
                 data: playbackQuality,
                 creation: now,
-                expiration: now + 2592000000
+                expiration: now + 2419200000
             }));
         }
         //after you set value you have to reload the player to see the effect.
