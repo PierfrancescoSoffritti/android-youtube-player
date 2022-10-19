@@ -1459,6 +1459,10 @@ If `rel` paramater is set to 1: next video will be related videos that come from
 
 Go to [ayp_youtube_player.html#L116](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/res/raw/ayp_youtube_player.html#L116) add this function
 
+So this code basically gets first video id from 'more videos' section and plays it.If you want to get more videos you can loop a tag.
+
+CAUTION Since this code uses classnames it is very likely that classname is going to change and this code wont work in the future so you may have to update classnames by inscepting html
+
 ```js
 function playNextVideo() {
     const playerIFrame = document.querySelector("iframe");
