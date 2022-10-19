@@ -1451,7 +1451,7 @@ function hideCaption(){
 
 ### Play Next Video
 
-This workaround gets id from relative videos and play them as a next video
+This workaround gets id from 'more videos' and play them as a next video
 
 If `rel` paramter is set to 0: next video will be related videos that come from the same channel as the video that was just played.
 
