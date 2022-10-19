@@ -1480,9 +1480,9 @@ function playNextVideo() {
     	return;
     }
     var video_id = nextVideo[0].href.split('v=')[1];
-    var bf_id = video_id.indexOf('&');
-    if (bf_id != -1) {
-        video_id = video_id.substring(0, bf_id);
+    var ampersand = video_id.indexOf('&');
+    if (ampersand != -1) {
+        video_id = video_id.substring(0, ampersand);
     }
     player.loadVideoById(video_id, 0);
 }
