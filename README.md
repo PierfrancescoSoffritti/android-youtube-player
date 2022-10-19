@@ -1386,7 +1386,7 @@ function hideVideoTitle() {
     }, 100);
 }
 ```
-#### Hide 'Relative Videos' overlay thats covering most of the video when you pause (Only visible on tablets)
+#### Hide 'More Videos' section thats covering most of the video when you pause (Only visible on tablets)
 
 Go to [ayp_youtube_player.html#L116](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/res/raw/ayp_youtube_player.html#L116) add this function and call this function from inside onReady state and it will hide the popup
 
