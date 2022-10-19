@@ -99,7 +99,7 @@ Also remember when publishing your app on the PlayStore to write title and descr
     3. [Block Ads (Auto Ad Skip)](#block-ads)
     4. [Remove views that cannot be removed by the controls parameter](#remove-annoying-views)
     5. [Force to hide subtitles](#hide-captions)
-    6. [Play next video in single video](#play-next-video)
+    6. [Play Next Video](#play-next-video)
     
 
 
