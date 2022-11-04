@@ -24,6 +24,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
     class Builder {
         companion object {
             private const val AUTO_PLAY = "autoplay"
+            private const val MUTE = "mute"
             private const val CONTROLS = "controls"
             private const val ENABLE_JS_API = "enablejsapi"
             private const val FS = "fs"
@@ -42,6 +43,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
 
         init {
             addInt(AUTO_PLAY, 0)
+            addInt(MUTE, 0)
             addInt(CONTROLS, 0)
             addInt(ENABLE_JS_API, 1)
             addInt(FS, 0)
