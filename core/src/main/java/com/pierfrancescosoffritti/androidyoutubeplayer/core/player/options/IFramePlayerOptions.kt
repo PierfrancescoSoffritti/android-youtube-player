@@ -69,6 +69,24 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
         }
 
         /**
+         * Controls if the video is played automatically.
+         * @param autoplay if set to 1: the player will start automatically. If set to 0: the player will not start automatically
+         */
+        fun autoplay(controls: Int): Builder {
+            addInt(AUTO_PLAY, controls)
+            return this
+        }
+
+        /**
+         * Controls if the video is muted.
+         * @param mute if set to 1: the player will start muted and without acquiring Audio Focus. If set to 0: the player will acquire Audio Focus
+         */
+        fun mute(controls: Int): Builder {
+            addInt(MUTE, controls)
+            return this
+        }
+
+        /**
          * Controls the related videos shown at the end of a video.
          * @param rel If set to 0: related videos will come from the same channel as the video that was just played. If set to 1: related videos will come from multiple channels.
          */
