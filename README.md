@@ -1224,7 +1224,7 @@ function hideCaption() {
 
 ## Play Next Video
 
-This workaround gets the id from 'more videos' and plays it as a next video
+This workaround gets the id from 'more videos' and plays it as a next video, you can think of it like the "recomended" section on YouTube. You can use it like auto-play on YouTube.
 
 If the `rel` paramter is set to 0: the next video will come from the same channel as the video that was just played.
 
