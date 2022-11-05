@@ -31,5 +31,10 @@
       <option name="name" value="MavenRepo" />
       <option name="url" value="https://repo.maven.apache.org/maven2/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="injected_offline_gradle-7.4.0-alpha09" />
+      <option name="name" value="injected_offline_gradle-7.4.0-alpha09" />
+      <option name="url" value="file:$USER_HOME$/.android/manual-offline-m2/gradle-7.4.0-alpha09/" />
+    </remote-repository>
   </component>
 </project>

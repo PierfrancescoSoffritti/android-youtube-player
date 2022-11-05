@@ -95,7 +95,7 @@ Also remember when publishing your app on the PlayStore to write title and descr
 # FAQ
 1. [Workarounds](#workarounds)
     1. [Change video quality](#change-video-quality)
-    2. [Play private videos](#play-private-videos)
+    2. [Login to YouTube account](#login-to-youtube-account)
     3. [Block Ads (Auto Ad Skip)](#block-ads)
     4. [Remove views that cannot be removed by the controls parameter](#remove-annoying-views)
     5. [Force to hide subtitles](#hide-captions)
@@ -953,560 +953,325 @@ In order to use your receiver you need a receiverId. This is the ID of your rece
 ### Hosting the chromecast-receiver
 You will be required to host your receiver somewhere, host it where you prefer. Firebase free hosting may be a good option, for development.
 
----
-
 # Workarounds
-The following sections provides unofficial workarounds that cant be implemented to library because they might break at anytime. 
+The following sections provides unofficial workarounds that can't be implemented in the library because they might break at anytime. To use them you will need to create your own fork of the library. Use them at your own peril. Using any of these workarounds might break YouTube terms of service.
 
-### Change Video Quality
-The official api does not support changing the quality but we can change the quality indirectly.
+These workaround have been provided by the community of users of this library. Thanks to @Serkali-sudo for the help!
 
-The player keeps the quality value in a window interface called [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
+## Change Video Quality
+The IFrame Player API currently doesn't support changing the video quality on modile devices, but we can do it indirectly.
 
-In order to access the player's localStorage, you need to turn on the domStorageEnabled setting in the webview.
+The IFrame player keeps the quality value in a window interface called [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage). We can access it and change it from there.
 
-Go to [WebViewYouTubePlayer#L106](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/1c63557dbe74fe6b7a3b6d692ea28c278162f768/core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/views/WebViewYouTubePlayer.kt#L106) and add this line to enable domStorage
+In order to access the player's `localStorage`, you need to turn on the `domStorageEnabled` setting in the webview.
+
+Go to `WebViewYouTubePlayer#initWebView` and add this line to enable `domStorage`:
 
 ```kt
  settings.domStorageEnabled = true
 ```
 
-Get available qualities because not all videos has same quality options
+Add these functions to `ayp_youtube_player.html`:
 
-Go to [ayp_youtube_player.html#L101](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/res/raw/ayp_youtube_player.html#L101) and add this line 
 
 ```js
-function sendVideoQuality(player){
+// Return the available quality options for the current video.
+// Not all videos have the same quality options, so we need to check what's available first. 
+// this function will return an array like: ["hd1080","hd720","large","medium","small","tiny","auto"]
+function sendVideoQuality(player) {
     YouTubePlayerBridge.sendVideoQuality(JSON.stringify(player.getAvailableQualityLevels()))
 }
-//eg result : "["hd1080","hd720","large","medium","small","tiny","auto"]"
+
+function setPlaybackQuality(playbackQuality) {
+  if (playbackQuality == "auto") {
+    localStorage.removeItem("yt-player-quality");
+  } else {
+    var now = Date.now();
+    // this will set `playbackQuality` as the selected video quality, untile it expires
+    localStorage.setItem("yt-player-quality", JSON.stringify({
+      data: playbackQuality,
+      creation: now,
+      expiration: now + 2419200000
+    }));
+  }
+
+  // after changing the quality you need to reload the video to see changes.
+  // reload the video and start playing where it was.
+  if (player) {
+    var currentTime = player.getCurrentTime();
+    player.loadVideoById(player.getVideoData().video_id, currentTime);
+  }
+}
 ```
 
-Then go to [YouTubePlayerBridge.kt#L68](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/30e6515a4ad5001b21c296cdc8f40f4cbe33e4a8/core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/YouTubePlayerBridge.kt#L68) and add this line to make 'sendVideoQuality' function accesible from java
+To receive events from the webview, add this to `YouTubePlayerBridge.kt`:
 
 ```kt
 @JavascriptInterface
-    fun sendVideoQuality(quality: String){
-        mainThreadHandler.post{
-            for(listener in youTubePlayerOwner.getListeners())
-                listener.onVideoQuality(youTubePlayerOwner.getInstance(),quality)
-        }
+fun sendVideoQuality(quality: String) {
+  mainThreadHandler.post {
+    for(listener in youTubePlayerOwner.getListeners()) {
+      // also add this new method to the listener interface
+      listener.onVideoQuality(youTubePlayerOwner.getInstance(), quality)
     }
+  }
+}
 ```
 
-Then to add it to listener add this to [YouTubePlayerListener.kt#L49](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/listeners/YouTubePlayerListener.kt#L49)
+Add this to the `YoutubePlayer` interface:
 
 ```kt
-fun onVideoQuality(youTubePlayer: YouTubePlayer,quality: String)
+fun setPlaybackQuality(quality: String)
 ```
 
-
-Then go to [ayp_youtube_player.html#L148](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/res/raw/ayp_youtube_player.html#L148)
-```js
-function setPlaybackQuality(playbackQuality) {
-        if (playbackQuality == "auto") {
-            //this will make quality auto
-            localStorage.removeItem("yt-player-quality");
-        } else {
-            var now = Date.now();
-            //this will set quality of your choice and it will be saved and be default for every video until expires:)
-            localStorage.setItem("yt-player-quality", JSON.stringify({
-                data: playbackQuality,
-                creation: now,
-                expiration: now + 2419200000
-            }));
-        }
-        //after you set value you have to reload the player to see the effect.
-        //so this method reloads the video where you left it so it is kinda seemless
-        if (player) {
-            var currentTime = player.getCurrentTime();
-            player.loadVideoById(player.getVideoData().video_id, currentTime);
-        }
-    }
-```
-
-Then go to [WebViewYouTubePlayer.kt#L56](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/views/WebViewYouTubePlayer.kt#L56)
+And implement it in `WebViewYouTubePlayer.kt`
 
 ```kt
 override fun setPlaybackQuality(quality: String) {
-        mainThreadHandler.post { loadUrl("javascript:setPlaybackQuality('$quality')") }
-    }
-```
-
-To make setPlaybackQuality func acessible from YoutubePlayer class you should go to [YouTubePlayer.kt#L33](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/YouTubePlayer.kt#L33) and add this line
-
-```kt
-    fun setPlaybackQuality(quality: String)
-```
-
-Now we are finally done implementing quality feature to the library.So you can switch to your project and start using it
-
-#### Usage
-
-To set quality call setPlaybackQuality method from YoutubePlayer class
-
-```java
-youtubePlayer.setPlaybackQuality("hd720");
-```
-
-To get available quality set listener for YoutubePlayerView
-
-This example shows how to put all available qualities to a list
-```java
-ArrayList<String> quality_list = new ArrayList<>();
-boolean isQualityRetrived = false;
-youTubePlayerView.initialize(new YouTubePlayerListener() {
-                    @Override
-                    public void onVideoQuality(@NonNull YouTubePlayer youTubePlayer, @NonNull String quality) {
-                        if (!isQualityRetrived) {
-                            quality_list.clear();
-                            try {
-                                JSONArray jsonArray = new JSONArray(quality);
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    quality_list.add(jsonArray.getString(i));
-                                }
-                                isQualityRetrived = true;
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
-                
-```
-Thats it,Now you should able to change quality of the video
-
-### Play Private Videos
-
-This workaround basically creates a webview with spesific settings that you can login with your YouTube account.
-
-First of all create main_activity like this
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-
-    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-        android:id="@+id/youtube_player_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"
-        app:autoPlay="false" />
-
-
-
-    <Button
-        android:id="@+id/log_in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Log in to Youtube"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <Button
-        android:id="@+id/play_private"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Play Private"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/log_in" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-```
-Then create activity_login_dialog.xml
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <WebView
-        android:id="@+id/login_webview"
-        android:layout_width="match_parent"
-        android:layout_height="400dp" />
-
-</LinearLayout>
-```
-
-Finally create MainActivity.java
-```java
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Button;
-import android.widget.Toast;
-
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
-
-public class MainActivity extends AppCompatActivity {
-
-    private SharedPreferences sharedPreferences;
-    private Button log_in_btn, play_private_btn;
-    private BottomSheetDialog bottomSheetDialog;
-    private YouTubePlayerView youTubePlayerView;
-    private final String TAG = MainActivity.class.getSimpleName();
-    private YouTubePlayer mYoutubePlayer;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        log_in_btn = findViewById(R.id.log_in);
-        youTubePlayerView = findViewById(R.id.youtube_player_view);
-        getLifecycle().addObserver(youTubePlayerView);
-        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-            @Override
-            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                super.onReady(youTubePlayer);
-                mYoutubePlayer = youTubePlayer;
-            }
-
-            @Override
-            public void onError(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerError error) {
-                super.onError(youTubePlayer, error);
-                if (error == PlayerConstants.PlayerError.VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER) {
-                    //if this happens auth was probably not sucessfull so show log in dialog again
-                    log_in();
-                }
-            }
-        });
-        play_private_btn = findViewById(R.id.play_private);
-        sharedPreferences = getSharedPreferences("log_check", MODE_PRIVATE);
-
-        if (sharedPreferences.getInt("isLogged", -1) == 1) {
-            youTubePlayerView.setVisibility(View.VISIBLE);
-            log_in_btn.setVisibility(View.GONE);
-            play_private_btn.setVisibility(View.VISIBLE);
-            Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show();
-
-        }
-        play_private_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                play_video();
-            }
-        });
-
-
-        log_in_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                log_in();
-            }
-        });
-
-    }
-
-    private void log_in() {
-        bottomSheetDialog = new BottomSheetDialog(MainActivity.this);
-        View contentView = View.inflate(MainActivity.this, R.layout.activity_login_dialog, null);
-        bottomSheetDialog.setContentView(contentView);
-        WebView login_web = bottomSheetDialog.findViewById(R.id.login_webview);
-        login_web.getSettings().setJavaScriptEnabled(true);
-        login_web.getSettings().setDomStorageEnabled(true);
-        login_web.getSettings().setSavePassword(true);
-        login_web.getSettings().setSaveFormData(true);
-        login_web.loadUrl("https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Dm%26hl%3Dtr%26next%3Dhttps%253A%252F%252Fm.youtube.com%252F");
-        login_web.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                //if webview redirects to youtube.com then it means it is logged in
-                if (request.getUrl().toString().startsWith("https://m.youtube.com")
-                        || request.getUrl().toString().startsWith("https://www.youtube.com")) {
-                    Log.d(TAG, "Logged in");
-                    sharedPreferences.edit().putInt("isLogged", 1).apply();
-                    youTubePlayerView.setVisibility(View.VISIBLE);
-                    log_in_btn.setVisibility(View.GONE);
-                    play_private_btn.setVisibility(View.VISIBLE);
-                    bottomSheetDialog.dismiss();
-                    Toast.makeText(MainActivity.this, "Logged in", Toast.LENGTH_SHORT).show();
-                    return false;
-                }
-                return false;
-            }
-        });
-
-        bottomSheetDialog.show();
-    }
-
-    private void play_video() {
-        if (mYoutubePlayer != null) {
-            //Enter your video id here
-            String video_id = "AOHJKPI4bDU";
-            mYoutubePlayer.loadVideo(video_id, 0);
-        } else {
-            Toast.makeText(this, "Player is not ready yet.Wait a little bit then click again", Toast.LENGTH_LONG).show();
-        }
-
-    }
-
-
+  mainThreadHandler.post { loadUrl("javascript:setPlaybackQuality('$quality')") }
 }
-
 ```
 
-Add this code if logging out constantly
+Now you should be able to change the quality of your videos :)
 
-Go to [WebViewYouTubePlayer#L106](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/1c63557dbe74fe6b7a3b6d692ea28c278162f768/core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/views/WebViewYouTubePlayer.kt#L106) and add this line to enable domStorage
+Get all the available qualities using `YouTubePlayerListener#onVideoQuality` and set the player's quality using `youtubePlayer#setPlaybackQuality`.
+
+## Login to YouTube account
+
+By logging in you will be able to play private videos from the user.
+
+The idea here is to create a `WebView` and use it to authentucate with YouTube. The results of the authentication will be shared with the `WebView` containing the YouTube player.
+
+```java
+private void log_in() {
+  WebView webView = new WebView(context);
+  webView.getSettings().setJavaScriptEnabled(true);
+  webView.getSettings().setDomStorageEnabled(true);
+  webView.getSettings().setSavePassword(true);
+  webView.getSettings().setSaveFormData(true);
+  webView.loadUrl("https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Dm%26hl%3Dtr%26next%3Dhttps%253A%252F%252Fm.youtube.com%252F");
+  webView.setWebViewClient(new WebViewClient() {
+    @Override
+    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+      //if webview redirects to youtube.com it means we're logged in
+      if (
+        request.getUrl().toString().startsWith("https://m.youtube.com") ||
+        request.getUrl().toString().startsWith("https://www.youtube.com")
+      ) {
+        Log.d(TAG, "Logged in");
+        Toast.makeText(MainActivity.this, "Logged in", Toast.LENGTH_SHORT).show();
+        return false;
+      }
+      return false;
+    }
+  });
+}
+```
+
+In `WebViewYouTubePlayer#initWebView` add this code to enable dom storage, to avoid being logged out constantly:
 
 ```kt
  settings.domStorageEnabled = true
 ```
 
+## Block Ads
 
-### Block Ads
+This workaround searches for the `video-ads` element in the webview by running a query selector every 100 milliseconds. When it finds a `video-ads` element, first mutes it, then subtracts the duration of the ad from the duration of the main video and unmutes it again.
 
-So this workaround basically searches for the video-ads element by using a query selector every 100 milliseconds and if it finds it, first mutes it, then subtracts the duration of the ad from the duration of the main video and unmutes it again.
-
-Go to [ayp_youtube_player.html#L116](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/res/raw/ayp_youtube_player.html#L116) add this function
-
-Call this function from inside sendPlayerStateChange function and it will run automatically
+Add this function to `ayp_youtube_player.html` and call it from `sendPlayerStateChange`:
 
 ```js
-var adblockIntervalId;
+let adblockIntervalId;
 
 function initializeAdBlock() {
-            if (adblockIntervalId) clearInterval(adblockIntervalId);
-			
-            const playerIFrame = document.querySelector("iframe");
+  if (adblockIntervalId) {
+    clearInterval(adblockIntervalId);
+  }
 
-            if (playerIFrame) {
-                adblockIntervalId = setInterval(() => {
-                    if (!playerIFrame) {
-                        return;
-                    }
+  const playerIFrame = document.querySelector("iframe");
+  if (playerIFrame) {
+    adblockIntervalId = setInterval(() => {
+      if (!playerIFrame) {
+        return;
+      }
 
-                    const frameDoc = playerIFrame.contentDocument;
+      const frameDoc = playerIFrame.contentDocument;
+      if (!frameDoc) {
+        return;
+      }
 
-                    if (!frameDoc) {
-                        return;
-                    }
 
-                 
-                    const adsContainer = frameDoc.querySelector('.video-ads');
+      const adsContainer = frameDoc.querySelector('.video-ads');
+      if (!adsContainer || adsContainer.childElementCount == 0) {
+        return;
+      }
 
-                    if (!adsContainer || adsContainer.childElementCount == 0) {
-                        return;
-                    }
+      const adsVideo = adsContainer.querySelector("video");
 
-                    const adsVideo = adsContainer.querySelector("video");
-
-                    if (adsVideo) {
-                        adsVideo.muted = true;
-                        adsVideo.style.display = 'none';
-                        adsVideo.currentTime = adsVideo.duration - 0.15;
-                        adsVideo.muted = false;
-                        adsVideo.style.display = '';
-                        if (adblockIntervalId) clearInterval(adblockIntervalId);
-                    } else {
-                        const isAdShowing = frameDoc.getElementsByClassName('ad-showing').length != 0;
-
-                        if (!isAdShowing) {
-                            return;
-                        }
-
-                        const mainVideo = frameDoc.querySelector('.html5-main-video');
-
-                        if (!mainVideo) {
-                            return;
-                        }
-
-                        mainVideo.muted = true;
-                        mainVideo.currentTime = mainVideo.duration - 0.15;
-                        mainVideo.muted = false;
-                        if (adblockIntervalId) clearInterval(adblockIntervalId);
-                    }
-
-                }, 100);
-            }
+      if (adsVideo) {
+        adsVideo.muted = true;
+        adsVideo.style.display = 'none';
+        adsVideo.currentTime = adsVideo.duration - 0.15;
+        adsVideo.muted = false;
+        adsVideo.style.display = '';
+        if (adblockIntervalId) {
+          clearInterval(adblockIntervalId);
         }
+      }
+      else {
+        const isAdShowing = frameDoc.getElementsByClassName('ad-showing').length != 0;
+        if (!isAdShowing) {
+          return;
+        }
+
+        const mainVideo = frameDoc.querySelector('.html5-main-video');
+        if (!mainVideo) {
+          return;
+        }
+
+        mainVideo.muted = true;
+        mainVideo.currentTime = mainVideo.duration - 0.15;
+        mainVideo.muted = false;
+        if (adblockIntervalId) {
+          clearInterval(adblockIntervalId);
+        }
+      }
+    }, 100);
+  }
+}
 ```
 
-### Remove Annoying Views
+## Remove Annoying Views
 
-This workaround will provide you ways to remove annoying wiews that cannot remove with official method.
+This workaround provides ways to remove annoying views from the player that can't be removed with official APIs.
 
-#### Hide Title
+### Hide Title
 
 Hide title and channel picture at once
 
-Go to [ayp_youtube_player.html#L116](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/res/raw/ayp_youtube_player.html#L116) add this function and call this function from inside onReady state and it will hide the title
+Add this to `ayp_youtube_player.html`, and call it inside `onReady`.
 
 ```js
 function hideVideoTitle() {
-    setInterval(() => {
-        const playerIFrame = document.querySelector("iframe");
+  setInterval(() => {
+    const playerIFrame = document.querySelector("iframe");
+    if (!playerIFrame) {
+      return;
+    }
+    
+    const frameDoc = playerIFrame.contentDocument;
+    if (!frameDoc) {
+      return;
+    }
 
-        if (!playerIFrame) {
-            return;
-        }
-
-        const frameDoc = playerIFrame.contentDocument;
-
-        if (!frameDoc) {
-            return;
-        }
-
-        const title = frameDoc.querySelector('.ytp-chrome-top');
-        if (title) {
-            title.style.display = 'none';
-        }
-
-    }, 100);
+    const title = frameDoc.querySelector('.ytp-chrome-top');
+    if (title) {
+      title.style.display = 'none';
+    }
+  }, 100);
 }
 ```
-#### Hide 'More Videos' section thats covering most of the video when you pause (Only visible on tablets)
 
-Go to [ayp_youtube_player.html#L116](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/res/raw/ayp_youtube_player.html#L116) add this function and call this function from inside onReady state and it will hide the popup
+### Hide 'More Videos' section that covers most of the video when paused (Only visible on tablets and bigger screens)
+
+Add this to `ayp_youtube_player.html`, and call it inside `onReady`.
 
 ```js
 function hideTabletPopup() {
+  setInterval(() => {
+    const playerIFrame = document.querySelector("iframe");
+    if (!playerIFrame) {
+      return;
+    }
 
-            setInterval(() => {
-                const playerIFrame = document.querySelector("iframe");
+    const frameDoc = playerIFrame.contentDocument;
+    if (!frameDoc) {
+      return;
+    }
 
-                if (!playerIFrame) {
-                    return;
-                }
-
-                const frameDoc = playerIFrame.contentDocument;
-
-                if (!frameDoc) {
-                    return;
-                }
-
-                 const collection = frameDoc.getElementsByClassName("ytp-pause-overlay-container")[0];
-                  if (!collection) {
-                    return;
-                }
-                 collection.style.display = 'none';
-
-            }, 100);
-        }
-
+    const collection = frameDoc.getElementsByClassName("ytp-pause-overlay-container")[0];
+    if (!collection) {
+      return;
+    }
+    collection.style.display = 'none';
+  }, 100);
+}
 ```
-### Hide Captions
+## Hide Captions
 
-There is actually official way to disable captions but currently official method doesnt work.But of course it might be fixed in the future
-
-Until then you can use this workaround to disable or enable captions while playing.
-
-With official method you cant disable or enable captions while video plays because you have to decide at first before playing the video
-
-To hide captions
-
-Go to [ayp_youtube_player.html#L116](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/res/raw/ayp_youtube_player.html#L116) add this function and call this function from inside onReady state and it will hide the captions
+Add this to `ayp_youtube_player.html`, and call it inside `onReady`.
 
 ```js
-function hideCaption(){
-            setInterval(() => {
-                if(!player){
-                    return;
-                }
-                player.unloadModule('captions');
-            },1000);
-        }
+function hideCaption() {
+  setInterval(() => {
+    if(!player) {
+      return;
+    }
+    player.unloadModule('captions');
+  }, 1000);
+}
 ```
 
 To enable captions
+
 ```js
-function hideCaption(){
-     if(!player){
-        return;
-      }
-     player.loadModule('captions');
+function hideCaption() {
+  if(!player) {
+    return;
+  }
+  player.loadModule('captions');
 }
 ```
 
-### Play Next Video
+## Play Next Video
 
-This workaround gets id from 'more videos' and play them as a next video
+This workaround gets the id from 'more videos' and plays it as a next video
 
-If `rel` paramter is set to 0: next video will be related videos that come from the same channel as the video that was just played.
+If the `rel` paramter is set to 0: the next video will come from the same channel as the video that was just played.
 
-If `rel` paramater is set to 1: next video will be related videos that come from multiple channels.
+If the `rel` paramater is set to 1: the next video will be from related videos that come from multiple channels.
 
-Go to [ayp_youtube_player.html#L116](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/res/raw/ayp_youtube_player.html#L116) add this function
-
-So this code basically gets first video id from 'more videos' section and plays it.If you want to get more videos you can loop a tag.
-
-CAUTION Since this code uses classnames it is very likely that classname is going to change and this code wont work in the future so you may have to update classnames by inscepting html
+Add this to `ayp_youtube_player.html`, and call it inside `onReady`.
 
 ```js
 function playNextVideo() {
-    const playerIFrame = document.querySelector("iframe");
+  const playerIFrame = document.querySelector("iframe");
+  if (!playerIFrame) {
+    return;
+  }
 
-    if (!playerIFrame) {
-        return;
-    }
-    const frameDoc = playerIFrame.contentDocument;
+  const frameDoc = playerIFrame.contentDocument;
+  if (!frameDoc) {
+    return;
+  }
 
-    if (!frameDoc) {
-        return;
-    }
-    var nextVideo = frameDoc.querySelectorAll('.ytp-suggestions a')
-    if(!nextVideo){
-    	return;
-    }
-    var video_id = nextVideo[0].href.split('v=')[1];
-    var ampersand = video_id.indexOf('&');
-    if (ampersand != -1) {
-        video_id = video_id.substring(0, ampersand);
-    }
-    player.loadVideoById(video_id, 0);
+  const nextVideo = frameDoc.querySelectorAll('.ytp-suggestions a')
+  if(!nextVideo){
+    return;
+  }
+
+  let videoId = nextVideo[0].href.split('v=')[1];
+  let ampersandIndex = videoId.indexOf('&');
+  if (ampersandIndex != -1) {
+  videoId = videoId.substring(0, ampersandIndex);
+  }
+  player.loadVideoById(videoId, 0);
 }
 ```
 
-Then go to [WebViewYouTubePlayer.kt#L56](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/views/WebViewYouTubePlayer.kt#L56)
-```kt
-override fun playNextVideo(){
-        mainThreadHandler.post { loadUrl("javascript:playNextVideo()") }
-    }
-
-```
-
-To make playNextVideo func acessible from YoutubePlayer class you should go to [YouTubePlayer.kt#L33](https://github.com/PierfrancescoSoffritti/android-youtube-player/blob/a9b5a70292b00f7b2f61d79d2debea22462a0c85/core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/YouTubePlayer.kt#L33) and add this line
+Then add this method to the `YouTubePlayer` interface:
 
 ```kt
-    fun playNextVideo()
+fun playNextVideo()
 ```
 
-Now you can call it from YoutubePlayer classs
+And implement it in `WebViewYouTubePlayer`
+
 ```kt
-youtubePlayer.playNextVideo()
+override fun playNextVideo() {
+  mainThreadHandler.post { loadUrl("javascript:playNextVideo()") }
+}
 ```
-
 
 ---
 
