@@ -69,7 +69,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
         }
 
         /**
-         * Controls if the video is played automatically.
+         * Controls if the video is played automatically after the player is initialized.
          * @param autoplay if set to 1: the player will start automatically. If set to 0: the player will not start automatically
          */
         fun autoplay(controls: Int): Builder {
@@ -78,7 +78,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
         }
 
         /**
-         * Controls if the video is muted.
+         * Controls if the player will be initialized mute or not.
          * @param mute if set to 1: the player will start muted and without acquiring Audio Focus. If set to 0: the player will acquire Audio Focus
          */
         fun mute(controls: Int): Builder {
