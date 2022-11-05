@@ -81,7 +81,6 @@ Also remember when publishing your app on the PlayStore to write title and descr
         1. [Hardware acceleration](#hardware-acceleration)
         2. [Play YouTube videos in the background](#play-youtube-videos-in-the-background)
         3. [minSdk](#minsdk)
-    
 
 # Table of Contents (Chromecast)
 1. [Chromecast extension library](#chromecast-extension-library)
