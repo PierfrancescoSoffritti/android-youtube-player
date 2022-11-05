@@ -98,9 +98,7 @@ Also remember when publishing your app on the PlayStore to write title and descr
     3. [Block Ads (Auto Ad Skip)](#block-ads)
     4. [Remove views that cannot be removed by the controls parameter](#remove-annoying-views)
     5. [Force to hide subtitles](#hide-captions)
-    6. [Play Next Video](#play-next-video)
-    
-
+    6. [Play Next Recomended Video](#play-next-recomended-video)
 
 # Sample app
 :memo: Both the **core module** and the **chromecast module** have a sample app, to provide examples of usage of the libraries.
@@ -1222,7 +1220,7 @@ function hideCaption() {
 }
 ```
 
-## Play Next Video
+## Play Next Recomended Video
 
 This workaround gets the id from 'more videos' and plays it as a next video, you can think of it like the "recomended" section on YouTube. You can use it like auto-play on YouTube.
 
