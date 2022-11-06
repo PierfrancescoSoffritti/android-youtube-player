@@ -90,7 +90,15 @@ Also remember when publishing your app on the PlayStore to write title and descr
     3. [Receiver](#receiver)
     4. [Registration](#registration)
     5. [Hosting the Chromecast receiver](#hosting-the-chromecast-receiver)
-
+    
+# FAQ
+1. [Workarounds](#workarounds)
+    1. [Change video quality](#change-video-quality)
+    2. [Login to YouTube account](#login-to-youtube-account)
+    3. [Block Ads (Auto Ad Skip)](#block-ads)
+    4. [Remove views that cannot be removed by the controls parameter](#remove-annoying-views)
+    5. [Force to hide subtitles](#hide-captions)
+    6. [Play Next Recomended Video](#play-next-recomended-video)
 
 # Sample app
 :memo: Both the **core module** and the **chromecast module** have a sample app, to provide examples of usage of the libraries.
@@ -941,6 +949,326 @@ In order to use your receiver you need a receiverId. This is the ID of your rece
 
 ### Hosting the chromecast-receiver
 You will be required to host your receiver somewhere, host it where you prefer. Firebase free hosting may be a good option, for development.
+
+# Workarounds
+The following sections provides unofficial workarounds that can't be implemented in the library because they might break at anytime. To use them you will need to create your own fork of the library. Use them at your own peril. Using any of these workarounds might break YouTube terms of service.
+
+These workaround have been provided by the community of users of this library. Thanks to @Serkali-sudo for the help!
+
+## Change Video Quality
+The IFrame Player API currently doesn't support changing the video quality on modile devices, but we can do it indirectly.
+
+The IFrame player keeps the quality value in a window interface called [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage). We can access it and change it from there.
+
+In order to access the player's `localStorage`, you need to turn on the `domStorageEnabled` setting in the webview.
+
+Go to `WebViewYouTubePlayer#initWebView` and add this line to enable `domStorage`:
+
+```kt
+ settings.domStorageEnabled = true
+```
+
+Add these functions to `ayp_youtube_player.html`:
+
+
+```js
+// Return the available quality options for the current video.
+// Not all videos have the same quality options, so we need to check what's available first. 
+// this function will return an array like: ["hd1080","hd720","large","medium","small","tiny","auto"]
+function sendVideoQuality(player) {
+    YouTubePlayerBridge.sendVideoQuality(JSON.stringify(player.getAvailableQualityLevels()))
+}
+
+function setPlaybackQuality(playbackQuality) {
+  if (playbackQuality == "auto") {
+    localStorage.removeItem("yt-player-quality");
+  } else {
+    var now = Date.now();
+    // this will set `playbackQuality` as the selected video quality, untile it expires
+    localStorage.setItem("yt-player-quality", JSON.stringify({
+      data: playbackQuality,
+      creation: now,
+      expiration: now + 2419200000
+    }));
+  }
+
+  // after changing the quality you need to reload the video to see changes.
+  // reload the video and start playing where it was.
+  if (player) {
+    var currentTime = player.getCurrentTime();
+    player.loadVideoById(player.getVideoData().video_id, currentTime);
+  }
+}
+```
+
+To receive events from the webview, add this to `YouTubePlayerBridge.kt`:
+
+```kt
+@JavascriptInterface
+fun sendVideoQuality(quality: String) {
+  mainThreadHandler.post {
+    for(listener in youTubePlayerOwner.getListeners()) {
+      // also add this new method to the listener interface
+      listener.onVideoQuality(youTubePlayerOwner.getInstance(), quality)
+    }
+  }
+}
+```
+
+Add this to the `YoutubePlayer` interface:
+
+```kt
+fun setPlaybackQuality(quality: String)
+```
+
+And implement it in `WebViewYouTubePlayer.kt`
+
+```kt
+override fun setPlaybackQuality(quality: String) {
+  mainThreadHandler.post { loadUrl("javascript:setPlaybackQuality('$quality')") }
+}
+```
+
+Now you should be able to change the quality of your videos :)
+
+Get all the available qualities using `YouTubePlayerListener#onVideoQuality` and set the player's quality using `youtubePlayer#setPlaybackQuality`.
+
+## Login to YouTube account
+
+By logging in you will be able to play private videos from the user.
+
+The idea here is to create a `WebView` and use it to authentucate with YouTube. The results of the authentication will be shared with the `WebView` containing the YouTube player.
+
+```java
+private void log_in() {
+  WebView webView = new WebView(context);
+  webView.getSettings().setJavaScriptEnabled(true);
+  webView.getSettings().setDomStorageEnabled(true);
+  webView.getSettings().setSavePassword(true);
+  webView.getSettings().setSaveFormData(true);
+  webView.loadUrl("https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Dm%26hl%3Dtr%26next%3Dhttps%253A%252F%252Fm.youtube.com%252F");
+  webView.setWebViewClient(new WebViewClient() {
+    @Override
+    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+      //if webview redirects to youtube.com it means we're logged in
+      if (
+        request.getUrl().toString().startsWith("https://m.youtube.com") ||
+        request.getUrl().toString().startsWith("https://www.youtube.com")
+      ) {
+        Log.d(TAG, "Logged in");
+        Toast.makeText(MainActivity.this, "Logged in", Toast.LENGTH_SHORT).show();
+        return false;
+      }
+      return false;
+    }
+  });
+}
+```
+
+In `WebViewYouTubePlayer#initWebView` add this code to enable dom storage, to avoid being logged out constantly:
+
+```kt
+ settings.domStorageEnabled = true
+```
+
+## Block Ads
+
+This workaround searches for the `video-ads` element in the webview by running a query selector every 100 milliseconds. When it finds a `video-ads` element, first mutes it, then subtracts the duration of the ad from the duration of the main video and unmutes it again.
+
+Add this function to `ayp_youtube_player.html` and call it from `sendPlayerStateChange`:
+
+```js
+let adblockIntervalId;
+
+function initializeAdBlock() {
+  if (adblockIntervalId) {
+    clearInterval(adblockIntervalId);
+  }
+
+  const playerIFrame = document.querySelector("iframe");
+  if (playerIFrame) {
+    adblockIntervalId = setInterval(() => {
+      if (!playerIFrame) {
+        return;
+      }
+
+      const frameDoc = playerIFrame.contentDocument;
+      if (!frameDoc) {
+        return;
+      }
+
+
+      const adsContainer = frameDoc.querySelector('.video-ads');
+      if (!adsContainer || adsContainer.childElementCount == 0) {
+        return;
+      }
+
+      const adsVideo = adsContainer.querySelector("video");
+
+      if (adsVideo) {
+        adsVideo.muted = true;
+        adsVideo.style.display = 'none';
+        adsVideo.currentTime = adsVideo.duration - 0.15;
+        adsVideo.muted = false;
+        adsVideo.style.display = '';
+        if (adblockIntervalId) {
+          clearInterval(adblockIntervalId);
+        }
+      }
+      else {
+        const isAdShowing = frameDoc.getElementsByClassName('ad-showing').length != 0;
+        if (!isAdShowing) {
+          return;
+        }
+
+        const mainVideo = frameDoc.querySelector('.html5-main-video');
+        if (!mainVideo) {
+          return;
+        }
+
+        mainVideo.muted = true;
+        mainVideo.currentTime = mainVideo.duration - 0.15;
+        mainVideo.muted = false;
+        if (adblockIntervalId) {
+          clearInterval(adblockIntervalId);
+        }
+      }
+    }, 100);
+  }
+}
+```
+
+## Remove Annoying Views
+
+This workaround provides ways to remove annoying views from the player that can't be removed with official APIs.
+
+### Hide Title
+
+Hide title and channel picture at once
+
+Add this to `ayp_youtube_player.html`, and call it inside `onReady`.
+
+```js
+function hideVideoTitle() {
+  setInterval(() => {
+    const playerIFrame = document.querySelector("iframe");
+    if (!playerIFrame) {
+      return;
+    }
+    
+    const frameDoc = playerIFrame.contentDocument;
+    if (!frameDoc) {
+      return;
+    }
+
+    const title = frameDoc.querySelector('.ytp-chrome-top');
+    if (title) {
+      title.style.display = 'none';
+    }
+  }, 100);
+}
+```
+
+### Hide 'More Videos' section that covers most of the video when paused (Only visible on tablets and bigger screens)
+
+Add this to `ayp_youtube_player.html`, and call it inside `onReady`.
+
+```js
+function hideTabletPopup() {
+  setInterval(() => {
+    const playerIFrame = document.querySelector("iframe");
+    if (!playerIFrame) {
+      return;
+    }
+
+    const frameDoc = playerIFrame.contentDocument;
+    if (!frameDoc) {
+      return;
+    }
+
+    const collection = frameDoc.getElementsByClassName("ytp-pause-overlay-container")[0];
+    if (!collection) {
+      return;
+    }
+    collection.style.display = 'none';
+  }, 100);
+}
+```
+## Hide Captions
+
+Add this to `ayp_youtube_player.html`, and call it inside `onReady`.
+
+```js
+function hideCaption() {
+  setInterval(() => {
+    if(!player) {
+      return;
+    }
+    player.unloadModule('captions');
+  }, 1000);
+}
+```
+
+To enable captions
+
+```js
+function hideCaption() {
+  if(!player) {
+    return;
+  }
+  player.loadModule('captions');
+}
+```
+
+## Play Next Recomended Video
+
+This workaround gets the id from 'more videos' and plays it as a next video, you can think of it like the "recomended" section on YouTube. You can use it like auto-play on YouTube.
+
+If the `rel` paramter is set to 0: the next video will come from the same channel as the video that was just played.
+
+If the `rel` paramater is set to 1: the next video will be from related videos that come from multiple channels.
+
+Add this to `ayp_youtube_player.html`, and call it inside `onReady`.
+
+```js
+function playNextVideo() {
+  const playerIFrame = document.querySelector("iframe");
+  if (!playerIFrame) {
+    return;
+  }
+
+  const frameDoc = playerIFrame.contentDocument;
+  if (!frameDoc) {
+    return;
+  }
+
+  const nextVideo = frameDoc.querySelectorAll('.ytp-suggestions a')
+  if(!nextVideo){
+    return;
+  }
+
+  let videoId = nextVideo[0].href.split('v=')[1];
+  let ampersandIndex = videoId.indexOf('&');
+  if (ampersandIndex != -1) {
+  videoId = videoId.substring(0, ampersandIndex);
+  }
+  player.loadVideoById(videoId, 0);
+}
+```
+
+Then add this method to the `YouTubePlayer` interface:
+
+```kt
+fun playNextVideo()
+```
+
+And implement it in `WebViewYouTubePlayer`
+
+```kt
+override fun playNextVideo() {
+  mainThreadHandler.post { loadUrl("javascript:playNextVideo()") }
+}
+```
 
 ---
 
