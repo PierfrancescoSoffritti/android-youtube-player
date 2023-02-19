@@ -1,5 +1,6 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners
 
+import android.view.View
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 
@@ -14,7 +15,7 @@ interface YouTubePlayerListener {
      * Called every time the state of the player changes. Check [PlayerConstants.PlayerState] to see all the possible states.
      * @param state a state from [PlayerConstants.PlayerState]
      */
-    fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState)
+    fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState, view: View? = null)
 
     /**
      * Called every time the quality of the playback changes. Check [PlayerConstants.PlaybackQuality] to see all the possible values.

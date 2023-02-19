@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.TextView
@@ -114,7 +115,7 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null): Linea
 
     // YouTubePlayerListener
 
-    override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
+    override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState, view: View?) {
         newSeekBarProgress = -1
         updateState(state)
     }

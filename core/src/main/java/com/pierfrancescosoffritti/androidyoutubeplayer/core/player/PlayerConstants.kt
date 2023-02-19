@@ -3,7 +3,7 @@ package com.pierfrancescosoffritti.androidyoutubeplayer.core.player
 class PlayerConstants {
 
     enum class PlayerState {
-        UNKNOWN, UNSTARTED, ENDED, PLAYING, PAUSED, BUFFERING, VIDEO_CUED
+        UNKNOWN, UNSTARTED, ENDED, PLAYING, PAUSED, BUFFERING, VIDEO_CUED, SHOW_CUSTOM_VIEW, HIDE_CUSTOM_VIEW
     }
 
     enum class PlaybackQuality {

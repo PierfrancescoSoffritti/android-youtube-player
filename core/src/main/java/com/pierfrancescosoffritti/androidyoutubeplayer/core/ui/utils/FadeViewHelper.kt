@@ -75,7 +75,7 @@ class FadeViewHelper(val targetView: View): YouTubePlayerListener {
         }
     }
 
-    override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
+    override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState, view: View?) {
         updateState(state)
 
         when(state) {

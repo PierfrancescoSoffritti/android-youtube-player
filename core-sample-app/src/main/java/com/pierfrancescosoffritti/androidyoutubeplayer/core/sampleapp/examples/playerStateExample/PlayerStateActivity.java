@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.core.util.Pair;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -52,7 +53,7 @@ public class PlayerStateActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState state) {
+            public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState state, @NonNull View view) {
                 onNewState(state);
             }
 

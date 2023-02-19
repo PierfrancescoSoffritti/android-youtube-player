@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
+import android.view.View;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
@@ -85,7 +86,7 @@ public class NotificationManager extends AbstractYouTubePlayerListener implement
 
     @SuppressLint("SwitchIntDef")
     @Override
-    public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState state) {
+    public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState state, @NonNull View view) {
         switch (state) {
             case PLAYING:
                 notificationBuilder.mActions.get(0).icon = R.drawable.ic_pause_24dp;

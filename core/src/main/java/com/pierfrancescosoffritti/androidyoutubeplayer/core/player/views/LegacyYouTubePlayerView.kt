@@ -50,7 +50,7 @@ internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = 
 
         // stop playing if the user loads a video but then leaves the app before the video starts playing.
         youTubePlayer.addListener(object : AbstractYouTubePlayerListener() {
-            override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
+            override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState, view: View?) {
                 if(state == PlayerConstants.PlayerState.PLAYING && !isEligibleForPlayback())
                     youTubePlayer.pause()
             }

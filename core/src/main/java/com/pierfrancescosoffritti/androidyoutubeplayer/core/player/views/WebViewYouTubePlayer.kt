@@ -114,6 +114,21 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
 
         // if the video's thumbnail is not in memory, show a black screen
         webChromeClient = object : WebChromeClient() {
+
+            override fun onShowCustomView(view: View?, callback: CustomViewCallback?) {
+                super.onShowCustomView(view, callback)
+                youTubePlayerListeners.forEach {
+                    it.onStateChange(this@WebViewYouTubePlayer, PlayerConstants.PlayerState.SHOW_CUSTOM_VIEW, view)
+                }
+            }
+
+            override fun onHideCustomView() {
+                super.onHideCustomView()
+                youTubePlayerListeners.forEach {
+                    it.onStateChange(this@WebViewYouTubePlayer, PlayerConstants.PlayerState.HIDE_CUSTOM_VIEW)
+                }
+            }
+
             override fun getDefaultVideoPoster(): Bitmap? {
                 val result = super.getDefaultVideoPoster()
 
