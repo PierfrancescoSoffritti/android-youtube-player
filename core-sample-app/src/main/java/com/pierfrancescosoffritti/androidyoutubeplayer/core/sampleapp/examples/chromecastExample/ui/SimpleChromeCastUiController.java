@@ -56,7 +56,7 @@ public class SimpleChromeCastUiController extends AbstractYouTubePlayerListener 
     }
 
     @Override
-    public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState state, @NonNull View view) {
+    public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState state) {
         newSeekBarProgress = -1;
 
         updateControlsState(state);

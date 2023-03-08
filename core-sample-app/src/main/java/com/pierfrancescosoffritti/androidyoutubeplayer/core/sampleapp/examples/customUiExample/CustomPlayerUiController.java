@@ -74,7 +74,7 @@ class CustomPlayerUiController extends AbstractYouTubePlayerListener implements 
     }
 
     @Override
-    public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState state, @NonNull View view) {
+    public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState state) {
         if(state == PlayerConstants.PlayerState.PLAYING || state == PlayerConstants.PlayerState.PAUSED || state == PlayerConstants.PlayerState.VIDEO_CUED)
             panel.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent));
         else

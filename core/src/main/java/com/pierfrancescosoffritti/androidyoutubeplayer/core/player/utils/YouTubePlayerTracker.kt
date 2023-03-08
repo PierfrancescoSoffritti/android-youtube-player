@@ -1,6 +1,5 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils
 
-import android.view.View
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -22,7 +21,7 @@ class YouTubePlayerTracker : AbstractYouTubePlayerListener() {
     var videoId: String? = null
         private set
 
-    override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState, view: View?) {
+    override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
         this.state = state
     }
 

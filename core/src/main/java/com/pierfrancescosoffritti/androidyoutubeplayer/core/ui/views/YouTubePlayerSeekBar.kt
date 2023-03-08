@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
+import android.webkit.WebChromeClient
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.TextView
@@ -115,7 +116,7 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null): Linea
 
     // YouTubePlayerListener
 
-    override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState, view: View?) {
+    override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
         newSeekBarProgress = -1
         updateState(state)
     }
@@ -151,6 +152,8 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null): Linea
     override fun onPlaybackQualityChange(youTubePlayer: YouTubePlayer, playbackQuality: PlayerConstants.PlaybackQuality) { }
     override fun onPlaybackRateChange(youTubePlayer: YouTubePlayer, playbackRate: PlayerConstants.PlaybackRate) { }
     override fun onError(youTubePlayer: YouTubePlayer, error: PlayerConstants.PlayerError) { }
+    override fun onShowCustomView(view: View?, callback: WebChromeClient.CustomViewCallback?) { }
+    override fun onHideCustomView() { }
 }
 
 interface YouTubePlayerSeekBarListener {

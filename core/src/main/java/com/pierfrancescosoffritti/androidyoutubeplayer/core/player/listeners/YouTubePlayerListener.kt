@@ -1,6 +1,7 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners
 
 import android.view.View
+import android.webkit.WebChromeClient
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 
@@ -15,7 +16,7 @@ interface YouTubePlayerListener {
      * Called every time the state of the player changes. Check [PlayerConstants.PlayerState] to see all the possible states.
      * @param state a state from [PlayerConstants.PlayerState]
      */
-    fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState, view: View? = null)
+    fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState)
 
     /**
      * Called every time the quality of the playback changes. Check [PlayerConstants.PlaybackQuality] to see all the possible values.
@@ -61,4 +62,16 @@ interface YouTubePlayerListener {
     fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String)
 
     fun onApiChange(youTubePlayer: YouTubePlayer)
+
+    /**
+     * Called when current page has entered full screen mode.
+     * @param view is the View object to be shown.
+     * @param callback invoke this callback to request the page to exit full screen mode.
+     */
+    fun onShowCustomView(view: View?, callback: WebChromeClient.CustomViewCallback?)
+
+    /**
+     * Called when current page has exited full screen mode.
+     */
+    fun onHideCustomView()
 }

@@ -118,14 +118,14 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
             override fun onShowCustomView(view: View?, callback: CustomViewCallback?) {
                 super.onShowCustomView(view, callback)
                 youTubePlayerListeners.forEach {
-                    it.onStateChange(this@WebViewYouTubePlayer, PlayerConstants.PlayerState.SHOW_CUSTOM_VIEW, view)
+                    it.onShowCustomView(view = view, callback = callback)
                 }
             }
 
             override fun onHideCustomView() {
                 super.onHideCustomView()
                 youTubePlayerListeners.forEach {
-                    it.onStateChange(this@WebViewYouTubePlayer, PlayerConstants.PlayerState.HIDE_CUSTOM_VIEW)
+                    it.onHideCustomView()
                 }
             }
 

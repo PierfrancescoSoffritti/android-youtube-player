@@ -1,6 +1,5 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils
 
-import android.view.View
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -29,7 +28,7 @@ internal class PlaybackResumer : AbstractYouTubePlayerListener() {
         error = null
     }
 
-    override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState, view: View?) {
+    override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
         when (state) {
             PlayerConstants.PlayerState.ENDED -> {
                 isPlaying = false

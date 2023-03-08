@@ -4,15 +4,16 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.aytplayersample.R;
+import org.jetbrains.annotations.Nullable;
 
 public class SimpleFullscreenExampleActivity extends AppCompatActivity {
 
@@ -35,32 +36,24 @@ public class SimpleFullscreenExampleActivity extends AppCompatActivity {
         youTubePlayerView.setEnableAutomaticInitialization(false);
         youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
             @Override
-            public void onStateChange(@NonNull YouTubePlayer youTubePlayer, @NonNull PlayerConstants.PlayerState state, @NonNull View view) {
-                switch (state) {
-                    case SHOW_CUSTOM_VIEW: {
-                        // for display full screen landscape view
-                        youTubePlayerView.setVisibility(View.GONE);
-                        customView.setVisibility(View.VISIBLE);
-                        customView.addView(view);
-                        if (!youTubePlayerView.isFullScreen()) {
-                            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                        }
-                        break;
-                    }
+            public void onShowCustomView(@Nullable View view, @Nullable WebChromeClient.CustomViewCallback callback) {
+                super.onShowCustomView(view, callback);
+                // for display full screen landscape view
+                youTubePlayerView.setVisibility(View.GONE);
+                customView.setVisibility(View.VISIBLE);
+                customView.addView(view);
+                if (!youTubePlayerView.isFullScreen()) {
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                }
+            }
 
-                    case HIDE_CUSTOM_VIEW: {
-                        // for display normal portrait view
-                        youTubePlayerView.setVisibility(View.VISIBLE);
-                        customView.setVisibility(View.GONE);
-                        if (youTubePlayerView.isFullScreen()) {
-                            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                        }
-                        break;
-                    }
-
-                    default: {
-                        break;
-                    }
+            @Override
+            public void onHideCustomView() {
+                super.onHideCustomView();
+                youTubePlayerView.setVisibility(View.VISIBLE);
+                customView.setVisibility(View.GONE);
+                if (youTubePlayerView.isFullScreen()) {
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
                 }
             }
 

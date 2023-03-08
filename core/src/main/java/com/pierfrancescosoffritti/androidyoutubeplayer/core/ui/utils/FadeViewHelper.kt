@@ -2,6 +2,7 @@ package com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.utils
 
 import android.animation.Animator
 import android.view.View
+import android.webkit.WebChromeClient
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
@@ -75,7 +76,7 @@ class FadeViewHelper(val targetView: View): YouTubePlayerListener {
         }
     }
 
-    override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState, view: View?) {
+    override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
         updateState(state)
 
         when(state) {
@@ -104,4 +105,6 @@ class FadeViewHelper(val targetView: View): YouTubePlayerListener {
     override fun onVideoDuration(youTubePlayer: YouTubePlayer, duration: Float) { }
     override fun onVideoLoadedFraction(youTubePlayer: YouTubePlayer, loadedFraction: Float) { }
     override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) { }
+    override fun onShowCustomView(view: View?, callback: WebChromeClient.CustomViewCallback?) { }
+    override fun onHideCustomView() { }
 }

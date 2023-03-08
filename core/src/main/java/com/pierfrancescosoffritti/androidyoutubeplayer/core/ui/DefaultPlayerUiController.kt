@@ -60,7 +60,7 @@ class DefaultPlayerUiController(private val youTubePlayerView: YouTubePlayerView
     private var isCustomActionRightEnabled = false
 
     private val youTubePlayerStateListener = object : AbstractYouTubePlayerListener() {
-        override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState, view: View?) {
+        override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
             updateState(state)
 
             if (state === PlayerConstants.PlayerState.PLAYING || state === PlayerConstants.PlayerState.PAUSED || state === PlayerConstants.PlayerState.VIDEO_CUED) {
