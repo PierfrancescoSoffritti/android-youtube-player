@@ -35,7 +35,6 @@ public class CustomUiActivity extends AppCompatActivity {
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                 CustomPlayerUiController customPlayerUiController = new CustomPlayerUiController(CustomUiActivity.this, customPlayerUi, youTubePlayer, youTubePlayerView);
                 youTubePlayer.addListener(customPlayerUiController);
-                youTubePlayerView.addFullScreenListener(customPlayerUiController);
 
                 YouTubePlayerUtils.loadOrCueVideo(
                         youTubePlayer, getLifecycle(),
@@ -56,10 +55,10 @@ public class CustomUiActivity extends AppCompatActivity {
 
         // Checks the orientation of the screen
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            youTubePlayerView.enterFullScreen();
+            youTubePlayerView.matchParent();
         }
         else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-            youTubePlayerView.exitFullScreen();
+            youTubePlayerView.wrapContent();
         }
     }
 }
