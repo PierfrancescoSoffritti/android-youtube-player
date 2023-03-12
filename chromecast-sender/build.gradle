@@ -16,6 +16,7 @@ android {
             'src/main/res-public'
         ]
     }
+    namespace 'com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender'
 }
 
 dependencies {

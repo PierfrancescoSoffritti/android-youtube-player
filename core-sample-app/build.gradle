@@ -24,11 +24,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-    // this is needed because I'm importing 2 modules called "core" (core and com.psoffritti.librarysampleapptemplate:core) (https://discuss.kotlinlang.org/t/disable-meta-inf-generation-in-gradle-android-project/3830)
     packagingOptions {
-        exclude 'META-INF/core_release.kotlin_module'
+        resources {
+            // this is needed because I'm importing 2 modules called "core" (core and com.psoffritti.librarysampleapptemplate:core) (https://discuss.kotlinlang.org/t/disable-meta-inf-generation-in-gradle-android-project/3830)
+            excludes += ['META-INF/core_release.kotlin_module']
+        }
     }
+
+    namespace 'com.pierfrancescosoffritti.aytplayersample'
 }
 
 dependencies {

@@ -10,13 +10,13 @@ ext.versions = [
         publishVersionCode_chromecast   : 12,
 
         // Plugins
-        gradlePlugin                    : '7.0.4',
+        gradlePlugin                    : '7.4.2',
         dexCount                        : '3.0.1',
         gradleNexus                     : '1.1.0',
         dokka                           : '1.6.0',
 
         // Kotlin
-        kotlin                          : '1.6.0',
+        kotlin                          : '1.6.21',
 
         // AndroidX
         androidxCore                    : '1.4.2',
