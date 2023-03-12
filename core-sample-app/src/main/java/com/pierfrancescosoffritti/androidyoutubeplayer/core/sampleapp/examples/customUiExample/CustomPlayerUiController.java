@@ -14,14 +14,10 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstan
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerTracker;
 import com.pierfrancescosoffritti.aytplayersample.R;
 
-class CustomPlayerUiController extends AbstractYouTubePlayerListener implements YouTubePlayerFullScreenListener {
-
-    private final View playerUi;
-
+class CustomPlayerUiController extends AbstractYouTubePlayerListener {
     private Context context;
     private YouTubePlayer youTubePlayer;
     private YouTubePlayerView youTubePlayerView;
@@ -36,7 +32,6 @@ class CustomPlayerUiController extends AbstractYouTubePlayerListener implements 
     private boolean fullscreen = false;
 
     CustomPlayerUiController(Context context, View customPlayerUi, YouTubePlayer youTubePlayer, YouTubePlayerView youTubePlayerView) {
-        this.playerUi = customPlayerUi;
         this.context = context;
         this.youTubePlayer = youTubePlayer;
         this.youTubePlayerView = youTubePlayerView;
@@ -61,8 +56,8 @@ class CustomPlayerUiController extends AbstractYouTubePlayerListener implements 
         });
 
         enterExitFullscreenButton.setOnClickListener( (view) -> {
-            if(fullscreen) youTubePlayerView.exitFullScreen();
-            else youTubePlayerView.enterFullScreen();
+            if(fullscreen) youTubePlayerView.wrapContent();
+            else youTubePlayerView.matchParent();
 
             fullscreen = !fullscreen;
         });
@@ -92,21 +87,5 @@ class CustomPlayerUiController extends AbstractYouTubePlayerListener implements 
     @Override
     public void onVideoDuration(@NonNull YouTubePlayer youTubePlayer, float duration) {
         videoDurationTextView.setText(duration+"");
-    }
-
-    @Override
-    public void onYouTubePlayerEnterFullScreen() {
-        ViewGroup.LayoutParams viewParams = playerUi.getLayoutParams();
-        viewParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
-        viewParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        playerUi.setLayoutParams(viewParams);
-    }
-
-    @Override
-    public void onYouTubePlayerExitFullScreen() {
-        ViewGroup.LayoutParams viewParams = playerUi.getLayoutParams();
-        viewParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-        viewParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        playerUi.setLayoutParams(viewParams);
     }
 }

@@ -12,11 +12,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.FullScreenHelper
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.PlayerUiController
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
 
 class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0):
@@ -26,7 +23,6 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
     constructor(context: Context, attrs: AttributeSet? = null): this(context, attrs, 0)
 
     private val legacyTubePlayerView: LegacyYouTubePlayerView = LegacyYouTubePlayerView(context)
-    private val fullScreenHelper = FullScreenHelper(this)
 
     // this is a publicly accessible API
     var enableAutomaticInitialization: Boolean
@@ -149,21 +145,32 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
 
     fun removeYouTubePlayerListener(youTubePlayerListener: YouTubePlayerListener) = legacyTubePlayerView.youTubePlayer.removeListener(youTubePlayerListener)
 
-    fun enterFullScreen() = fullScreenHelper.enterFullScreen()
-
-    fun exitFullScreen() = fullScreenHelper.exitFullScreen()
-
-    fun toggleFullScreen() = fullScreenHelper.toggleFullScreen()
-
-    fun isFullScreen() = fullScreenHelper.isFullScreen
+    /**
+     * Convenience method to set the [YouTubePlayerView] width and height to match parent.
+     */
+    fun matchParent() {
+        setLayoutParams(
+            targetWidth = ViewGroup.LayoutParams.MATCH_PARENT,
+            targetHeight = ViewGroup.LayoutParams.MATCH_PARENT
+        )
+    }
 
     /**
-     * Adds a [YouTubePlayerFullScreenListener] to the view.
-     *
-     * [YouTubePlayerFullScreenListener.onYouTubePlayerEnterFullScreen] and [YouTubePlayerFullScreenListener.onYouTubePlayerExitFullScreen]
-     * are called when [YouTubePlayerView.enterFullScreen] and [YouTubePlayerView.exitFullScreen] are called.
+     * Convenience method to set the [YouTubePlayerView] width to match parent and
+     * height to wrap content.
      */
-    fun addFullScreenListener(fullScreenListener: YouTubePlayerFullScreenListener) = fullScreenHelper.addFullScreenListener(fullScreenListener)
+    fun wrapContent() {
+        setLayoutParams(
+            targetWidth = ViewGroup.LayoutParams.MATCH_PARENT,
+            targetHeight = ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+    }
 
-    fun removeFullScreenListener(fullScreenListener: YouTubePlayerFullScreenListener) = fullScreenHelper.removeFullScreenListener(fullScreenListener)
+    @Suppress("SameParameterValue")
+    private fun setLayoutParams(targetWidth: Int, targetHeight: Int) {
+        layoutParams = layoutParams.apply {
+            width = targetWidth
+            height = targetHeight
+        }
+    }
 }

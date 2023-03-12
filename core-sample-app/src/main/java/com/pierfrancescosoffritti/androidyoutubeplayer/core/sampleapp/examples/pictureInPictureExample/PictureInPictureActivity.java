@@ -69,9 +69,9 @@ public class PictureInPictureActivity extends AppCompatActivity {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
 
         if(isInPictureInPictureMode) {
-            youTubePlayerView.enterFullScreen();
+            youTubePlayerView.matchParent();
         } else {
-            youTubePlayerView.exitFullScreen();
+            youTubePlayerView.wrapContent();
         }
     }
 }

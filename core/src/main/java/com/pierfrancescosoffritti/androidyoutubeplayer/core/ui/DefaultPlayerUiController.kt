@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
@@ -59,6 +60,8 @@ class DefaultPlayerUiController(private val youTubePlayerView: YouTubePlayerView
     private var isCustomActionLeftEnabled = false
     private var isCustomActionRightEnabled = false
 
+    private var isMatchParent = false
+
     private val youTubePlayerStateListener = object : AbstractYouTubePlayerListener() {
         override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
             updateState(state)
@@ -105,7 +108,14 @@ class DefaultPlayerUiController(private val youTubePlayerView: YouTubePlayerView
     }
 
     init {
-        onFullScreenButtonListener = View.OnClickListener { youTubePlayerView.toggleFullScreen() }
+        onFullScreenButtonListener = View.OnClickListener {
+            isMatchParent = !isMatchParent
+            when (isMatchParent) {
+                true -> youTubePlayerView.matchParent()
+                false -> youTubePlayerView.wrapContent()
+            }
+        }
+
         onMenuButtonClickListener = View.OnClickListener { youTubePlayerMenu.show(menuButton) }
 
         initClickListeners()

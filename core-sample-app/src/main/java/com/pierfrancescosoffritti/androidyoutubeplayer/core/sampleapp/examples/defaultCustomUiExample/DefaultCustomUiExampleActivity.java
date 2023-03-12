@@ -65,10 +65,10 @@ public class DefaultCustomUiExampleActivity extends AppCompatActivity {
 
         // Checks the orientation of the screen
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            youTubePlayerView.enterFullScreen();
+            youTubePlayerView.matchParent();
         }
         else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-            youTubePlayerView.exitFullScreen();
+            youTubePlayerView.wrapContent();
         }
     }
 

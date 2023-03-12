@@ -23,7 +23,7 @@ import com.pierfrancescosoffritti.aytplayersample.R;
 public class CompleteExampleActivity extends AppCompatActivity {
 
     private YouTubePlayerView youTubePlayerView;
-    private FullScreenHelper fullScreenHelper = new FullScreenHelper(this);
+    private boolean isPlayerMatchParent = false;
 
     // a list of videos not available in some countries, to test if they're handled gracefully.
     // private String[] nonPlayableVideoIds = { "sop2V_MREEI" };
@@ -44,19 +44,24 @@ public class CompleteExampleActivity extends AppCompatActivity {
 
         // Checks the orientation of the screen
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            youTubePlayerView.enterFullScreen();
+            youTubePlayerView.matchParent();
+            isPlayerMatchParent = true;
         }
         else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-            youTubePlayerView.exitFullScreen();
+            youTubePlayerView.wrapContent();
+            isPlayerMatchParent = false;
         }
     }
 
     @Override
     public void onBackPressed() {
-        if (youTubePlayerView.isFullScreen())
-            youTubePlayerView.exitFullScreen();
-        else
+        if (isPlayerMatchParent) {
+            youTubePlayerView.wrapContent();
+            isPlayerMatchParent = false;
+        }
+        else {
             super.onBackPressed();
+        }
     }
 
     private void initYouTubePlayerView() {
