@@ -62,16 +62,4 @@ interface YouTubePlayerListener {
     fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String)
 
     fun onApiChange(youTubePlayer: YouTubePlayer)
-
-    /**
-     * Called when current page has entered full screen mode.
-     * @param view is the View object to be shown.
-     * @param callback invoke this callback to request the page to exit full screen mode.
-     */
-    fun onShowCustomView(view: View?, callback: WebChromeClient.CustomViewCallback?)
-
-    /**
-     * Called when current page has exited full screen mode.
-     */
-    fun onHideCustomView()
 }

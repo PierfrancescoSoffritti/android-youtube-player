@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams
+import android.widget.FrameLayout
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
@@ -13,22 +15,50 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.*
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
 
-class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0):
-        SixteenByNineFrameLayout(context, attrs, defStyleAttr), LifecycleObserver {
+private val matchParent get() = FrameLayout.LayoutParams(
+    LayoutParams.MATCH_PARENT,
+    LayoutParams.MATCH_PARENT
+)
+
+class YouTubePlayerView(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : SixteenByNineFrameLayout(context, attrs, defStyleAttr), LifecycleObserver {
 
     constructor(context: Context): this(context, null, 0)
     constructor(context: Context, attrs: AttributeSet? = null): this(context, attrs, 0)
 
-    private val legacyTubePlayerView: LegacyYouTubePlayerView = LegacyYouTubePlayerView(context)
+    private val fullScreenListeners = mutableListOf<FullScreenListener>()
+
+    /**
+     * A single [FullScreenListener] that is always added to the WebView,
+     * responsible for calling all optional listeners added from clients of the library.
+     */
+    private val webViewFullScreenListener = object : FullScreenListener {
+        override fun onEnterFullScreen(fullScreenView: View, exitFullScreen: () -> Unit) {
+            fullScreenListeners.forEach { it.onEnterFullScreen(fullScreenView, exitFullScreen) }
+        }
+
+        override fun onExitFullScreen() {
+            fullScreenListeners.forEach { it.onExitFullScreen() }
+        }
+    }
+
+    private val legacyTubePlayerView = LegacyYouTubePlayerView(
+        context,
+        webViewFullScreenListener
+    )
 
     // this is a publicly accessible API
     var enableAutomaticInitialization: Boolean
 
     init {
-        addView(legacyTubePlayerView, LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+        addView(legacyTubePlayerView, matchParent)
 
         val typedArray = context.theme.obtainStyledAttributes(attrs, R.styleable.YouTubePlayerView, 0, 0)
 
@@ -144,6 +174,10 @@ class YouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleA
     fun addYouTubePlayerListener(youTubePlayerListener: YouTubePlayerListener) = legacyTubePlayerView.youTubePlayer.addListener(youTubePlayerListener)
 
     fun removeYouTubePlayerListener(youTubePlayerListener: YouTubePlayerListener) = legacyTubePlayerView.youTubePlayer.removeListener(youTubePlayerListener)
+
+    fun addFullScreenListener(fullScreenListener: FullScreenListener) = fullScreenListeners.add(fullScreenListener)
+
+    fun removeFullScreenListener(fullScreenListener: FullScreenListener) = fullScreenListeners.remove(fullScreenListener)
 
     /**
      * Convenience method to set the [YouTubePlayerView] width and height to match parent.

@@ -14,17 +14,33 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayerBridge
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.FullScreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.toFloat
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.Utils
 import java.util.*
 
+
+internal object FakeWebViewYouTubeListener : FullScreenListener {
+    override fun onEnterFullScreen(fullScreenView: View, exitFullScreen: () -> Unit) { }
+    override fun onExitFullScreen() { }
+}
+
 /**
  * WebView implementation of [YouTubePlayer]. The player runs inside the WebView, using the IFrame Player API.
  */
-internal class WebViewYouTubePlayer constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
-    : WebView(context, attrs, defStyleAttr), YouTubePlayer, YouTubePlayerBridge.YouTubePlayerBridgeCallbacks {
+internal class WebViewYouTubePlayer constructor(
+    context: Context,
+    private val listener: FullScreenListener,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : WebView(context, attrs, defStyleAttr),
+    YouTubePlayer,
+    YouTubePlayerBridge.YouTubePlayerBridgeCallbacks {
+
+    /** Constructor used by tools */
+    constructor(context: Context) : this(context, FakeWebViewYouTubeListener)
 
     private lateinit var youTubePlayerInitListener: (YouTubePlayer) -> Unit
 
@@ -115,18 +131,14 @@ internal class WebViewYouTubePlayer constructor(context: Context, attrs: Attribu
         // if the video's thumbnail is not in memory, show a black screen
         webChromeClient = object : WebChromeClient() {
 
-            override fun onShowCustomView(view: View?, callback: CustomViewCallback?) {
+            override fun onShowCustomView(view: View, callback: CustomViewCallback) {
                 super.onShowCustomView(view, callback)
-                youTubePlayerListeners.forEach {
-                    it.onShowCustomView(view = view, callback = callback)
-                }
+                listener.onEnterFullScreen(view) { callback.onCustomViewHidden() }
             }
 
             override fun onHideCustomView() {
                 super.onHideCustomView()
-                youTubePlayerListeners.forEach {
-                    it.onHideCustomView()
-                }
+                listener.onExitFullScreen()
             }
 
             override fun getDefaultVideoPoster(): Bitmap? {
