@@ -350,24 +350,33 @@ If set to 0: the player will show captions.
 If set to 1: the player won't show captions.
 
 ### Full screen
-You can use the `YouTubePlayerView` to enter and exit full-screen.
+The full screen button can be added to the player by using `IFramePlayerOptions`
 
 ```java
-youTubePlayerView.enterFullScreen();
-youTubePlayerView.exitFullScreen();
-youTubePlayerView.isFullScreen();
-youTubePlayerView.toggleFullScreen();
+IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
+  .controls(1)
+  // enable full screen button
+  .fullscreen(1)
+  .build();
 ```
 
-You can also add listeners to get notified when the `YouTubePlayerView` enters or exits full-screen.
+You can listen to full screen events by adding a `FullScreenListener` to `YouTubePlayerView`
 
 ```java
-youTubePlayerView.addFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
-youTubePlayerView.removeFullScreenListener(YouTubePlayerFullScreenListener fullScreenListener);
+youTubePlayerView.addFullScreenListener(new FullScreenListener() {
+  @Override
+  public void onEnterFullScreen(@NonNull View fullScreenView, @NonNull Function0<Unit> exitFullScreen) {
+  }
+
+  @Override
+  public void onExitFullScreen() {
+  }
+});
 ```
 
-Keep in mind that `enterFullScreen()` and `exitFullScreen()` will only set `YouTubePlayerView`'s height and width to `MATCH_PARENT`.
+See [the sample app for an example](./core-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/sampleapp/examples/fullscreenExample/FullscreenExampleActivity.java)
 
+You can also use the `YouTubePlayerView#matchParent` and `YouTubePlayerView#wrapContent` to expand the view to fill its parent.
 It is responsibility of the developer to hide other Views in the Activity, change the orientation of the Activity etc. The sample app contains an [helper class](./core-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/sampleapp/utils/FullScreenHelper.java) that can help you to update your app state, but this is not part of the library.
 
 If you need to change the orientation of your Activity/Fragment, remember that by default Android recreates Activities and Fragments when the orientation changes. Make sure that you manually handle orientation changes by adding the attribute `android:configChanges` to your Activity definition in the manifest.
@@ -581,7 +590,6 @@ YouTubePlayerListener listener = new AbstractYouTubePlayerListener() {
   public void onReady(@NonNull YouTubePlayer youTubePlayer) {
     CustomPlayerUiController customPlayerUiController = new CustomPlayerUiController(CustomUiActivity.this, customPlayerUi, youTubePlayer, youTubePlayerView);
     youTubePlayer.addListener(customPlayerUiController);
-    youTubePlayerView.addFullScreenListener(customPlayerUiController);
 
     YouTubePlayerUtils.loadOrCueVideo(
       youTubePlayer, getLifecycle(),
