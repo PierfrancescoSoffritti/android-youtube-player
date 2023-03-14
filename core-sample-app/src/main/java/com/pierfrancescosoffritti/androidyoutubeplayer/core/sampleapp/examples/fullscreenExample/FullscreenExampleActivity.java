@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.simpleFullscreenExample;
+package com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.fullscreenExample;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -18,7 +18,7 @@ import com.pierfrancescosoffritti.aytplayersample.R;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function0;
 
-public class SimpleFullscreenExampleActivity extends AppCompatActivity {
+public class FullscreenExampleActivity extends AppCompatActivity {
 
     private YouTubePlayerView youTubePlayerView;
     private FrameLayout fullScreenViewContainer;
@@ -26,31 +26,35 @@ public class SimpleFullscreenExampleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_simple_fullscreen_example);
-
-        IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
-                .controls(1)
-                .fullscreen(1)
-                .build();
+        setContentView(R.layout.activity_fullscreen_example);
 
         youTubePlayerView = findViewById(R.id.youtube_player_view);
         fullScreenViewContainer = findViewById(R.id.full_screen_view_container);
 
+        IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
+                .controls(1)
+                // enable full screen button
+                .fullscreen(1)
+                .build();
+
+        // we need to initialize manually in order to pass IFramePlayerOptions to the player
         youTubePlayerView.setEnableAutomaticInitialization(false);
 
         youTubePlayerView.addFullScreenListener(new FullScreenListener() {
             @Override
             public void onEnterFullScreen(@NonNull View fullScreenView, @NonNull Function0<Unit> exitFullScreen) {
-                // for display full screen landscape view
+                // the video will continue playing in fullScreenView
                 youTubePlayerView.setVisibility(View.GONE);
                 fullScreenViewContainer.setVisibility(View.VISIBLE);
                 fullScreenViewContainer.addView(fullScreenView);
 
+                // optionally request landscape orientation
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
             }
 
             @Override
             public void onExitFullScreen() {
+                // the video will continue playing in the player
                 youTubePlayerView.setVisibility(View.VISIBLE);
                 fullScreenViewContainer.setVisibility(View.GONE);
                 fullScreenViewContainer.removeAllViews();

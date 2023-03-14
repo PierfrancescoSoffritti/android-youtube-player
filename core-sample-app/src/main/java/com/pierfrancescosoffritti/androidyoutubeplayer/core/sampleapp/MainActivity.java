@@ -15,7 +15,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.p
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.playlistExample.PlaylistExampleActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.recyclerViewExample.RecyclerViewActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.simpleExample.SimpleExampleActivity;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.simpleFullscreenExample.SimpleFullscreenExampleActivity;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.fullscreenExample.FullscreenExampleActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.viewPagerExample.ViewPagerActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.defaultCustomUiExample.DefaultCustomUiExampleActivity;
 import com.pierfrancescosoffritti.aytplayersample.R;
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         ExampleActivityDetails[] examples = new ExampleActivityDetails[]{
                 new ExampleActivityDetails(R.string.simple_example,null, SimpleExampleActivity.class),
-                new ExampleActivityDetails(R.string.simple_fullscreen_example,null, SimpleFullscreenExampleActivity.class),
+                new ExampleActivityDetails(R.string.fullscreen_example,null, FullscreenExampleActivity.class),
                 new ExampleActivityDetails(R.string.complete_example,null, CompleteExampleActivity.class),
                 new ExampleActivityDetails(R.string.default_custom_ui_example,null, DefaultCustomUiExampleActivity.class),
                 new ExampleActivityDetails(R.string.custom_ui_example,null, CustomUiActivity.class),
