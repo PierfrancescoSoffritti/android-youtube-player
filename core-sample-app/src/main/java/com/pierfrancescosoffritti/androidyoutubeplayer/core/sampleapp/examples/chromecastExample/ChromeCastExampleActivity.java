@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.mediarouter.app.MediaRouteButton;
+
 import com.google.android.gms.cast.framework.CastContext;
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.ChromecastYouTubePlayerContext;
 import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.infrastructure.ChromecastConnectionListener;
@@ -16,139 +20,146 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.c
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.chromecastExample.utils.MediaRouteButtonUtils;
 import com.pierfrancescosoffritti.aytplayersample.R;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.mediarouter.app.MediaRouteButton;
-
 /**
  * Example Activity used to showcase how to use the chromecast-youtube-library extension to cast videos to a Chromecast device.
  * See documentation here: <a href="https://github.com/PierfrancescoSoffritti/chromecast-youtube-player">chromecast-youtube-player</a>
  */
 public class ChromeCastExampleActivity extends AppCompatActivity implements YouTubePlayersManager.LocalYouTubePlayerInitListener, ChromecastConnectionListener {
 
-    private int googlePlayServicesAvailabilityRequestCode = 1;
+  private final int googlePlayServicesAvailabilityRequestCode = 1;
 
-    private YouTubePlayersManager youTubePlayersManager;
-    private MediaRouteButton mediaRouteButton;
+  private YouTubePlayersManager youTubePlayersManager;
+  private MediaRouteButton mediaRouteButton;
 
-    private NotificationManager notificationManager;
-    private PlaybackControllerBroadcastReceiver playbackControllerBroadcastReceiver;
+  private NotificationManager notificationManager;
+  private PlaybackControllerBroadcastReceiver playbackControllerBroadcastReceiver;
 
-    private YouTubePlayerView youTubePlayerView;
-    private View chromeCastControlsRoot;
-    private ViewGroup mediaRouteButtonRoot;
+  private YouTubePlayerView youTubePlayerView;
+  private View chromeCastControlsRoot;
+  private ViewGroup mediaRouteButtonRoot;
 
-    private boolean connectedToChromeCast = false;
+  private boolean connectedToChromeCast = false;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chromecast_example);
-
-        youTubePlayerView = findViewById(R.id.youtube_player_view);
-        mediaRouteButtonRoot = findViewById(R.id.media_route_button_root);
-        chromeCastControlsRoot = findViewById(R.id.chromecast_controls_root);
-
-        getLifecycle().addObserver(youTubePlayerView);
-
-        notificationManager = new NotificationManager(this, ChromeCastExampleActivity.class);
-
-        youTubePlayersManager = new YouTubePlayersManager(this, youTubePlayerView, chromeCastControlsRoot, notificationManager, getLifecycle());
-        mediaRouteButton = MediaRouteButtonUtils.initMediaRouteButton(this);
-
-        registerBroadcastReceiver();
-
-        // can't use CastContext until I'm sure the user has GooglePlayServices
-        PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, this::initChromeCast);
+  private final MediaRouteButtonContainer chromecastPlayerUiMediaRouteButtonContainer = new MediaRouteButtonContainer() {
+    public void addMediaRouteButton(MediaRouteButton mediaRouteButton) {
+      youTubePlayersManager.getChromecastUiController().addView(mediaRouteButton);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        getApplicationContext().unregisterReceiver(playbackControllerBroadcastReceiver);
+    public void removeMediaRouteButton(MediaRouteButton mediaRouteButton) {
+      youTubePlayersManager.getChromecastUiController().removeView(mediaRouteButton);
+    }
+  };
+
+  private final MediaRouteButtonContainer localPlayerUiMediaRouteButtonContainer = new MediaRouteButtonContainer() {
+    public void addMediaRouteButton(MediaRouteButton mediaRouteButton) {
+      mediaRouteButtonRoot.addView(mediaRouteButton);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // can't use CastContext until I'm sure the user has GooglePlayServices
-        if(requestCode == googlePlayServicesAvailabilityRequestCode)
-            PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, this::initChromeCast);
+    public void removeMediaRouteButton(MediaRouteButton mediaRouteButton) {
+      mediaRouteButtonRoot.removeView(mediaRouteButton);
     }
+  };
 
-    private void initChromeCast() {
-        new ChromecastYouTubePlayerContext(
-                CastContext.getSharedInstance(this).getSessionManager(),
-                this, playbackControllerBroadcastReceiver, youTubePlayersManager
-        );
-    }
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_chromecast_example);
 
-    @Override
-    public void onChromecastConnecting() {
-    }
+    youTubePlayerView = findViewById(R.id.youtube_player_view);
+    mediaRouteButtonRoot = findViewById(R.id.media_route_button_root);
+    chromeCastControlsRoot = findViewById(R.id.chromecast_controls_root);
 
-    @Override
-    public void onChromecastConnected(@NonNull ChromecastYouTubePlayerContext chromecastYouTubePlayerContext) {
-        connectedToChromeCast = true;
+    getLifecycle().addObserver(youTubePlayerView);
 
-        updateUi(true);
-        notificationManager.showNotification();
-    }
+    notificationManager = new NotificationManager(this, ChromeCastExampleActivity.class);
 
-    @Override
-    public void onChromecastDisconnected() {
-        connectedToChromeCast = false;
+    youTubePlayersManager = new YouTubePlayersManager(this, youTubePlayerView, chromeCastControlsRoot, notificationManager, getLifecycle());
+    mediaRouteButton = MediaRouteButtonUtils.initMediaRouteButton(this);
 
-        updateUi(false);
-        notificationManager.dismissNotification();
-    }
+    registerBroadcastReceiver();
 
-    @Override
-    public void onLocalYouTubePlayerInit() {
-        if(connectedToChromeCast)
-            return;
+    // can't use CastContext until I'm sure the user has GooglePlayServices
+    PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, this::initChromeCast);
+  }
 
-        MediaRouteButtonUtils.addMediaRouteButtonToPlayerUi(
-                mediaRouteButton, android.R.color.black,
-                null, localPlayerUiMediaRouteButtonContainer
-        );
-    }
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    getApplicationContext().unregisterReceiver(playbackControllerBroadcastReceiver);
+  }
 
-    private void registerBroadcastReceiver() {
-        playbackControllerBroadcastReceiver = new PlaybackControllerBroadcastReceiver(youTubePlayersManager::togglePlayback);
-        IntentFilter filter = new IntentFilter(PlaybackControllerBroadcastReceiver.TOGGLE_PLAYBACK);
-        filter.addAction(PlaybackControllerBroadcastReceiver.STOP_CAST_SESSION);
-        getApplicationContext().registerReceiver(playbackControllerBroadcastReceiver, filter);
-    }
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
 
-    private void updateUi(boolean connected) {
-        MediaRouteButtonContainer disabledContainer = connected ? localPlayerUiMediaRouteButtonContainer : chromecastPlayerUiMediaRouteButtonContainer;
-        MediaRouteButtonContainer enabledContainer = connected ? chromecastPlayerUiMediaRouteButtonContainer : localPlayerUiMediaRouteButtonContainer;
+    // can't use CastContext until I'm sure the user has GooglePlayServices
+    if (requestCode == googlePlayServicesAvailabilityRequestCode)
+      PlayServicesUtils.checkGooglePlayServicesAvailability(this, googlePlayServicesAvailabilityRequestCode, this::initChromeCast);
+  }
 
-        // the media route button has a single instance.
-        // therefore it has to be moved from the local YouTube player Ui to the chromecast YouTube player Ui, and vice versa.
-        MediaRouteButtonUtils.addMediaRouteButtonToPlayerUi(
-                mediaRouteButton, android.R.color.black,
-                disabledContainer, enabledContainer
-        );
+  private void initChromeCast() {
+    new ChromecastYouTubePlayerContext(
+            CastContext.getSharedInstance(this).getSessionManager(),
+            this, playbackControllerBroadcastReceiver, youTubePlayersManager
+    );
+  }
 
-        youTubePlayerView.setVisibility(connected ? View.GONE : View.VISIBLE);
-        chromeCastControlsRoot.setVisibility(connected ? View.VISIBLE : View.GONE);
-    }
+  @Override
+  public void onChromecastConnecting() {
+  }
 
-    private MediaRouteButtonContainer chromecastPlayerUiMediaRouteButtonContainer = new MediaRouteButtonContainer() {
-        public void addMediaRouteButton(MediaRouteButton mediaRouteButton) { youTubePlayersManager.getChromecastUiController().addView(mediaRouteButton); }
-        public void removeMediaRouteButton(MediaRouteButton mediaRouteButton) { youTubePlayersManager.getChromecastUiController().removeView(mediaRouteButton); }
-    };
+  @Override
+  public void onChromecastConnected(@NonNull ChromecastYouTubePlayerContext chromecastYouTubePlayerContext) {
+    connectedToChromeCast = true;
 
-    private MediaRouteButtonContainer localPlayerUiMediaRouteButtonContainer = new MediaRouteButtonContainer() {
-        public void addMediaRouteButton(MediaRouteButton mediaRouteButton) { mediaRouteButtonRoot.addView(mediaRouteButton); }
-        public void removeMediaRouteButton(MediaRouteButton mediaRouteButton) { mediaRouteButtonRoot.removeView(mediaRouteButton); }
-    };
+    updateUi(true);
+    notificationManager.showNotification();
+  }
 
-    public interface MediaRouteButtonContainer {
-        void addMediaRouteButton(MediaRouteButton mediaRouteButton);
-        void removeMediaRouteButton(MediaRouteButton mediaRouteButton);
-    }
+  @Override
+  public void onChromecastDisconnected() {
+    connectedToChromeCast = false;
+
+    updateUi(false);
+    notificationManager.dismissNotification();
+  }
+
+  @Override
+  public void onLocalYouTubePlayerInit() {
+    if (connectedToChromeCast)
+      return;
+
+    MediaRouteButtonUtils.addMediaRouteButtonToPlayerUi(
+            mediaRouteButton, android.R.color.black,
+            null, localPlayerUiMediaRouteButtonContainer
+    );
+  }
+
+  private void registerBroadcastReceiver() {
+    playbackControllerBroadcastReceiver = new PlaybackControllerBroadcastReceiver(youTubePlayersManager::togglePlayback);
+    IntentFilter filter = new IntentFilter(PlaybackControllerBroadcastReceiver.TOGGLE_PLAYBACK);
+    filter.addAction(PlaybackControllerBroadcastReceiver.STOP_CAST_SESSION);
+    getApplicationContext().registerReceiver(playbackControllerBroadcastReceiver, filter);
+  }
+
+  private void updateUi(boolean connected) {
+    MediaRouteButtonContainer disabledContainer = connected ? localPlayerUiMediaRouteButtonContainer : chromecastPlayerUiMediaRouteButtonContainer;
+    MediaRouteButtonContainer enabledContainer = connected ? chromecastPlayerUiMediaRouteButtonContainer : localPlayerUiMediaRouteButtonContainer;
+
+    // the media route button has a single instance.
+    // therefore it has to be moved from the local YouTube player Ui to the chromecast YouTube player Ui, and vice versa.
+    MediaRouteButtonUtils.addMediaRouteButtonToPlayerUi(
+            mediaRouteButton, android.R.color.black,
+            disabledContainer, enabledContainer
+    );
+
+    youTubePlayerView.setVisibility(connected ? View.GONE : View.VISIBLE);
+    chromeCastControlsRoot.setVisibility(connected ? View.VISIBLE : View.GONE);
+  }
+
+  public interface MediaRouteButtonContainer {
+    void addMediaRouteButton(MediaRouteButton mediaRouteButton);
+
+    void removeMediaRouteButton(MediaRouteButton mediaRouteButton);
+  }
 }

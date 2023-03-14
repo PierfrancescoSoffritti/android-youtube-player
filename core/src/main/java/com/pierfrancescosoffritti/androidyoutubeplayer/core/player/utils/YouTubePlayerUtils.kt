@@ -1,4 +1,5 @@
 @file:JvmName("YouTubePlayerUtils")
+
 package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils
 
 import androidx.lifecycle.Lifecycle
@@ -15,13 +16,14 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
  * @param startSeconds the time from which the video should start playing.
  */
 fun YouTubePlayer.loadOrCueVideo(lifecycle: Lifecycle, videoId: String, startSeconds: Float) {
-    loadOrCueVideo(lifecycle.currentState == Lifecycle.State.RESUMED, videoId, startSeconds)
+  loadOrCueVideo(lifecycle.currentState == Lifecycle.State.RESUMED, videoId, startSeconds)
 }
 
 
-@JvmSynthetic internal fun YouTubePlayer.loadOrCueVideo(canLoad: Boolean, videoId: String, startSeconds: Float) {
-    if (canLoad)
-        loadVideo(videoId, startSeconds)
-    else
-        cueVideo(videoId, startSeconds)
+@JvmSynthetic
+internal fun YouTubePlayer.loadOrCueVideo(canLoad: Boolean, videoId: String, startSeconds: Float) {
+  if (canLoad)
+    loadVideo(videoId, startSeconds)
+  else
+    cueVideo(videoId, startSeconds)
 }

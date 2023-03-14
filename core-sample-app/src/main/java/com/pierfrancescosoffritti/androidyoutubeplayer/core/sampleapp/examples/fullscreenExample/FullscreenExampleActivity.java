@@ -20,57 +20,57 @@ import kotlin.jvm.functions.Function0;
 
 public class FullscreenExampleActivity extends AppCompatActivity {
 
-    private YouTubePlayerView youTubePlayerView;
-    private FrameLayout fullScreenViewContainer;
+  private YouTubePlayerView youTubePlayerView;
+  private FrameLayout fullScreenViewContainer;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fullscreen_example);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_fullscreen_example);
 
-        youTubePlayerView = findViewById(R.id.youtube_player_view);
-        fullScreenViewContainer = findViewById(R.id.full_screen_view_container);
+    youTubePlayerView = findViewById(R.id.youtube_player_view);
+    fullScreenViewContainer = findViewById(R.id.full_screen_view_container);
 
-        IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
-                .controls(1)
-                // enable full screen button
-                .fullscreen(1)
-                .build();
+    IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
+            .controls(1)
+            // enable full screen button
+            .fullscreen(1)
+            .build();
 
-        // we need to initialize manually in order to pass IFramePlayerOptions to the player
-        youTubePlayerView.setEnableAutomaticInitialization(false);
+    // we need to initialize manually in order to pass IFramePlayerOptions to the player
+    youTubePlayerView.setEnableAutomaticInitialization(false);
 
-        youTubePlayerView.addFullScreenListener(new FullScreenListener() {
-            @Override
-            public void onEnterFullScreen(@NonNull View fullScreenView, @NonNull Function0<Unit> exitFullScreen) {
-                // the video will continue playing in fullScreenView
-                youTubePlayerView.setVisibility(View.GONE);
-                fullScreenViewContainer.setVisibility(View.VISIBLE);
-                fullScreenViewContainer.addView(fullScreenView);
+    youTubePlayerView.addFullScreenListener(new FullScreenListener() {
+      @Override
+      public void onEnterFullScreen(@NonNull View fullScreenView, @NonNull Function0<Unit> exitFullScreen) {
+        // the video will continue playing in fullScreenView
+        youTubePlayerView.setVisibility(View.GONE);
+        fullScreenViewContainer.setVisibility(View.VISIBLE);
+        fullScreenViewContainer.addView(fullScreenView);
 
-                // optionally request landscape orientation
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            }
+        // optionally request landscape orientation
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+      }
 
-            @Override
-            public void onExitFullScreen() {
-                // the video will continue playing in the player
-                youTubePlayerView.setVisibility(View.VISIBLE);
-                fullScreenViewContainer.setVisibility(View.GONE);
-                fullScreenViewContainer.removeAllViews();
+      @Override
+      public void onExitFullScreen() {
+        // the video will continue playing in the player
+        youTubePlayerView.setVisibility(View.VISIBLE);
+        fullScreenViewContainer.setVisibility(View.GONE);
+        fullScreenViewContainer.removeAllViews();
 
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-            }
-        });
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+      }
+    });
 
-        youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
-            @Override
-            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                super.onReady(youTubePlayer);
-                youTubePlayer.loadVideo("S0Q4gqBUs7c", 0F);
-            }
-        }, iFramePlayerOptions);
+    youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
+      @Override
+      public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+        super.onReady(youTubePlayer);
+        youTubePlayer.loadVideo("S0Q4gqBUs7c", 0F);
+      }
+    }, iFramePlayerOptions);
 
-        getLifecycle().addObserver(youTubePlayerView);
-    }
+    getLifecycle().addObserver(youTubePlayerView);
+  }
 }

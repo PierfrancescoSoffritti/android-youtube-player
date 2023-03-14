@@ -4,8 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
-import android.view.View
-import android.webkit.WebChromeClient
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.TextView
@@ -18,142 +16,176 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.utils.TimeUtilities
 
-class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null): LinearLayout(context, attrs), SeekBar.OnSeekBarChangeListener, YouTubePlayerListener {
+class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null) :
+  LinearLayout(context, attrs), SeekBar.OnSeekBarChangeListener, YouTubePlayerListener {
 
-    private var seekBarTouchStarted = false
-    // I need this variable because onCurrentSecond gets called every 100 mils, so without the proper checks on this variable in onCurrentSeconds the seek bar glitches when touched.
-    private var newSeekBarProgress = -1
+  private var seekBarTouchStarted = false
 
-    private var isPlaying = false
+  // I need this variable because onCurrentSecond gets called every 100 mils, so without the proper checks on this variable in onCurrentSeconds the seek bar glitches when touched.
+  private var newSeekBarProgress = -1
 
-    var showBufferingProgress = true
-    var youtubePlayerSeekBarListener: YouTubePlayerSeekBarListener? = null
+  private var isPlaying = false
 
-    val videoCurrentTimeTextView = TextView(context)
-    val videoDurationTextView = TextView(context)
-    val seekBar = SeekBar(context)
+  var showBufferingProgress = true
+  var youtubePlayerSeekBarListener: YouTubePlayerSeekBarListener? = null
 
-    init {
-        val typedArray = context.theme.obtainStyledAttributes(attrs, R.styleable.YouTubePlayerSeekBar, 0, 0)
+  val videoCurrentTimeTextView = TextView(context)
+  val videoDurationTextView = TextView(context)
+  val seekBar = SeekBar(context)
 
-        val fontSize = typedArray.getDimensionPixelSize(R.styleable.YouTubePlayerSeekBar_fontSize, resources.getDimensionPixelSize(R.dimen.ayp_12sp))
-        val color = typedArray.getColor(R.styleable.YouTubePlayerSeekBar_color, ContextCompat.getColor(context, R.color.ayp_red))
+  init {
+    val typedArray =
+      context.theme.obtainStyledAttributes(attrs, R.styleable.YouTubePlayerSeekBar, 0, 0)
 
-        typedArray.recycle()
+    val fontSize = typedArray.getDimensionPixelSize(
+      R.styleable.YouTubePlayerSeekBar_fontSize,
+      resources.getDimensionPixelSize(R.dimen.ayp_12sp)
+    )
+    val color = typedArray.getColor(
+      R.styleable.YouTubePlayerSeekBar_color,
+      ContextCompat.getColor(context, R.color.ayp_red)
+    )
 
-        val padding = resources.getDimensionPixelSize(R.dimen.ayp_8dp)
+    typedArray.recycle()
 
-        videoCurrentTimeTextView.text = resources.getString(R.string.ayp_null_time)
-        videoCurrentTimeTextView.setPadding(padding, padding, 0, padding)
-        videoCurrentTimeTextView.setTextColor(ContextCompat.getColor(context, android.R.color.white))
-        videoCurrentTimeTextView.gravity = Gravity.CENTER_VERTICAL
+    val padding = resources.getDimensionPixelSize(R.dimen.ayp_8dp)
 
-        videoDurationTextView.text = resources.getString(R.string.ayp_null_time)
-        videoDurationTextView.setPadding(0, padding, padding, padding)
-        videoDurationTextView.setTextColor(ContextCompat.getColor(context, android.R.color.white))
-        videoDurationTextView.gravity = Gravity.CENTER_VERTICAL
+    videoCurrentTimeTextView.text = resources.getString(R.string.ayp_null_time)
+    videoCurrentTimeTextView.setPadding(padding, padding, 0, padding)
+    videoCurrentTimeTextView.setTextColor(ContextCompat.getColor(context, android.R.color.white))
+    videoCurrentTimeTextView.gravity = Gravity.CENTER_VERTICAL
 
-        setFontSize(fontSize.toFloat())
+    videoDurationTextView.text = resources.getString(R.string.ayp_null_time)
+    videoDurationTextView.setPadding(0, padding, padding, padding)
+    videoDurationTextView.setTextColor(ContextCompat.getColor(context, android.R.color.white))
+    videoDurationTextView.gravity = Gravity.CENTER_VERTICAL
 
-        seekBar.setPadding(padding*2, padding, padding*2, padding)
-        setColor(color)
+    setFontSize(fontSize.toFloat())
 
-        addView(videoCurrentTimeTextView, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT))
-        addView(seekBar, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))
-        addView(videoDurationTextView, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+    seekBar.setPadding(padding * 2, padding, padding * 2, padding)
+    setColor(color)
 
-        gravity = Gravity.CENTER_VERTICAL
+    addView(
+      videoCurrentTimeTextView,
+      LayoutParams(
+        LayoutParams.WRAP_CONTENT,
+        LayoutParams.WRAP_CONTENT
+      )
+    )
+    addView(seekBar, LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f))
+    addView(
+      videoDurationTextView,
+      LayoutParams(
+        LayoutParams.WRAP_CONTENT,
+        LayoutParams.WRAP_CONTENT
+      )
+    )
 
-        seekBar.setOnSeekBarChangeListener(this)
+    gravity = Gravity.CENTER_VERTICAL
+
+    seekBar.setOnSeekBarChangeListener(this)
+  }
+
+  /**
+   * @param fontSize in pixels.
+   */
+  fun setFontSize(fontSize: Float) {
+    videoCurrentTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+    videoDurationTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+  }
+
+  fun setColor(@ColorInt color: Int) {
+    DrawableCompat.setTint(seekBar.thumb, color)
+    DrawableCompat.setTint(seekBar.progressDrawable, color)
+  }
+
+  private fun updateState(state: PlayerConstants.PlayerState) {
+    when (state) {
+      PlayerConstants.PlayerState.ENDED -> isPlaying = false
+      PlayerConstants.PlayerState.PAUSED -> isPlaying = false
+      PlayerConstants.PlayerState.PLAYING -> isPlaying = true
+      PlayerConstants.PlayerState.UNSTARTED -> resetUi()
+      else -> {}
     }
+  }
 
-    /**
-     * @param fontSize in pixels.
-     */
-    fun setFontSize(fontSize: Float) {
-        videoCurrentTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
-        videoDurationTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
-    }
+  private fun resetUi() {
+    seekBar.progress = 0
+    seekBar.max = 0
+    videoDurationTextView.post { videoDurationTextView.text = "" }
+  }
 
-    fun setColor(@ColorInt color: Int) {
-        DrawableCompat.setTint(seekBar.thumb, color)
-        DrawableCompat.setTint(seekBar.progressDrawable, color)
-    }
+  // Seekbar
 
-    private fun updateState(state: PlayerConstants.PlayerState) {
-        when (state) {
-            PlayerConstants.PlayerState.ENDED -> isPlaying = false
-            PlayerConstants.PlayerState.PAUSED -> isPlaying = false
-            PlayerConstants.PlayerState.PLAYING -> isPlaying = true
-            PlayerConstants.PlayerState.UNSTARTED -> resetUi()
-            else -> { }
-        }
-    }
+  override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+    videoCurrentTimeTextView.text = TimeUtilities.formatTime(progress.toFloat())
+  }
 
-    private fun resetUi() {
-        seekBar.progress = 0
-        seekBar.max = 0
-        videoDurationTextView.post { videoDurationTextView.text = "" }
-    }
+  override fun onStartTrackingTouch(seekBar: SeekBar) {
+    seekBarTouchStarted = true
+  }
 
-    // Seekbar
+  override fun onStopTrackingTouch(seekBar: SeekBar) {
+    if (isPlaying)
+      newSeekBarProgress = seekBar.progress
 
-    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-        videoCurrentTimeTextView.text = TimeUtilities.formatTime(progress.toFloat())
-    }
+    youtubePlayerSeekBarListener?.seekTo(seekBar.progress.toFloat())
+    seekBarTouchStarted = false
+  }
 
-    override fun onStartTrackingTouch(seekBar: SeekBar) {
-        seekBarTouchStarted = true
-    }
+  // YouTubePlayerListener
 
-    override fun onStopTrackingTouch(seekBar: SeekBar) {
-        if (isPlaying)
-            newSeekBarProgress = seekBar.progress
+  override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
+    newSeekBarProgress = -1
+    updateState(state)
+  }
 
-        youtubePlayerSeekBarListener?.seekTo(seekBar.progress.toFloat())
-        seekBarTouchStarted = false
-    }
+  override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {
+    // ignore if the user is currently moving the SeekBar
+    if (seekBarTouchStarted)
+      return
+    // ignore if the current time is older than what the user selected with the SeekBar
+    if (newSeekBarProgress > 0 && TimeUtilities.formatTime(second) != TimeUtilities.formatTime(
+        newSeekBarProgress.toFloat()
+      )
+    )
+      return
 
-    // YouTubePlayerListener
+    newSeekBarProgress = -1
 
-    override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
-        newSeekBarProgress = -1
-        updateState(state)
-    }
+    seekBar.progress = second.toInt()
+  }
 
-    override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {
-        // ignore if the user is currently moving the SeekBar
-        if (seekBarTouchStarted)
-            return
-        // ignore if the current time is older than what the user selected with the SeekBar
-        if (newSeekBarProgress > 0 && TimeUtilities.formatTime(second) != TimeUtilities.formatTime(newSeekBarProgress.toFloat()))
-            return
+  override fun onVideoDuration(youTubePlayer: YouTubePlayer, duration: Float) {
+    videoDurationTextView.text = TimeUtilities.formatTime(duration)
+    seekBar.max = duration.toInt()
+  }
 
-        newSeekBarProgress = -1
+  override fun onVideoLoadedFraction(youTubePlayer: YouTubePlayer, loadedFraction: Float) {
+    if (showBufferingProgress)
+      seekBar.secondaryProgress = (loadedFraction * seekBar.max).toInt()
+    else
+      seekBar.secondaryProgress = 0
+  }
 
-        seekBar.progress = second.toInt()
-    }
+  override fun onReady(youTubePlayer: YouTubePlayer) {}
+  override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) {}
+  override fun onApiChange(youTubePlayer: YouTubePlayer) {}
+  override fun onPlaybackQualityChange(
+    youTubePlayer: YouTubePlayer,
+    playbackQuality: PlayerConstants.PlaybackQuality
+  ) {
+  }
 
-    override fun onVideoDuration(youTubePlayer: YouTubePlayer, duration: Float) {
-        videoDurationTextView.text = TimeUtilities.formatTime(duration)
-        seekBar.max = duration.toInt()
-    }
+  override fun onPlaybackRateChange(
+    youTubePlayer: YouTubePlayer,
+    playbackRate: PlayerConstants.PlaybackRate
+  ) {
+  }
 
-    override fun onVideoLoadedFraction(youTubePlayer: YouTubePlayer, loadedFraction: Float) {
-        if (showBufferingProgress)
-            seekBar.secondaryProgress = (loadedFraction * seekBar.max).toInt()
-        else
-            seekBar.secondaryProgress = 0
-    }
-
-    override fun onReady(youTubePlayer: YouTubePlayer) { }
-    override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) { }
-    override fun onApiChange(youTubePlayer: YouTubePlayer) { }
-    override fun onPlaybackQualityChange(youTubePlayer: YouTubePlayer, playbackQuality: PlayerConstants.PlaybackQuality) { }
-    override fun onPlaybackRateChange(youTubePlayer: YouTubePlayer, playbackRate: PlayerConstants.PlaybackRate) { }
-    override fun onError(youTubePlayer: YouTubePlayer, error: PlayerConstants.PlayerError) { }
+  override fun onError(youTubePlayer: YouTubePlayer, error: PlayerConstants.PlayerError) {}
 }
 
 interface YouTubePlayerSeekBarListener {
-    fun seekTo(time: Float)
+  fun seekTo(time: Float)
 }

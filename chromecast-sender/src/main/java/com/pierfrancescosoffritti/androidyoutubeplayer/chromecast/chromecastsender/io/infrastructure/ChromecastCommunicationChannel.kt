@@ -2,6 +2,7 @@ package com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsen
 
 import com.google.android.gms.cast.Cast
 import com.google.android.gms.cast.CastDevice
+import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender.io.infrastructure.ChromecastCommunicationChannel.ChromecastChannelObserver
 
 /**
  * Custom channel for full-duplex communication between sender and receiver, on a specific namespace.
@@ -9,19 +10,19 @@ import com.google.android.gms.cast.CastDevice
  * The channel can be observed with a [ChromecastChannelObserver]
  */
 internal interface ChromecastCommunicationChannel : Cast.MessageReceivedCallback {
-    val namespace: String
-    val observers : HashSet<ChromecastChannelObserver>
+  val namespace: String
+  val observers: HashSet<ChromecastChannelObserver>
 
-    fun sendMessage(message: String)
-    override fun onMessageReceived(castDevice: CastDevice, namespace: String, message: String)
+  fun sendMessage(message: String)
+  override fun onMessageReceived(castDevice: CastDevice, namespace: String, message: String)
 
-    fun addObserver(channelObserver: ChromecastChannelObserver) = observers.add(channelObserver)
-    fun removeObserver(channelObserver: ChromecastChannelObserver) = observers.remove(channelObserver)
+  fun addObserver(channelObserver: ChromecastChannelObserver) = observers.add(channelObserver)
+  fun removeObserver(channelObserver: ChromecastChannelObserver) = observers.remove(channelObserver)
 
-    /**
-     * Implement this interface to observe a [ChromecastCommunicationChannel]
-     */
-    interface ChromecastChannelObserver {
-        fun onMessageReceived(messageFromReceiver: MessageFromReceiver)
-    }
+  /**
+   * Implement this interface to observe a [ChromecastCommunicationChannel]
+   */
+  interface ChromecastChannelObserver {
+    fun onMessageReceived(messageFromReceiver: MessageFromReceiver)
+  }
 }

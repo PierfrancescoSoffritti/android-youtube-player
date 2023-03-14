@@ -3,6 +3,6 @@ package com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.exa
 import androidx.mediarouter.app.MediaRouteButton
 
 interface MediaRouteButtonContainer {
-    fun addMediaRouteButton(mediaRouteButton: MediaRouteButton)
-    fun removeMediaRouteButton(mediaRouteButton: MediaRouteButton)
+  fun addMediaRouteButton(mediaRouteButton: MediaRouteButton)
+  fun removeMediaRouteButton(mediaRouteButton: MediaRouteButton)
 }

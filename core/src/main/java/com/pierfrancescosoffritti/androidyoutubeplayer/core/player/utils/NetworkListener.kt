@@ -6,13 +6,13 @@ import android.content.Intent
 
 internal class NetworkListener : BroadcastReceiver() {
 
-    var onNetworkUnavailable = { }
-    var onNetworkAvailable = { }
+  var onNetworkUnavailable = { }
+  var onNetworkAvailable = { }
 
-    override fun onReceive(context: Context, intent: Intent) {
-        if (Utils.isOnline(context))
-            onNetworkAvailable()
-        else
-            onNetworkUnavailable()
-    }
+  override fun onReceive(context: Context, intent: Intent) {
+    if (Utils.isOnline(context))
+      onNetworkAvailable()
+    else
+      onNetworkUnavailable()
+  }
 }
