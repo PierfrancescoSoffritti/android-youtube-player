@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.View
+import android.webkit.WebChromeClient
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.TextView

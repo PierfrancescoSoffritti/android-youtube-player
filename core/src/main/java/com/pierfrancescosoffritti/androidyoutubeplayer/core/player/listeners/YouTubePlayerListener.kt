@@ -1,5 +1,7 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners
 
+import android.view.View
+import android.webkit.WebChromeClient
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 

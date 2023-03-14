@@ -13,6 +13,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.FullScreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
@@ -23,13 +24,16 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.Playbac
  * Legacy internal implementation of YouTubePlayerView. The user facing YouTubePlayerView delegates
  * most of its actions to this one.
  */
-internal class LegacyYouTubePlayerView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0):
-        SixteenByNineFrameLayout(context, attrs, defStyleAttr), LifecycleObserver {
+internal class LegacyYouTubePlayerView(
+    context: Context,
+    listener: FullScreenListener,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+): SixteenByNineFrameLayout(context, attrs, defStyleAttr), LifecycleObserver {
 
-    constructor(context: Context): this(context, null, 0)
-    constructor(context: Context, attrs: AttributeSet? = null): this(context, attrs, 0)
+    constructor(context: Context): this(context, FakeWebViewYouTubeListener,null, 0)
 
-    internal val youTubePlayer: WebViewYouTubePlayer = WebViewYouTubePlayer(context)
+    internal val youTubePlayer: WebViewYouTubePlayer = WebViewYouTubePlayer(context, listener)
 
     private val networkListener = NetworkListener()
     private val playbackResumer = PlaybackResumer()

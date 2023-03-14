@@ -161,6 +161,16 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
             return this
         }
 
+        /**
+         * Setting this parameter to 0 prevents the fullscreen button from displaying in the player.
+         * See original documentation for more info: https://developers.google.com/youtube/player_parameters#Parameters
+         * @param fs if set to 1: the player fullscreen button will be show. If set to 0: the player fullscreen button will not be shown.
+         */
+        fun fullscreen(fs: Int): Builder {
+            addInt(FS, fs)
+            return this
+        }
+
         private fun addString(key: String, value: String) {
             try {
                 builderOptions.put(key, value)
