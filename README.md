@@ -1,7 +1,8 @@
 # android-youtube-player
 
 [![Build Status](https://travis-ci.com/PierfrancescoSoffritti/android-youtube-player.svg?branch=master)](https://travis-ci.com/PierfrancescoSoffritti/android-youtube-player) 
-[![android arsenal](https://img.shields.io/badge/Android%20Arsenal-android--youtube--player-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/4322)
+[![Android YouTube Player](https://www.appbrain.com/stats/libraries/shield/android_youtube_player.svg)](https://www.appbrain.com/stats/libraries/details/android_youtube_player/android-youtube-player) 
+[![android arsenal](https://img.shields.io/badge/Android%20Arsenal-android--youtube--player-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/4322) 
 [![website](https://img.shields.io/badge/-website-brightgreen.svg)](https://pierfrancescosoffritti.github.io/android-youtube-player/)
 
 [![share on twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=A%20new%20YouTube%20Player%20library%20for%20Android%20and%20Chromecast,%20stable%20and%20customizable&url=https://github.com/PierfrancescoSoffritti/android-youtube-player&via=psoffritti&hashtags=opensource,youtubeplayer,androiddev)
@@ -10,41 +11,38 @@
 
 android-youtube-player is a stable and customizable open source YouTube player for Android. It provides a simple View that can be easily integrated in every Activity/Fragment.
 
-The library is a wrapper over the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference), which runs inside of a WebView. Therefore the YouTube app is not required on the user's device and there are [no issues with YouTube Terms of Service](#does-this-library-breaks-youtube-terms-of-service).
-
-The UI of the player is 100% customizable. The UI can be [completely replaced with a custom UI](#create-your-own-custom-ui).
-However this should be done with caution, as altering the UI of the IFrame player might break YouTube's terms of service.
+The library is a wrapper around the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference), which runs inside of a WebView. Therefore there are [no issues with YouTube Terms of Service](#does-this-library-breaks-youtube-terms-of-service).
 
 This library also provides a [Chromecast YouTube player](#chromecast-extension-library), that you can use to cast YouTube videos from your app to a Chromecast device.
 
 ## Why does this library exist?
-The official library provided by Google to integrate YouTube videos in Android apps is the [YouTube Android Player API](https://developers.google.com/youtube/android/player/).
-Unfortunately this library is quite buggy ([some bugs are 5+ years old](https://code.google.com/p/gdata-issues/issues/detail?id=4395)) and has receive no updates in years. I personally found it quite unreliable and therefore impossible to use in production.
+The library provided by Google is the [YouTube Android Player API](https://developers.google.com/youtube/android/player/).
+This library has been [historically not reliable]((https://code.google.com/p/gdata-issues/issues/detail?id=4395)) and is now deprecated by Google.
 
-This, added to its limited options for customization and lack of Chromecast support, lead me to the development of this open source library.
+Google now recommends using the IFrame Player API inside a WebView, which is exactly what this library does, while also providing a native Java/Kotlin interface to interact with the web player.
 
-A lengthier explanation to why you may want to consider using an alternative to the official YouTube player is written in [this Medium post](https://medium.com/@soffritti.pierfrancesco/how-to-play-youtube-videos-in-your-android-app-c40427215230).
+A lengthier explanation of why this library was created can be found in [this Medium post](https://medium.com/@soffritti.pierfrancesco/how-to-play-youtube-videos-in-your-android-app-c40427215230).
 
----
+## Who is using this library
+Now that **the official API from Google is deprecated**, `android-youtube-player` is the main YouTube player library for Android.
 
-A list of published apps that are using this library: ([let me know](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues) if you want to add your app to this list)
+**Used by over 5 thousands apps**, with some big names like [Flipkart](https://play.google.com/store/apps/details?id=com.flipkart.android), [McDonald's](https://play.google.com/store/apps/details?id=com.mcdo.mcdonalds), [InShot Video Editor](https://play.google.com/store/apps/details?id=com.camerasideas.instashot), [Genius](https://play.google.com/store/apps/details?id=com.genius.android) and [reddit is fun](https://play.google.com/store/apps/details?id=com.andrewshu.android.reddit).
 
-- [Genius](https://play.google.com/store/apps/details?id=com.genius.android)
-- [reddit is fun](https://play.google.com/store/apps/details?id=com.andrewshu.android.reddit)
-- [Mobile Movie Database](https://play.google.com/store/apps/details?id=com.tmdb.themoviedatabase)
-- [dingo](https://play.google.com/store/apps/details?id=com.dingo)
+You can [see more stats here](https://www.appbrain.com/stats/libraries/details/android_youtube_player/android-youtube-player).
+
+**If you choose to use this library and profit from it**, consider informing me and [become a sponsor on GitHub](https://github.com/sponsors/PierfrancescoSoffritti). This will enable me to continue developing the library, so you don't have to.
 
 ![showcase](./images/showcase.jpg)
 
-## Does this library breaks YouTube terms of service?
+## Does this library break YouTube terms of service?
 **TL;DR** No. 
 
 The library uses YouTube's own web player to play videos. Therefore it is 100% compliant with  terms of service.
-[You can see here](https://developers.google.com/youtube/v3/guides/ios_youtube_helper) how this is also the official way of playing YouTube videos on iOS.
+Playing YouTube videos in a WebView is the recomended approach by Google, both on [Android](https://developers.google.com/youtube/android/player/) and [iOS](https://developers.google.com/youtube/v3/guides/ios_youtube_helper).
 
 That said how you use the library matters, be sure to play videos only when the player is visible. If you follow the instructions in the documentation, the library will automatically handle this for you.
 
-Also remember when publishing your app on the PlayStore to write title and description in a way that makes it obvious that your app doesn't have any affiliation with YouTube (the company). **This is issue has nothing to do with the library itself**, but I figured it may be useful knowledge for many of you considering to use it.
+Also remember when publishing your app on the PlayStore to write title and description in a way that makes it obvious that your app doesn't have any affiliation with YouTube (the company). **This issue has nothing to do with the library itself**, but I figured it may be useful knowledge for many of you considering to use it.
 
 # Table of Contents (Core)
 1. [Sample app](#sample-app)
