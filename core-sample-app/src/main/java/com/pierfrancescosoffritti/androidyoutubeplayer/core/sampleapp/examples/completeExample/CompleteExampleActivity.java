@@ -15,8 +15,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.VideoIdsProvider;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.VideoInfo;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.YouTubeDataEndpoint;
 import com.pierfrancescosoffritti.aytplayersample.R;
 
 public class CompleteExampleActivity extends AppCompatActivity {
@@ -114,23 +112,5 @@ public class CompleteExampleActivity extends AppCompatActivity {
     playbackSpeed_0_25.setOnClickListener(view -> youTubePlayer.setPlaybackRate(PlayerConstants.PlaybackRate.RATE_0_25));
     playbackSpeed_1.setOnClickListener(view -> youTubePlayer.setPlaybackRate(PlayerConstants.PlaybackRate.RATE_1));
     playbackSpeed_2.setOnClickListener(view -> youTubePlayer.setPlaybackRate(PlayerConstants.PlaybackRate.RATE_2));
-  }
-
-  /**
-   * This method is here just for reference, it is not being used because the IFrame player already shows the title of the video.
-   * <p>
-   * This method is called every time a new video is being loaded/cued.
-   * It uses the YouTube Data APIs to fetch the video title from the video ID.
-   * The YouTube Data APIs are nothing more then a wrapper over the YouTube REST API.
-   * You can learn more at the following urls:
-   * https://developers.google.com/youtube/v3/docs/videos/list
-   * https://developers.google.com/apis-explorer/#p/youtube/v3/youtube.videos.list?part=snippet&id=6JYIGclVQdw&fields=items(snippet(title))&_h=9&
-   * <p>
-   * This method does network operations, therefore it cannot be executed on the main thread.
-   * It's up to you to make sure that it does not run on the UI thread, you can use whatever you want: Threads, AsyncTask, Coroutines, RxJava etc.
-   */
-  @SuppressLint("CheckResult")
-  private void setVideoTitle(String videoId) {
-    VideoInfo videoInfo = YouTubeDataEndpoint.getVideoInfoFromYouTubeDataAPIs(videoId);
   }
 }
