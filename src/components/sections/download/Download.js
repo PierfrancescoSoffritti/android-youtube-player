@@ -8,7 +8,7 @@ const Download = () => {
         <section>
             <div className="section-title">Download</div>
             <div>
-The Gradle dependency is available via <a href="https://repo1.maven.org/maven2/com/pierfrancescosoffritti/androidyoutubeplayer/" target="_blank" rel="noopener noreferrer">MavenCentral</a>.
+The Gradle dependency is available via <a href="https://repo1.maven.org/maven2/com/pierfrancescosoffritti/androidyoutubeplayer/" target="_blank" rel="noopener">MavenCentral</a>.
 <br/>The minimum API level supported by this library is API 17. Also, starting from version 9 your app needs to be using the androidx libraries instead of the old support libraries.
 
 <br/><br/>

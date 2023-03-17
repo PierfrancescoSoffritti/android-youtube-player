@@ -31,14 +31,14 @@ In order to start using the player you need to add a YouTubePlayerView to your l
 </LinearLayout>`
 }</SyntaxHighlighter>
 
-It is recommended that you add YouTubePlayerView as a lifecycle observer of its parent Activity/Fragment. You can <a href="https://github.com/PierfrancescoSoffritti/android-youtube-player#lifecycleobserver" target="_blank" rel="noopener noreferrer">read why in the documentation</a>.
+It is recommended that you add YouTubePlayerView as a lifecycle observer of its parent Activity/Fragment. You can <a href="https://github.com/PierfrancescoSoffritti/android-youtube-player#lifecycleobserver" target="_blank" rel="noopener">read why in the documentation</a>.
 
 <SyntaxHighlighter language='java' style={ agate }>{
 `YouTubePlayerView youTubePlayerView = findViewById(R.id.youtube_player_view);
 getLifecycle().addObserver(youTubePlayerView);`
 }</SyntaxHighlighter>
 
-<i>(If you have problems adding YouTubePlayerView as a LifecycleObserver, you probably aren't using androidx, <a href="https://developer.android.com/jetpack/androidx/migrate" target="_blank" rel="noopener noreferrer">I suggest you migrate your dependencies</a>)</i>
+<i>(If you have problems adding YouTubePlayerView as a LifecycleObserver, you probably aren't using androidx, <a href="https://developer.android.com/jetpack/androidx/migrate" target="_blank" rel="noopener">I suggest you migrate your dependencies</a>)</i>
 <br/><br/>
 That's all you need, a YouTube video is now playing in your app.
 <br/><br/>
@@ -57,9 +57,9 @@ youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
 });`
 }</SyntaxHighlighter>
 
-You can <a href="https://github.com/PierfrancescoSoffritti/android-youtube-player#table-of-contents-core" target="_blank" rel="noopener noreferrer">read the complete documentation here</a>.
+You can <a href="https://github.com/PierfrancescoSoffritti/android-youtube-player#table-of-contents-core" target="_blank" rel="noopener">read the complete documentation here</a>.
 <br/><br/>
-For any question feel free to <a href="https://github.com/PierfrancescoSoffritti/android-youtube-player/issues" target="_blank" rel="noopener noreferrer">open an issue on GitHub</a>.
+For any question feel free to <a href="https://github.com/PierfrancescoSoffritti/android-youtube-player/issues" target="_blank" rel="noopener">open an issue on GitHub</a>.
 
             </div>
         </section>
