@@ -40,5 +40,8 @@ ext.versions = [
         // Tests
         junit                           : '4.13.2',
         runner                          : '1.4.0',
-        espressoCore                    : '3.4.0'
+        espressoCore                    : '3.4.0',
+
+        // Debug
+        leakcanary                      : '2.10',
 ]

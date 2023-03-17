@@ -64,6 +64,8 @@ dependencies {
   implementation "com.github.PierfrancescoSoffritti:library-sample-app-template:$versions.sampleAppTemplate"
 
   implementation "androidx.multidex:multidex:$versions.multiDex"
+
+  debugImplementation "com.squareup.leakcanary:leakcanary-android:$versions.leakcanary"
 }
 
 /*
