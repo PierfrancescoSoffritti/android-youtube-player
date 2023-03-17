@@ -3,60 +3,60 @@ apply plugin: 'kotlin-android'
 apply from: '../dependencies.gradle'
 
 android {
-    compileSdkVersion versions.compileSdk
+  compileSdkVersion versions.compileSdk
 
-    defaultConfig {
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.compileSdk
-        versionCode versions.publishVersionCode_chromecast
-        versionName versions.publishVersion_chromecast
-        multiDexEnabled true
-    }
+  defaultConfig {
+    minSdkVersion versions.minSdk
+    targetSdkVersion versions.compileSdk
+    versionCode versions.publishVersionCode_chromecast
+    versionName versions.publishVersion_chromecast
+    multiDexEnabled true
+  }
 
-    buildTypes {
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+  buildTypes {
+    release {
+      minifyEnabled true
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
-    packagingOptions {
-        resources {
-            // this is needed because I'm importing 2 modules called "core" (core and com.psoffritti.librarysampleapptemplate:core) (https://discuss.kotlinlang.org/t/disable-meta-inf-generation-in-gradle-android-project/3830)
-            excludes += ['META-INF/core_release.kotlin_module']
-        }
+  }
+  packagingOptions {
+    resources {
+      // this is needed because I'm importing 2 modules called "core" (core and com.psoffritti.librarysampleapptemplate:core) (https://discuss.kotlinlang.org/t/disable-meta-inf-generation-in-gradle-android-project/3830)
+      excludes += ['META-INF/core_release.kotlin_module']
     }
+  }
 
-    namespace 'com.pierfrancescosoffritti.cyplayersample'
+  namespace 'com.pierfrancescosoffritti.cyplayersample'
 }
 
 dependencies {
-    testImplementation "junit:junit:$versions.junit"
-    androidTestImplementation "androidx.test:runner:$versions.runner"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
+  testImplementation "junit:junit:$versions.junit"
+  androidTestImplementation "androidx.test:runner:$versions.runner"
+  androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
 
-    implementation project(':core')
-    implementation project(':chromecast-sender')
+  implementation project(':core')
+  implementation project(':chromecast-sender')
 
-    implementation "androidx.appcompat:appcompat:$versions.androidxCore"
-    implementation "androidx.recyclerview:recyclerview:$versions.androidxRecyclerView"
-    implementation "androidx.constraintlayout:constraintlayout:$versions.androidxConstraintLayout"
+  implementation "androidx.appcompat:appcompat:$versions.androidxCore"
+  implementation "androidx.recyclerview:recyclerview:$versions.androidxRecyclerView"
+  implementation "androidx.constraintlayout:constraintlayout:$versions.androidxConstraintLayout"
 
-    implementation "androidx.mediarouter:mediarouter:$versions.androidxMediarouter"
+  implementation "androidx.mediarouter:mediarouter:$versions.androidxMediarouter"
 
-    implementation("com.google.api-client:google-api-client-android:$versions.googleApiClientAndroid") {
-        exclude group: 'com.google.guava'
-        exclude group: 'org.apache.httpcomponents'
-        exclude group: 'com.google.code.findbugs'
-        exclude group: 'com.google.http-client', module: 'google-http-client-jackson2'
-    }
-    implementation("com.google.apis:google-api-services-youtube:$versions.googleApiServicesYoutube") {
-        exclude group: 'com.google.guava'
-        exclude group: 'org.apache.httpcomponents'
-        exclude group: 'com.google.code.findbugs'
-        exclude group: 'com.google.http-client', module: 'google-http-client-jackson2'
-    }
+  implementation("com.google.api-client:google-api-client-android:$versions.googleApiClientAndroid") {
+    exclude group: 'com.google.guava'
+    exclude group: 'org.apache.httpcomponents'
+    exclude group: 'com.google.code.findbugs'
+    exclude group: 'com.google.http-client', module: 'google-http-client-jackson2'
+  }
+  implementation("com.google.apis:google-api-services-youtube:$versions.googleApiServicesYoutube") {
+    exclude group: 'com.google.guava'
+    exclude group: 'org.apache.httpcomponents'
+    exclude group: 'com.google.code.findbugs'
+    exclude group: 'com.google.http-client', module: 'google-http-client-jackson2'
+  }
 
-    implementation "com.github.PierfrancescoSoffritti:library-sample-app-template:$versions.sampleAppTemplate"
+  implementation "com.github.PierfrancescoSoffritti:library-sample-app-template:$versions.sampleAppTemplate"
 
-    implementation "androidx.multidex:multidex:$versions.multiDex"
+  implementation "androidx.multidex:multidex:$versions.multiDex"
 }

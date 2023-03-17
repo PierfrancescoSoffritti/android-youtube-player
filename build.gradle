@@ -1,34 +1,34 @@
 apply from: './dependencies.gradle'
 
 buildscript {
-    apply from: './dependencies.gradle'
-    repositories {
-        google()
-        mavenCentral()
-        maven { url 'https://jitpack.io' }
-    }
-    dependencies {
-        classpath "com.android.tools.build:gradle:$versions.gradlePlugin"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+  apply from: './dependencies.gradle'
+  repositories {
+    google()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+  }
+  dependencies {
+    classpath "com.android.tools.build:gradle:$versions.gradlePlugin"
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
 
-        classpath "com.getkeepsafe.dexcount:dexcount-gradle-plugin:$versions.dexCount"
+    classpath "com.getkeepsafe.dexcount:dexcount-gradle-plugin:$versions.dexCount"
 
-        classpath "io.github.gradle-nexus:publish-plugin:$versions.gradleNexus"
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$versions.dokka"
-    }
+    classpath "io.github.gradle-nexus:publish-plugin:$versions.gradleNexus"
+    classpath "org.jetbrains.dokka:dokka-gradle-plugin:$versions.dokka"
+  }
 }
 
 apply plugin: 'io.github.gradle-nexus.publish-plugin'
 apply from: "./scripts/publish-root.gradle"
 
 allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url 'https://jitpack.io' }
-    }
+  repositories {
+    google()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+  }
 
-    tasks.withType(Javadoc).all {
-        enabled = false
-    }
+  tasks.withType(Javadoc).all {
+    enabled = false
+  }
 }
