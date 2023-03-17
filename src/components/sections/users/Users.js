@@ -4,7 +4,7 @@ import "./Users.css"
 const Users = () => {
     return (
         <section>
-            <div className="section-title">Who is using this library</div>
+            <div className="section-title">Apps using this library</div>
             <div>
             Now that the official API from Google is deprecated, android-youtube-player is the main YouTube player library for Android.
             <br/><br/>
