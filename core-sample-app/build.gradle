@@ -67,13 +67,3 @@ dependencies {
 
   debugImplementation "com.squareup.leakcanary:leakcanary-android:$versions.leakcanary"
 }
-
-/*
-configurations {
-    custom
-}
-
-dependencies {
-    custom 'com.google.apis:google-api-services-youtube:v3-rev198-1.23.0'
-}
-*/
