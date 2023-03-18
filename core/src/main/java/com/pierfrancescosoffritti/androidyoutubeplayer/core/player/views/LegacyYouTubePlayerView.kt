@@ -74,12 +74,18 @@ internal class LegacyYouTubePlayerView(
       }
     })
 
-    networkListener.onNetworkAvailable = {
-      if (!isYouTubePlayerReady)
-        initialize()
-      else
-        playbackResumer.resume(youTubePlayer)
-    }
+    networkListener.listeners.add(object : NetworkListener.Listener {
+      override fun onNetworkAvailable() {
+        if (!isYouTubePlayerReady) {
+          initialize()
+        }
+        else {
+          playbackResumer.resume(youTubePlayer)
+        }
+      }
+
+      override fun onNetworkUnavailable() { }
+    })
   }
 
   /**
