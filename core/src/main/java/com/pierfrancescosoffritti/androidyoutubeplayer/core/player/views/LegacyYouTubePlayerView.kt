@@ -7,9 +7,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.*
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -29,7 +27,7 @@ internal class LegacyYouTubePlayerView(
   listener: FullScreenListener,
   attrs: AttributeSet? = null,
   defStyleAttr: Int = 0
-) : SixteenByNineFrameLayout(context, attrs, defStyleAttr), LifecycleObserver {
+) : SixteenByNineFrameLayout(context, attrs, defStyleAttr) {
 
   constructor(context: Context) : this(context, FakeWebViewYouTubeListener, null, 0)
 
@@ -172,7 +170,6 @@ internal class LegacyYouTubePlayerView(
   /**
    * Call this method before destroying the host Fragment/Activity, or register this View as an observer of its host lifecycle
    */
-  @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
   fun release() {
     removeView(youTubePlayer)
     youTubePlayer.removeAllViews()
@@ -183,13 +180,11 @@ internal class LegacyYouTubePlayerView(
     }
   }
 
-  @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
   internal fun onResume() {
     playbackResumer.onLifecycleResume()
     canPlay = true
   }
 
-  @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
   internal fun onStop() {
     youTubePlayer.pause()
     playbackResumer.onLifecycleStop()

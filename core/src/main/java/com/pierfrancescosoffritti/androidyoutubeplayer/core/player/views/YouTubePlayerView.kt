@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
 import android.widget.FrameLayout
 import androidx.annotation.LayoutRes
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.*
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.*
@@ -26,7 +24,7 @@ class YouTubePlayerView(
   context: Context,
   attrs: AttributeSet? = null,
   defStyleAttr: Int = 0
-) : SixteenByNineFrameLayout(context, attrs, defStyleAttr), LifecycleObserver {
+) : SixteenByNineFrameLayout(context, attrs, defStyleAttr), LifecycleEventObserver {
 
   constructor(context: Context) : this(context, null, 0)
   constructor(context: Context, attrs: AttributeSet? = null) : this(context, attrs, 0)
@@ -169,16 +167,22 @@ class YouTubePlayerView(
    */
   fun enableBackgroundPlayback(enable: Boolean) = legacyTubePlayerView.enableBackgroundPlayback(enable)
 
+  override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+    when (event) {
+      Lifecycle.Event.ON_RESUME -> onResume()
+      Lifecycle.Event.ON_STOP -> onStop()
+      Lifecycle.Event.ON_DESTROY -> release()
+      Lifecycle.Event.ON_CREATE, Lifecycle.Event.ON_START, Lifecycle.Event.ON_PAUSE, Lifecycle.Event.ON_ANY -> { }
+    }
+  }
+
   /**
    * Call this method before destroying the host Fragment/Activity, or register this View as an observer of its host lifecycle
    */
-  @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
   fun release() = legacyTubePlayerView.release()
 
-  @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
   private fun onResume() = legacyTubePlayerView.onResume()
 
-  @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
   private fun onStop() = legacyTubePlayerView.onStop()
 
   fun addYouTubePlayerListener(youTubePlayerListener: YouTubePlayerListener) = legacyTubePlayerView.youTubePlayer.addListener(youTubePlayerListener)
