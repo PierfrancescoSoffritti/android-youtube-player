@@ -1,8 +1,6 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views
 
 import android.content.Context
-import android.content.IntentFilter
-import android.net.ConnectivityManager
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +13,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Ful
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.NetworkListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.NetworkObserver
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.PlaybackResumer
 
 /**
@@ -33,7 +31,7 @@ internal class LegacyYouTubePlayerView(
 
   internal val youTubePlayer: WebViewYouTubePlayer = WebViewYouTubePlayer(context, listener)
 
-  private val networkListener = NetworkListener()
+  private val networkObserver = NetworkObserver(context)
   private val playbackResumer = PlaybackResumer()
 
   internal var isYouTubePlayerReady = false
@@ -72,7 +70,7 @@ internal class LegacyYouTubePlayerView(
       }
     })
 
-    networkListener.listeners.add(object : NetworkListener.Listener {
+    networkObserver.listeners.add(object : NetworkObserver.Listener {
       override fun onNetworkAvailable() {
         if (!isYouTubePlayerReady) {
           initialize()
@@ -101,11 +99,9 @@ internal class LegacyYouTubePlayerView(
     if (isYouTubePlayerReady)
       throw IllegalStateException("This YouTubePlayerView has already been initialized.")
 
-    if (handleNetworkEvents)
-      context.registerReceiver(
-        networkListener,
-        IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-      )
+    if (handleNetworkEvents) {
+      networkObserver.observeNetwork()
+    }
 
     initialize = {
       youTubePlayer.initialize({ it.addListener(youTubePlayerListener) }, playerOptions)
@@ -171,13 +167,10 @@ internal class LegacyYouTubePlayerView(
    * Call this method before destroying the host Fragment/Activity, or register this View as an observer of its host lifecycle
    */
   fun release() {
+    networkObserver.stopObserving()
     removeView(youTubePlayer)
     youTubePlayer.removeAllViews()
     youTubePlayer.destroy()
-    try {
-      context.unregisterReceiver(networkListener)
-    } catch (ignore: Exception) {
-    }
   }
 
   internal fun onResume() {
