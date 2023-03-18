@@ -35,7 +35,7 @@ internal class NetworkObserver(private val context: Context) {
   }
 
   /** Stop observing network changes and cleanup */
-  fun stopObserving() {
+  fun destroy() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       val callback = networkCallback ?: return
       val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -45,6 +45,10 @@ internal class NetworkObserver(private val context: Context) {
       val receiver = networkBroadcastReceiver ?: return
       runCatching { context.unregisterReceiver(receiver) }
     }
+
+    listeners.clear()
+    networkCallback = null
+    networkBroadcastReceiver = null
   }
 
   @RequiresApi(Build.VERSION_CODES.N)

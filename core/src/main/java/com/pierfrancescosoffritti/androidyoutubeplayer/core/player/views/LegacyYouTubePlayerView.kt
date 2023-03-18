@@ -31,7 +31,7 @@ internal class LegacyYouTubePlayerView(
 
   internal val youTubePlayer: WebViewYouTubePlayer = WebViewYouTubePlayer(context, listener)
 
-  private val networkObserver = NetworkObserver(context)
+  private val networkObserver = NetworkObserver(context.applicationContext)
   private val playbackResumer = PlaybackResumer()
 
   internal var isYouTubePlayerReady = false
@@ -167,7 +167,7 @@ internal class LegacyYouTubePlayerView(
    * Call this method before destroying the host Fragment/Activity, or register this View as an observer of its host lifecycle
    */
   fun release() {
-    networkObserver.stopObserving()
+    networkObserver.destroy()
     removeView(youTubePlayer)
     youTubePlayer.removeAllViews()
     youTubePlayer.destroy()
