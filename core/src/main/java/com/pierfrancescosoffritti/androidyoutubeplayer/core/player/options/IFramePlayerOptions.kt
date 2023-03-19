@@ -177,7 +177,6 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
       } catch (e: JSONException) {
         throw RuntimeException("Illegal JSON value $key: $value")
       }
-
     }
 
     private fun addInt(key: String, value: Int) {
@@ -186,7 +185,6 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
       } catch (e: JSONException) {
         throw RuntimeException("Illegal JSON value $key: $value")
       }
-
     }
   }
 }
