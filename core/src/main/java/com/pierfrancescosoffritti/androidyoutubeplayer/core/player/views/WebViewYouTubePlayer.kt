@@ -102,6 +102,7 @@ internal class WebViewYouTubePlayer constructor(
     super.destroy()
   }
 
+  // create new set to avoid concurrent modifications
   override val listeners: Collection<YouTubePlayerListener> get() = youTubePlayerListeners.toSet()
 
   override fun addListener(listener: YouTubePlayerListener): Boolean {
