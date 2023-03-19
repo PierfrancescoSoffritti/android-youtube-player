@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.menu
+package com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.menu
 
 import android.view.View
 

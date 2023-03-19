@@ -36,7 +36,7 @@ dependencies {
   implementation project(':core')
   implementation project(':chromecast-sender')
 
-  implementation "androidx.appcompat:appcompat:$versions.androidxCore"
+  implementation "androidx.appcompat:appcompat:$versions.appcompat"
   implementation "androidx.recyclerview:recyclerview:$versions.androidxRecyclerView"
   implementation "androidx.constraintlayout:constraintlayout:$versions.androidxConstraintLayout"
 

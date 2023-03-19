@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.utils
+package com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.utils
 
 import android.annotation.SuppressLint
 
