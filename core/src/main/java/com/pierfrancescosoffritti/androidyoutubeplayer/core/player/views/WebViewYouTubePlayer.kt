@@ -152,6 +152,10 @@ internal class WebViewYouTubePlayer constructor(
     }
   }
 
+  fun toggleFullscreenMode() {
+    loadUrl("javascript:toggleFullscreen()")
+  }
+
   override fun onWindowVisibilityChanged(visibility: Int) {
     if (isBackgroundPlaybackEnabled && (visibility == View.GONE || visibility == View.INVISIBLE))
       return
