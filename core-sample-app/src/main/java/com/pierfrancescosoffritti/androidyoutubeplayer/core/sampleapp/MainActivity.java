@@ -11,6 +11,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.c
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.defaultCustomUiExample.DefaultCustomUiExampleActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.fragmentExample.FragmentExampleActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.fullscreenExample.FullscreenExampleActivity;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.fullscreenOnOrientationExample.FullscreenOnOrientationExampleActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.iFramePlayerOptionsExample.IFramePlayerOptionsExampleActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.liveVideoExample.LiveVideoActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.noLifecycleObserverExample.NoLifecycleObserverExampleActivity;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     ExampleActivityDetails[] examples = new ExampleActivityDetails[]{
             new ExampleActivityDetails(R.string.simple_example, null, SimpleExampleActivity.class),
             new ExampleActivityDetails(R.string.fullscreen_example, null, FullscreenExampleActivity.class),
+            new ExampleActivityDetails(R.string.fullscreen_on_orientation_example, null, FullscreenOnOrientationExampleActivity.class),
             new ExampleActivityDetails(R.string.complete_example, null, CompleteExampleActivity.class),
             new ExampleActivityDetails(R.string.default_custom_ui_example, null, DefaultCustomUiExampleActivity.class),
             new ExampleActivityDetails(R.string.custom_ui_example, null, CustomUiActivity.class),
