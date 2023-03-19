@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.mediarouter.app.MediaRouteButton;
 
@@ -39,6 +40,9 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
   private ViewGroup mediaRouteButtonRoot;
 
   private boolean connectedToChromeCast = false;
+
+  @Nullable
+  private ChromecastYouTubePlayerContext chromecastYouTubePlayerContext = null;
 
   private final MediaRouteButtonContainer chromecastPlayerUiMediaRouteButtonContainer = new MediaRouteButtonContainer() {
     public void addMediaRouteButton(MediaRouteButton mediaRouteButton) {
@@ -86,6 +90,9 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
   public void onDestroy() {
     super.onDestroy();
     getApplicationContext().unregisterReceiver(playbackControllerBroadcastReceiver);
+    if (chromecastYouTubePlayerContext != null) {
+      chromecastYouTubePlayerContext.release();
+    }
   }
 
   @Override
@@ -98,9 +105,11 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
   }
 
   private void initChromeCast() {
-    new ChromecastYouTubePlayerContext(
+    chromecastYouTubePlayerContext = new ChromecastYouTubePlayerContext(
             CastContext.getSharedInstance(this).getSessionManager(),
-            this, playbackControllerBroadcastReceiver, youTubePlayersManager
+            this,
+            playbackControllerBroadcastReceiver,
+            youTubePlayersManager
     );
   }
 
