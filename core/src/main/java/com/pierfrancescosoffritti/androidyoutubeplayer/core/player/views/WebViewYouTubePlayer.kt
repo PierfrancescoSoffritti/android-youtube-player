@@ -152,8 +152,12 @@ internal class WebViewYouTubePlayer constructor(
     }
   }
 
-  fun toggleFullscreenMode() {
-    loadUrl("javascript:toggleFullscreen()")
+  fun enterFullscreen() {
+    loadUrl("javascript:enterFullscreen()")
+  }
+
+  fun exitFullscreen() {
+    loadUrl("javascript:exitFullscreen()")
   }
 
   override fun onWindowVisibilityChanged(visibility: Int) {

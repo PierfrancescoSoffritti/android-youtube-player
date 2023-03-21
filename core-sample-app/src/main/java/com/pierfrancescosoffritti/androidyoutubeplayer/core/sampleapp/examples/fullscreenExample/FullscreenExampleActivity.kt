@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.fullscreenOnOrientationExample
+package com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.fullscreenExample
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -12,14 +12,14 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFram
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import com.pierfrancescosoffritti.aytplayersample.R
 
-class FullscreenOnOrientationExampleActivity: AppCompatActivity() {
+class FullscreenExampleActivity : AppCompatActivity() {
 
     private lateinit var youTubePlayerView: YouTubePlayerView
     private lateinit var fullScreenViewContainer: FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_fullscreen_on_orientation_example)
+        setContentView(R.layout.activity_fullscreen_example)
 
         youTubePlayerView = findViewById(R.id.youtube_player_view)
         fullScreenViewContainer = findViewById(R.id.full_screen_view_container)
@@ -38,6 +38,9 @@ class FullscreenOnOrientationExampleActivity: AppCompatActivity() {
                 youTubePlayerView.visibility = View.GONE
                 fullScreenViewContainer.visibility = View.VISIBLE
                 fullScreenViewContainer.addView(fullScreenView)
+
+                // optionally request landscape orientation
+                // requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             }
 
             override fun onExitFullScreen() {
@@ -45,6 +48,8 @@ class FullscreenOnOrientationExampleActivity: AppCompatActivity() {
                 youTubePlayerView.visibility = View.VISIBLE
                 fullScreenViewContainer.visibility = View.GONE
                 fullScreenViewContainer.removeAllViews()
+
+                // requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
             }
         })
 
@@ -65,12 +70,12 @@ class FullscreenOnOrientationExampleActivity: AppCompatActivity() {
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             // if video is running in normal mode then toggle to full screen mode
             if (fullScreenViewContainer.visibility == View.GONE) {
-                youTubePlayerView.toggleFullscreenMode()
+                youTubePlayerView.enterFullscreen()
             }
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             // if video is running in full screen mode then toggle to normal mode
             if (fullScreenViewContainer.visibility == View.VISIBLE) {
-                youTubePlayerView.toggleFullscreenMode()
+                youTubePlayerView.exitFullscreen()
             }
         }
     }

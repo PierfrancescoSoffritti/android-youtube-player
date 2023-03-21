@@ -162,8 +162,12 @@
             player.setPlaybackRate(playbackRate);
         }
 
-        function toggleFullscreen() {
-            player.toggleFullscreen();
+        function enterFullscreen() {
+            document.getElementById("youTubePlayerDOM").contentWindow.document.getElementById("movie_player").requestFullscreen();
+        }
+
+        function exitFullscreen() {
+            document.getElementById("youTubePlayerDOM").contentWindow.document.exitFullscreen();
         }
 
     </script>

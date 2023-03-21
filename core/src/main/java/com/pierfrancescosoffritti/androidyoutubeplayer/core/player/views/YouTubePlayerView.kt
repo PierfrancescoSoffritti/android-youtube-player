@@ -193,7 +193,9 @@ class YouTubePlayerView(
 
   fun removeFullScreenListener(fullScreenListener: FullScreenListener) = fullScreenListeners.remove(fullScreenListener)
 
-  fun toggleFullscreenMode() = legacyTubePlayerView.youTubePlayer.toggleFullscreenMode()
+  fun enterFullscreen() = legacyTubePlayerView.youTubePlayer.enterFullscreen()
+
+  fun exitFullscreen() = legacyTubePlayerView.youTubePlayer.exitFullscreen()
 
   /**
    * Convenience method to set the [YouTubePlayerView] width and height to match parent.
