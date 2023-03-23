@@ -74,7 +74,7 @@ internal class LegacyYouTubePlayerView(
           initialize()
         }
         else {
-          playbackResumer.resume(webViewYouTubePlayer)
+          playbackResumer.resume(webViewYouTubePlayer.youtubePlayer)
         }
       }
 
@@ -136,7 +136,7 @@ internal class LegacyYouTubePlayerView(
    */
   fun getYouTubePlayerWhenReady(youTubePlayerCallback: YouTubePlayerCallback) {
     if (isYouTubePlayerReady) {
-      youTubePlayerCallback.onYouTubePlayer(webViewYouTubePlayer)
+      youTubePlayerCallback.onYouTubePlayer(webViewYouTubePlayer.youtubePlayer)
     }
     else {
       youTubePlayerCallbacks.add(youTubePlayerCallback)
@@ -177,7 +177,7 @@ internal class LegacyYouTubePlayerView(
   }
 
   internal fun onStop() {
-    webViewYouTubePlayer.pause()
+    webViewYouTubePlayer.youtubePlayer.pause()
     playbackResumer.onLifecycleStop()
     canPlay = false
   }

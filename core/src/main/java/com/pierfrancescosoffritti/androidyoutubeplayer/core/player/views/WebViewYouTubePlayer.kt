@@ -25,6 +25,44 @@ import java.io.InputStreamReader
 import java.util.*
 
 
+private class YouTubePlayerImpl(private val webView: WebView) : YouTubePlayer {
+  private val mainThread: Handler = Handler(Looper.getMainLooper())
+  val listeners = mutableSetOf<YouTubePlayerListener>()
+
+  override fun loadVideo(videoId: String, startSeconds: Float) = webView.invoke("loadVideo", videoId, startSeconds)
+  override fun cueVideo(videoId: String, startSeconds: Float) = webView.invoke("cueVideo", videoId, startSeconds)
+  override fun play() = webView.invoke("playVideo")
+  override fun pause() = webView.invoke("pauseVideo")
+  override fun mute() = webView.invoke("mute")
+  override fun unMute() = webView.invoke("unMute")
+  override fun setVolume(volumePercent: Int) {
+    require(volumePercent in 0..100) { "Volume must be between 0 and 100" }
+    webView.invoke("setVolume", volumePercent)
+  }
+  override fun seekTo(time: Float) = webView.invoke("seekTo", time)
+  override fun setPlaybackRate(playbackRate: PlayerConstants.PlaybackRate) = webView.invoke("setPlaybackRate", playbackRate.toFloat())
+  override fun toggleFullscreen() = webView.invoke("toggleFullscreen")
+  override fun addListener(listener: YouTubePlayerListener) = listeners.add(listener)
+  override fun removeListener(listener: YouTubePlayerListener) = listeners.remove(listener)
+
+  fun release() {
+    listeners.clear()
+    mainThread.removeCallbacksAndMessages(null)
+  }
+
+  private fun WebView.invoke(function: String, vararg args: Any) {
+    val stringArgs = args.map {
+      if (it is String) {
+        "'$it'"
+      }
+      else {
+        it.toString()
+      }
+    }
+    mainThread.post { loadUrl("javascript:$function(${stringArgs.joinToString(",")})") }
+  }
+}
+
 internal object FakeWebViewYouTubeListener : FullscreenListener {
   override fun onEnterFullscreen(fullscreenView: View, exitFullscreen: () -> Unit) {}
   override fun onExitFullscreen() {}
@@ -38,15 +76,15 @@ internal class WebViewYouTubePlayer constructor(
   private val listener: FullscreenListener,
   attrs: AttributeSet? = null,
   defStyleAttr: Int = 0
-) : WebView(context, attrs, defStyleAttr), YouTubePlayer, YouTubePlayerBridge.YouTubePlayerBridgeCallbacks {
+) : WebView(context, attrs, defStyleAttr), YouTubePlayerBridge.YouTubePlayerBridgeCallbacks {
 
   /** Constructor used by tools */
   constructor(context: Context) : this(context, FakeWebViewYouTubeListener)
 
-  private lateinit var youTubePlayerInitListener: (YouTubePlayer) -> Unit
+  private val _youTubePlayer = YouTubePlayerImpl(this)
+  internal val youtubePlayer: YouTubePlayer get() = _youTubePlayer
 
-  private val youTubePlayerListeners = mutableSetOf<YouTubePlayerListener>()
-  private val mainThreadHandler: Handler = Handler(Looper.getMainLooper())
+  private lateinit var youTubePlayerInitListener: (YouTubePlayer) -> Unit
 
   internal var isBackgroundPlaybackEnabled = false
 
@@ -55,66 +93,16 @@ internal class WebViewYouTubePlayer constructor(
     initWebView(playerOptions ?: IFramePlayerOptions.default)
   }
 
-  override fun onYouTubeIFrameAPIReady() = youTubePlayerInitListener(this)
-
-  override fun getInstance(): YouTubePlayer = this
-
-  override fun loadVideo(videoId: String, startSeconds: Float) {
-    mainThreadHandler.post { loadUrl("javascript:loadVideo('$videoId', $startSeconds)") }
-  }
-
-  override fun cueVideo(videoId: String, startSeconds: Float) {
-    mainThreadHandler.post { loadUrl("javascript:cueVideo('$videoId', $startSeconds)") }
-  }
-
-  override fun play() {
-    mainThreadHandler.post { loadUrl("javascript:playVideo()") }
-  }
-
-  override fun pause() {
-    mainThreadHandler.post { loadUrl("javascript:pauseVideo()") }
-  }
-
-  override fun mute() {
-    mainThreadHandler.post { loadUrl("javascript:mute()") }
-  }
-
-  override fun unMute() {
-    mainThreadHandler.post { loadUrl("javascript:unMute()") }
-  }
-
-  override fun setVolume(volumePercent: Int) {
-    require(volumePercent in 0..100) { "Volume must be between 0 and 100" }
-    mainThreadHandler.post { loadUrl("javascript:setVolume($volumePercent)") }
-  }
-
-  override fun seekTo(time: Float) {
-    mainThreadHandler.post { loadUrl("javascript:seekTo($time)") }
-  }
-
-  override fun setPlaybackRate(playbackRate: PlayerConstants.PlaybackRate) {
-    mainThreadHandler.post { loadUrl("javascript:setPlaybackRate(${playbackRate.toFloat()})") }
-  }
-
-  override fun toggleFullscreen() {
-    loadUrl("javascript:toggleFullscreen()")
-  }
+  // create new set to avoid concurrent modifications
+  override val listeners: Collection<YouTubePlayerListener> get() = _youTubePlayer.listeners.toSet()
+  override fun getInstance(): YouTubePlayer = _youTubePlayer
+  override fun onYouTubeIFrameAPIReady() = youTubePlayerInitListener(_youTubePlayer)
+  fun addListener(listener: YouTubePlayerListener) = _youTubePlayer.listeners.add(listener)
+  fun removeListener(listener: YouTubePlayerListener) = _youTubePlayer.listeners.remove(listener)
 
   override fun destroy() {
-    youTubePlayerListeners.clear()
-    mainThreadHandler.removeCallbacksAndMessages(null)
+    _youTubePlayer.release()
     super.destroy()
-  }
-
-  // create new set to avoid concurrent modifications
-  override val listeners: Collection<YouTubePlayerListener> get() = youTubePlayerListeners.toSet()
-
-  override fun addListener(listener: YouTubePlayerListener): Boolean {
-    return youTubePlayerListeners.add(listener)
-  }
-
-  override fun removeListener(listener: YouTubePlayerListener): Boolean {
-    return youTubePlayerListeners.remove(listener)
   }
 
   @SuppressLint("SetJavaScriptEnabled")
