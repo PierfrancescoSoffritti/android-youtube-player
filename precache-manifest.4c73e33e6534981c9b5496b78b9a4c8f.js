@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/android-youtube-player/static/media/android-youtube-player_300px.9f66fcf4.webp"
   },
   {
-    "revision": "612d1f2fde756b0fd51718890e993c7d",
+    "revision": "1419fdb7d111b3ce0282d6afd5eb77ba",
     "url": "/android-youtube-player/index.html"
   }
 ];
