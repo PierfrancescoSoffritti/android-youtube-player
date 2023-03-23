@@ -99,6 +99,10 @@ internal class WebViewYouTubePlayer constructor(
     mainThreadHandler.post { loadUrl("javascript:setPlaybackRate(${playbackRate.toFloat()})") }
   }
 
+  override fun toggleFullscreen() {
+    loadUrl("javascript:toggleFullscreen()")
+  }
+
   override fun destroy() {
     youTubePlayerListeners.clear()
     mainThreadHandler.removeCallbacksAndMessages(null)
@@ -150,14 +154,6 @@ internal class WebViewYouTubePlayer constructor(
         return result ?: Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565)
       }
     }
-  }
-
-  fun enterFullscreen() {
-    loadUrl("javascript:enterFullscreen()")
-  }
-
-  fun exitFullscreen() {
-    loadUrl("javascript:exitFullscreen()")
   }
 
   override fun onWindowVisibilityChanged(visibility: Int) {

@@ -28,7 +28,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
       private const val CONTROLS = "controls"
       private const val ENABLE_JS_API = "enablejsapi"
       private const val FS = "fs"
-      const val ORIGIN = "origin"
+      internal const val ORIGIN = "origin"
       private const val REL = "rel"
       private const val SHOW_INFO = "showinfo"
       private const val IV_LOAD_POLICY = "iv_load_policy"
@@ -129,8 +129,11 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
     }
 
     /**
-     * Controls domain as the origin parameter value.
-     * @param origin your domain
+     * This parameter specifies the domain from which the player is running.
+     * Since the player in this library is not running from a website there should be no reason to change this.
+     * Using "https://www.youtube.com" (the default value) is recommended as some functions from the IFrame Player are only available
+     * when the player is running on a trusted domain.
+     * @param origin your domain.
      */
     fun origin(origin: String): Builder {
       addString(ORIGIN, origin)
