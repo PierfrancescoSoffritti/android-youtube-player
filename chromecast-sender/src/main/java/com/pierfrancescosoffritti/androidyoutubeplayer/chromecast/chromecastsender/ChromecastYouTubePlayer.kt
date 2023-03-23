@@ -113,6 +113,8 @@ class ChromecastYouTubePlayer internal constructor(private val chromecastCommuni
     chromecastCommunicationChannel.sendMessage(message)
   }
 
+  override fun toggleFullscreen() { }
+
   override val listeners: Collection<YouTubePlayerListener> get() =  youTubePlayerListeners
   override fun addListener(listener: YouTubePlayerListener): Boolean = youTubePlayerListeners.add(listener)
   override fun removeListener(listener: YouTubePlayerListener): Boolean = youTubePlayerListeners.remove(listener)

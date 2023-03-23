@@ -96,6 +96,10 @@ internal class WebViewYouTubePlayer constructor(
     mainThreadHandler.post { loadUrl("javascript:setPlaybackRate(${playbackRate.toFloat()})") }
   }
 
+  override fun toggleFullscreen() {
+    loadUrl("javascript:toggleFullscreen()")
+  }
+
   override fun destroy() {
     youTubePlayerListeners.clear()
     mainThreadHandler.removeCallbacksAndMessages(null)
