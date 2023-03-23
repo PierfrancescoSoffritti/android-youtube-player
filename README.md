@@ -358,16 +358,16 @@ IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
   .build();
 ```
 
-You can listen to full screen events by adding a `FullScreenListener` to `YouTubePlayerView`
+You can listen to full screen events by adding a `FullscreenListener` to `YouTubePlayerView`
 
 ```java
-youTubePlayerView.addFullScreenListener(new FullScreenListener() {
+youTubePlayerView.addFullscreenListener(new FullscreenListener() {
   @Override
-  public void onEnterFullScreen(@NonNull View fullScreenView, @NonNull Function0<Unit> exitFullScreen) {
+  public void onEnterFullscreen(@NonNull View fullscreenView, @NonNull Function0<Unit> exitFullscreen) {
   }
 
   @Override
-  public void onExitFullScreen() {
+  public void onExitFullscreen() {
   }
 });
 ```
@@ -375,7 +375,7 @@ youTubePlayerView.addFullScreenListener(new FullScreenListener() {
 See [the sample app for an example](./core-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/sampleapp/examples/fullscreenExample/FullscreenExampleActivity.java)
 
 You can also use the `YouTubePlayerView#matchParent` and `YouTubePlayerView#wrapContent` to expand the view to fill its parent.
-It is responsibility of the developer to hide other Views in the Activity, change the orientation of the Activity etc. The sample app contains an [helper class](./core-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/sampleapp/utils/FullScreenHelper.java) that can help you to update your app state, but this is not part of the library.
+It is responsibility of the developer to hide other Views in the Activity, change the orientation of the Activity etc. The sample app contains an [helper class](./core-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/sampleapp/utils/FullscreenHelper.java) that can help you to update your app state, but this is not part of the library.
 
 If you need to change the orientation of your Activity/Fragment, remember that by default Android recreates Activities and Fragments when the orientation changes. Make sure that you manually handle orientation changes by adding the attribute `android:configChanges` to your Activity definition in the manifest.
 

@@ -32,23 +32,23 @@ class YouTubePlayerView(
   constructor(context: Context) : this(context, null, 0)
   constructor(context: Context, attrs: AttributeSet? = null) : this(context, attrs, 0)
 
-  private val fullScreenListeners = mutableListOf<FullScreenListener>()
+  private val fullscreenListeners = mutableListOf<FullscreenListener>()
 
   /**
-   * A single [FullScreenListener] that is always added to the WebView,
+   * A single [FullscreenListener] that is always added to the WebView,
    * responsible for calling all optional listeners added from clients of the library.
    */
-  private val webViewFullScreenListener = object : FullScreenListener {
-    override fun onEnterFullScreen(fullScreenView: View, exitFullScreen: () -> Unit) {
-      fullScreenListeners.forEach { it.onEnterFullScreen(fullScreenView, exitFullScreen) }
+  private val webViewFullscreenListener = object : FullscreenListener {
+    override fun onEnterFullscreen(fullscreenView: View, exitFullscreen: () -> Unit) {
+      fullscreenListeners.forEach { it.onEnterFullscreen(fullscreenView, exitFullscreen) }
     }
 
-    override fun onExitFullScreen() {
-      fullScreenListeners.forEach { it.onExitFullScreen() }
+    override fun onExitFullscreen() {
+      fullscreenListeners.forEach { it.onExitFullscreen() }
     }
   }
 
-  private val legacyTubePlayerView = LegacyYouTubePlayerView(context, webViewFullScreenListener)
+  private val legacyTubePlayerView = LegacyYouTubePlayerView(context, webViewFullscreenListener)
 
   // this is a publicly accessible API
   var enableAutomaticInitialization: Boolean
@@ -197,9 +197,9 @@ class YouTubePlayerView(
 
   fun removeYouTubePlayerListener(youTubePlayerListener: YouTubePlayerListener) = legacyTubePlayerView.webViewYouTubePlayer.removeListener(youTubePlayerListener)
 
-  fun addFullScreenListener(fullScreenListener: FullScreenListener) = fullScreenListeners.add(fullScreenListener)
+  fun addFullscreenListener(fullscreenListener: FullscreenListener) = fullscreenListeners.add(fullscreenListener)
 
-  fun removeFullScreenListener(fullScreenListener: FullScreenListener) = fullScreenListeners.remove(fullScreenListener)
+  fun removeFullscreenListener(fullscreenListener: FullscreenListener) = fullscreenListeners.remove(fullscreenListener)
 
   /**
    * Convenience method to set the [YouTubePlayerView] width and height to match parent.

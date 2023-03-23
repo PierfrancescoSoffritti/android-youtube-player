@@ -9,7 +9,7 @@ import androidx.lifecycle.*
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.FullScreenListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.FullscreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
@@ -22,7 +22,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.Playbac
  */
 internal class LegacyYouTubePlayerView(
   context: Context,
-  listener: FullScreenListener,
+  listener: FullscreenListener,
   attrs: AttributeSet? = null,
   defStyleAttr: Int = 0
 ) : SixteenByNineFrameLayout(context, attrs, defStyleAttr) {

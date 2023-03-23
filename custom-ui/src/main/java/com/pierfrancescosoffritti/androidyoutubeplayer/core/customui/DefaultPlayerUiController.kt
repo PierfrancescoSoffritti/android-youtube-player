@@ -47,7 +47,7 @@ class DefaultPlayerUiController(
   private val menuButton: ImageView = rootView.findViewById(R.id.menu_button)
   private val playPauseButton: ImageView = rootView.findViewById(R.id.play_pause_button)
   private val youTubeButton: ImageView = rootView.findViewById(R.id.youtube_button)
-  private val fullScreenButton: ImageView = rootView.findViewById(R.id.fullscreen_button)
+  private val fullscreenButton: ImageView = rootView.findViewById(R.id.fullscreen_button)
 
   private val customActionLeft: ImageView = rootView.findViewById(R.id.custom_action_left_button)
   private val customActionRight: ImageView = rootView.findViewById(R.id.custom_action_right_button)
@@ -55,7 +55,7 @@ class DefaultPlayerUiController(
   private val youtubePlayerSeekBar: YouTubePlayerSeekBar = rootView.findViewById(R.id.youtube_player_seekbar)
   private val fadeControlsContainer: FadeViewHelper = FadeViewHelper(controlsContainer)
 
-  private var onFullScreenButtonListener: View.OnClickListener
+  private var onFullscreenButtonListener: View.OnClickListener
   private var onMenuButtonClickListener: View.OnClickListener
 
   private var isPlaying = false
@@ -119,7 +119,7 @@ class DefaultPlayerUiController(
   }
 
   init {
-    onFullScreenButtonListener = View.OnClickListener {
+    onFullscreenButtonListener = View.OnClickListener {
       isMatchParent = !isMatchParent
       when (isMatchParent) {
         true -> youTubePlayerView.matchParent()
@@ -142,7 +142,7 @@ class DefaultPlayerUiController(
     }
     panel.setOnClickListener { fadeControlsContainer.toggleVisibility() }
     playPauseButton.setOnClickListener { onPlayButtonPressed() }
-    fullScreenButton.setOnClickListener { onFullScreenButtonListener.onClick(fullScreenButton) }
+    fullscreenButton.setOnClickListener { onFullscreenButtonListener.onClick(fullscreenButton) }
     menuButton.setOnClickListener { onMenuButtonClickListener.onClick(menuButton) }
   }
 
@@ -255,12 +255,12 @@ class DefaultPlayerUiController(
   override fun getMenu(): YouTubePlayerMenu = youTubePlayerMenu
 
   override fun showFullscreenButton(show: Boolean): PlayerUiController {
-    fullScreenButton.visibility = if (show) View.VISIBLE else View.GONE
+    fullscreenButton.visibility = if (show) View.VISIBLE else View.GONE
     return this
   }
 
-  override fun setFullScreenButtonClickListener(customFullScreenButtonClickListener: View.OnClickListener): PlayerUiController {
-    onFullScreenButtonListener = customFullScreenButtonClickListener
+  override fun setFullscreenButtonClickListener(customFullscreenButtonClickListener: View.OnClickListener): PlayerUiController {
+    onFullscreenButtonListener = customFullscreenButtonClickListener
     return this
   }
 

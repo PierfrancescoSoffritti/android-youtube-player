@@ -8,7 +8,7 @@ import android.view.View;
  *
  * @author Pierfrancesco Soffritti
  */
-public class FullScreenHelper {
+public class FullscreenHelper {
 
   private final Activity context;
   private final View[] views;
@@ -17,7 +17,7 @@ public class FullScreenHelper {
    * @param context
    * @param views   to hide/show
    */
-  public FullScreenHelper(Activity context, View... views) {
+  public FullscreenHelper(Activity context, View... views) {
     this.context = context;
     this.views = views;
   }
@@ -25,7 +25,7 @@ public class FullScreenHelper {
   /**
    * call this method to enter full screen
    */
-  public void enterFullScreen() {
+  public void enterFullscreen() {
     View decorView = context.getWindow().getDecorView();
 
     hideSystemUi(decorView);
@@ -39,7 +39,7 @@ public class FullScreenHelper {
   /**
    * call this method to exit full screen
    */
-  public void exitFullScreen() {
+  public void exitFullscreen() {
     View decorView = context.getWindow().getDecorView();
 
     showSystemUi(decorView);

@@ -15,7 +15,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayerBridge
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.FullScreenListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.FullscreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.toFloat
@@ -25,9 +25,9 @@ import java.io.InputStreamReader
 import java.util.*
 
 
-internal object FakeWebViewYouTubeListener : FullScreenListener {
-  override fun onEnterFullScreen(fullScreenView: View, exitFullScreen: () -> Unit) {}
-  override fun onExitFullScreen() {}
+internal object FakeWebViewYouTubeListener : FullscreenListener {
+  override fun onEnterFullscreen(fullscreenView: View, exitFullscreen: () -> Unit) {}
+  override fun onExitFullscreen() {}
 }
 
 /**
@@ -35,7 +35,7 @@ internal object FakeWebViewYouTubeListener : FullScreenListener {
  */
 internal class WebViewYouTubePlayer constructor(
   context: Context,
-  private val listener: FullScreenListener,
+  private val listener: FullscreenListener,
   attrs: AttributeSet? = null,
   defStyleAttr: Int = 0
 ) : WebView(context, attrs, defStyleAttr), YouTubePlayer, YouTubePlayerBridge.YouTubePlayerBridgeCallbacks {
@@ -136,12 +136,12 @@ internal class WebViewYouTubePlayer constructor(
 
       override fun onShowCustomView(view: View, callback: CustomViewCallback) {
         super.onShowCustomView(view, callback)
-        listener.onEnterFullScreen(view) { callback.onCustomViewHidden() }
+        listener.onEnterFullscreen(view) { callback.onCustomViewHidden() }
       }
 
       override fun onHideCustomView() {
         super.onHideCustomView()
-        listener.onExitFullScreen()
+        listener.onExitFullscreen()
       }
 
       override fun getDefaultVideoPoster(): Bitmap? {
