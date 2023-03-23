@@ -10,7 +10,6 @@ import android.widget.TextView
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.utils.TimeUtilities
 import com.pierfrancescosoffritti.cyplayersample.R
 
 /**
@@ -63,7 +62,7 @@ class SimpleChromeCastUiController(private val controls_view: View) :
   }
 
   override fun onVideoDuration(youTubePlayer: YouTubePlayer, duration: Float) {
-    totalTimeTextView.text = TimeUtilities.formatTime(duration)
+    totalTimeTextView.text = formatTime(duration)
     seekBar.max = duration.toInt()
   }
 
@@ -72,10 +71,7 @@ class SimpleChromeCastUiController(private val controls_view: View) :
       return
 
     // ignore if the current time is older than what the user selected with the SeekBar
-    if (newSeekBarProgress > 0 && TimeUtilities.formatTime(second) != TimeUtilities.formatTime(
-        newSeekBarProgress.toFloat()
-      )
-    )
+    if (newSeekBarProgress > 0 && formatTime(second) != formatTime(newSeekBarProgress.toFloat()))
       return
 
     newSeekBarProgress = -1
@@ -144,7 +140,7 @@ class SimpleChromeCastUiController(private val controls_view: View) :
   private var newSeekBarProgress = -1
 
   override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
-    currentTimeTextView.text = TimeUtilities.formatTime(i.toFloat())
+    currentTimeTextView.text = formatTime(i.toFloat())
   }
 
   override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -158,4 +154,13 @@ class SimpleChromeCastUiController(private val controls_view: View) :
     youTubePlayer?.seekTo(seekBar.progress.toFloat())
     seekBarTouchStarted = false
   }
+}
+
+/**
+ * Transform the time in seconds in a string with format "M:SS".
+ */
+private fun formatTime(timeInSeconds: Float): String {
+  val minutes = (timeInSeconds / 60).toInt()
+  val seconds = (timeInSeconds % 60).toInt()
+  return String.format("%d:%02d", minutes, seconds)
 }

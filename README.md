@@ -609,7 +609,18 @@ A blog post going deeper on this is available [at this link](https://medium.com/
 Warning: when replacing the IFrame UI, be carfeul not to break YouTube's terms of service. Altering the player look and feel might be an issue if you intend to publish your app on the PlayStore.
 
 ### DefaultPlayerUiController
-`DefaultPlayerUiController` is a pre-made custom UI available in the library. You can use it like this:
+`DefaultPlayerUiController` is a pre-made ready-to-use custom UI. 
+
+Starting from version 12.0.0 of the library, this UI is available as a separate module that needs to be used in conjunction with the `core` module. To import the library add this to the dependencies in your `gradle.build` file:
+
+```gradle
+dependencies {
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:{latestversion}'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:custom-ui:{latest-version}'
+}
+```
+
+After importing the dependency, you can use it like this:
 
 ```java
 YouTubePlayerListener listener = new AbstractYouTubePlayerListener() {
@@ -672,6 +683,8 @@ Initially the `YouTubePlayerMenu` doesn't contain any item. You need to add them
 ### Reusable UI components
 The library provides some pre-built UI components, these components are useful to reduce the time needed to build your own UI and controllers.
 
+Starting from version 12.0.0, these components exist in the `custom-ui` module. So you need to add it to your app's dependencies in order to use them.
+
 #### YouTubePlayerSeekBar
 This component is useful to display and control the time of the playback. It shows the current time, the total duration of the video and a seek bar.
 
@@ -696,7 +709,7 @@ It is possible to change font size and color by using the `fontSize` and `color`
 youTubePlayer.addListener(youTubePlayerSeekBar);
 ```
 
-You may wan to listen to events from `YouTubePlayerSeekBar`, in order to update the current time of your `YouTubePlayer` when the user moves the touch bar. To do that pass a `YouTubePlayerSeekBarListener` to `YouTubePlayerSeekBar`.
+You may want to listen to events from `YouTubePlayerSeekBar`, in order to update the current time of your `YouTubePlayer` when the user moves the touch bar. To do that pass a `YouTubePlayerSeekBarListener` to `YouTubePlayerSeekBar`.
 
 ```java
 youTubePlayerSeekBar.setYoutubePlayerSeekBarListener(new YouTubePlayerSeekBarListener() {

@@ -29,37 +29,35 @@ internal class LegacyYouTubePlayerView(
 
   constructor(context: Context) : this(context, FakeWebViewYouTubeListener, null, 0)
 
-  internal val youTubePlayer: WebViewYouTubePlayer = WebViewYouTubePlayer(context, listener)
+  internal val webViewYouTubePlayer = WebViewYouTubePlayer(context, listener)
 
   private val networkObserver = NetworkObserver(context.applicationContext)
   private val playbackResumer = PlaybackResumer()
 
   internal var isYouTubePlayerReady = false
   private var initialize = { }
-  private val youTubePlayerCallbacks = HashSet<YouTubePlayerCallback>()
+  private val youTubePlayerCallbacks = mutableSetOf<YouTubePlayerCallback>()
 
   internal var canPlay = true
     private set
 
-  var isUsingCustomUi = false
-    private set
-
   init {
     addView(
-      youTubePlayer,
+      webViewYouTubePlayer,
       LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
     )
-    youTubePlayer.addListener(playbackResumer)
+    webViewYouTubePlayer.addListener(playbackResumer)
 
     // stop playing if the user loads a video but then leaves the app before the video starts playing.
-    youTubePlayer.addListener(object : AbstractYouTubePlayerListener() {
+    webViewYouTubePlayer.addListener(object : AbstractYouTubePlayerListener() {
       override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
-        if (state == PlayerConstants.PlayerState.PLAYING && !isEligibleForPlayback())
+        if (state == PlayerConstants.PlayerState.PLAYING && !isEligibleForPlayback()) {
           youTubePlayer.pause()
+        }
       }
     })
 
-    youTubePlayer.addListener(object : AbstractYouTubePlayerListener() {
+    webViewYouTubePlayer.addListener(object : AbstractYouTubePlayerListener() {
       override fun onReady(youTubePlayer: YouTubePlayer) {
         isYouTubePlayerReady = true
 
@@ -76,7 +74,7 @@ internal class LegacyYouTubePlayerView(
           initialize()
         }
         else {
-          playbackResumer.resume(youTubePlayer)
+          playbackResumer.resume(webViewYouTubePlayer)
         }
       }
 
@@ -96,15 +94,16 @@ internal class LegacyYouTubePlayerView(
     handleNetworkEvents: Boolean,
     playerOptions: IFramePlayerOptions
   ) {
-    if (isYouTubePlayerReady)
+    if (isYouTubePlayerReady) {
       throw IllegalStateException("This YouTubePlayerView has already been initialized.")
+    }
 
     if (handleNetworkEvents) {
       networkObserver.observeNetwork()
     }
 
     initialize = {
-      youTubePlayer.initialize({ it.addListener(youTubePlayerListener) }, playerOptions)
+      webViewYouTubePlayer.initialize({ it.addListener(youTubePlayerListener) }, playerOptions)
     }
 
     if (!handleNetworkEvents) {
@@ -128,8 +127,7 @@ internal class LegacyYouTubePlayerView(
    *
    * @see LegacyYouTubePlayerView.initialize
    */
-  fun initialize(youTubePlayerListener: YouTubePlayerListener) =
-    initialize(youTubePlayerListener, true)
+  fun initialize(youTubePlayerListener: YouTubePlayerListener) = initialize(youTubePlayerListener, true)
 
   /**
    * @param youTubePlayerCallback A callback that will be called when the YouTubePlayer is ready.
@@ -137,10 +135,12 @@ internal class LegacyYouTubePlayerView(
    * This function is called only once.
    */
   fun getYouTubePlayerWhenReady(youTubePlayerCallback: YouTubePlayerCallback) {
-    if (isYouTubePlayerReady)
-      youTubePlayerCallback.onYouTubePlayer(youTubePlayer)
-    else
+    if (isYouTubePlayerReady) {
+      youTubePlayerCallback.onYouTubePlayer(webViewYouTubePlayer)
+    }
+    else {
       youTubePlayerCallbacks.add(youTubePlayerCallback)
+    }
   }
 
   /**
@@ -153,13 +153,11 @@ internal class LegacyYouTubePlayerView(
    */
   fun inflateCustomPlayerUi(@LayoutRes layoutId: Int): View {
     removeViews(1, childCount - 1)
-    isUsingCustomUi = true
     return View.inflate(context, layoutId, this)
   }
 
   fun setCustomPlayerUi(view: View) {
     removeViews(1, childCount - 1)
-    isUsingCustomUi = true
     addView(view)
   }
 
@@ -168,9 +166,9 @@ internal class LegacyYouTubePlayerView(
    */
   fun release() {
     networkObserver.destroy()
-    removeView(youTubePlayer)
-    youTubePlayer.removeAllViews()
-    youTubePlayer.destroy()
+    removeView(webViewYouTubePlayer)
+    webViewYouTubePlayer.removeAllViews()
+    webViewYouTubePlayer.destroy()
   }
 
   internal fun onResume() {
@@ -179,7 +177,7 @@ internal class LegacyYouTubePlayerView(
   }
 
   internal fun onStop() {
-    youTubePlayer.pause()
+    webViewYouTubePlayer.pause()
     playbackResumer.onLifecycleStop()
     canPlay = false
   }
@@ -190,13 +188,13 @@ internal class LegacyYouTubePlayerView(
    * property.
    */
   internal fun isEligibleForPlayback(): Boolean {
-    return canPlay || youTubePlayer.isBackgroundPlaybackEnabled
+    return canPlay || webViewYouTubePlayer.isBackgroundPlaybackEnabled
   }
 
   /**
    * Don't use this method if you want to publish your app on the PlayStore. Background playback is against YouTube terms of service.
    */
   fun enableBackgroundPlayback(enable: Boolean) {
-    youTubePlayer.isBackgroundPlaybackEnabled = enable
+    webViewYouTubePlayer.isBackgroundPlaybackEnabled = enable
   }
 }

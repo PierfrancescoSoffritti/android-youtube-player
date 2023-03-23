@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.core.ui
+package com.pierfrancescosoffritti.androidyoutubeplayer.core.customui
 
 import android.content.Intent
 import android.graphics.drawable.Drawable
@@ -10,16 +10,15 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.menu.YouTubePlayerMenu
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.menu.defaultMenu.DefaultYouTubePlayerMenu
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.utils.FadeViewHelper
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.views.YouTubePlayerSeekBar
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.views.YouTubePlayerSeekBarListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.menu.YouTubePlayerMenu
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.menu.defaultMenu.DefaultYouTubePlayerMenu
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.utils.FadeViewHelper
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.views.YouTubePlayerSeekBar
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.views.YouTubePlayerSeekBarListener
 
 class DefaultPlayerUiController(
   private val youTubePlayerView: YouTubePlayerView,

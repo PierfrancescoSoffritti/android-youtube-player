@@ -47,21 +47,17 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
   private val mainThreadHandler: Handler = Handler(Looper.getMainLooper())
 
   interface YouTubePlayerBridgeCallbacks {
+    val listeners: Collection<YouTubePlayerListener>
     fun getInstance(): YouTubePlayer
-    fun getListeners(): Collection<YouTubePlayerListener>
     fun onYouTubeIFrameAPIReady()
   }
 
   @JavascriptInterface
-  fun sendYouTubeIFrameAPIReady() =
-    mainThreadHandler.post { youTubePlayerOwner.onYouTubeIFrameAPIReady() }
+  fun sendYouTubeIFrameAPIReady() = mainThreadHandler.post { youTubePlayerOwner.onYouTubeIFrameAPIReady() }
 
   @JavascriptInterface
-  fun sendReady() {
-    mainThreadHandler.post {
-      for (listener in youTubePlayerOwner.getListeners())
-        listener.onReady(youTubePlayerOwner.getInstance())
-    }
+  fun sendReady() = mainThreadHandler.post {
+    youTubePlayerOwner.listeners.forEach { it.onReady(youTubePlayerOwner.getInstance()) }
   }
 
   @JavascriptInterface
@@ -69,8 +65,7 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
     val playerState = parsePlayerState(state)
 
     mainThreadHandler.post {
-      for (listener in youTubePlayerOwner.getListeners())
-        listener.onStateChange(youTubePlayerOwner.getInstance(), playerState)
+      youTubePlayerOwner.listeners.forEach { it.onStateChange(youTubePlayerOwner.getInstance(), playerState) }
     }
   }
 
@@ -79,8 +74,7 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
     val playbackQuality = parsePlaybackQuality(quality)
 
     mainThreadHandler.post {
-      for (listener in youTubePlayerOwner.getListeners())
-        listener.onPlaybackQualityChange(youTubePlayerOwner.getInstance(), playbackQuality)
+      youTubePlayerOwner.listeners.forEach { it.onPlaybackQualityChange(youTubePlayerOwner.getInstance(), playbackQuality) }
     }
   }
 
@@ -89,8 +83,7 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
     val playbackRate = parsePlaybackRate(rate)
 
     mainThreadHandler.post {
-      for (listener in youTubePlayerOwner.getListeners())
-        listener.onPlaybackRateChange(youTubePlayerOwner.getInstance(), playbackRate)
+      youTubePlayerOwner.listeners.forEach { it.onPlaybackRateChange(youTubePlayerOwner.getInstance(), playbackRate) }
     }
   }
 
@@ -99,74 +92,61 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
     val playerError = parsePlayerError(error)
 
     mainThreadHandler.post {
-      for (listener in youTubePlayerOwner.getListeners())
-        listener.onError(youTubePlayerOwner.getInstance(), playerError)
+      youTubePlayerOwner.listeners.forEach { it.onError(youTubePlayerOwner.getInstance(), playerError) }
     }
   }
 
   @JavascriptInterface
-  fun sendApiChange() {
-    mainThreadHandler.post {
-      for (listener in youTubePlayerOwner.getListeners())
-        listener.onApiChange(youTubePlayerOwner.getInstance())
-    }
+  fun sendApiChange() = mainThreadHandler.post {
+    youTubePlayerOwner.listeners.forEach { it.onApiChange(youTubePlayerOwner.getInstance()) }
   }
 
   @JavascriptInterface
   fun sendVideoCurrentTime(seconds: String) {
-    val currentTimeSeconds: Float
-    try {
-      currentTimeSeconds = seconds.toFloat()
+    val currentTimeSeconds = try {
+      seconds.toFloat()
     } catch (e: NumberFormatException) {
       e.printStackTrace()
       return
     }
 
     mainThreadHandler.post {
-      for (listener in youTubePlayerOwner.getListeners())
-        listener.onCurrentSecond(youTubePlayerOwner.getInstance(), currentTimeSeconds)
+      youTubePlayerOwner.listeners.forEach { it.onCurrentSecond(youTubePlayerOwner.getInstance(), currentTimeSeconds) }
     }
   }
 
   @JavascriptInterface
   fun sendVideoDuration(seconds: String) {
-    val videoDuration: Float
-    try {
+    val videoDuration = try {
       val finalSeconds = if (TextUtils.isEmpty(seconds)) "0" else seconds
-      videoDuration = finalSeconds.toFloat()
+      finalSeconds.toFloat()
     } catch (e: NumberFormatException) {
       e.printStackTrace()
       return
     }
 
     mainThreadHandler.post {
-      for (listener in youTubePlayerOwner.getListeners())
-        listener.onVideoDuration(youTubePlayerOwner.getInstance(), videoDuration)
+      youTubePlayerOwner.listeners.forEach { it.onVideoDuration(youTubePlayerOwner.getInstance(), videoDuration) }
     }
   }
 
   @JavascriptInterface
   fun sendVideoLoadedFraction(fraction: String) {
-    val loadedFraction: Float
-    try {
-      loadedFraction = fraction.toFloat()
+    val loadedFraction = try {
+      fraction.toFloat()
     } catch (e: NumberFormatException) {
       e.printStackTrace()
       return
     }
 
     mainThreadHandler.post {
-      for (listener in youTubePlayerOwner.getListeners())
-        listener.onVideoLoadedFraction(youTubePlayerOwner.getInstance(), loadedFraction)
+      youTubePlayerOwner.listeners.forEach { it.onVideoLoadedFraction(youTubePlayerOwner.getInstance(), loadedFraction) }
     }
   }
 
   @JavascriptInterface
-  fun sendVideoId(videoId: String) {
-    mainThreadHandler.post {
-      for (listener in youTubePlayerOwner.getListeners())
-        listener.onVideoId(youTubePlayerOwner.getInstance(), videoId)
-    }
+  fun sendVideoId(videoId: String) = mainThreadHandler.post {
+    youTubePlayerOwner.listeners.forEach { it.onVideoId(youTubePlayerOwner.getInstance(), videoId) }
   }
 
   private fun parsePlayerState(state: String): PlayerConstants.PlayerState {
@@ -211,26 +191,11 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
 
   private fun parsePlayerError(error: String): PlayerConstants.PlayerError {
     return when {
-      error.equals(
-        ERROR_INVALID_PARAMETER_IN_REQUEST,
-        ignoreCase = true
-      ) -> PlayerConstants.PlayerError.INVALID_PARAMETER_IN_REQUEST
-      error.equals(
-        ERROR_HTML_5_PLAYER,
-        ignoreCase = true
-      ) -> PlayerConstants.PlayerError.HTML_5_PLAYER
-      error.equals(
-        ERROR_VIDEO_NOT_FOUND,
-        ignoreCase = true
-      ) -> PlayerConstants.PlayerError.VIDEO_NOT_FOUND
-      error.equals(
-        ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER1,
-        ignoreCase = true
-      ) -> PlayerConstants.PlayerError.VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER
-      error.equals(
-        ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER2,
-        ignoreCase = true
-      ) -> PlayerConstants.PlayerError.VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER
+      error.equals(ERROR_INVALID_PARAMETER_IN_REQUEST, ignoreCase = true) -> PlayerConstants.PlayerError.INVALID_PARAMETER_IN_REQUEST
+      error.equals(ERROR_HTML_5_PLAYER, ignoreCase = true) -> PlayerConstants.PlayerError.HTML_5_PLAYER
+      error.equals(ERROR_VIDEO_NOT_FOUND, ignoreCase = true) -> PlayerConstants.PlayerError.VIDEO_NOT_FOUND
+      error.equals(ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER1, ignoreCase = true) -> PlayerConstants.PlayerError.VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER
+      error.equals(ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER2, ignoreCase = true) -> PlayerConstants.PlayerError.VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER
       else -> PlayerConstants.PlayerError.UNKNOWN
     }
   }

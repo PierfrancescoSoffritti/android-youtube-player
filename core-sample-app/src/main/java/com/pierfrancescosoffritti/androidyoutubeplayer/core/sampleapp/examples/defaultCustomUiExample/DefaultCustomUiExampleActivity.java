@@ -7,6 +7,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.DefaultPlayerUiController;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener;
@@ -14,7 +15,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFram
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.VideoIdsProvider;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.DefaultPlayerUiController;
 import com.pierfrancescosoffritti.aytplayersample.R;
 
 public class DefaultCustomUiExampleActivity extends AppCompatActivity {

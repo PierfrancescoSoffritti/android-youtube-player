@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.menu.defaultMenu
+package com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.menu.defaultMenu
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.pierfrancescosoffritti.androidyoutubeplayer.R
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.menu.MenuItem
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.R
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.menu.MenuItem
 
 internal class MenuAdapter(private val context: Context, private val menuItems: List<MenuItem>) :
   RecyclerView.Adapter<MenuAdapter.ViewHolder>() {
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuAdapter.ViewHolder {
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
     val view = LayoutInflater.from(parent.context).inflate(R.layout.ayp_menu_item, parent, false)
     return ViewHolder(view)
   }

@@ -10,6 +10,7 @@ import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
+import androidx.annotation.VisibleForTesting
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -18,7 +19,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Ful
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.toFloat
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.Utils
+import java.io.BufferedReader
+import java.io.InputStream
+import java.io.InputStreamReader
 import java.util.*
 
 
@@ -35,24 +38,19 @@ internal class WebViewYouTubePlayer constructor(
   private val listener: FullScreenListener,
   attrs: AttributeSet? = null,
   defStyleAttr: Int = 0
-) : WebView(context, attrs, defStyleAttr),
-  YouTubePlayer,
-  YouTubePlayerBridge.YouTubePlayerBridgeCallbacks {
+) : WebView(context, attrs, defStyleAttr), YouTubePlayer, YouTubePlayerBridge.YouTubePlayerBridgeCallbacks {
 
   /** Constructor used by tools */
   constructor(context: Context) : this(context, FakeWebViewYouTubeListener)
 
   private lateinit var youTubePlayerInitListener: (YouTubePlayer) -> Unit
 
-  private val youTubePlayerListeners = HashSet<YouTubePlayerListener>()
+  private val youTubePlayerListeners = mutableSetOf<YouTubePlayerListener>()
   private val mainThreadHandler: Handler = Handler(Looper.getMainLooper())
 
   internal var isBackgroundPlaybackEnabled = false
 
-  internal fun initialize(
-    initListener: (YouTubePlayer) -> Unit,
-    playerOptions: IFramePlayerOptions?
-  ) {
+  internal fun initialize(initListener: (YouTubePlayer) -> Unit, playerOptions: IFramePlayerOptions?) {
     youTubePlayerInitListener = initListener
     initWebView(playerOptions ?: IFramePlayerOptions.default)
   }
@@ -86,8 +84,7 @@ internal class WebViewYouTubePlayer constructor(
   }
 
   override fun setVolume(volumePercent: Int) {
-    require(!(volumePercent < 0 || volumePercent > 100)) { "Volume must be between 0 and 100" }
-
+    require(volumePercent in 0..100) { "Volume must be between 0 and 100" }
     mainThreadHandler.post { loadUrl("javascript:setVolume($volumePercent)") }
   }
 
@@ -109,9 +106,8 @@ internal class WebViewYouTubePlayer constructor(
     super.destroy()
   }
 
-  override fun getListeners(): Collection<YouTubePlayerListener> {
-    return Collections.unmodifiableCollection(HashSet(youTubePlayerListeners))
-  }
+  // create new set to avoid concurrent modifications
+  override val listeners: Collection<YouTubePlayerListener> get() = youTubePlayerListeners.toSet()
 
   override fun addListener(listener: YouTubePlayerListener): Boolean {
     return youTubePlayerListeners.add(listener)
@@ -123,19 +119,19 @@ internal class WebViewYouTubePlayer constructor(
 
   @SuppressLint("SetJavaScriptEnabled")
   private fun initWebView(playerOptions: IFramePlayerOptions) {
-    settings.javaScriptEnabled = true
-    settings.mediaPlaybackRequiresUserGesture = false
-    settings.cacheMode = WebSettings.LOAD_DEFAULT
+    settings.apply {
+      javaScriptEnabled = true
+      mediaPlaybackRequiresUserGesture = false
+      cacheMode = WebSettings.LOAD_DEFAULT
+    }
 
     addJavascriptInterface(YouTubePlayerBridge(this), "YouTubePlayerBridge")
 
-    val htmlPage = Utils
-      .readHTMLFromUTF8File(resources.openRawResource(R.raw.ayp_youtube_player))
+    val htmlPage = readHTMLFromUTF8File(resources.openRawResource(R.raw.ayp_youtube_player))
       .replace("<<injectedPlayerVars>>", playerOptions.toString())
 
     loadDataWithBaseURL(playerOptions.getOrigin(), htmlPage, "text/html", "utf-8", null)
 
-    // if the video's thumbnail is not in memory, show a black screen
     webChromeClient = object : WebChromeClient() {
 
       override fun onShowCustomView(view: View, callback: CustomViewCallback) {
@@ -150,16 +146,29 @@ internal class WebViewYouTubePlayer constructor(
 
       override fun getDefaultVideoPoster(): Bitmap? {
         val result = super.getDefaultVideoPoster()
-
+        // if the video's thumbnail is not in memory, show a black screen
         return result ?: Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565)
       }
     }
   }
 
   override fun onWindowVisibilityChanged(visibility: Int) {
-    if (isBackgroundPlaybackEnabled && (visibility == View.GONE || visibility == View.INVISIBLE))
+    if (isBackgroundPlaybackEnabled && (visibility == View.GONE || visibility == View.INVISIBLE)) {
       return
+    }
 
     super.onWindowVisibilityChanged(visibility)
+  }
+}
+
+@VisibleForTesting
+internal fun readHTMLFromUTF8File(inputStream: InputStream): String {
+  inputStream.use {
+    try {
+      val bufferedReader = BufferedReader(InputStreamReader(inputStream, "utf-8"))
+      return bufferedReader.readLines().joinToString("\n")
+    } catch (e: Exception) {
+      throw RuntimeException("Can't parse HTML file.")
+    }
   }
 }

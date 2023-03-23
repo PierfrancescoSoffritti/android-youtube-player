@@ -14,6 +14,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.*
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
 
+private const val AUTO_INIT_ERROR = "YouTubePlayerView: If you want to initialize this view manually, " +
+        "you need to set 'enableAutomaticInitialization' to false."
+
 private val matchParent
   get() = FrameLayout.LayoutParams(
     LayoutParams.MATCH_PARENT,
@@ -45,10 +48,7 @@ class YouTubePlayerView(
     }
   }
 
-  private val legacyTubePlayerView = LegacyYouTubePlayerView(
-    context,
-    webViewFullScreenListener
-  )
+  private val legacyTubePlayerView = LegacyYouTubePlayerView(context, webViewFullScreenListener)
 
   // this is a publicly accessible API
   var enableAutomaticInitialization: Boolean
@@ -95,13 +95,13 @@ class YouTubePlayerView(
    * If set to false, you should handle network events with your own broadcast receiver.
    * @param playerOptions customizable options for the embedded video player.
    */
-  fun initialize(
-    youTubePlayerListener: YouTubePlayerListener,
-    handleNetworkEvents: Boolean,
-    playerOptions: IFramePlayerOptions
-  ) {
-    if (enableAutomaticInitialization) throw IllegalStateException("YouTubePlayerView: If you want to initialize this view manually, you need to set 'enableAutomaticInitialization' to false")
-    else legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, playerOptions)
+  fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean, playerOptions: IFramePlayerOptions) {
+    if (enableAutomaticInitialization) {
+      throw IllegalStateException(AUTO_INIT_ERROR)
+    }
+    else {
+      legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, playerOptions)
+    }
   }
 
   /**
@@ -112,12 +112,12 @@ class YouTubePlayerView(
    * @see YouTubePlayerView.initialize
    */
   fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean) {
-    if (enableAutomaticInitialization) throw IllegalStateException("YouTubePlayerView: If you want to initialize this view manually, you need to set 'enableAutomaticInitialization' to false")
-    else legacyTubePlayerView.initialize(
-      youTubePlayerListener,
-      handleNetworkEvents,
-      IFramePlayerOptions.default
-    )
+    if (enableAutomaticInitialization) {
+      throw IllegalStateException(AUTO_INIT_ERROR)
+    }
+    else {
+      legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, IFramePlayerOptions.default)
+    }
   }
 
   /**
@@ -126,8 +126,12 @@ class YouTubePlayerView(
    * @see YouTubePlayerView.initialize
    */
   fun initialize(youTubePlayerListener: YouTubePlayerListener, playerOptions: IFramePlayerOptions) {
-    if (enableAutomaticInitialization) throw IllegalStateException("YouTubePlayerView: If you want to initialize this view manually, you need to set 'enableAutomaticInitialization' to false")
-    else legacyTubePlayerView.initialize(youTubePlayerListener, true, playerOptions)
+    if (enableAutomaticInitialization) {
+      throw IllegalStateException(AUTO_INIT_ERROR)
+    }
+    else {
+      legacyTubePlayerView.initialize(youTubePlayerListener, true, playerOptions)
+    }
   }
 
   /**
@@ -137,8 +141,12 @@ class YouTubePlayerView(
    * @see YouTubePlayerView.initialize
    */
   fun initialize(youTubePlayerListener: YouTubePlayerListener) {
-    if (enableAutomaticInitialization) throw IllegalStateException("YouTubePlayerView: If you want to initialize this view manually, you need to set 'enableAutomaticInitialization' to false")
-    else legacyTubePlayerView.initialize(youTubePlayerListener, true)
+    if (enableAutomaticInitialization) {
+      throw IllegalStateException(AUTO_INIT_ERROR)
+    }
+    else {
+      legacyTubePlayerView.initialize(youTubePlayerListener, true)
+    }
   }
 
   /**
@@ -185,9 +193,9 @@ class YouTubePlayerView(
 
   private fun onStop() = legacyTubePlayerView.onStop()
 
-  fun addYouTubePlayerListener(youTubePlayerListener: YouTubePlayerListener) = legacyTubePlayerView.youTubePlayer.addListener(youTubePlayerListener)
+  fun addYouTubePlayerListener(youTubePlayerListener: YouTubePlayerListener) = legacyTubePlayerView.webViewYouTubePlayer.addListener(youTubePlayerListener)
 
-  fun removeYouTubePlayerListener(youTubePlayerListener: YouTubePlayerListener) = legacyTubePlayerView.youTubePlayer.removeListener(youTubePlayerListener)
+  fun removeYouTubePlayerListener(youTubePlayerListener: YouTubePlayerListener) = legacyTubePlayerView.webViewYouTubePlayer.removeListener(youTubePlayerListener)
 
   fun addFullScreenListener(fullScreenListener: FullScreenListener) = fullScreenListeners.add(fullScreenListener)
 

@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.views
+package com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.views
 
 import android.content.Context
 import android.util.AttributeSet
@@ -10,11 +10,11 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import com.pierfrancescosoffritti.androidyoutubeplayer.R
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.utils.TimeUtilities
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.utils.TimeUtilities
 
 class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null) :
   LinearLayout(context, attrs), SeekBar.OnSeekBarChangeListener, YouTubePlayerListener {

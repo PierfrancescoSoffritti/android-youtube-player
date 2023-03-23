@@ -1,9 +1,9 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.core.ui
+package com.pierfrancescosoffritti.androidyoutubeplayer.core.customui
 
 import android.graphics.drawable.Drawable
 import android.view.View
 
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.menu.YouTubePlayerMenu
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.menu.YouTubePlayerMenu
 
 
 interface PlayerUiController {
