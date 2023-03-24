@@ -372,7 +372,10 @@ youTubePlayerView.addFullscreenListener(new FullscreenListener() {
 });
 ```
 
-See [the sample app for an example](./core-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/sampleapp/examples/fullscreenExample/FullscreenExampleActivity.java)
+See [the sample app for an example](./core-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/sampleapp/examples/fullscreenExample/FullscreenExampleActivity.kt).
+
+When `FullscreenListener#onEnterFullscreen` is called, the player will be rendered inside `fullscreenView` instead of `YouTubePlayerView`, until `FullscreenListener#onExitFullscreen` is called.
+Therefore you are required to add `fullscreenView` to your app's view hierarchy when fullscreen is started, and remove it when fullscreen is ended.
 
 You can also use the `YouTubePlayerView#matchParent` and `YouTubePlayerView#wrapContent` to expand the view to fill its parent.
 It is responsibility of the developer to hide other Views in the Activity, change the orientation of the Activity etc. The sample app contains an [helper class](./core-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/sampleapp/utils/FullscreenHelper.java) that can help you to update your app state, but this is not part of the library.
