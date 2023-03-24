@@ -2,6 +2,7 @@ package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
@@ -40,10 +41,16 @@ class YouTubePlayerView(
    */
   private val webViewFullscreenListener = object : FullscreenListener {
     override fun onEnterFullscreen(fullscreenView: View, exitFullscreen: () -> Unit) {
+      if (fullscreenListeners.isEmpty()) {
+        throw IllegalStateException("To enter fullscreen you need to register a FullscreenListener.")
+      }
       fullscreenListeners.forEach { it.onEnterFullscreen(fullscreenView, exitFullscreen) }
     }
 
     override fun onExitFullscreen() {
+      if (fullscreenListeners.isEmpty()) {
+        throw IllegalStateException("To enter fullscreen you need to register a FullscreenListener.")
+      }
       fullscreenListeners.forEach { it.onExitFullscreen() }
     }
   }
