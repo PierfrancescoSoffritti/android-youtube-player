@@ -3,38 +3,34 @@ apply plugin: 'kotlin-android'
 apply from: '../dependencies.gradle'
 
 android {
-    compileSdkVersion versions.compileSdk
+  compileSdkVersion versions.compileSdk
 
-    defaultConfig {
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.compileSdk
-    }
+  defaultConfig {
+    minSdkVersion versions.minSdk
+    targetSdkVersion versions.compileSdk
+  }
 
-    sourceSets {
-        main.res.srcDirs = [
+  sourceSets {
+    main.res.srcDirs = [
             'src/main/res',
-            'src/main/res-public'
-        ]
-    }
+    ]
+  }
+  namespace 'com.pierfrancescosoffritti.androidyoutubeplayer'
 }
 
 dependencies {
-    testImplementation "junit:junit:$versions.junit"
-    androidTestImplementation "androidx.test:runner:$versions.runner"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
+  testImplementation "junit:junit:$versions.junit"
+  androidTestImplementation "androidx.test:runner:$versions.runner"
+  androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
 
-    api "androidx.annotation:annotation:$versions.androidxAnnotations"
-    api "androidx.lifecycle:lifecycle-runtime-ktx:$versions.androidxLifecycleRuntime"
-
-    implementation "androidx.appcompat:appcompat:$versions.androidxCore"
-    implementation "androidx.recyclerview:recyclerview:$versions.androidxRecyclerView"
+  api "androidx.lifecycle:lifecycle-runtime-ktx:$versions.androidxLifecycleRuntime"
 }
 
 ext {
-    PUBLISH_GROUP_ID = 'com.pierfrancescosoffritti.androidyoutubeplayer'
-    PUBLISH_VERSION = versions.publishVersion_core
-    PUBLISH_ARTIFACT_ID = 'core'
-    PUBLISH_DESCRIPTION = 'YouTube Player library for Android, stable and customizable.'
+  PUBLISH_GROUP_ID = 'com.pierfrancescosoffritti.androidyoutubeplayer'
+  PUBLISH_VERSION = versions.publishVersion_core
+  PUBLISH_ARTIFACT_ID = 'core'
+  PUBLISH_DESCRIPTION = 'YouTube Player library for Android, stable and customizable.'
 }
 
 apply from: "../scripts/publish-module.gradle"

@@ -7,28 +7,32 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsend
  * The format of the messages is basic, no external library is needed.
  */
 internal object JSONUtils {
-    fun buildFlatJson(vararg args: Pair<String, String>) : String {
-        val jsonBuilder = StringBuilder("{")
-        args.forEach { jsonBuilder.append("\"${it.first}\": \"${it.second}\",") }
-        jsonBuilder.deleteCharAt(jsonBuilder.length-1)
-        jsonBuilder.append("}")
+  fun buildFlatJson(vararg args: Pair<String, String>): String {
+    val jsonBuilder = StringBuilder("{")
+    args.forEach { jsonBuilder.append("\"${it.first}\": \"${it.second}\",") }
+    jsonBuilder.deleteCharAt(jsonBuilder.length - 1)
+    jsonBuilder.append("}")
 
-        return jsonBuilder.toString()
-    }
+    return jsonBuilder.toString()
+  }
 
-    fun buildCommunicationConstantsJson(command: Pair<String, String>, communicationConstants: Pair<String, String>) : String {
-        val jsonBuilder = StringBuilder("{")
-        jsonBuilder.append("\"${command.first}\": \"${command.second}\",")
-        jsonBuilder.append("\"${communicationConstants.first}\": ${communicationConstants.second}")
-        jsonBuilder.append("}")
+  fun buildCommunicationConstantsJson(
+    command: Pair<String, String>,
+    communicationConstants: Pair<String, String>
+  ): String {
+    val jsonBuilder = StringBuilder("{")
+    jsonBuilder.append("\"${command.first}\": \"${command.second}\",")
+    jsonBuilder.append("\"${communicationConstants.first}\": ${communicationConstants.second}")
+    jsonBuilder.append("}")
 
-        return jsonBuilder.toString()
-    }
+    return jsonBuilder.toString()
+  }
 
-    fun parseMessageFromReceiverJson(json: String) : MessageFromReceiver {
-        val strings = json.split(",")
-        val values = strings.map { it.split(":")[1].trim().replace("\"", "").replace("{", "").replace("}", "") }
+  fun parseMessageFromReceiverJson(json: String): MessageFromReceiver {
+    val strings = json.split(",")
+    val values = strings
+      .map { it.split(":")[1].trim().replace("\"", "").replace("{", "").replace("}", "") }
 
-        return MessageFromReceiver(values[0], values[1])
-    }
+    return MessageFromReceiver(values[0], values[1])
+  }
 }

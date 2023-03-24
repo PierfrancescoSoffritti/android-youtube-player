@@ -6,7 +6,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsend
  * Implement this interface to be notified about changes in the cast connection.
  */
 interface ChromecastConnectionListener {
-    fun onChromecastConnecting()
-    fun onChromecastConnected(chromecastYouTubePlayerContext: ChromecastYouTubePlayerContext)
-    fun onChromecastDisconnected()
+  fun onChromecastConnecting()
+  fun onChromecastConnected(chromecastYouTubePlayerContext: ChromecastYouTubePlayerContext)
+  fun onChromecastDisconnected()
 }

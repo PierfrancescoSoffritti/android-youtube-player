@@ -11,37 +11,49 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.exam
 
 object MediaRouteButtonUtils {
 
-    fun initMediaRouteButton(context: Context) : MediaRouteButton {
-        val mediaRouteButton = MediaRouteButton(context)
-        CastButtonFactory.setUpMediaRouteButton(context, mediaRouteButton)
+  fun initMediaRouteButton(context: Context): MediaRouteButton {
+    val mediaRouteButton = MediaRouteButton(context)
+    CastButtonFactory.setUpMediaRouteButton(context, mediaRouteButton)
 
-        return mediaRouteButton
+    return mediaRouteButton
+  }
+
+  fun initMediaRouteButton(mediaRouteButton: MediaRouteButton): MediaRouteButton {
+    CastButtonFactory.setUpMediaRouteButton(mediaRouteButton.context, mediaRouteButton)
+    return mediaRouteButton
+  }
+
+  fun addMediaRouteButtonToPlayerUi(
+    mediaRouteButton: MediaRouteButton, tintColor: Int,
+    disabledContainer: MediaRouteButtonContainer?, activatedContainer: MediaRouteButtonContainer
+  ) {
+
+    setMediaRouterButtonTint(mediaRouteButton, tintColor)
+
+    disabledContainer?.removeMediaRouteButton(mediaRouteButton)
+    if (mediaRouteButton.parent != null) return
+    activatedContainer.addMediaRouteButton(mediaRouteButton)
+  }
+
+  private fun setMediaRouterButtonTint(mediaRouterButton: MediaRouteButton, color: Int) {
+    val castContext = ContextThemeWrapper(mediaRouterButton.context, R.style.Theme_MediaRouter)
+    val styledAttributes = castContext.obtainStyledAttributes(
+      null,
+      R.styleable.MediaRouteButton,
+      R.attr.mediaRouteButtonStyle,
+      0
+    )
+    val drawable =
+      styledAttributes.getDrawable(R.styleable.MediaRouteButton_externalRouteEnabledDrawable)
+
+    styledAttributes.recycle()
+    drawable?.let {
+      DrawableCompat.setTint(
+        it,
+        ContextCompat.getColor(mediaRouterButton.context, color)
+      )
     }
 
-    fun initMediaRouteButton(mediaRouteButton: MediaRouteButton) : MediaRouteButton {
-        CastButtonFactory.setUpMediaRouteButton(mediaRouteButton.context, mediaRouteButton)
-        return mediaRouteButton
-    }
-
-    fun addMediaRouteButtonToPlayerUi(
-            mediaRouteButton: MediaRouteButton, tintColor: Int,
-            disabledContainer: MediaRouteButtonContainer?, activatedContainer: MediaRouteButtonContainer) {
-
-        setMediaRouterButtonTint(mediaRouteButton, tintColor)
-
-        disabledContainer?.removeMediaRouteButton(mediaRouteButton)
-        if(mediaRouteButton.parent != null) return
-        activatedContainer.addMediaRouteButton(mediaRouteButton)
-    }
-
-    private fun setMediaRouterButtonTint(mediaRouterButton: MediaRouteButton, color: Int) {
-        val castContext = ContextThemeWrapper(mediaRouterButton.context, R.style.Theme_MediaRouter)
-        val styledAttributes = castContext.obtainStyledAttributes(null, R.styleable.MediaRouteButton, R.attr.mediaRouteButtonStyle, 0)
-        val drawable = styledAttributes.getDrawable(R.styleable.MediaRouteButton_externalRouteEnabledDrawable)
-
-        styledAttributes.recycle()
-        drawable?.let { DrawableCompat.setTint(it, ContextCompat.getColor(mediaRouterButton.context, color)) }
-
-        mediaRouterButton.setRemoteIndicatorDrawable(drawable)
-    }
+    mediaRouterButton.setRemoteIndicatorDrawable(drawable)
+  }
 }

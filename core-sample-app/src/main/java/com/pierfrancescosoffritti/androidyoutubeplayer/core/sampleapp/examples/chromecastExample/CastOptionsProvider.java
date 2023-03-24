@@ -14,20 +14,20 @@ import java.util.List;
  * <a href="https://developers.google.com/cast/docs/android_sender_integrate#initialize_the_cast_context">See doc here</a>
  */
 public final class CastOptionsProvider implements OptionsProvider {
-    public CastOptions getCastOptions(Context appContext) {
+  public CastOptions getCastOptions(Context appContext) {
         /*
           This is the receiver id of the sample receiver.
           Remember to change it with the ID of your own receiver. See documentation for more info.
           <a href="https://github.com/PierfrancescoSoffritti/chromecast-youtube-player">chromecast-youtube-player</a>
           */
-        String receiverId = "C5CBE8CA";
+    String receiverId = "C5CBE8CA";
 
-        return new CastOptions.Builder()
-                .setReceiverApplicationId(receiverId)
-                .build();
-    }
+    return new CastOptions.Builder()
+            .setReceiverApplicationId(receiverId)
+            .build();
+  }
 
-    public List<SessionProvider> getAdditionalSessionProviders(Context context) {
-        return null;
-    }
+  public List<SessionProvider> getAdditionalSessionProviders(Context context) {
+    return null;
+  }
 }
