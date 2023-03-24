@@ -3,11 +3,11 @@ ext.versions = [
         minSdk                          : 17,
         compileSdk                      : 33,
 
-        publishVersion_core             : '11.1.0',
-        publishVersionCode_core         : 18,
+        publishVersion_core             : '12.0.0',
+        publishVersionCode_core         : 19,
 
-        publishVersion_chromecast       : '0.27',
-        publishVersionCode_chromecast   : 12,
+        publishVersion_chromecast       : '0.28',
+        publishVersionCode_chromecast   : 13,
 
         // Plugins
         gradlePlugin                    : '7.4.2',
