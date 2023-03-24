@@ -42,14 +42,14 @@ class YouTubePlayerView(
   private val webViewFullscreenListener = object : FullscreenListener {
     override fun onEnterFullscreen(fullscreenView: View, exitFullscreen: () -> Unit) {
       if (fullscreenListeners.isEmpty()) {
-        throw IllegalStateException("To enter fullscreen you need to register a FullscreenListener.")
+        throw IllegalStateException("To enter fullscreen you need to first register a FullscreenListener.")
       }
       fullscreenListeners.forEach { it.onEnterFullscreen(fullscreenView, exitFullscreen) }
     }
 
     override fun onExitFullscreen() {
       if (fullscreenListeners.isEmpty()) {
-        throw IllegalStateException("To enter fullscreen you need to register a FullscreenListener.")
+        throw IllegalStateException("To enter fullscreen you need to first register a FullscreenListener.")
       }
       fullscreenListeners.forEach { it.onExitFullscreen() }
     }
