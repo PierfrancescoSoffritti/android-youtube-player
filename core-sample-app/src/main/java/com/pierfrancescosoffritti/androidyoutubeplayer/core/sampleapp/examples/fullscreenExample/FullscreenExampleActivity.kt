@@ -39,8 +39,8 @@ class FullscreenExampleActivity : AppCompatActivity() {
     val fullscreenViewContainer = findViewById<FrameLayout>(R.id.full_screen_view_container)
 
     val iFramePlayerOptions = IFramePlayerOptions.Builder()
-      .controls(1) // enable full screen button
-      .fullscreen(1)
+      .controls(1)
+      .fullscreen(1) // enable full screen button
       .build()
 
     // we need to initialize manually in order to pass IFramePlayerOptions to the player

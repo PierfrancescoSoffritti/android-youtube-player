@@ -115,8 +115,8 @@ class CompleteExampleActivity : AppCompatActivity() {
     }
 
     val iFramePlayerOptions = IFramePlayerOptions.Builder()
-      .controls(1) // enable full screen button
-      .fullscreen(1)
+      .controls(1)
+      .fullscreen(1) // enable full screen button
       .build()
 
     youTubePlayerView.enableAutomaticInitialization = false
