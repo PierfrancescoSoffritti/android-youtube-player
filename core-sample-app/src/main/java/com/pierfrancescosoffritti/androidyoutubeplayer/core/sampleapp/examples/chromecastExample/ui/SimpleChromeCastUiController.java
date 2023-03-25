@@ -102,7 +102,7 @@ public class SimpleChromeCastUiController extends AbstractYouTubePlayerListener 
   @Override
   public void onVideoId(@NonNull YouTubePlayer youTubePlayer, @NonNull String videoId) {
     youTubeButton.setOnClickListener(view -> {
-      Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=$videoId"));
+      Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=$videoId"));
       controls_view.getContext().startActivity(intent);
     });
   }

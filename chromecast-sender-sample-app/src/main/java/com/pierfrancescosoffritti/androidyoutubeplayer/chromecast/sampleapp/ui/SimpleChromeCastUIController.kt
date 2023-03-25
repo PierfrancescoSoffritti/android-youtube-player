@@ -85,7 +85,7 @@ class SimpleChromeCastUiController(private val controls_view: View) :
 
   override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) {
     youTubeButton.setOnClickListener {
-      val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.youtube.com/watch?v=$videoId"))
+      val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=$videoId"))
       controls_view.context.startActivity(intent)
     }
   }

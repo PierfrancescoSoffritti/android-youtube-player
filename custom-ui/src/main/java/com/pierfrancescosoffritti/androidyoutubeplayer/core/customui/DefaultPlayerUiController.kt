@@ -107,7 +107,7 @@ class DefaultPlayerUiController(
       youTubeButton.setOnClickListener {
         val intent = Intent(
           Intent.ACTION_VIEW,
-          Uri.parse("http://www.youtube.com/watch?v=" + videoId + "#t=" + youtubePlayerSeekBar.seekBar.progress)
+          Uri.parse("https://www.youtube.com/watch?v=" + videoId + "#t=" + youtubePlayerSeekBar.seekBar.progress)
         )
         try {
           youTubeButton.context.startActivity(intent)
