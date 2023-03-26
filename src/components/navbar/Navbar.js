@@ -29,10 +29,9 @@ class Navbar extends Component {
         const navBarItemClass = this.state.currentScroll === 0 ? "" : "navbar-button-elevated";
 
         const navBarItems = [
-            {src: "https://github.com/PierfrancescoSoffritti/android-youtube-player#table-of-contents-core", name: "Docs"},
-            {src: "https://github.com/PierfrancescoSoffritti/android-youtube-player/issues", name: "Support"},
             {src: "https://github.com/PierfrancescoSoffritti/android-youtube-player", name: "GitHub"},
-            
+            {src: "https://github.com/PierfrancescoSoffritti/android-youtube-player#table-of-contents-core", name: "Docs"},
+            {src: "https://github.com/PierfrancescoSoffritti/android-youtube-player/issues", name: "Help"},
         ]
 
         return (
