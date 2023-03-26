@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "8b4a50a246f41d954779",
+    "revision": "6e576d6ac721cd49d406",
     "url": "/android-youtube-player/static/css/main.cef93687.chunk.css"
   },
   {
-    "revision": "8b4a50a246f41d954779",
-    "url": "/android-youtube-player/static/js/main.8b4a50a2.chunk.js"
+    "revision": "6e576d6ac721cd49d406",
+    "url": "/android-youtube-player/static/js/main.6e576d6a.chunk.js"
   },
   {
     "revision": "dee75d052ecce63e71fe",
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/android-youtube-player/static/media/android-youtube-player_300px.9f66fcf4.webp"
   },
   {
-    "revision": "1419fdb7d111b3ce0282d6afd5eb77ba",
+    "revision": "7857fb356c83bc6e561dec892e2d17be",
     "url": "/android-youtube-player/index.html"
   }
 ];
