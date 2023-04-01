@@ -26,7 +26,7 @@ A lengthier explanation of why this library was created can be found in [this Me
 ## Who is using this library
 Now that **the official API from Google is deprecated**, `android-youtube-player` is the main YouTube player library for Android.
 
-**Used by over 5 thousands apps**, with some big names like [Flipkart](https://play.google.com/store/apps/details?id=com.flipkart.android), [McDonald's](https://play.google.com/store/apps/details?id=com.mcdo.mcdonalds), [InShot Video Editor](https://play.google.com/store/apps/details?id=com.camerasideas.instashot), [Genius](https://play.google.com/store/apps/details?id=com.genius.android) and [reddit is fun](https://play.google.com/store/apps/details?id=com.andrewshu.android.reddit).
+**Used by over 5 thousands apps**, with some big names like [Tumblr](https://play.google.com/store/apps/details?id=com.tumblr), [Flipkart](https://play.google.com/store/apps/details?id=com.flipkart.android), [McDonald's](https://play.google.com/store/apps/details?id=com.mcdo.mcdonalds), [InShot Video Editor](https://play.google.com/store/apps/details?id=com.camerasideas.instashot), [Genius](https://play.google.com/store/apps/details?id=com.genius.android) and [reddit is fun](https://play.google.com/store/apps/details?id=com.andrewshu.android.reddit).
 
 You can [see more stats here](https://www.appbrain.com/stats/libraries/details/android_youtube_player/android-youtube-player).
 
