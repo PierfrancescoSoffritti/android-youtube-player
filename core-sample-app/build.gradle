@@ -11,6 +11,7 @@ android {
     targetSdkVersion versions.compileSdk
     versionCode versions.publishVersionCode_core
     versionName versions.publishVersion_core
+    multiDexEnabled true
   }
 
   buildTypes {
@@ -50,6 +51,7 @@ dependencies {
   implementation "androidx.mediarouter:mediarouter:$versions.androidxMediarouter"
 
   implementation "com.github.PierfrancescoSoffritti:library-sample-app-template:$versions.sampleAppTemplate"
+  implementation "androidx.multidex:multidex:$versions.multiDex"
 
   debugImplementation "com.squareup.leakcanary:leakcanary-android:$versions.leakcanary"
 }
