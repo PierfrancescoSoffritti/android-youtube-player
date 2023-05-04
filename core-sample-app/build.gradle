@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply from: '../dependencies.gradle'
-apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: 'kotlin-android'
 
 android {
