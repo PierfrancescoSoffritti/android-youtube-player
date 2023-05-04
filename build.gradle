@@ -11,8 +11,6 @@ buildscript {
     classpath "com.android.tools.build:gradle:$versions.gradlePlugin"
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
 
-    classpath "com.getkeepsafe.dexcount:dexcount-gradle-plugin:$versions.dexCount"
-
     classpath "io.github.gradle-nexus:publish-plugin:$versions.gradleNexus"
     classpath "org.jetbrains.dokka:dokka-gradle-plugin:$versions.dokka"
   }
