@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mikashboks.youtube.player"
+    package="com.mkb.youtube.player"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -9,10 +9,10 @@
         android:targetSdkVersion="33" />
 
     <permission
-        android:name="com.mikashboks.youtube.player.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:name="com.mkb.youtube.player.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.mikashboks.youtube.player.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+    <uses-permission android:name="com.mkb.youtube.player.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
         android:allowBackup="true"
@@ -25,13 +25,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:testOnly="true"
-        android:theme="@style/Theme.MKbPlayer" >
+        android:theme="@style/Theme.MKbYPlayer" >
         <activity
-            android:name="com.mikashboks.youtube.player.TestActivity"
-            android:exported="true"
-            android:label="@string/title_activity_test"
-            android:theme="@style/Base.Theme.MKbPlayer.NoActionBar" >
+            android:name="com.mkb.youtube.player.MainActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,16 +36,9 @@
             </intent-filter>
         </activity>
 
-        <uses-library
-            android:name="androidx.window.extensions"
-            android:required="false" />
-        <uses-library
-            android:name="androidx.window.sidecar"
-            android:required="false" />
-
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.mikashboks.youtube.player.androidx-startup"
+            android:authorities="com.mkb.youtube.player.androidx-startup"
             android:exported="false" >
             <meta-data
                 android:name="androidx.emoji2.text.EmojiCompatInitializer"

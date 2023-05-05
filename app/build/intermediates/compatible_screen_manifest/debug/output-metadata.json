@@ -4,7 +4,7 @@
     "type": "COMPATIBLE_SCREEN_MANIFEST",
     "kind": "Directory"
   },
-  "applicationId": "com.mikashboks.youtube.player",
+  "applicationId": "com.mkb.youtube.player",
   "variantName": "debug",
   "elements": []
 }

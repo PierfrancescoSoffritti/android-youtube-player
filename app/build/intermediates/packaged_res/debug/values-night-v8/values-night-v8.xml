@@ -1,24 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Base.Theme.MKbPlayer" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.MKbYPlayer" parent="Theme.Material3.DayNight.NoActionBar">
         
-        
-    </style>
-    <style name="Theme.MKbPlayer" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700
-        </item>
-        <item name="colorOnPrimary">@color/black</item>
-        
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200
-        </item>
-        <item name="colorOnSecondary">@color/black</item>
-        
-        <item name="android:statusBarColor">
-            ?attr/colorPrimaryVariant
-        </item>
         
     </style>
 </resources>

@@ -1,13 +1,10 @@
-#Fri May 05 19:19:32 IST 2023
-base.0=/Users/harvi/Documents/Workspace/mkb-player/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
+#Fri May 05 19:30:17 IST 2023
+base.2=/Users/harvi/Documents/Workspace/mkb-player/app/build/intermediates/dex/debug/mergeProjectDexDebug/8/classes.dex
+path.2=8/classes.dex
 base.1=/Users/harvi/Documents/Workspace/mkb-player/app/build/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
-base.2=/Users/harvi/Documents/Workspace/mkb-player/app/build/intermediates/dex/debug/mergeProjectDexDebug/12/classes.dex
-base.3=/Users/harvi/Documents/Workspace/mkb-player/app/build/intermediates/dex/debug/mergeProjectDexDebug/5/classes.dex
-path.0=classes.dex
 path.1=0/classes.dex
-path.2=12/classes.dex
-path.3=5/classes.dex
-renamed.0=classes.dex
-renamed.1=classes2.dex
+base.0=/Users/harvi/Documents/Workspace/mkb-player/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
 renamed.2=classes3.dex
-renamed.3=classes4.dex
+renamed.1=classes2.dex
+renamed.0=classes.dex
+path.0=classes.dex

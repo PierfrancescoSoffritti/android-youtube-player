@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.mikashboks.youtube.player.app-mergeDebugResources-42:/values-w600dp-land-v13/values-w600dp-land-v13.xml",
+            "outputFile": "com.mkb.youtube.player.app-mergeDebugResources-26:/values-w600dp-land-v13/values-w600dp-land-v13.xml",
             "map": [
                 {
-                    "source": "/Users/harvi/.gradle/caches/transforms-3/2817441fcd7012c174faa6c03e8b66f8/transformed/material-1.8.0/res/values-w600dp-land-v13/values-w600dp-land-v13.xml",
+                    "source": "/Users/harvi/.gradle/caches/transforms-3/8068b73a523c9896b98215bf7765f541/transformed/material-1.5.0/res/values-w600dp-land-v13/values-w600dp-land-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

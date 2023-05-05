@@ -1,93 +1,74 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-27:12
-INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-27:12
-INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-27:12
-INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-27:12
-MERGED from [androidx.databinding:viewbinding:8.0.1] /Users/harvi/.gradle/caches/transforms-3/c4782af0f4d11c86524f750bb5000326/transformed/viewbinding-8.0.1/AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.navigation:navigation-ui-ktx:2.5.3] /Users/harvi/.gradle/caches/transforms-3/9bfd4100001bd8788c0b2d8e7a8727af/transformed/navigation-ui-ktx-2.5.3/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.navigation:navigation-ui:2.5.3] /Users/harvi/.gradle/caches/transforms-3/4da6e6bbd264cb9485937f1a2b70b69b/transformed/navigation-ui-2.5.3/AndroidManifest.xml:17:1-24:12
-MERGED from [com.google.android.material:material:1.8.0] /Users/harvi/.gradle/caches/transforms-3/2817441fcd7012c174faa6c03e8b66f8/transformed/material-1.8.0/AndroidManifest.xml:17:1-26:12
+ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-26:12
+MERGED from [com.google.android.material:material:1.5.0] /Users/harvi/.gradle/caches/transforms-3/8068b73a523c9896b98215bf7765f541/transformed/material-1.5.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/harvi/.gradle/caches/transforms-3/320c809ef9c80e9c4f5a3ea89fd58914/transformed/constraintlayout-2.1.4/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] /Users/harvi/.gradle/caches/transforms-3/bfb9e5708bcd100cde4c2ccbf736402a/transformed/appcompat-resources-1.6.1/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.appcompat:appcompat:1.6.1] /Users/harvi/.gradle/caches/transforms-3/af24ff63cfd4dc0dbbebce6a361368d1/transformed/appcompat-1.6.1/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/harvi/.gradle/caches/transforms-3/cc05a9b6691d9a55bcf1d7103ed54671/transformed/viewpager2-1.0.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.navigation:navigation-fragment-ktx:2.5.3] /Users/harvi/.gradle/caches/transforms-3/84c4d2c83e72ad028de2b18c46304442/transformed/navigation-fragment-ktx-2.5.3/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.navigation:navigation-fragment:2.5.3] /Users/harvi/.gradle/caches/transforms-3/11875fb679e1f5379bf64f71f0c300bf/transformed/navigation-fragment-2.5.3/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.fragment:fragment-ktx:1.5.4] /Users/harvi/.gradle/caches/transforms-3/52196e3981a32774376e96af6c447731/transformed/fragment-ktx-1.5.4/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.fragment:fragment:1.5.4] /Users/harvi/.gradle/caches/transforms-3/c41184d24169bebb2ae4ae1807844f3b/transformed/fragment-1.5.4/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.navigation:navigation-runtime-ktx:2.5.3] /Users/harvi/.gradle/caches/transforms-3/5215fc97b4c9ff001d26e69c47979aa4/transformed/navigation-runtime-ktx-2.5.3/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.navigation:navigation-runtime:2.5.3] /Users/harvi/.gradle/caches/transforms-3/d9bd63278d1471a91af96b4bf33cde71/transformed/navigation-runtime-2.5.3/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.activity:activity-ktx:1.6.0] /Users/harvi/.gradle/caches/transforms-3/4e2a46d192b0443609f5c3ef640a9d8a/transformed/activity-ktx-1.6.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.fragment:fragment:1.3.6] /Users/harvi/.gradle/caches/transforms-3/9d47692f88b46153423bf64362a51407/transformed/fragment-1.3.6/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.activity:activity:1.6.0] /Users/harvi/.gradle/caches/transforms-3/89ca2cc66b38ae548865eadf9a23d976/transformed/activity-1.6.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /Users/harvi/.gradle/caches/transforms-3/479013ed227b4ac35b96cec70578c302/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/harvi/.gradle/caches/transforms-3/c82d6e80acfa963d79d0922c981f0520/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.loader:loader:1.0.0] /Users/harvi/.gradle/caches/transforms-3/5a2c9c3a9c711313ca4e9c780dc62c7a/transformed/loader-1.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.navigation:navigation-common-ktx:2.5.3] /Users/harvi/.gradle/caches/transforms-3/e3d594e497c9de7a6e9727b6d8fbdbb6/transformed/navigation-common-ktx-2.5.3/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.navigation:navigation-common:2.5.3] /Users/harvi/.gradle/caches/transforms-3/82a6161d6ad488d14f651c33bd13980a/transformed/navigation-common-2.5.3/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1] /Users/harvi/.gradle/caches/transforms-3/5a2b6c05bec39060ce6ef928057082a3/transformed/lifecycle-viewmodel-ktx-2.5.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.5.1] /Users/harvi/.gradle/caches/transforms-3/a070b4f21c1a6f2f69d781f606112d0d/transformed/lifecycle-viewmodel-2.5.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1] /Users/harvi/.gradle/caches/transforms-3/7244b787f9977e9ed680bbce32f0e6dc/transformed/lifecycle-viewmodel-savedstate-2.5.1/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.5.1] /Users/harvi/.gradle/caches/transforms-3/5d90bf63c7aa4f7276283fe0da3ebb80/transformed/lifecycle-runtime-ktx-2.5.1/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] /Users/harvi/.gradle/caches/transforms-3/58185dd733b148773d987e71b7b632e4/transformed/slidingpanelayout-1.2.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.window:window:1.0.0] /Users/harvi/.gradle/caches/transforms-3/82570ffb8a2d6e4ed302127c41fbd665/transformed/window-1.0.0/AndroidManifest.xml:17:1-33:12
 MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /Users/harvi/.gradle/caches/transforms-3/9250e44ecef4de09a8599e67c874b184/transformed/emoji2-views-helper-1.2.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.emoji2:emoji2:1.2.0] /Users/harvi/.gradle/caches/transforms-3/89cb131723109d8bad43e45dce389912/transformed/emoji2-1.2.0/AndroidManifest.xml:17:1-35:12
 MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/harvi/.gradle/caches/transforms-3/c9e4dcef7968cd4275296bdbf18ead72/transformed/drawerlayout-1.1.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/harvi/.gradle/caches/transforms-3/cc326e107d43476f5d5ff5534cc6e378/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.transition:transition:1.2.0] /Users/harvi/.gradle/caches/transforms-3/2d24a5e57e4be12cf7a8d5cdeec31033/transformed/transition-1.2.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/harvi/.gradle/caches/transforms-3/2454abdb9472e0516694930cbc7553c4/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/harvi/.gradle/caches/transforms-3/76128c7745e2ed160511b10d491da209/transformed/vectordrawable-1.1.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/harvi/.gradle/caches/transforms-3/43a0882e64a0ff5957ae6efdbcf63a99/transformed/recyclerview-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/harvi/.gradle/caches/transforms-3/19f0859b0c0701d8fbb57549ffb64a37/transformed/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/harvi/.gradle/caches/transforms-3/43a0882e64a0ff5957ae6efdbcf63a99/transformed/recyclerview-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.customview:customview:1.1.0] /Users/harvi/.gradle/caches/transforms-3/de1833c4d65db84a802a37fd22e80140/transformed/customview-1.1.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.transition:transition:1.4.1] /Users/harvi/.gradle/caches/transforms-3/4ca27178a6b17a8676ad24c8ccc488fb/transformed/transition-1.4.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.core:core:1.9.0] /Users/harvi/.gradle/caches/transforms-3/75c8cf600b2e177ef064e4e129343f63/transformed/core-1.9.0/AndroidManifest.xml:17:1-30:12
 MERGED from [androidx.core:core-ktx:1.9.0] /Users/harvi/.gradle/caches/transforms-3/2b3680e1fa43898e4d356fc4d5b09885/transformed/core-ktx-1.9.0/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.savedstate:savedstate:1.2.0] /Users/harvi/.gradle/caches/transforms-3/18564c7422220f7137948bd7b8ffa506/transformed/savedstate-1.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] /Users/harvi/.gradle/caches/transforms-3/18b1b28f97a6afad133f2dafde1dac7c/transformed/annotation-experimental-1.3.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/harvi/.gradle/caches/transforms-3/342bb0220b5da004a8f2b0411a7b1735/transformed/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /Users/harvi/.gradle/caches/transforms-3/1db6143922dcca88e93e4d5b312fa5c3/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:17:1-37:12
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.5.1] /Users/harvi/.gradle/caches/transforms-3/c46549749a869ba6c514cfcb1dd718fe/transformed/lifecycle-runtime-2.5.1/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.savedstate:savedstate-ktx:1.2.0] /Users/harvi/.gradle/caches/transforms-3/79cac169fe1427d1e77457c3eda8e693/transformed/savedstate-ktx-1.2.0/AndroidManifest.xml:17:1-24:12
-MERGED from [androidx.savedstate:savedstate:1.2.0] /Users/harvi/.gradle/caches/transforms-3/18564c7422220f7137948bd7b8ffa506/transformed/savedstate-1.2.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.cardview:cardview:1.0.0] /Users/harvi/.gradle/caches/transforms-3/2caa8f534633067b7f39e17668cf9aa5/transformed/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/harvi/.gradle/caches/transforms-3/0f119b8bad613422015a0442a8dab7e7/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/harvi/.gradle/caches/transforms-3/4db4b16247930e508ead0ac877f93c12/transformed/startup-runtime-1.1.1/AndroidManifest.xml:17:1-33:12
 MERGED from [androidx.tracing:tracing:1.0.0] /Users/harvi/.gradle/caches/transforms-3/83d61aa9898e5af908ab83bd719cc8dd/transformed/tracing-1.0.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/harvi/.gradle/caches/transforms-3/4ea382a20aea2d7e49e256d6520286da/transformed/lifecycle-livedata-2.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.5.1] /Users/harvi/.gradle/caches/transforms-3/971120453f7ebdfaa31e83a6265c0702/transformed/lifecycle-livedata-core-ktx-2.5.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.5.1] /Users/harvi/.gradle/caches/transforms-3/100ff20231c6ea9252b092b8257f36e6/transformed/lifecycle-livedata-core-2.5.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.arch.core:core-runtime:2.1.0] /Users/harvi/.gradle/caches/transforms-3/cd24ad3a9213b76b4a53d3806ad3b100/transformed/core-runtime-2.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/harvi/.gradle/caches/transforms-3/ca5ddde0e4b6e5a0d5cf1b216da87735/transformed/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/harvi/.gradle/caches/transforms-3/739536dae1d3e4e1be153fdb8eb86095/transformed/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/harvi/.gradle/caches/transforms-3/03528be766934a95f67498e275d60835/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.print:print:1.0.0] /Users/harvi/.gradle/caches/transforms-3/b8c5de51bb31de1ea7a7f2a9c5e2d89a/transformed/print-1.0.0/AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.annotation:annotation-experimental:1.3.0] /Users/harvi/.gradle/caches/transforms-3/18b1b28f97a6afad133f2dafde1dac7c/transformed/annotation-experimental-1.3.0/AndroidManifest.xml:17:1-22:12
-INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-27:12
-INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-27:12
-INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-27:12
+INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-26:12
+INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-26:12
 	package
 		INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
-		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-27:12
+		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-26:12
 		INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
-		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-27:12
+		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-26:12
 		INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
 	xmlns:tools
 		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:3:5-51
 	android:versionCode
 		INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
-		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-27:12
+		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-26:12
 		INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:11-69
 application
-ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:5:5-25:19
-MERGED from [com.google.android.material:material:1.8.0] /Users/harvi/.gradle/caches/transforms-3/2817441fcd7012c174faa6c03e8b66f8/transformed/material-1.8.0/AndroidManifest.xml:24:5-20
-MERGED from [com.google.android.material:material:1.8.0] /Users/harvi/.gradle/caches/transforms-3/2817441fcd7012c174faa6c03e8b66f8/transformed/material-1.8.0/AndroidManifest.xml:24:5-20
+ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:5:5-24:19
+MERGED from [com.google.android.material:material:1.5.0] /Users/harvi/.gradle/caches/transforms-3/8068b73a523c9896b98215bf7765f541/transformed/material-1.5.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.5.0] /Users/harvi/.gradle/caches/transforms-3/8068b73a523c9896b98215bf7765f541/transformed/material-1.5.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/harvi/.gradle/caches/transforms-3/320c809ef9c80e9c4f5a3ea89fd58914/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/harvi/.gradle/caches/transforms-3/320c809ef9c80e9c4f5a3ea89fd58914/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
-MERGED from [androidx.window:window:1.0.0] /Users/harvi/.gradle/caches/transforms-3/82570ffb8a2d6e4ed302127c41fbd665/transformed/window-1.0.0/AndroidManifest.xml:24:5-31:19
-MERGED from [androidx.window:window:1.0.0] /Users/harvi/.gradle/caches/transforms-3/82570ffb8a2d6e4ed302127c41fbd665/transformed/window-1.0.0/AndroidManifest.xml:24:5-31:19
 MERGED from [androidx.emoji2:emoji2:1.2.0] /Users/harvi/.gradle/caches/transforms-3/89cb131723109d8bad43e45dce389912/transformed/emoji2-1.2.0/AndroidManifest.xml:23:5-33:19
 MERGED from [androidx.emoji2:emoji2:1.2.0] /Users/harvi/.gradle/caches/transforms-3/89cb131723109d8bad43e45dce389912/transformed/emoji2-1.2.0/AndroidManifest.xml:23:5-33:19
 MERGED from [androidx.core:core:1.9.0] /Users/harvi/.gradle/caches/transforms-3/75c8cf600b2e177ef064e4e129343f63/transformed/core-1.9.0/AndroidManifest.xml:28:5-89
@@ -115,41 +96,31 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /Users/harvi/.gradle/caches
 	android:allowBackup
 		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:6:9-35
 	android:theme
-		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:13:9-47
+		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:13:9-48
 	android:dataExtractionRules
 		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:7:9-65
-activity#com.mikashboks.youtube.player.TestActivity
-ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:15:9-24:20
-	android:label
-		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:18:13-56
+activity#com.mkb.youtube.player.MainActivity
+ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:15:9-23:20
 	android:exported
 		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:17:13-36
-	android:theme
-		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:19:13-68
 	android:name
 		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:16:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:20:13-23:29
+ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:18:13-22:29
 action#android.intent.action.MAIN
-ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:21:17-69
+ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:19:17-69
 	android:name
-		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:21:25-66
+		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:19:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:22:17-77
+ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:21:17-77
 	android:name
-		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:22:27-74
+		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:21:27-74
 uses-sdk
 INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
 INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
-MERGED from [androidx.databinding:viewbinding:8.0.1] /Users/harvi/.gradle/caches/transforms-3/c4782af0f4d11c86524f750bb5000326/transformed/viewbinding-8.0.1/AndroidManifest.xml:5:5-44
-MERGED from [androidx.databinding:viewbinding:8.0.1] /Users/harvi/.gradle/caches/transforms-3/c4782af0f4d11c86524f750bb5000326/transformed/viewbinding-8.0.1/AndroidManifest.xml:5:5-44
-MERGED from [androidx.navigation:navigation-ui-ktx:2.5.3] /Users/harvi/.gradle/caches/transforms-3/9bfd4100001bd8788c0b2d8e7a8727af/transformed/navigation-ui-ktx-2.5.3/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.navigation:navigation-ui-ktx:2.5.3] /Users/harvi/.gradle/caches/transforms-3/9bfd4100001bd8788c0b2d8e7a8727af/transformed/navigation-ui-ktx-2.5.3/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.navigation:navigation-ui:2.5.3] /Users/harvi/.gradle/caches/transforms-3/4da6e6bbd264cb9485937f1a2b70b69b/transformed/navigation-ui-2.5.3/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.navigation:navigation-ui:2.5.3] /Users/harvi/.gradle/caches/transforms-3/4da6e6bbd264cb9485937f1a2b70b69b/transformed/navigation-ui-2.5.3/AndroidManifest.xml:20:5-22:41
-MERGED from [com.google.android.material:material:1.8.0] /Users/harvi/.gradle/caches/transforms-3/2817441fcd7012c174faa6c03e8b66f8/transformed/material-1.8.0/AndroidManifest.xml:20:5-22:41
-MERGED from [com.google.android.material:material:1.8.0] /Users/harvi/.gradle/caches/transforms-3/2817441fcd7012c174faa6c03e8b66f8/transformed/material-1.8.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.material:material:1.5.0] /Users/harvi/.gradle/caches/transforms-3/8068b73a523c9896b98215bf7765f541/transformed/material-1.5.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.5.0] /Users/harvi/.gradle/caches/transforms-3/8068b73a523c9896b98215bf7765f541/transformed/material-1.5.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/harvi/.gradle/caches/transforms-3/320c809ef9c80e9c4f5a3ea89fd58914/transformed/constraintlayout-2.1.4/AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/harvi/.gradle/caches/transforms-3/320c809ef9c80e9c4f5a3ea89fd58914/transformed/constraintlayout-2.1.4/AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] /Users/harvi/.gradle/caches/transforms-3/bfb9e5708bcd100cde4c2ccbf736402a/transformed/appcompat-resources-1.6.1/AndroidManifest.xml:20:5-44
@@ -158,20 +129,8 @@ MERGED from [androidx.appcompat:appcompat:1.6.1] /Users/harvi/.gradle/caches/tra
 MERGED from [androidx.appcompat:appcompat:1.6.1] /Users/harvi/.gradle/caches/transforms-3/af24ff63cfd4dc0dbbebce6a361368d1/transformed/appcompat-1.6.1/AndroidManifest.xml:20:5-44
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/harvi/.gradle/caches/transforms-3/cc05a9b6691d9a55bcf1d7103ed54671/transformed/viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.viewpager2:viewpager2:1.0.0] /Users/harvi/.gradle/caches/transforms-3/cc05a9b6691d9a55bcf1d7103ed54671/transformed/viewpager2-1.0.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.navigation:navigation-fragment-ktx:2.5.3] /Users/harvi/.gradle/caches/transforms-3/84c4d2c83e72ad028de2b18c46304442/transformed/navigation-fragment-ktx-2.5.3/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.navigation:navigation-fragment-ktx:2.5.3] /Users/harvi/.gradle/caches/transforms-3/84c4d2c83e72ad028de2b18c46304442/transformed/navigation-fragment-ktx-2.5.3/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.navigation:navigation-fragment:2.5.3] /Users/harvi/.gradle/caches/transforms-3/11875fb679e1f5379bf64f71f0c300bf/transformed/navigation-fragment-2.5.3/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.navigation:navigation-fragment:2.5.3] /Users/harvi/.gradle/caches/transforms-3/11875fb679e1f5379bf64f71f0c300bf/transformed/navigation-fragment-2.5.3/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.fragment:fragment-ktx:1.5.4] /Users/harvi/.gradle/caches/transforms-3/52196e3981a32774376e96af6c447731/transformed/fragment-ktx-1.5.4/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.fragment:fragment-ktx:1.5.4] /Users/harvi/.gradle/caches/transforms-3/52196e3981a32774376e96af6c447731/transformed/fragment-ktx-1.5.4/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.fragment:fragment:1.5.4] /Users/harvi/.gradle/caches/transforms-3/c41184d24169bebb2ae4ae1807844f3b/transformed/fragment-1.5.4/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.fragment:fragment:1.5.4] /Users/harvi/.gradle/caches/transforms-3/c41184d24169bebb2ae4ae1807844f3b/transformed/fragment-1.5.4/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.navigation:navigation-runtime-ktx:2.5.3] /Users/harvi/.gradle/caches/transforms-3/5215fc97b4c9ff001d26e69c47979aa4/transformed/navigation-runtime-ktx-2.5.3/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.navigation:navigation-runtime-ktx:2.5.3] /Users/harvi/.gradle/caches/transforms-3/5215fc97b4c9ff001d26e69c47979aa4/transformed/navigation-runtime-ktx-2.5.3/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.navigation:navigation-runtime:2.5.3] /Users/harvi/.gradle/caches/transforms-3/d9bd63278d1471a91af96b4bf33cde71/transformed/navigation-runtime-2.5.3/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.navigation:navigation-runtime:2.5.3] /Users/harvi/.gradle/caches/transforms-3/d9bd63278d1471a91af96b4bf33cde71/transformed/navigation-runtime-2.5.3/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.activity:activity-ktx:1.6.0] /Users/harvi/.gradle/caches/transforms-3/4e2a46d192b0443609f5c3ef640a9d8a/transformed/activity-ktx-1.6.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.activity:activity-ktx:1.6.0] /Users/harvi/.gradle/caches/transforms-3/4e2a46d192b0443609f5c3ef640a9d8a/transformed/activity-ktx-1.6.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.3.6] /Users/harvi/.gradle/caches/transforms-3/9d47692f88b46153423bf64362a51407/transformed/fragment-1.3.6/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.3.6] /Users/harvi/.gradle/caches/transforms-3/9d47692f88b46153423bf64362a51407/transformed/fragment-1.3.6/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.activity:activity:1.6.0] /Users/harvi/.gradle/caches/transforms-3/89ca2cc66b38ae548865eadf9a23d976/transformed/activity-1.6.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.activity:activity:1.6.0] /Users/harvi/.gradle/caches/transforms-3/89ca2cc66b38ae548865eadf9a23d976/transformed/activity-1.6.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.dynamicanimation:dynamicanimation:1.0.0] /Users/harvi/.gradle/caches/transforms-3/479013ed227b4ac35b96cec70578c302/transformed/dynamicanimation-1.0.0/AndroidManifest.xml:20:5-44
@@ -180,22 +139,10 @@ MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/harvi/.grad
 MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/harvi/.gradle/caches/transforms-3/c82d6e80acfa963d79d0922c981f0520/transformed/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.loader:loader:1.0.0] /Users/harvi/.gradle/caches/transforms-3/5a2c9c3a9c711313ca4e9c780dc62c7a/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.loader:loader:1.0.0] /Users/harvi/.gradle/caches/transforms-3/5a2c9c3a9c711313ca4e9c780dc62c7a/transformed/loader-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.navigation:navigation-common-ktx:2.5.3] /Users/harvi/.gradle/caches/transforms-3/e3d594e497c9de7a6e9727b6d8fbdbb6/transformed/navigation-common-ktx-2.5.3/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.navigation:navigation-common-ktx:2.5.3] /Users/harvi/.gradle/caches/transforms-3/e3d594e497c9de7a6e9727b6d8fbdbb6/transformed/navigation-common-ktx-2.5.3/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.navigation:navigation-common:2.5.3] /Users/harvi/.gradle/caches/transforms-3/82a6161d6ad488d14f651c33bd13980a/transformed/navigation-common-2.5.3/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.navigation:navigation-common:2.5.3] /Users/harvi/.gradle/caches/transforms-3/82a6161d6ad488d14f651c33bd13980a/transformed/navigation-common-2.5.3/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1] /Users/harvi/.gradle/caches/transforms-3/5a2b6c05bec39060ce6ef928057082a3/transformed/lifecycle-viewmodel-ktx-2.5.1/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1] /Users/harvi/.gradle/caches/transforms-3/5a2b6c05bec39060ce6ef928057082a3/transformed/lifecycle-viewmodel-ktx-2.5.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.5.1] /Users/harvi/.gradle/caches/transforms-3/a070b4f21c1a6f2f69d781f606112d0d/transformed/lifecycle-viewmodel-2.5.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.5.1] /Users/harvi/.gradle/caches/transforms-3/a070b4f21c1a6f2f69d781f606112d0d/transformed/lifecycle-viewmodel-2.5.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1] /Users/harvi/.gradle/caches/transforms-3/7244b787f9977e9ed680bbce32f0e6dc/transformed/lifecycle-viewmodel-savedstate-2.5.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.5.1] /Users/harvi/.gradle/caches/transforms-3/7244b787f9977e9ed680bbce32f0e6dc/transformed/lifecycle-viewmodel-savedstate-2.5.1/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.5.1] /Users/harvi/.gradle/caches/transforms-3/5d90bf63c7aa4f7276283fe0da3ebb80/transformed/lifecycle-runtime-ktx-2.5.1/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.5.1] /Users/harvi/.gradle/caches/transforms-3/5d90bf63c7aa4f7276283fe0da3ebb80/transformed/lifecycle-runtime-ktx-2.5.1/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] /Users/harvi/.gradle/caches/transforms-3/58185dd733b148773d987e71b7b632e4/transformed/slidingpanelayout-1.2.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] /Users/harvi/.gradle/caches/transforms-3/58185dd733b148773d987e71b7b632e4/transformed/slidingpanelayout-1.2.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.window:window:1.0.0] /Users/harvi/.gradle/caches/transforms-3/82570ffb8a2d6e4ed302127c41fbd665/transformed/window-1.0.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.window:window:1.0.0] /Users/harvi/.gradle/caches/transforms-3/82570ffb8a2d6e4ed302127c41fbd665/transformed/window-1.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /Users/harvi/.gradle/caches/transforms-3/9250e44ecef4de09a8599e67c874b184/transformed/emoji2-views-helper-1.2.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.emoji2:emoji2-views-helper:1.2.0] /Users/harvi/.gradle/caches/transforms-3/9250e44ecef4de09a8599e67c874b184/transformed/emoji2-views-helper-1.2.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.emoji2:emoji2:1.2.0] /Users/harvi/.gradle/caches/transforms-3/89cb131723109d8bad43e45dce389912/transformed/emoji2-1.2.0/AndroidManifest.xml:21:5-44
@@ -204,32 +151,32 @@ MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/harvi/.gradle/cach
 MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] /Users/harvi/.gradle/caches/transforms-3/c9e4dcef7968cd4275296bdbf18ead72/transformed/drawerlayout-1.1.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/harvi/.gradle/caches/transforms-3/cc326e107d43476f5d5ff5534cc6e378/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] /Users/harvi/.gradle/caches/transforms-3/cc326e107d43476f5d5ff5534cc6e378/transformed/coordinatorlayout-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] /Users/harvi/.gradle/caches/transforms-3/2d24a5e57e4be12cf7a8d5cdeec31033/transformed/transition-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.2.0] /Users/harvi/.gradle/caches/transforms-3/2d24a5e57e4be12cf7a8d5cdeec31033/transformed/transition-1.2.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/harvi/.gradle/caches/transforms-3/2454abdb9472e0516694930cbc7553c4/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] /Users/harvi/.gradle/caches/transforms-3/2454abdb9472e0516694930cbc7553c4/transformed/vectordrawable-animated-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/harvi/.gradle/caches/transforms-3/76128c7745e2ed160511b10d491da209/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] /Users/harvi/.gradle/caches/transforms-3/76128c7745e2ed160511b10d491da209/transformed/vectordrawable-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/harvi/.gradle/caches/transforms-3/43a0882e64a0ff5957ae6efdbcf63a99/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/harvi/.gradle/caches/transforms-3/43a0882e64a0ff5957ae6efdbcf63a99/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/harvi/.gradle/caches/transforms-3/19f0859b0c0701d8fbb57549ffb64a37/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/harvi/.gradle/caches/transforms-3/19f0859b0c0701d8fbb57549ffb64a37/transformed/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/harvi/.gradle/caches/transforms-3/43a0882e64a0ff5957ae6efdbcf63a99/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.1.0] /Users/harvi/.gradle/caches/transforms-3/43a0882e64a0ff5957ae6efdbcf63a99/transformed/recyclerview-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.customview:customview:1.1.0] /Users/harvi/.gradle/caches/transforms-3/de1833c4d65db84a802a37fd22e80140/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.customview:customview:1.1.0] /Users/harvi/.gradle/caches/transforms-3/de1833c4d65db84a802a37fd22e80140/transformed/customview-1.1.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.transition:transition:1.4.1] /Users/harvi/.gradle/caches/transforms-3/4ca27178a6b17a8676ad24c8ccc488fb/transformed/transition-1.4.1/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.transition:transition:1.4.1] /Users/harvi/.gradle/caches/transforms-3/4ca27178a6b17a8676ad24c8ccc488fb/transformed/transition-1.4.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.core:core:1.9.0] /Users/harvi/.gradle/caches/transforms-3/75c8cf600b2e177ef064e4e129343f63/transformed/core-1.9.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.core:core:1.9.0] /Users/harvi/.gradle/caches/transforms-3/75c8cf600b2e177ef064e4e129343f63/transformed/core-1.9.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.core:core-ktx:1.9.0] /Users/harvi/.gradle/caches/transforms-3/2b3680e1fa43898e4d356fc4d5b09885/transformed/core-ktx-1.9.0/AndroidManifest.xml:5:5-44
 MERGED from [androidx.core:core-ktx:1.9.0] /Users/harvi/.gradle/caches/transforms-3/2b3680e1fa43898e4d356fc4d5b09885/transformed/core-ktx-1.9.0/AndroidManifest.xml:5:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.0] /Users/harvi/.gradle/caches/transforms-3/18564c7422220f7137948bd7b8ffa506/transformed/savedstate-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.2.0] /Users/harvi/.gradle/caches/transforms-3/18564c7422220f7137948bd7b8ffa506/transformed/savedstate-1.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] /Users/harvi/.gradle/caches/transforms-3/18b1b28f97a6afad133f2dafde1dac7c/transformed/annotation-experimental-1.3.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.3.0] /Users/harvi/.gradle/caches/transforms-3/18b1b28f97a6afad133f2dafde1dac7c/transformed/annotation-experimental-1.3.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/harvi/.gradle/caches/transforms-3/342bb0220b5da004a8f2b0411a7b1735/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/harvi/.gradle/caches/transforms-3/342bb0220b5da004a8f2b0411a7b1735/transformed/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /Users/harvi/.gradle/caches/transforms-3/1db6143922dcca88e93e4d5b312fa5c3/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:21:5-23:41
 MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /Users/harvi/.gradle/caches/transforms-3/1db6143922dcca88e93e4d5b312fa5c3/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:21:5-23:41
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.5.1] /Users/harvi/.gradle/caches/transforms-3/c46549749a869ba6c514cfcb1dd718fe/transformed/lifecycle-runtime-2.5.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.lifecycle:lifecycle-runtime:2.5.1] /Users/harvi/.gradle/caches/transforms-3/c46549749a869ba6c514cfcb1dd718fe/transformed/lifecycle-runtime-2.5.1/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.savedstate:savedstate-ktx:1.2.0] /Users/harvi/.gradle/caches/transforms-3/79cac169fe1427d1e77457c3eda8e693/transformed/savedstate-ktx-1.2.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.savedstate:savedstate-ktx:1.2.0] /Users/harvi/.gradle/caches/transforms-3/79cac169fe1427d1e77457c3eda8e693/transformed/savedstate-ktx-1.2.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.savedstate:savedstate:1.2.0] /Users/harvi/.gradle/caches/transforms-3/18564c7422220f7137948bd7b8ffa506/transformed/savedstate-1.2.0/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.savedstate:savedstate:1.2.0] /Users/harvi/.gradle/caches/transforms-3/18564c7422220f7137948bd7b8ffa506/transformed/savedstate-1.2.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.cardview:cardview:1.0.0] /Users/harvi/.gradle/caches/transforms-3/2caa8f534633067b7f39e17668cf9aa5/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.cardview:cardview:1.0.0] /Users/harvi/.gradle/caches/transforms-3/2caa8f534633067b7f39e17668cf9aa5/transformed/cardview-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/harvi/.gradle/caches/transforms-3/0f119b8bad613422015a0442a8dab7e7/transformed/versionedparcelable-1.1.1/AndroidManifest.xml:20:5-22:41
@@ -240,8 +187,6 @@ MERGED from [androidx.tracing:tracing:1.0.0] /Users/harvi/.gradle/caches/transfo
 MERGED from [androidx.tracing:tracing:1.0.0] /Users/harvi/.gradle/caches/transforms-3/83d61aa9898e5af908ab83bd719cc8dd/transformed/tracing-1.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/harvi/.gradle/caches/transforms-3/4ea382a20aea2d7e49e256d6520286da/transformed/lifecycle-livedata-2.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/harvi/.gradle/caches/transforms-3/4ea382a20aea2d7e49e256d6520286da/transformed/lifecycle-livedata-2.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.5.1] /Users/harvi/.gradle/caches/transforms-3/971120453f7ebdfaa31e83a6265c0702/transformed/lifecycle-livedata-core-ktx-2.5.1/AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.5.1] /Users/harvi/.gradle/caches/transforms-3/971120453f7ebdfaa31e83a6265c0702/transformed/lifecycle-livedata-core-ktx-2.5.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.5.1] /Users/harvi/.gradle/caches/transforms-3/100ff20231c6ea9252b092b8257f36e6/transformed/lifecycle-livedata-core-2.5.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.5.1] /Users/harvi/.gradle/caches/transforms-3/100ff20231c6ea9252b092b8257f36e6/transformed/lifecycle-livedata-core-2.5.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.arch.core:core-runtime:2.1.0] /Users/harvi/.gradle/caches/transforms-3/cd24ad3a9213b76b4a53d3806ad3b100/transformed/core-runtime-2.1.0/AndroidManifest.xml:20:5-22:41
@@ -254,8 +199,6 @@ MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/
 MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/harvi/.gradle/caches/transforms-3/03528be766934a95f67498e275d60835/transformed/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.print:print:1.0.0] /Users/harvi/.gradle/caches/transforms-3/b8c5de51bb31de1ea7a7f2a9c5e2d89a/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.print:print:1.0.0] /Users/harvi/.gradle/caches/transforms-3/b8c5de51bb31de1ea7a7f2a9c5e2d89a/transformed/print-1.0.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.annotation:annotation-experimental:1.3.0] /Users/harvi/.gradle/caches/transforms-3/18b1b28f97a6afad133f2dafde1dac7c/transformed/annotation-experimental-1.3.0/AndroidManifest.xml:20:5-44
-MERGED from [androidx.annotation:annotation-experimental:1.3.0] /Users/harvi/.gradle/caches/transforms-3/18b1b28f97a6afad133f2dafde1dac7c/transformed/annotation-experimental-1.3.0/AndroidManifest.xml:20:5-44
 INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
 INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
 	android:targetSdkVersion
@@ -266,18 +209,6 @@ INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidMa
 		INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
 		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
-uses-library#androidx.window.extensions
-ADDED from [androidx.window:window:1.0.0] /Users/harvi/.gradle/caches/transforms-3/82570ffb8a2d6e4ed302127c41fbd665/transformed/window-1.0.0/AndroidManifest.xml:25:9-27:40
-	android:required
-		ADDED from [androidx.window:window:1.0.0] /Users/harvi/.gradle/caches/transforms-3/82570ffb8a2d6e4ed302127c41fbd665/transformed/window-1.0.0/AndroidManifest.xml:27:13-37
-	android:name
-		ADDED from [androidx.window:window:1.0.0] /Users/harvi/.gradle/caches/transforms-3/82570ffb8a2d6e4ed302127c41fbd665/transformed/window-1.0.0/AndroidManifest.xml:26:13-54
-uses-library#androidx.window.sidecar
-ADDED from [androidx.window:window:1.0.0] /Users/harvi/.gradle/caches/transforms-3/82570ffb8a2d6e4ed302127c41fbd665/transformed/window-1.0.0/AndroidManifest.xml:28:9-30:40
-	android:required
-		ADDED from [androidx.window:window:1.0.0] /Users/harvi/.gradle/caches/transforms-3/82570ffb8a2d6e4ed302127c41fbd665/transformed/window-1.0.0/AndroidManifest.xml:30:13-37
-	android:name
-		ADDED from [androidx.window:window:1.0.0] /Users/harvi/.gradle/caches/transforms-3/82570ffb8a2d6e4ed302127c41fbd665/transformed/window-1.0.0/AndroidManifest.xml:29:13-51
 provider#androidx.startup.InitializationProvider
 ADDED from [androidx.emoji2:emoji2:1.2.0] /Users/harvi/.gradle/caches/transforms-3/89cb131723109d8bad43e45dce389912/transformed/emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
 MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /Users/harvi/.gradle/caches/transforms-3/1db6143922dcca88e93e4d5b312fa5c3/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:26:9-34:20
@@ -304,7 +235,7 @@ ADDED from [androidx.core:core:1.9.0] /Users/harvi/.gradle/caches/transforms-3/7
 		ADDED from [androidx.core:core:1.9.0] /Users/harvi/.gradle/caches/transforms-3/75c8cf600b2e177ef064e4e129343f63/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
 	android:name
 		ADDED from [androidx.core:core:1.9.0] /Users/harvi/.gradle/caches/transforms-3/75c8cf600b2e177ef064e4e129343f63/transformed/core-1.9.0/AndroidManifest.xml:23:9-81
-permission#com.mikashboks.youtube.player.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+permission#com.mkb.youtube.player.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
 ADDED from [androidx.core:core:1.9.0] /Users/harvi/.gradle/caches/transforms-3/75c8cf600b2e177ef064e4e129343f63/transformed/core-1.9.0/AndroidManifest.xml:22:5-24:47
 	android:protectionLevel
 		ADDED from [androidx.core:core:1.9.0] /Users/harvi/.gradle/caches/transforms-3/75c8cf600b2e177ef064e4e129343f63/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
@@ -314,7 +245,7 @@ uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
 ADDED from [androidx.core:core:1.9.0] /Users/harvi/.gradle/caches/transforms-3/75c8cf600b2e177ef064e4e129343f63/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
 	android:name
 		ADDED from [androidx.core:core:1.9.0] /Users/harvi/.gradle/caches/transforms-3/75c8cf600b2e177ef064e4e129343f63/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
-uses-permission#com.mikashboks.youtube.player.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+uses-permission#com.mkb.youtube.player.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
 ADDED from [androidx.core:core:1.9.0] /Users/harvi/.gradle/caches/transforms-3/75c8cf600b2e177ef064e4e129343f63/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
 	android:name
 		ADDED from [androidx.core:core:1.9.0] /Users/harvi/.gradle/caches/transforms-3/75c8cf600b2e177ef064e4e129343f63/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
