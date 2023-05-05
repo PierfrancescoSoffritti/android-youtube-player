@@ -6,3 +6,4 @@
 /build
 /captures
 java_pid*.hprof
+app/build/
