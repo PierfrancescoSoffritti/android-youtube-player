@@ -4,6 +4,8 @@ ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManif
 INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-26:12
 INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-26:12
 INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:2:1-26:12
+MERGED from [:mkb-core] /Users/harvi/Documents/Workspace/mkb-player/mkb-core/build/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-10:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.5.1] /Users/harvi/.gradle/caches/transforms-3/5d90bf63c7aa4f7276283fe0da3ebb80/transformed/lifecycle-runtime-ktx-2.5.1/AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.material:material:1.5.0] /Users/harvi/.gradle/caches/transforms-3/8068b73a523c9896b98215bf7765f541/transformed/material-1.5.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/harvi/.gradle/caches/transforms-3/320c809ef9c80e9c4f5a3ea89fd58914/transformed/constraintlayout-2.1.4/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] /Users/harvi/.gradle/caches/transforms-3/bfb9e5708bcd100cde4c2ccbf736402a/transformed/appcompat-resources-1.6.1/AndroidManifest.xml:17:1-22:12
@@ -119,6 +121,10 @@ uses-sdk
 INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
 INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
+MERGED from [:mkb-core] /Users/harvi/Documents/Workspace/mkb-player/mkb-core/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:mkb-core] /Users/harvi/Documents/Workspace/mkb-player/mkb-core/build/intermediates/merged_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.5.1] /Users/harvi/.gradle/caches/transforms-3/5d90bf63c7aa4f7276283fe0da3ebb80/transformed/lifecycle-runtime-ktx-2.5.1/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.5.1] /Users/harvi/.gradle/caches/transforms-3/5d90bf63c7aa4f7276283fe0da3ebb80/transformed/lifecycle-runtime-ktx-2.5.1/AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.android.material:material:1.5.0] /Users/harvi/.gradle/caches/transforms-3/8068b73a523c9896b98215bf7765f541/transformed/material-1.5.0/AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.material:material:1.5.0] /Users/harvi/.gradle/caches/transforms-3/8068b73a523c9896b98215bf7765f541/transformed/material-1.5.0/AndroidManifest.xml:20:5-44
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/harvi/.gradle/caches/transforms-3/320c809ef9c80e9c4f5a3ea89fd58914/transformed/constraintlayout-2.1.4/AndroidManifest.xml:5:5-7:41
@@ -209,6 +215,14 @@ INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidMa
 		INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
 		ADDED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.INTERNET
+ADDED from [:mkb-core] /Users/harvi/Documents/Workspace/mkb-player/mkb-core/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:5-67
+	android:name
+		ADDED from [:mkb-core] /Users/harvi/Documents/Workspace/mkb-player/mkb-core/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [:mkb-core] /Users/harvi/Documents/Workspace/mkb-player/mkb-core/build/intermediates/merged_manifest/debug/AndroidManifest.xml:8:5-79
+	android:name
+		ADDED from [:mkb-core] /Users/harvi/Documents/Workspace/mkb-player/mkb-core/build/intermediates/merged_manifest/debug/AndroidManifest.xml:8:22-76
 provider#androidx.startup.InitializationProvider
 ADDED from [androidx.emoji2:emoji2:1.2.0] /Users/harvi/.gradle/caches/transforms-3/89cb131723109d8bad43e45dce389912/transformed/emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
 MERGED from [androidx.lifecycle:lifecycle-process:2.4.1] /Users/harvi/.gradle/caches/transforms-3/1db6143922dcca88e93e4d5b312fa5c3/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:26:9-34:20

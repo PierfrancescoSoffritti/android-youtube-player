@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.mkb.youtube.player.app-mergeDebugResources-26:/values-h320dp-port-v13/values-h320dp-port-v13.xml",
+            "outputFile": "com.mkb.youtube.player.app-mergeDebugResources-27:/values-h320dp-port-v13/values-h320dp-port-v13.xml",
             "map": [
                 {
                     "source": "/Users/harvi/.gradle/caches/transforms-3/8068b73a523c9896b98215bf7765f541/transformed/material-1.5.0/res/values-h320dp-port-v13/values-h320dp-port-v13.xml",

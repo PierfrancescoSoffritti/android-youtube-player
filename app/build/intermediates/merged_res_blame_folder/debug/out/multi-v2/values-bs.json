@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.mkb.youtube.player.app-mergeDebugResources-26:/values-bs/values-bs.xml",
+            "outputFile": "com.mkb.youtube.player.app-mergeDebugResources-27:/values-bs/values-bs.xml",
             "map": [
                 {
                     "source": "/Users/harvi/.gradle/caches/transforms-3/af24ff63cfd4dc0dbbebce6a361368d1/transformed/appcompat-1.6.1/res/values-bs/values-bs.xml",

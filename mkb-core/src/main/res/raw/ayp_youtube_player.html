@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <style type="text/css">
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+            overflow: hidden;
+            position: fixed;
+        }
+    </style>
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- defer forces the library to execute after the html page is fully parsed. -->
+    <!-- This is needed to avoid race conditions, where the library executes and calls `onYouTubeIframeAPIReady` before the page is fully parsed. -->
+    <!-- See #873 on GitHub -->
+    <script defer src="https://www.youtube.com/iframe_api"></script>
+  </head>
+
+  <body>
+    <div id="youTubePlayerDOM"></div>
+  </body>
+
+  <script type="text/javascript">
+    var UNSTARTED = "UNSTARTED";
+    var ENDED = "ENDED";
+    var PLAYING = "PLAYING";
+    var PAUSED = "PAUSED";
+    var BUFFERING = "BUFFERING";
+    var CUED = "CUED";
+
+    var YouTubePlayerBridge = window.YouTubePlayerBridge;
+    var player;
+
+    var timerId;
+
+    function onYouTubeIframeAPIReady() {
+
+      YouTubePlayerBridge.sendYouTubeIFrameAPIReady();
+            
+    	player = new YT.Player('youTubePlayerDOM', {
+    			
+        height: '100%',
+    	  width: '100%',
+    			
+        events: {
+    	    onReady: function(event) { YouTubePlayerBridge.sendReady() },
+    		  onStateChange: function(event) { sendPlayerStateChange(event.data) },
+    		  onPlaybackQualityChange: function(event) { YouTubePlayerBridge.sendPlaybackQualityChange(event.data) },
+    		  onPlaybackRateChange: function(event) { YouTubePlayerBridge.sendPlaybackRateChange(event.data) },
+    		  onError: function(error) { YouTubePlayerBridge.sendError(error.data) },
+    		  onApiChange: function(event) { YouTubePlayerBridge.sendApiChange() }
+    	  },
+
+    	  playerVars: <<injectedPlayerVars>>
+
+      });
+    }
+
+    function sendPlayerStateChange(playerState) {
+      clearTimeout(timerId);
+
+      switch (playerState) {
+        case YT.PlayerState.UNSTARTED:
+          sendStateChange(UNSTARTED);
+          sendVideoIdFromPlaylistIfAvailable(player);
+          return;
+
+        case YT.PlayerState.ENDED:
+          sendStateChange(ENDED);
+          return;
+
+        case YT.PlayerState.PLAYING:
+          sendStateChange(PLAYING);
+
+          startSendCurrentTimeInterval();
+          sendVideoData(player);
+          return;
+
+        case YT.PlayerState.PAUSED:
+          sendStateChange(PAUSED);
+          return;
+
+        case YT.PlayerState.BUFFERING:
+          sendStateChange(BUFFERING);
+          return;
+
+        case YT.PlayerState.CUED:
+          sendStateChange(CUED);
+          return;
+      }
+
+      function sendVideoData(player) {
+        var videoDuration = player.getDuration();
+
+        YouTubePlayerBridge.sendVideoDuration(videoDuration);
+      }
+
+      // This method checks if the player is playing a playlist.
+      // If yes, it sends out the video id of the video being played.
+      function sendVideoIdFromPlaylistIfAvailable(player) {
+        var playlist = player.getPlaylist();
+        if ( typeof playlist !== 'undefined' && Array.isArray(playlist) && playlist.length > 0 ) {
+          var index = player.getPlaylistIndex();
+          var videoId = playlist[index];
+          YouTubePlayerBridge.sendVideoId(videoId);
+        }
+      }
+
+      function sendStateChange(newState) {
+        YouTubePlayerBridge.sendStateChange(newState)
+      }
+
+      function startSendCurrentTimeInterval() {
+        timerId = setInterval(function() {
+          YouTubePlayerBridge.sendVideoCurrentTime( player.getCurrentTime() )
+          YouTubePlayerBridge.sendVideoLoadedFraction( player.getVideoLoadedFraction() )
+        }, 100 );
+      }
+    }
+
+    // JAVA to WEB functions
+
+    function seekTo(startSeconds) {
+      player.seekTo(startSeconds, true);
+    }
+
+    function pauseVideo() {
+      player.pauseVideo();
+    }
+
+    function playVideo() {
+      player.playVideo();
+    }
+
+    function loadVideo(videoId, startSeconds) {
+      player.loadVideoById(videoId, startSeconds);
+      YouTubePlayerBridge.sendVideoId(videoId);
+    }
+
+    function cueVideo(videoId, startSeconds) {
+      player.cueVideoById(videoId, startSeconds);
+      YouTubePlayerBridge.sendVideoId(videoId);
+    }
+
+    function mute() {
+      player.mute();
+    }
+
+    function unMute() {
+      player.unMute();
+    }
+
+    function setVolume(volumePercent) {
+      player.setVolume(volumePercent);
+    }
+
+    function setPlaybackRate(playbackRate) {
+      player.setPlaybackRate(playbackRate);
+    }
+
+    function toggleFullscreen() {
+      player.toggleFullscreen();
+    }
+
+  </script>
+</html>

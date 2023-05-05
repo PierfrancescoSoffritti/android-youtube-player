@@ -11884,6 +11884,12 @@
         <attr format="reference" name="ifTagSet"/>
         <attr format="reference" name="ifTagNotSet"/>
     </declare-styleable>
+    <declare-styleable name="YouTubePlayerView">
+        <attr format="boolean" name="enableAutomaticInitialization"/>
+        <attr format="string" name="videoId"/>
+        <attr format="boolean" name="autoPlay"/>
+        <attr format="boolean" name="handleNetworkEvents"/>
+    </declare-styleable>
     <declare-styleable name="include">
         <attr name="constraintSet"/>
     </declare-styleable>

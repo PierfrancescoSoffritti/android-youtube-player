@@ -121,6 +121,7 @@ attr arrowShaftLength
 attr attributeName
 attr autoCompleteMode
 attr autoCompleteTextViewStyle
+attr autoPlay
 attr autoSizeMaxTextSize
 attr autoSizeMinTextSize
 attr autoSizePresetSizes
@@ -425,6 +426,7 @@ attr elevationOverlayAccentColor
 attr elevationOverlayColor
 attr elevationOverlayEnabled
 attr emojiCompatEnabled
+attr enableAutomaticInitialization
 attr enableEdgeToEdge
 attr endIconCheckable
 attr endIconContentDescription
@@ -523,6 +525,7 @@ attr goIcon
 attr guidelineUseRtl
 attr haloColor
 attr haloRadius
+attr handleNetworkEvents
 attr headerLayout
 attr height
 attr helperText
@@ -1133,6 +1136,7 @@ attr useMaterialThemeColors
 attr values
 attr verticalOffset
 attr verticalOffsetWithText
+attr videoId
 attr viewInflaterClass
 attr viewTransitionMode
 attr viewTransitionOnCross
@@ -3150,6 +3154,7 @@ layout text_view_without_line_height
 mipmap ic_launcher
 mipmap ic_launcher_round
 plurals mtrl_badge_content_description
+raw ayp_youtube_player
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description
@@ -4450,6 +4455,7 @@ styleable ViewBackgroundHelper android_background backgroundTint backgroundTintM
 styleable ViewPager2 android_orientation
 styleable ViewStubCompat android_id android_layout android_inflatedId
 styleable ViewTransition android_id SharedValue SharedValueId clearsTag duration ifTagNotSet ifTagSet motionInterpolator motionTarget onStateTransition pathMotionArc setsTag transitionDisable upDuration viewTransitionMode
+styleable YouTubePlayerView autoPlay enableAutomaticInitialization handleNetworkEvents videoId
 styleable include constraintSet
 xml backup_rules
 xml data_extraction_rules
