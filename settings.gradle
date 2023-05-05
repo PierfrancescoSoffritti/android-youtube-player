@@ -1,1 +1,18 @@
-include ':core', ':core-sample-app', ':chromecast-sender', ':chromecast-sender-sample-app', ':custom-ui'
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "MKbYPlayer"
+include ':app'
+include ':mkb-core'
+include ':mkb-custom-ui'

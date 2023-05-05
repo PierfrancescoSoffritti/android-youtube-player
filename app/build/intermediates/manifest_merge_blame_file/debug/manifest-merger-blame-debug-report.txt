@@ -1,0 +1,95 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.mkb.youtube.player"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+8-->/Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="33" />
+9-->/Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->[:mkb-core] /Users/harvi/Documents/Workspace/mkb-player/mkb-core/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:5-67
+11-->[:mkb-core] /Users/harvi/Documents/Workspace/mkb-player/mkb-core/build/intermediates/merged_manifest/debug/AndroidManifest.xml:7:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->[:mkb-core] /Users/harvi/Documents/Workspace/mkb-player/mkb-core/build/intermediates/merged_manifest/debug/AndroidManifest.xml:8:5-79
+12-->[:mkb-core] /Users/harvi/Documents/Workspace/mkb-player/mkb-core/build/intermediates/merged_manifest/debug/AndroidManifest.xml:8:22-76
+13
+14    <permission
+14-->[androidx.core:core:1.9.0] /Users/harvi/.gradle/caches/transforms-3/75c8cf600b2e177ef064e4e129343f63/transformed/core-1.9.0/AndroidManifest.xml:22:5-24:47
+15        android:name="com.mkb.youtube.player.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+15-->[androidx.core:core:1.9.0] /Users/harvi/.gradle/caches/transforms-3/75c8cf600b2e177ef064e4e129343f63/transformed/core-1.9.0/AndroidManifest.xml:23:9-81
+16        android:protectionLevel="signature" />
+16-->[androidx.core:core:1.9.0] /Users/harvi/.gradle/caches/transforms-3/75c8cf600b2e177ef064e4e129343f63/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
+17
+18    <uses-permission android:name="com.mkb.youtube.player.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+18-->[androidx.core:core:1.9.0] /Users/harvi/.gradle/caches/transforms-3/75c8cf600b2e177ef064e4e129343f63/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
+18-->[androidx.core:core:1.9.0] /Users/harvi/.gradle/caches/transforms-3/75c8cf600b2e177ef064e4e129343f63/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
+19
+20    <application
+20-->/Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:5:5-24:19
+21        android:allowBackup="true"
+21-->/Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:6:9-35
+22        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+22-->[androidx.core:core:1.9.0] /Users/harvi/.gradle/caches/transforms-3/75c8cf600b2e177ef064e4e129343f63/transformed/core-1.9.0/AndroidManifest.xml:28:18-86
+23        android:dataExtractionRules="@xml/data_extraction_rules"
+23-->/Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:7:9-65
+24        android:debuggable="true"
+25        android:extractNativeLibs="false"
+26        android:fullBackupContent="@xml/backup_rules"
+26-->/Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:8:9-54
+27        android:icon="@mipmap/ic_launcher"
+27-->/Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:9:9-43
+28        android:label="@string/app_name"
+28-->/Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:10:9-41
+29        android:roundIcon="@mipmap/ic_launcher_round"
+29-->/Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:11:9-54
+30        android:supportsRtl="true"
+30-->/Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:12:9-35
+31        android:testOnly="true"
+32        android:theme="@style/Theme.MKbYPlayer" >
+32-->/Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:13:9-48
+33        <activity
+33-->/Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:15:9-23:20
+34            android:name="com.mkb.youtube.player.MainActivity"
+34-->/Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:16:13-41
+35            android:exported="true" >
+35-->/Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:17:13-36
+36            <intent-filter>
+36-->/Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:18:13-22:29
+37                <action android:name="android.intent.action.MAIN" />
+37-->/Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:19:17-69
+37-->/Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:19:25-66
+38
+39                <category android:name="android.intent.category.LAUNCHER" />
+39-->/Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:21:17-77
+39-->/Users/harvi/Documents/Workspace/mkb-player/app/src/main/AndroidManifest.xml:21:27-74
+40            </intent-filter>
+41        </activity>
+42
+43        <provider
+43-->[androidx.emoji2:emoji2:1.2.0] /Users/harvi/.gradle/caches/transforms-3/89cb131723109d8bad43e45dce389912/transformed/emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+44            android:name="androidx.startup.InitializationProvider"
+44-->[androidx.emoji2:emoji2:1.2.0] /Users/harvi/.gradle/caches/transforms-3/89cb131723109d8bad43e45dce389912/transformed/emoji2-1.2.0/AndroidManifest.xml:25:13-67
+45            android:authorities="com.mkb.youtube.player.androidx-startup"
+45-->[androidx.emoji2:emoji2:1.2.0] /Users/harvi/.gradle/caches/transforms-3/89cb131723109d8bad43e45dce389912/transformed/emoji2-1.2.0/AndroidManifest.xml:26:13-68
+46            android:exported="false" >
+46-->[androidx.emoji2:emoji2:1.2.0] /Users/harvi/.gradle/caches/transforms-3/89cb131723109d8bad43e45dce389912/transformed/emoji2-1.2.0/AndroidManifest.xml:27:13-37
+47            <meta-data
+47-->[androidx.emoji2:emoji2:1.2.0] /Users/harvi/.gradle/caches/transforms-3/89cb131723109d8bad43e45dce389912/transformed/emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+48                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+48-->[androidx.emoji2:emoji2:1.2.0] /Users/harvi/.gradle/caches/transforms-3/89cb131723109d8bad43e45dce389912/transformed/emoji2-1.2.0/AndroidManifest.xml:30:17-75
+49                android:value="androidx.startup" />
+49-->[androidx.emoji2:emoji2:1.2.0] /Users/harvi/.gradle/caches/transforms-3/89cb131723109d8bad43e45dce389912/transformed/emoji2-1.2.0/AndroidManifest.xml:31:17-49
+50            <meta-data
+50-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/harvi/.gradle/caches/transforms-3/1db6143922dcca88e93e4d5b312fa5c3/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:31:13-33:52
+51                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+51-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/harvi/.gradle/caches/transforms-3/1db6143922dcca88e93e4d5b312fa5c3/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:32:17-78
+52                android:value="androidx.startup" />
+52-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/harvi/.gradle/caches/transforms-3/1db6143922dcca88e93e4d5b312fa5c3/transformed/lifecycle-process-2.4.1/AndroidManifest.xml:33:17-49
+53        </provider>
+54    </application>
+55
+56</manifest>
