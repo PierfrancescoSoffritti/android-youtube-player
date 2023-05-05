@@ -1,1 +1,1 @@
-include ':core', ':custom-ui'
+include ':core', ':core-sample-app', ':chromecast-sender', ':chromecast-sender-sample-app', ':custom-ui'
