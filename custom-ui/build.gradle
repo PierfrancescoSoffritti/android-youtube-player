@@ -21,7 +21,7 @@ android {
 }
 
 dependencies {
-  api project(':core')
+  implementation project(':core')
   implementation "androidx.core:core-ktx:$versions.androidxCore"
   implementation "androidx.recyclerview:recyclerview:$versions.androidxRecyclerView"
 }
