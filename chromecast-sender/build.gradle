@@ -27,12 +27,3 @@ dependencies {
   api project(':core')
   api "com.google.android.gms:play-services-cast-framework:$versions.googlePlayServicesCastFramework"
 }
-
-ext {
-  PUBLISH_GROUP_ID = 'com.pierfrancescosoffritti.androidyoutubeplayer'
-  PUBLISH_VERSION = versions.publishVersion_chromecast
-  PUBLISH_ARTIFACT_ID = 'chromecast-sender'
-  PUBLISH_DESCRIPTION = 'Extension for the android-youtube-player:core library, that enables Chromecast compatibility.'
-}
-
-apply from: "../scripts/publish-module.gradle"
