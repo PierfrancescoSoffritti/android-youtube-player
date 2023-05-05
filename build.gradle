@@ -10,14 +10,8 @@ buildscript {
   dependencies {
     classpath "com.android.tools.build:gradle:$versions.gradlePlugin"
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
-
-    classpath "io.github.gradle-nexus:publish-plugin:$versions.gradleNexus"
-    classpath "org.jetbrains.dokka:dokka-gradle-plugin:$versions.dokka"
   }
 }
-
-apply plugin: 'io.github.gradle-nexus.publish-plugin'
-apply from: "./scripts/publish-root.gradle"
 
 allprojects {
   repositories {

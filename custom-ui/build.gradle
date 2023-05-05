@@ -25,12 +25,3 @@ dependencies {
   implementation "androidx.core:core-ktx:$versions.androidxCore"
   implementation "androidx.recyclerview:recyclerview:$versions.androidxRecyclerView"
 }
-
-ext {
-  PUBLISH_GROUP_ID = 'com.pierfrancescosoffritti.androidyoutubeplayer'
-  PUBLISH_VERSION = versions.publishVersion_core
-  PUBLISH_ARTIFACT_ID = 'custom-ui'
-  PUBLISH_DESCRIPTION = 'Custom UI to use with android-youtube-player core module.'
-}
-
-apply from: "../scripts/publish-module.gradle"
