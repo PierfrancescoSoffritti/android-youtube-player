@@ -24,21 +24,11 @@ android {
     sourceCompatibility JavaVersion.VERSION_11
     targetCompatibility JavaVersion.VERSION_11
   }
-  packagingOptions {
-    resources {
-      // this is needed because I'm importing 2 modules called "core" (core and com.psoffritti.librarysampleapptemplate:core) (https://discuss.kotlinlang.org/t/disable-meta-inf-generation-in-gradle-android-project/3830)
-      excludes += ['META-INF/core_release.kotlin_module']
-    }
-  }
 
   namespace 'com.pierfrancescosoffritti.aytplayersample'
 }
 
 dependencies {
-  testImplementation "junit:junit:$versions.junit"
-  androidTestImplementation "androidx.test:runner:$versions.runner"
-  androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
-
   implementation project(':core')
   implementation project(':custom-ui')
   implementation project(':chromecast-sender')

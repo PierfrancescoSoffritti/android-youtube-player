@@ -10,13 +10,6 @@ android {
     targetSdkVersion versions.compileSdk
   }
 
-  sourceSets {
-    main.res.srcDirs = [
-            'src/main/res',
-            'src/main/res-public'
-    ]
-  }
-
   namespace 'com.pierfrancescosoffritti.androidyoutubeplayer.core.customui'
 }
 

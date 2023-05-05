@@ -4,4 +4,14 @@
     <attr name="fontSize" format="dimension" />
     <attr name="color" format="color" />
   </declare-styleable>
+
+
+  <public name="YouTubePlayerSeekBar_fontSize" type="attr" />
+  <public name="YouTubePlayerSeekBar_color" type="attr" />
+
+  <public name="YouTubePlayerView_enableAutomaticInitialization" type="attr" />
+  <public name="YouTubePlayerView_videoId" type="attr" />
+  <public name="YouTubePlayerView_autoPlay" type="attr" />
+  <public name="YouTubePlayerView_handleNetworkEvents" type="attr" />
+
 </resources>
