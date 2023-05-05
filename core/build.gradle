@@ -9,19 +9,9 @@ android {
     minSdkVersion versions.minSdk
     targetSdkVersion versions.compileSdk
   }
-
-  sourceSets {
-    main.res.srcDirs = [
-            'src/main/res',
-    ]
-  }
   namespace 'com.pierfrancescosoffritti.androidyoutubeplayer'
 }
 
 dependencies {
-  testImplementation "junit:junit:$versions.junit"
-  androidTestImplementation "androidx.test:runner:$versions.runner"
-  androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
-
   implementation "androidx.lifecycle:lifecycle-runtime-ktx:$versions.androidxLifecycleRuntime"
 }
