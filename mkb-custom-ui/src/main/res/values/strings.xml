@@ -1,0 +1,9 @@
+<resources>
+    <string name="ayp_play_button">Play button</string>
+    <string name="ayp_null_time">0:00</string>
+    <string name="ayp_open_video_in_youtube">Open video in YouTube</string>
+    <string name="ayp_full_screen_button">Full screen button</string>
+    <string name="ayp_live">LIVE</string>
+    <string name="ayp_custom_action_left">YouTube player Custom action left</string>
+    <string name="ayp_custom_action_right">YouTube player custom action right</string>
+</resources>

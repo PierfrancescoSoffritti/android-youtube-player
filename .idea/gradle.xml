@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/mkb-core" />
+            <option value="$PROJECT_DIR$/mkb-custom-ui" />
           </set>
         </option>
       </GradleProjectSettings>

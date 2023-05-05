@@ -2976,7 +2976,8 @@ int id wrap_content 0x7f0801d4
 int id wrap_content_constrained 0x7f0801d5
 int id x_left 0x7f0801d6
 int id x_right 0x7f0801d7
-int id zero_corner_chip 0x7f0801d8
+int id youtube_player_view 0x7f0801d8
+int id zero_corner_chip 0x7f0801d9
 int integer abc_config_activityDefaultDur 0x7f090000
 int integer abc_config_activityShortDur 0x7f090001
 int integer app_bar_elevation_anim_duration 0x7f090002

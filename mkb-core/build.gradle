@@ -8,14 +8,11 @@ apply from: '../dependencies.gradle'
 
 android {
     namespace 'com.mkb.youtube.core.player'
-    compileSdk 33
+    compileSdkVersion versions.compileSdk
 
     defaultConfig {
-        minSdk 26
-        targetSdk 33
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.compileSdk
     }
 
     buildTypes {

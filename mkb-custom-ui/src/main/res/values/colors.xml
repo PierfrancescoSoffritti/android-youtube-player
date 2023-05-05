@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ayp_red">#F44336</color>
+    <color name="ayp_item_selected">#90FFFFFF</color>
+    <color name="ayp_drop_shadow">#66000000</color>
+
+    <color name="ayp_menu_icons">#757575</color>
+    <color name="ayp_menu_text">#222222</color>
+</resources>
