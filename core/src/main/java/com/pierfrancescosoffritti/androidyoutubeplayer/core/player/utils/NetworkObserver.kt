@@ -36,7 +36,8 @@ internal class NetworkObserver(private val context: Context) {
 
   /** Stop observing network changes and cleanup */
   fun destroy() {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+    // Min API for `unregisterNetworkCallback` is L, but we use `registerDefaultNetworkCallback` only for N and above.
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
       val callback = networkCallback ?: return
       val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
       connectivityManager.unregisterNetworkCallback(callback)
