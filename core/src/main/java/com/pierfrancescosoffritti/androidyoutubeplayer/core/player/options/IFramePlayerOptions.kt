@@ -174,6 +174,16 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
       return this
     }
 
+    /**
+     * Controls if the YouTube logo will be displayed in the control bar or not.
+     * @param modestBranding If set to 1: the YouTube logo will not be displayed in the control bar.
+     * If set to 0: the YouTube logo will be displayed in the control bar.
+     */
+    fun modestBranding(modestBranding: Int): Builder {
+      addInt(MODEST_BRANDING, modestBranding)
+      return this
+    }
+
     private fun addString(key: String, value: String) {
       try {
         builderOptions.put(key, value)
