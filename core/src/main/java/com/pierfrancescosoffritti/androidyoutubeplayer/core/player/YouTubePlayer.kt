@@ -20,6 +20,23 @@ interface YouTubePlayer {
    */
   fun cueVideo(videoId: String, startSeconds: Float)
 
+  fun loadPlaylist(videos: List<String>, index: Int, startSeconds: Float)
+  /**
+   * @param index Start index. if the index is out of range, youtube will only play the first video on the playlist, then stop.
+   */
+  fun loadPlaylist(list: String, listType: String, index: Int, startSeconds: Float)
+
+  fun cuePlaylist(videos: List<String>, index: Int, startSeconds: Float)
+  /**
+   * @param index Start index. if the index is out of range, youtube will only play the first video on the playlist, then stop.
+   */
+  fun cuePlaylist(list: String, listType: String, index: Int, startSeconds: Float)
+  fun setLoop(loop: Boolean)
+  fun setShuffle(shuffle: Boolean)
+  fun nextVideo()
+  fun previousVideo()
+  fun playVideoAt(index: Int)
+
   fun play()
   fun pause()
 

@@ -17,16 +17,42 @@ internal class PlaybackResumer : AbstractYouTubePlayerListener() {
   private var currentVideoId: String? = null
   private var currentSecond: Float = 0f
 
-  fun resume(youTubePlayer: YouTubePlayer) {
-    val videoId = currentVideoId ?: return
-    if (isPlaying && error == PlayerConstants.PlayerError.HTML_5_PLAYER) {
-      youTubePlayer.loadOrCueVideo(canLoad, videoId, currentSecond)
-    }
-    else if (!isPlaying && error == PlayerConstants.PlayerError.HTML_5_PLAYER) {
-      youTubePlayer.cueVideo(videoId, currentSecond)
-    }
+  private var currentPlaylistId: String? = null
+  private var currentPlaylistType: String? = null
+  private var currentPlaylistIndex: Int? = null
+  private var currentVideoList: List<String>? = null
 
-    error = null
+  fun resume(youTubePlayer: YouTubePlayer) {
+    val videoId = currentVideoId
+    val playlistId = currentPlaylistId
+    val playlistType = currentPlaylistType
+    val playlistIndex = currentPlaylistIndex
+    val videoList = currentVideoList
+    if (videoId != null) {
+      if (isPlaying && error == PlayerConstants.PlayerError.HTML_5_PLAYER) {
+        youTubePlayer.loadOrCueVideo(canLoad, videoId, currentSecond)
+      } else if (!isPlaying && error == PlayerConstants.PlayerError.HTML_5_PLAYER) {
+        youTubePlayer.cueVideo(videoId, currentSecond)
+      }
+
+      error = null
+    } else if (playlistId != null && playlistType != null && playlistIndex != null) {
+      if (isPlaying && error == PlayerConstants.PlayerError.HTML_5_PLAYER) {
+        youTubePlayer.loadPlaylist(playlistId, playlistType, playlistIndex, currentSecond)
+      } else if (!isPlaying && error == PlayerConstants.PlayerError.HTML_5_PLAYER) {
+        youTubePlayer.cuePlaylist(playlistId, playlistType, playlistIndex, currentSecond)
+      }
+
+      error = null
+    } else if (videoList != null && playlistIndex != null) {
+      if (isPlaying && error == PlayerConstants.PlayerError.HTML_5_PLAYER) {
+        youTubePlayer.loadPlaylist(videoList, playlistIndex, currentSecond)
+      } else if (!isPlaying && error == PlayerConstants.PlayerError.HTML_5_PLAYER) {
+        youTubePlayer.cuePlaylist(videoList, playlistIndex, currentSecond)
+      }
+
+      error = null
+    }
   }
 
   override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
@@ -49,6 +75,22 @@ internal class PlaybackResumer : AbstractYouTubePlayerListener() {
 
   override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) {
     currentVideoId = videoId
+  }
+
+  override fun onPlaylistId(youTubePlayer: YouTubePlayer, playlistId: String) {
+    currentPlaylistId = playlistId
+  }
+
+  override fun onPlaylistIndex(youTubePlayer: YouTubePlayer, index: Int) {
+    currentPlaylistIndex = index
+  }
+
+  override fun onVideoList(instance: YouTubePlayer, list: List<String>) {
+    currentVideoList = list
+  }
+
+  override fun onPlaylistType(instance: YouTubePlayer, playlistType: String) {
+    currentPlaylistType = playlistType
   }
 
   fun onLifecycleResume() {

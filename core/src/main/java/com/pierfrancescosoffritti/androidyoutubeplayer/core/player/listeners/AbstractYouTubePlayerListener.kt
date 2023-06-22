@@ -17,4 +17,11 @@ abstract class AbstractYouTubePlayerListener : YouTubePlayerListener {
   override fun onVideoDuration(youTubePlayer: YouTubePlayer, duration: Float) {}
   override fun onVideoLoadedFraction(youTubePlayer: YouTubePlayer, loadedFraction: Float) {}
   override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) {}
+  override fun onPlaylistId(youTubePlayer: YouTubePlayer, playlistId: String) {}
+  override fun onPlaylistType(instance: YouTubePlayer, playlistType: String) {}
+  override fun onPlaylistIndex(youTubePlayer: YouTubePlayer, index: Int) {}
+  override fun onPlaylistLength(instance: YouTubePlayer, length: Int) {}
+  override fun onVideoList(instance: YouTubePlayer, list: List<String>) {}
+  override fun onLoopStatus(instance: YouTubePlayer, loop: Boolean) {}
+  override fun onShuffleStatus(instance: YouTubePlayer, loop: Boolean) {}
 }

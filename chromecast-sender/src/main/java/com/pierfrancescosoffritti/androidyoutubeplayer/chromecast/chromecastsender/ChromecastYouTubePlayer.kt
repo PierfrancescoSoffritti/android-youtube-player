@@ -54,6 +54,42 @@ class ChromecastYouTubePlayer internal constructor(private val chromecastCommuni
     chromecastCommunicationChannel.sendMessage(message)
   }
 
+  override fun loadPlaylist(videos: List<String>, index: Int, startSeconds: Float) {
+    TODO("Not yet implemented")
+  }
+
+  override fun loadPlaylist(list: String, listType: String, index: Int, startSeconds: Float) {
+    TODO("Not yet implemented")
+  }
+
+  override fun cuePlaylist(videos: List<String>, index: Int, startSeconds: Float) {
+    TODO("Not yet implemented")
+  }
+
+  override fun cuePlaylist(list: String, listType: String, index: Int, startSeconds: Float) {
+    TODO("Not yet implemented")
+  }
+
+  override fun setLoop(loop: Boolean) {
+    TODO("Not yet implemented")
+  }
+
+  override fun setShuffle(shuffle: Boolean) {
+    TODO("Not yet implemented")
+  }
+
+  override fun nextVideo() {
+    TODO("Not yet implemented")
+  }
+
+  override fun previousVideo() {
+    TODO("Not yet implemented")
+  }
+
+  override fun playVideoAt(index: Int) {
+    TODO("Not yet implemented")
+  }
+
   override fun play() {
     val message = JSONUtils.buildFlatJson(
       "command" to ChromecastCommunicationConstants.PLAY

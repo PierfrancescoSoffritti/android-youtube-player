@@ -22,6 +22,11 @@ internal class ChromecastYouTubeMessageDispatcher(
       ChromecastCommunicationConstants.VIDEO_CURRENT_TIME -> bridge.sendVideoCurrentTime(messageFromReceiver.data)
       ChromecastCommunicationConstants.VIDEO_DURATION -> bridge.sendVideoDuration(messageFromReceiver.data)
       ChromecastCommunicationConstants.VIDEO_ID -> bridge.sendVideoId(messageFromReceiver.data)
+      ChromecastCommunicationConstants.PLAYLIST_ID -> bridge.sendPlaylistId(messageFromReceiver.data)
+      ChromecastCommunicationConstants.PLAYLIST_TYPE -> bridge.sendPlaylistType(messageFromReceiver.data)
+      ChromecastCommunicationConstants.PLAYLIST_LENGTH -> bridge.sendPlaylistLength(messageFromReceiver.data)
+      ChromecastCommunicationConstants.VIDEO_LIST -> bridge.sendVideoList(messageFromReceiver.data)
+      ChromecastCommunicationConstants.PLAYLIST_INDEX -> bridge.sendPlaylistIndex(messageFromReceiver.data)
     }
   }
 }

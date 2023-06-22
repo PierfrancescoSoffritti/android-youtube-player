@@ -63,4 +63,11 @@ interface YouTubePlayerListener {
   fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String)
 
   fun onApiChange(youTubePlayer: YouTubePlayer)
+  fun onPlaylistIndex(youTubePlayer: YouTubePlayer, index: Int)
+  fun onPlaylistId(youTubePlayer: YouTubePlayer, playlistId: String)
+  fun onVideoList(instance: YouTubePlayer, list: List<String>)
+  fun onPlaylistType(instance: YouTubePlayer, playlistType: String)
+  fun onPlaylistLength(instance: YouTubePlayer, length: Int)
+  fun onLoopStatus(instance: YouTubePlayer, loop: Boolean)
+  fun onShuffleStatus(instance: YouTubePlayer, loop: Boolean)
 }

@@ -6,7 +6,9 @@ import android.graphics.Bitmap
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
+import android.webkit.ConsoleMessage
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
@@ -19,6 +21,8 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Ful
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.toFloat
+import org.json.JSONArray
+import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
@@ -31,6 +35,34 @@ private class YouTubePlayerImpl(private val webView: WebView) : YouTubePlayer {
 
   override fun loadVideo(videoId: String, startSeconds: Float) = webView.invoke("loadVideo", videoId, startSeconds)
   override fun cueVideo(videoId: String, startSeconds: Float) = webView.invoke("cueVideo", videoId, startSeconds)
+  override fun loadPlaylist(videos: List<String>, index: Int, startSeconds: Float) = webView.invoke("loadPlaylist", JSONArray(videos), index, startSeconds)
+  override fun loadPlaylist(list: String, listType: String, index: Int, startSeconds: Float) = webView.invokeWithObject("loadPlaylistObj",
+    JSONObject(mapOf(
+      "list" to list,
+      "listType" to listType,
+      "index" to index,
+      "startSeconds" to startSeconds
+    )))
+
+  override fun cuePlaylist(videos: List<String>, index: Int, startSeconds: Float) = webView.invoke("cuePlaylist", JSONArray(videos), index, startSeconds)
+  override fun cuePlaylist(list: String, listType: String, index: Int, startSeconds: Float) = webView.invokeWithObject("cuePlaylistObj",
+    JSONObject(mapOf(
+      "list" to list,
+      "listType" to listType,
+      "index" to index,
+      "startSeconds" to startSeconds
+    )))
+
+  override fun setLoop(loop: Boolean) = webView.invoke("setLoop", loop)
+
+  override fun setShuffle(shuffle: Boolean) = webView.invoke("setShuffle", shuffle)
+
+  override fun nextVideo() = webView.invoke("nextVideo")
+
+  override fun previousVideo() = webView.invoke("previousVideo")
+
+  override fun playVideoAt(index: Int) = webView.invoke("playVideoAt", index)
+
   override fun play() = webView.invoke("playVideo")
   override fun pause() = webView.invoke("pauseVideo")
   override fun mute() = webView.invoke("mute")
@@ -60,6 +92,10 @@ private class YouTubePlayerImpl(private val webView: WebView) : YouTubePlayer {
       }
     }
     mainThread.post { loadUrl("javascript:$function(${stringArgs.joinToString(",")})") }
+  }
+
+  private fun WebView.invokeWithObject(function: String, obj: JSONObject) {
+    mainThread.post { loadUrl("javascript:$function(${obj})") }
   }
 }
 
@@ -136,6 +172,11 @@ internal class WebViewYouTubePlayer constructor(
         val result = super.getDefaultVideoPoster()
         // if the video's thumbnail is not in memory, show a black screen
         return result ?: Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565)
+      }
+
+      override fun onConsoleMessage(message: ConsoleMessage): Boolean {
+        Log.d("AndroidYoutubePlayer", "${message.message()} -- From line ${message.lineNumber()} of ${message.sourceId()}")
+        return true
       }
     }
   }

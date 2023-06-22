@@ -149,6 +149,62 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
     youTubePlayerOwner.listeners.forEach { it.onVideoId(youTubePlayerOwner.getInstance(), videoId) }
   }
 
+  @JavascriptInterface
+  fun sendPlaylistId(playlistId: String) = mainThreadHandler.post {
+    youTubePlayerOwner.listeners.forEach { it.onPlaylistId(youTubePlayerOwner.getInstance(), playlistId) }
+  }
+  @JavascriptInterface
+  fun sendPlaylistType(playlistType: String) = mainThreadHandler.post {
+    youTubePlayerOwner.listeners.forEach { it.onPlaylistType(youTubePlayerOwner.getInstance(), playlistType) }
+  }
+
+  @JavascriptInterface
+  fun sendPlaylistLength(data: String) {
+    val length = try {
+      data.toInt()
+    } catch (e: NumberFormatException) {
+      e.printStackTrace()
+      return
+    }
+    mainThreadHandler.post {
+      youTubePlayerOwner.listeners.forEach { it.onPlaylistLength(youTubePlayerOwner.getInstance(), length) }
+    }
+  }
+
+  @JavascriptInterface
+  fun sendPlaylistIndex(playlistIndex: String) {
+    val index = try {
+      playlistIndex.toInt()
+    } catch (e: NumberFormatException) {
+      e.printStackTrace()
+      return
+    }
+    mainThreadHandler.post {
+      youTubePlayerOwner.listeners.forEach { it.onPlaylistIndex(youTubePlayerOwner.getInstance(), index) }
+    }
+  }
+  @JavascriptInterface
+  fun sendVideoList(data: String) {
+    val list = data.split(",")
+    mainThreadHandler.post {
+      youTubePlayerOwner.listeners.forEach { it.onVideoList(youTubePlayerOwner.getInstance(), list) }
+    }
+  }
+  @JavascriptInterface
+  fun sendLoopStatus(data: String) {
+    val loop = (data == "true")
+    mainThreadHandler.post {
+      youTubePlayerOwner.listeners.forEach { it.onLoopStatus(youTubePlayerOwner.getInstance(), loop) }
+    }
+  }
+  @JavascriptInterface
+  fun sendShuffleStatus(data: String) {
+    val shuffle = (data == "true")
+    mainThreadHandler.post {
+      youTubePlayerOwner.listeners.forEach { it.onShuffleStatus(youTubePlayerOwner.getInstance(), shuffle) }
+    }
+  }
+
   private fun parsePlayerState(state: String): PlayerConstants.PlayerState {
     return when {
       state.equals(STATE_UNSTARTED, ignoreCase = true) -> PlayerConstants.PlayerState.UNSTARTED

@@ -20,6 +20,14 @@ class YouTubePlayerTracker : AbstractYouTubePlayerListener() {
     private set
   var videoId: String? = null
     private set
+  var playlistId: String? = null
+    private set
+  var playlistType: String? = null
+    private set
+  var playlistIndex: Int? = null
+    private set
+  var videoList: List<String>? = null
+    private set
 
   override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
     this.state = state
@@ -35,5 +43,21 @@ class YouTubePlayerTracker : AbstractYouTubePlayerListener() {
 
   override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) {
     this.videoId = videoId
+  }
+
+  override fun onPlaylistId(youTubePlayer: YouTubePlayer, playlistId: String) {
+    this.playlistId = playlistId
+  }
+
+  override fun onPlaylistIndex(youTubePlayer: YouTubePlayer, index: Int) {
+    playlistIndex = index
+  }
+
+  override fun onPlaylistType(instance: YouTubePlayer, playlistType: String) {
+    this.playlistType = playlistType
+  }
+
+  override fun onVideoList(instance: YouTubePlayer, list: List<String>) {
+    videoList = list
   }
 }
