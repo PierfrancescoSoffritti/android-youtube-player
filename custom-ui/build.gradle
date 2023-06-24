@@ -18,12 +18,28 @@ android {
   }
 
   namespace 'com.pierfrancescosoffritti.androidyoutubeplayer.core.customui'
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+  }
+}
+
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(17))
+  }
+}
+
+kotlin {
+  jvmToolchain(17)
 }
 
 dependencies {
   api project(':core')
   implementation "androidx.core:core-ktx:$versions.androidxCore"
   implementation "androidx.recyclerview:recyclerview:$versions.androidxRecyclerView"
+  implementation 'androidx.core:core-ktx:+'
 }
 
 ext {
@@ -34,3 +50,4 @@ ext {
 }
 
 apply from: "../scripts/publish-module.gradle"
+apply plugin: 'org.jetbrains.kotlin.android'

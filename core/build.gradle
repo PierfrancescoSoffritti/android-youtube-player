@@ -15,10 +15,29 @@ android {
             'src/main/res',
     ]
   }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+  }
+  kotlinOptions {
+    jvmTarget = '17'
+  }
   namespace 'com.pierfrancescosoffritti.androidyoutubeplayer'
 }
 
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(17))
+  }
+}
+
+kotlin {
+  jvmToolchain(17)
+}
+
+
 dependencies {
+  implementation 'androidx.core:core-ktx:+'
   testImplementation "junit:junit:$versions.junit"
   androidTestImplementation "androidx.test:runner:$versions.runner"
   androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
@@ -34,3 +53,4 @@ ext {
 }
 
 apply from: "../scripts/publish-module.gradle"
+apply plugin: 'org.jetbrains.kotlin.android'

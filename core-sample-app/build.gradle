@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply from: '../dependencies.gradle'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: 'kotlin-android'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
   compileSdkVersion versions.compileSdk
@@ -20,10 +21,6 @@ android {
     }
   }
 
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
   packagingOptions {
     resources {
       // this is needed because I'm importing 2 modules called "core" (core and com.psoffritti.librarysampleapptemplate:core) (https://discuss.kotlinlang.org/t/disable-meta-inf-generation-in-gradle-android-project/3830)
@@ -32,9 +29,24 @@ android {
   }
 
   namespace 'com.pierfrancescosoffritti.aytplayersample'
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+  }
+}
+
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(17))
+  }
+}
+
+kotlin {
+  jvmToolchain(17)
 }
 
 dependencies {
+  implementation 'androidx.core:core-ktx:+'
   testImplementation "junit:junit:$versions.junit"
   androidTestImplementation "androidx.test:runner:$versions.runner"
   androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"

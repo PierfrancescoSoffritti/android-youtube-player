@@ -17,9 +17,14 @@ android {
     ]
   }
   namespace 'com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.chromecastsender'
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+  }
 }
 
 dependencies {
+  implementation 'androidx.core:core-ktx:+'
   testImplementation "junit:junit:$versions.junit"
   androidTestImplementation "androidx.test:runner:$versions.runner"
   androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
@@ -36,3 +41,4 @@ ext {
 }
 
 apply from: "../scripts/publish-module.gradle"
+apply plugin: 'org.jetbrains.kotlin.android'
