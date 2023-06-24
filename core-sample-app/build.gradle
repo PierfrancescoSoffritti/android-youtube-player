@@ -20,10 +20,6 @@ android {
     }
   }
 
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
   packagingOptions {
     resources {
       // this is needed because I'm importing 2 modules called "core" (core and com.psoffritti.librarysampleapptemplate:core) (https://discuss.kotlinlang.org/t/disable-meta-inf-generation-in-gradle-android-project/3830)
@@ -32,6 +28,14 @@ android {
   }
 
   namespace 'com.pierfrancescosoffritti.aytplayersample'
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  kotlinOptions {
+    jvmTarget = '1.8'
+  }
 }
 
 dependencies {
