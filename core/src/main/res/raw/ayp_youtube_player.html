@@ -107,6 +107,9 @@
           var index = player.getPlaylistIndex();
           var videoId = playlist[index];
           YouTubePlayerBridge.sendVideoId(videoId);
+          YouTubePlayerBridge.sendVideoList(playlist);
+          YouTubePlayerBridge.sendPlaylistIndex(index);
+          YouTubePlayerBridge.sendPlaylistLength(playlist.length);
         }
       }
 
@@ -164,6 +167,56 @@
 
     function toggleFullscreen() {
       player.toggleFullscreen();
+    }
+
+    function cuePlaylist(videos, index, startSeconds) {
+      player.cuePlaylist(videos, index, startSeconds);
+      YouTubePlayerBridge.sendVideoId(videos[index]);
+      YouTubePlayerBridge.sendVideoList(videos);
+      YouTubePlayerBridge.sendPlaylistIndex(index);
+    }
+
+    function cuePlaylistObj(obj) {
+      player.cuePlaylist(obj);
+      YouTubePlayerBridge.sendPlaylistId(obj.list);
+      YouTubePlayerBridge.sendPlaylistType(obj.listType);
+      YouTubePlayerBridge.sendPlaylistIndex(obj.index);
+    }
+
+    function loadPlaylist(videos, index, startSeconds) {
+      player.loadPlaylist(videos, index, startSeconds);
+      YouTubePlayerBridge.sendVideoId(videos[index]);
+      YouTubePlayerBridge.sendVideoList(videos);
+      YouTubePlayerBridge.sendPlaylistIndex(index);
+    }
+
+    function loadPlaylistObj(obj) {
+      player.loadPlaylist(obj);
+      YouTubePlayerBridge.sendPlaylistId(obj.list);
+      YouTubePlayerBridge.sendPlaylistType(obj.listType);
+      YouTubePlayerBridge.sendPlaylistIndex(obj.index);
+    }
+
+    function setLoop(loop) {
+      player.setLoop(loop);
+      YouTubePlayerBridge.sendLoopStatus(loop);
+    }
+
+    function setShuffle(shuffle) {
+      player.setShuffle(shuffle);
+      YouTubePlayerBridge.sendShuffleStatus(shuffle);
+    }
+
+    function nextVideo() {
+      player.nextVideo();
+    }
+
+    function previousVideo() {
+      player.previousVideo();
+    }
+
+    function playVideoAt(index) {
+      player.playVideoAt(index);
     }
 
   </script>

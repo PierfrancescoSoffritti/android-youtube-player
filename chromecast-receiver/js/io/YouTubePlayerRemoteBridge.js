@@ -47,6 +47,28 @@ function YouTubePlayerRemoteBridge(communicationConstants, communicationChannel)
         communicationChannel.sendMessage(new YouTubeMessage(communicationConstants.VIDEO_ID, data))
     }
 
+    function sendPlaylistId(playlist) {
+        communicationChannel.sendMessage(new YouTubeMessage(communicationConstants.PLAYLIST_ID, playlist))
+    }
+    function sendPlaylistIndex(playlist) {
+        communicationChannel.sendMessage(new YouTubeMessage(communicationConstants.PLAYLIST_INDEX, index))
+    }
+    function sendPlaylistType(playlistType) {
+        communicationChannel.sendMessage(new YouTubeMessage(communicationConstants.PLAYLIST_TYPE, playlistType))
+    }
+    function sendPlaylistLength(length) {
+        communicationChannel.sendMessage(new YouTubeMessage(communicationConstants.PLAYLIST_LENGTH, length))
+    }
+    function sendVideoList(videos) {
+        communicationChannel.sendMessage(new YouTubeMessage(communicationConstants.VIDEO_LIST, videos))
+    }
+    function sendLoopStatus(loop) {
+        communicationChannel.sendMessage(new YouTubeMessage(communicationConstants.LOOP_STATUS, loop))
+    }
+    function sendShuffleStatus(shuffle) {
+        communicationChannel.sendMessage(new YouTubeMessage(communicationConstants.SHUFFLE_STATUS, shuffle))
+    }
+
     return {
         sendYouTubeIframeAPIReady: sendYouTubeIframeAPIReady,
         sendReady: sendReady,
@@ -58,6 +80,11 @@ function YouTubePlayerRemoteBridge(communicationConstants, communicationChannel)
         sendVideoCurrentTime: sendVideoCurrentTime,
         sendVideoDuration: sendVideoDuration,
         sendVideoId: sendVideoId,
+        sendPlaylistIndex: sendPlaylistIndex,
+        sendPlaylistId: sendPlaylistId,
+        sendPlaylistType: sendPlaylistType,
+        sendPlaylistLength: sendPlaylistLength,
+        sendVideoList: sendVideoList,
     }
 }
 

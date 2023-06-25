@@ -171,6 +171,13 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null) :
   override fun onReady(youTubePlayer: YouTubePlayer) {}
   override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) {}
   override fun onApiChange(youTubePlayer: YouTubePlayer) {}
+  override fun onPlaylistIndex(youTubePlayer: YouTubePlayer, index: Int) {}
+  override fun onPlaylistType(instance: YouTubePlayer, playlistType: String) {}
+  override fun onPlaylistId(youTubePlayer: YouTubePlayer, playlistId: String) {}
+  override fun onVideoList(instance: YouTubePlayer, list: List<String>) {}
+  override fun onPlaylistLength(instance: YouTubePlayer, length: Int) {}
+  override fun onLoopStatus(instance: YouTubePlayer, loop: Boolean) {}
+  override fun onShuffleStatus(instance: YouTubePlayer, loop: Boolean) {}
   override fun onPlaybackQualityChange(
     youTubePlayer: YouTubePlayer,
     playbackQuality: PlayerConstants.PlaybackQuality
