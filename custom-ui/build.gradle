@@ -39,7 +39,6 @@ dependencies {
   api project(':core')
   implementation "androidx.core:core-ktx:$versions.androidxCore"
   implementation "androidx.recyclerview:recyclerview:$versions.androidxRecyclerView"
-  implementation 'androidx.core:core-ktx:+'
 }
 
 ext {

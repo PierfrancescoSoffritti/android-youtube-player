@@ -46,8 +46,8 @@ kotlin {
 }
 
 dependencies {
-  implementation 'androidx.core:core-ktx:+'
   testImplementation "junit:junit:$versions.junit"
+  implementation "androidx.core:core-ktx:$versions.androidxCore"
   androidTestImplementation "androidx.test:runner:$versions.runner"
   androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
 
