@@ -123,7 +123,7 @@ Add this to your module level `build.gradle` file.
 
 ```gradle
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.0.0'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0'
 }
 ```
 
