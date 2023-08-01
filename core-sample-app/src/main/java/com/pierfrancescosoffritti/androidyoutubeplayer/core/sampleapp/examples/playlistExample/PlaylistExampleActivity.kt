@@ -1,54 +1,65 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.playlistExample;
+package com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.playlistExample
 
-import android.content.res.Configuration;
-import android.os.Bundle;
+import android.os.Bundle
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import com.pierfrancescosoffritti.aytplayersample.R
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+class PlaylistExampleActivity : AppCompatActivity() {
+  private var youTubePlayerView: YouTubePlayerView? = null
+  private var youTubePlayer: YouTubePlayer? = null
 
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions;
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
-import com.pierfrancescosoffritti.aytplayersample.R;
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_playlist_example)
 
-public class PlaylistExampleActivity extends AppCompatActivity {
+    youTubePlayerView = findViewById<YouTubePlayerView>(R.id.youtube_player_view).apply {
+      val iFramePlayerOptions = IFramePlayerOptions.Builder()
+        .controls(1)
+        .listType("playlist")
+        .list(PLAYLIST_ID)
+        .build()
 
-  private static final String PLAYLIST_ID = "PLEpEmEcrrKJUhZkyIAgQ17Oxyd3fx_y1j";
-  private YouTubePlayerView youTubePlayerView;
+      lifecycle.addObserver(this)
+      this.initialize(
+        youtubePlayerListener,
+        handleNetworkEvents = true,
+        iFramePlayerOptions
+      )
+    }
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_playlist_example);
+    findViewById<Button>(R.id.next_video_button).setOnClickListener {
+      youTubePlayer?.nextVideo()
+    }
 
-    youTubePlayerView = findViewById(R.id.youtube_player_view);
-    getLifecycle().addObserver(youTubePlayerView);
+    findViewById<Button>(R.id.previous_video_button).setOnClickListener {
+      youTubePlayer?.previousVideo()
+    }
 
-    initYouTubePlayerView();
+    findViewById<Button>(R.id.play_second_video_button).setOnClickListener {
+      youTubePlayer?.playVideoAt(1)
+    }
+
+    findViewById<Button>(R.id.shuffle_button).setOnClickListener {
+      youTubePlayer?.setShuffle(true)
+    }
+
+    findViewById<Button>(R.id.loop_button).setOnClickListener {
+      youTubePlayer?.setLoop(true)
+    }
   }
 
-  private void initYouTubePlayerView() {
-    IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
-            .controls(1)
-            .listType("playlist")
-            .list(PLAYLIST_ID)
-            .build();
-
-    getLifecycle().addObserver(youTubePlayerView);
-
-    youTubePlayerView.initialize(new AbstractYouTubePlayerListener() {
-    }, true, iFramePlayerOptions);
+  companion object {
+    private const val PLAYLIST_ID = "PLEpEmEcrrKJUhZkyIAgQ17Oxyd3fx_y1j"
   }
 
-  @Override
-  public void onConfigurationChanged(@NonNull Configuration newConfig) {
-    super.onConfigurationChanged(newConfig);
-
-    // Checks the orientation of the screen
-    if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-      youTubePlayerView.matchParent();
-    } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-      youTubePlayerView.wrapContent();
+  private val youtubePlayerListener = object : AbstractYouTubePlayerListener() {
+    override fun onReady(youTubePlayer: YouTubePlayer) {
+      this@PlaylistExampleActivity.youTubePlayer = youTubePlayer
     }
   }
 }

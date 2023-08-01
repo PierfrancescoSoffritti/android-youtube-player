@@ -33,6 +33,11 @@ private class YouTubePlayerImpl(private val webView: WebView) : YouTubePlayer {
   override fun cueVideo(videoId: String, startSeconds: Float) = webView.invoke("cueVideo", videoId, startSeconds)
   override fun play() = webView.invoke("playVideo")
   override fun pause() = webView.invoke("pauseVideo")
+  override fun nextVideo() = webView.invoke("nextVideo")
+  override fun previousVideo() = webView.invoke("previousVideo")
+  override fun playVideoAt(index: Int) = webView.invoke("playVideoAt", index)
+  override fun setLoop(loop: Boolean) = webView.invoke("setLoop", loop)
+  override fun setShuffle(shuffle: Boolean) = webView.invoke("setShuffle", shuffle)
   override fun mute() = webView.invoke("mute")
   override fun unMute() = webView.invoke("unMute")
   override fun setVolume(volumePercent: Int) {

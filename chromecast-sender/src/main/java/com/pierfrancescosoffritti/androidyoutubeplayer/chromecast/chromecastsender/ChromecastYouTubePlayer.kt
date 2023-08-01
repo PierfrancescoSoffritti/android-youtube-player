@@ -70,6 +70,49 @@ class ChromecastYouTubePlayer internal constructor(private val chromecastCommuni
     chromecastCommunicationChannel.sendMessage(message)
   }
 
+  override fun nextVideo() {
+    val message = JSONUtils.buildFlatJson(
+      "command" to ChromecastCommunicationConstants.PLAY_NEXT_VIDEO
+    )
+
+    chromecastCommunicationChannel.sendMessage(message)
+  }
+
+  override fun previousVideo() {
+    val message = JSONUtils.buildFlatJson(
+      "command" to ChromecastCommunicationConstants.PLAY_PREVIOUS_VIDEO
+    )
+
+    chromecastCommunicationChannel.sendMessage(message)
+  }
+
+  override fun playVideoAt(index: Int) {
+    val message = JSONUtils.buildFlatJson(
+      "command" to ChromecastCommunicationConstants.PLAY_VIDEO_AT,
+      "index" to index.toString()
+    )
+
+    chromecastCommunicationChannel.sendMessage(message)
+  }
+
+  override fun setLoop(loop: Boolean) {
+    val message = JSONUtils.buildFlatJson(
+      "command" to ChromecastCommunicationConstants.SET_LOOP,
+      "loop" to loop.toString()
+    )
+
+    chromecastCommunicationChannel.sendMessage(message)
+  }
+
+  override fun setShuffle(shuffle: Boolean) {
+    val message = JSONUtils.buildFlatJson(
+      "command" to ChromecastCommunicationConstants.SET_SHUFFLE,
+      "shuffle" to shuffle.toString()
+    )
+
+    chromecastCommunicationChannel.sendMessage(message)
+  }
+
   override fun mute() {
     val message = JSONUtils.buildFlatJson(
       "command" to ChromecastCommunicationConstants.MUTE

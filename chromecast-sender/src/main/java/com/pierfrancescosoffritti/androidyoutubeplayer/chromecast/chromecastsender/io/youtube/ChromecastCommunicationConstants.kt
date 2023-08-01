@@ -30,6 +30,11 @@ internal object ChromecastCommunicationConstants {
   const val MUTE = "MUTE"
   const val UNMUTE = "UNMUTE"
   const val SET_PLAYBACK_RATE = "SET_PLAYBACK_RATE"
+  const val PLAY_NEXT_VIDEO = "PLAY_NEXT_VIDEO"
+  const val PLAY_PREVIOUS_VIDEO = "PLAY_PREVIOUS_VIDEO"
+  const val PLAY_VIDEO_AT = "PLAY_VIDEO_AT"
+  const val SET_LOOP = "SET_LOOP"
+  const val SET_SHUFFLE = "SET_SHUFFLE"
 
   fun asJson() = JSONUtils.buildFlatJson(
     IFRAME_API_READY to IFRAME_API_READY,

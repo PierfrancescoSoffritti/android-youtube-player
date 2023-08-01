@@ -3,12 +3,55 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
         android:id="@+id/youtube_player_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:enableAutomaticInitialization="false" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/previous_video_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Previous video" />
+        <Button
+            android:id="@+id/next_video_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next video" />
+        <Button
+            android:id="@+id/play_second_video_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Play Second Video" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/loop_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loop" />
+
+        <Button
+            android:id="@+id/shuffle_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shuffle" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </LinearLayout>

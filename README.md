@@ -389,6 +389,17 @@ If you need to change the orientation of your Activity/Fragment, remember that b
 </application>
 ```
 
+### Playlist
+You can initialize the player to play playlists instead of videos. This can be done by setting `listType` to `playlist` and then providing the id of the playlist to `list`.
+
+```kotlin
+val iFramePlayerOptions = IFramePlayerOptions.Builder()
+  .controls(1)
+  .listType("playlist")
+  .list(PLAYLIST_ID)
+  .build()
+```
+
 ### Release the YouTubePlayerView
 Remember to release the `YouTubePlayerView` when you're done using it, by calling `YouTubePlayerView.release()`.
 
