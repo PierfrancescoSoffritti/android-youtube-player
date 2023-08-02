@@ -629,7 +629,7 @@ Starting from version 12.0.0 of the library, this UI is available as a separate 
 
 ```gradle
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:{latestversion}'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:{latest-version}'
   implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:custom-ui:{latest-version}'
 }
 ```
