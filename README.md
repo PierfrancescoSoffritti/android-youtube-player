@@ -707,7 +707,7 @@ This component is useful to display and control the time of the playback. It sho
 You can add it to your layout programmatically or in your xml.
 
 ```xml
-<com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.views.YouTubePlayerSeekBar
+<com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.views.YouTubePlayerSeekBar
   android:id="@+id/youtube_player_seekbar"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
