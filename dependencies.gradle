@@ -16,7 +16,7 @@ ext.versions = [
         dokka                           : '1.8.10',
 
         // Kotlin
-        kotlin                          : '1.8.0',
+        kotlin                          : '1.9.10',
 
         // AndroidX
         androidxCore                    : '1.10.1',
