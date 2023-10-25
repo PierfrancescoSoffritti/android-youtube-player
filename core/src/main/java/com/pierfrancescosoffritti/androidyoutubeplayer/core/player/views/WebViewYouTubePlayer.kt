@@ -45,7 +45,8 @@ private class YouTubePlayerImpl(private val webView: WebView) : YouTubePlayer {
     webView.invoke("setVolume", volumePercent)
   }
   override fun seekTo(time: Float) = webView.invoke("seekTo", time)
-  override fun setPlaybackRate(playbackRate: PlayerConstants.PlaybackRate) = webView.invoke("setPlaybackRate", playbackRate.toFloat())
+  override fun setPlaybackRate(playbackRate: PlayerConstants.PlaybackRate) = setPlaybackRate(playbackRate.toFloat())
+  override fun setPlaybackRate(playbackRate: Float) = webView.invoke("setPlaybackRate", playbackRate.toFloat())
   override fun toggleFullscreen() = webView.invoke("toggleFullscreen")
   override fun addListener(listener: YouTubePlayerListener) = listeners.add(listener)
   override fun removeListener(listener: YouTubePlayerListener) = listeners.remove(listener)

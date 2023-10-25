@@ -51,6 +51,7 @@ interface YouTubePlayer {
   fun seekTo(time: Float)
 
   fun setPlaybackRate(playbackRate: PlayerConstants.PlaybackRate)
+  fun setPlaybackRate(playbackRate: Float)
 
   /**
    * Tries to enter or exit fullscreen in the player.
