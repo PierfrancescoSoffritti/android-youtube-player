@@ -189,7 +189,7 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
       .toList()
       .minus(PlayerConstants.PlaybackRate.UNKNOWN)
       .firstOrNull {
-        it.toFloat().toString() == rate
+        it.toFloat() == rate.toFloat()
       } ?: PlayerConstants.PlaybackRate.UNKNOWN
   }
 
