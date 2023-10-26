@@ -98,6 +98,8 @@ class FadeViewHelper(val targetView: View) : YouTubePlayerListener {
   override fun onReady(youTubePlayer: YouTubePlayer) {}
   override fun onPlaybackQualityChange(youTubePlayer: YouTubePlayer, playbackQuality: PlayerConstants.PlaybackQuality) {}
   override fun onPlaybackRateChange(youTubePlayer: YouTubePlayer, playbackRate: PlayerConstants.PlaybackRate) {}
+  override fun onPlaybackRateChange(youTubePlayer: YouTubePlayer, playbackRate: Float) {}
+
   override fun onError(youTubePlayer: YouTubePlayer, error: PlayerConstants.PlayerError) {}
   override fun onApiChange(youTubePlayer: YouTubePlayer) {}
   override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {}

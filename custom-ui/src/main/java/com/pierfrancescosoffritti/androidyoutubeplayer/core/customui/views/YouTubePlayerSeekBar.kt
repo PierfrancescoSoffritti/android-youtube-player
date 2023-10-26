@@ -183,6 +183,9 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null) :
   ) {
   }
 
+  override fun onPlaybackRateChange(youTubePlayer: YouTubePlayer, playbackRate: Float) {
+  }
+
   override fun onError(youTubePlayer: YouTubePlayer, error: PlayerConstants.PlayerError) {}
 }
 

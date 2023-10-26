@@ -27,9 +27,17 @@ interface YouTubePlayerListener {
 
   /**
    * Called every time the speed of the playback changes. Check [PlayerConstants.PlaybackRate] to see all the possible values.
+   * This function might return [PlayerConstants.PlaybackRate.UNKNOWN] if the playback rate doesn't correspond to any known
+   * playback rate. To get info from playback rates not contemplated in [PlayerConstants.PlaybackRate] use the other function.
    * @param playbackRate a state from [PlayerConstants.PlaybackRate]
    */
   fun onPlaybackRateChange(youTubePlayer: YouTubePlayer, playbackRate: PlayerConstants.PlaybackRate)
+
+  /**
+   * Called every time the speed of the playback changes.
+   * @param playbackRate a float indicating the playback rate value
+   */
+  fun onPlaybackRateChange(youTubePlayer: YouTubePlayer, playbackRate: Float)
 
   /**
    * Called when an error occurs in the player. Check [PlayerConstants.PlayerError] to see all the possible values.

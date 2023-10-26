@@ -33,8 +33,11 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
 
     private const val RATE_0_25 = "0.25"
     private const val RATE_0_5 = "0.5"
+    private const val RATE_0_75 = "0.75"
     private const val RATE_1 = "1"
+    private const val RATE_1_25 = "1.25"
     private const val RATE_1_5 = "1.5"
+    private const val RATE_1_75 = "1.75"
     private const val RATE_2 = "2"
 
     private const val ERROR_INVALID_PARAMETER_IN_REQUEST = "2"
@@ -83,7 +86,10 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
     val playbackRate = parsePlaybackRate(rate)
 
     mainThreadHandler.post {
-      youTubePlayerOwner.listeners.forEach { it.onPlaybackRateChange(youTubePlayerOwner.getInstance(), playbackRate) }
+      youTubePlayerOwner.listeners.forEach {
+        it.onPlaybackRateChange(youTubePlayerOwner.getInstance(), playbackRate)
+        it.onPlaybackRateChange(youTubePlayerOwner.getInstance(), rate.toFloat())
+      }
     }
   }
 
@@ -179,14 +185,12 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
   }
 
   private fun parsePlaybackRate(rate: String): PlayerConstants.PlaybackRate {
-    return when {
-      rate.equals(RATE_0_25, ignoreCase = true) -> PlayerConstants.PlaybackRate.RATE_0_25
-      rate.equals(RATE_0_5, ignoreCase = true) -> PlayerConstants.PlaybackRate.RATE_0_5
-      rate.equals(RATE_1, ignoreCase = true) -> PlayerConstants.PlaybackRate.RATE_1
-      rate.equals(RATE_1_5, ignoreCase = true) -> PlayerConstants.PlaybackRate.RATE_1_5
-      rate.equals(RATE_2, ignoreCase = true) -> PlayerConstants.PlaybackRate.RATE_2
-      else -> PlayerConstants.PlaybackRate.UNKNOWN
-    }
+    return PlayerConstants.PlaybackRate.values()
+      .toList()
+      .minus(PlayerConstants.PlaybackRate.UNKNOWN)
+      .firstOrNull {
+        it.toFloat().toString() == rate
+      } ?: PlayerConstants.PlaybackRate.UNKNOWN
   }
 
   private fun parsePlayerError(error: String): PlayerConstants.PlayerError {
