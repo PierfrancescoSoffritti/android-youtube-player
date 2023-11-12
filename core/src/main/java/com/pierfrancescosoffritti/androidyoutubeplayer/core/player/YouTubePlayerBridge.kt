@@ -86,9 +86,7 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
     val playbackRate = parsePlaybackRate(rate)
 
     mainThreadHandler.post {
-      youTubePlayerOwner.listeners.forEach {
-        it.onPlaybackRateChange(youTubePlayerOwner.getInstance(), playbackRate)
-      }
+      youTubePlayerOwner.listeners.forEach { it.onPlaybackRateChange(youTubePlayerOwner.getInstance(), playbackRate) }
     }
   }
 
