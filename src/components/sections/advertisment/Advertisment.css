@@ -1,0 +1,16 @@
+.advertisment-root {
+  width: 100%;
+  padding: 16px;
+
+  background-color: #ffebee;
+
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.advertisment-root:hover {
+  background-color: #ffd5db;
+}
