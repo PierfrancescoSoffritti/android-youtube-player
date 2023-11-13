@@ -67,7 +67,9 @@ internal class LegacyYouTubePlayerView(
         youTubePlayer.removeListener(this)
       }
     })
+  }
 
+  private fun initInternalNetworkListener() {
     networkObserver.listeners.add(object : NetworkObserver.Listener {
       override fun onNetworkAvailable() {
         if (!isYouTubePlayerReady) {
@@ -80,6 +82,16 @@ internal class LegacyYouTubePlayerView(
 
       override fun onNetworkUnavailable() { }
     })
+  }
+
+  override fun onAttachedToWindow() {
+    super.onAttachedToWindow()
+    initInternalNetworkListener()
+  }
+
+  override fun onDetachedFromWindow() {
+    super.onDetachedFromWindow()
+    release()
   }
 
   /**
