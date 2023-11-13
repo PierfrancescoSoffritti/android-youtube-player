@@ -1,8 +1,7 @@
-## Ad
-
 [<img src='./images/banner.png' alt="banner"/>](https://playstorereply.com)
 
-#### [:mega: Use AI to manage your app's reviews on Google Play :arrow_right:](https://playstorereply.com) 
+:arrow_right: Check out [PlayStoreReply](https://playstorereply.com): reply to Google Play reviews using AI.
+<br/>
 Increase your apps ratings. Engage with all users, no more unanswered reviews.
 Save time and increase customer satisfaction.
 
