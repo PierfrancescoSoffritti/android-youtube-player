@@ -1,11 +1,10 @@
-<section>
-  <a href="https://playstorereply.com" target="_blank" rel="noopener" style="padding: 16px; background-color: #ffebee; border-radius: 10px; display: flex; justify-content: flex-start; align-items: center; font-weight: 600; color: #D32F2F;">
-    <svg style="width: 24px; height: 24px; margin: 0px 16px 0px 0px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-megaphone"><path d="m3 11 18-5v12L3 14v-3z" /><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" /></svg>
-    Use AI to manage your app's reviews on Google Play
-    <svg style="width: 24px; height: 24px; margin: 0px 0px 0px 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-move-right"><path d="M18 8L22 12L18 16"/><path d="M2 12H22"/></svg>
-  </a>
-  <br/>
-</section>
+## Ad
+
+[<img src='./images/banner.png' alt="banner"/>](https://playstorereply.com)
+
+#### [:mega: Use AI to manage your app's reviews on Google Play :arrow_right:](https://playstorereply.com) 
+Increase your apps ratings. Engage with all users, no more unanswered reviews.
+Save time and increase customer satisfaction.
 
 # android-youtube-player
 
