@@ -1,3 +1,10 @@
+[<img src='./images/banner.png' alt="banner"/>](https://playstorereply.com)
+
+:arrow_right: Check out [PlayStoreReply](https://playstorereply.com): reply to Google Play reviews using AI.
+<br/>
+Increase your apps ratings. Engage with all users, no more unanswered reviews.
+Save time and increase customer satisfaction.
+
 # android-youtube-player
 
 [![Build Status](https://travis-ci.com/PierfrancescoSoffritti/android-youtube-player.svg?branch=master)](https://travis-ci.com/PierfrancescoSoffritti/android-youtube-player) 
