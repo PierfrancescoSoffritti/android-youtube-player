@@ -219,9 +219,7 @@ class YouTubePlayerView(
     fun release() {
         //removeAllFullScreenListeners
         if (fullscreenListeners.isNotEmpty()) {
-            for (mFullscreenListenerItem in fullscreenListeners) {
-                removeFullscreenListener(mFullscreenListenerItem)
-            }
+            fullscreenListeners.clear()
         }
         legacyTubePlayerView.release()
     }

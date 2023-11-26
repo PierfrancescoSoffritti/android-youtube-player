@@ -117,9 +117,7 @@ internal class WebViewYouTubePlayer constructor(
     override fun destroy() {
         //removeAllYouTubePlayerListeners
         if (_youTubePlayer.listeners.isNotEmpty()) {
-           for (youTubePlayerListener in _youTubePlayer.listeners){
-               removeListener(youTubePlayerListener)
-           }
+            _youTubePlayer.listeners.clear()
         }
         _youTubePlayer.release()
         super.destroy()
