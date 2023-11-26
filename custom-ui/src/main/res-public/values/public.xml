@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <public />
-
     <public name="YouTubePlayerSeekBar_fontSize" type="attr" />
     <public name="YouTubePlayerSeekBar_color" type="attr" />
 

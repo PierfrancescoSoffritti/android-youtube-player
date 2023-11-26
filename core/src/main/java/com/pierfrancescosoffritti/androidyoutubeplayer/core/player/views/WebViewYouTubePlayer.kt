@@ -78,7 +78,7 @@ internal object FakeWebViewYouTubeListener : FullscreenListener {
  */
 internal class WebViewYouTubePlayer constructor(
   context: Context,
-  private val listener: FullscreenListener,
+  private val listener: FullscreenListener?,
   attrs: AttributeSet? = null,
   defStyleAttr: Int = 0
 ) : WebView(context, attrs, defStyleAttr), YouTubePlayerBridge.YouTubePlayerBridgeCallbacks {
@@ -129,12 +129,12 @@ internal class WebViewYouTubePlayer constructor(
 
       override fun onShowCustomView(view: View, callback: CustomViewCallback) {
         super.onShowCustomView(view, callback)
-        listener.onEnterFullscreen(view) { callback.onCustomViewHidden() }
+        listener?.onEnterFullscreen(view) { callback.onCustomViewHidden() }
       }
 
       override fun onHideCustomView() {
         super.onHideCustomView()
-        listener.onExitFullscreen()
+        listener?.onExitFullscreen()
       }
 
       override fun getDefaultVideoPoster(): Bitmap? {
