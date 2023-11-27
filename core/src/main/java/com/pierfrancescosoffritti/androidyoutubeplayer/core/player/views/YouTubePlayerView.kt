@@ -200,9 +200,9 @@ class YouTubePlayerView(
 
   private fun onStop() = legacyTubePlayerView.onStop()
 
-  fun addYouTubePlayerListener(youTubePlayerListener: YouTubePlayerListener) = legacyTubePlayerView.webViewYouTubePlayer.addListener(youTubePlayerListener)
+  fun addYouTubePlayerListener(youTubePlayerListener: YouTubePlayerListener) = legacyTubePlayerView.webViewYouTubePlayer?.addListener(youTubePlayerListener)
 
-  fun removeYouTubePlayerListener(youTubePlayerListener: YouTubePlayerListener) = legacyTubePlayerView.webViewYouTubePlayer.removeListener(youTubePlayerListener)
+  fun removeYouTubePlayerListener(youTubePlayerListener: YouTubePlayerListener) = legacyTubePlayerView.webViewYouTubePlayer?.removeListener(youTubePlayerListener)
 
   fun addFullscreenListener(fullscreenListener: FullscreenListener) = fullscreenListeners.add(fullscreenListener)
 
