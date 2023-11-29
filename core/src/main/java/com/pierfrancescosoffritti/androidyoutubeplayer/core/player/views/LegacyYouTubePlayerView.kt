@@ -90,7 +90,7 @@ internal class LegacyYouTubePlayerView(
    * @param playerOptions customizable options for the embedded video player, can be null.
    */
   fun initialize(
-    youTubePlayerListener: YouTubePlayerListener,
+    youTubePlayerListener: YouTubePlayerListener?,
     handleNetworkEvents: Boolean,
     playerOptions: IFramePlayerOptions
   ) {
@@ -103,7 +103,7 @@ internal class LegacyYouTubePlayerView(
     }
 
     initialize = {
-      webViewYouTubePlayer.initialize({ it.addListener(youTubePlayerListener) }, playerOptions)
+      webViewYouTubePlayer.initialize(youTubePlayerListener, playerOptions)
     }
 
     if (!handleNetworkEvents) {
