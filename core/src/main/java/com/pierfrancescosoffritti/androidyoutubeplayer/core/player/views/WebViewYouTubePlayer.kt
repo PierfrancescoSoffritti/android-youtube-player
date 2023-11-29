@@ -110,9 +110,7 @@ internal class WebViewYouTubePlayer constructor(
   fun removeListener(listener: YouTubePlayerListener) = _youTubePlayer.listeners.remove(listener)
 
   override fun destroy() {
-    _youTubePlayer.release()
-    listener=null
-      if (youTubePlayerInitListener!=null){
+    if (youTubePlayerInitListener!=null){
           try{
               //Prevent anomalies
               _youTubePlayer.removeListener(youTubePlayerInitListener!!)
@@ -121,6 +119,8 @@ internal class WebViewYouTubePlayer constructor(
           }
           youTubePlayerInitListener=null
       }
+    _youTubePlayer.release()
+    listener=null
     super.destroy()
   }
 
