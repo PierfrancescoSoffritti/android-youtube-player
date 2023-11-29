@@ -190,6 +190,7 @@ internal class LegacyYouTubePlayerView(
     removeView(webViewYouTubePlayer)
     webViewYouTubePlayer?.removeAllViews()
     webViewYouTubePlayer?.destroy()
+    webViewYouTubePlayer=null
   }
 
   internal fun onResume() {
