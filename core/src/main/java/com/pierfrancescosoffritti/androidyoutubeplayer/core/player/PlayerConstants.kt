@@ -14,21 +14,21 @@ class PlayerConstants {
     UNKNOWN, INVALID_PARAMETER_IN_REQUEST, HTML_5_PLAYER, VIDEO_NOT_FOUND, VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER
   }
 
-  enum class PlaybackRate {
-    UNKNOWN, RATE_0_25, RATE_0_5, RATE_0_75, RATE_1, RATE_1_25, RATE_1_5, RATE_1_75, RATE_2
+  sealed class PlaybackRate(val rate: Float) {
+    object UNKNOWN : PlaybackRate(0f)
+    object RATE_0_25 : PlaybackRate(0.25f)
+    object RATE_0_5 : PlaybackRate(0.5f)
+    object RATE_0_75 : PlaybackRate(0.75f)
+    object RATE_1 : PlaybackRate(1f)
+    object RATE_1_25 : PlaybackRate(1.25f)
+    object RATE_1_5 : PlaybackRate(1.5f)
+    object RATE_1_75 : PlaybackRate(1.75f)
+    object RATE_2 : PlaybackRate(2f)
+
+    class Custom(rate: Float): PlaybackRate(rate)
   }
 }
 
 fun PlayerConstants.PlaybackRate.toFloat(): Float {
-  return when (this) {
-    PlayerConstants.PlaybackRate.UNKNOWN -> 1f
-    PlayerConstants.PlaybackRate.RATE_0_25 -> 0.25f
-    PlayerConstants.PlaybackRate.RATE_0_5 -> 0.5f
-    PlayerConstants.PlaybackRate.RATE_0_75 -> 0.75f
-    PlayerConstants.PlaybackRate.RATE_1 -> 1f
-    PlayerConstants.PlaybackRate.RATE_1_25 -> 1.25f
-    PlayerConstants.PlaybackRate.RATE_1_5 -> 1.5f
-    PlayerConstants.PlaybackRate.RATE_1_75 -> 1.75f
-    PlayerConstants.PlaybackRate.RATE_2 -> 2f
-  }
+  return this.rate
 }
