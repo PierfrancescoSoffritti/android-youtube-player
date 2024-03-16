@@ -3,6 +3,14 @@ apply from: '../dependencies.gradle'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: 'kotlin-android'
 
+task wrapper(type: Wrapper){
+  gradleVersion = '8.4'
+}
+
+task prepareKotlinBuildScriptModel {
+
+}
+
 android {
   compileSdkVersion versions.compileSdk
 
