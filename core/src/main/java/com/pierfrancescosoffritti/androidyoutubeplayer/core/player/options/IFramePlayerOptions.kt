@@ -141,7 +141,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
     }
 
     /**
-     * 	The list parameter, in conjunction with the [listType] parameter, identifies the content that will load in the player.
+     * 	The list parameter, in conjunction with the [listType] parameterentifies the content that will load in the player.
      * 	If the [listType] parameter value is "playlist", then the [list] parameter value specifies a YouTube playlist ID.
      * 	@param list The playlist ID to be played.
      * 	You need to prepend the playlist ID with the letters PL, for example:
