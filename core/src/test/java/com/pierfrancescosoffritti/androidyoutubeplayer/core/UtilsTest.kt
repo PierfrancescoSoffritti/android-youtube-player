@@ -1,5 +1,6 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.core
 
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.getVideoIdFromUrl
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.readHTMLFromUTF8File
 import org.junit.Assert.assertEquals
 import org.junit.Test
