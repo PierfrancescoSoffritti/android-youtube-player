@@ -3,8 +3,8 @@ package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils
 /**
  * Extracts the video ID from a YouTube URL.
  *
- * @param url The YouTube URL.
- * @return The video ID, or the original URL if the video ID cannot be found.
+ * @param url The YouTube video url.
+ * @return The video ID, or null if the video ID cannot be found.
  */
 fun getVideoIdFromUrl(url: String): String? {
     val startIndex = url.indexOf("?v=")
