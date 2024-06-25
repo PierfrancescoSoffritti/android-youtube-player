@@ -38,8 +38,7 @@ kotlin {
 
 dependencies {
   implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.core:core-ktx:+'
-    implementation 'androidx.core:core-ktx:+'
+    implementation 'androidx.core:core-ktx:1.13.1'
     testImplementation "junit:junit:$versions.junit"
   androidTestImplementation "androidx.test:runner:$versions.runner"
   androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"

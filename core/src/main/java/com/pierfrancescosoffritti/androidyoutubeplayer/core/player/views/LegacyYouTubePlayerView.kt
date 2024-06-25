@@ -182,6 +182,12 @@ internal class LegacyYouTubePlayerView(
     canPlay = false
   }
 
+  internal fun onPause() {
+    webViewYouTubePlayer.youtubePlayer.pause()
+    playbackResumer.onLifecycleStop()
+    canPlay = false
+  }
+
   /**
    * Checks whether the player is in an eligible state for playback in
    * respect of the {@link WebViewYouTubePlayer#isBackgroundPlaybackEnabled}
