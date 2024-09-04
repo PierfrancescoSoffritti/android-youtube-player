@@ -10,7 +10,15 @@ import org.json.JSONObject
 class IFramePlayerOptions private constructor(private val playerOptions: JSONObject) {
 
   companion object {
-    val default = Builder().controls(1).build()
+    val default = defaultBuilder().build()
+
+    fun defaultWithVideoId(videoId: String?): IFramePlayerOptions {
+      val builder = defaultBuilder()
+      videoId?.let { builder.videoId(it) }
+      return builder.build()
+    }
+
+    private fun defaultBuilder() = Builder().controls(1)
   }
 
   override fun toString(): String {

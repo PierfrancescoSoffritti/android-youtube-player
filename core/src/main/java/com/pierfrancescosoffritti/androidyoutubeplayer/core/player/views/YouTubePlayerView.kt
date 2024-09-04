@@ -90,7 +90,7 @@ class YouTubePlayerView(
       legacyTubePlayerView.initialize(
         youTubePlayerListener,
         handleNetworkEvents,
-        IFramePlayerOptions.default
+        IFramePlayerOptions.defaultWithVideoId(videoId)
       )
     }
   }
