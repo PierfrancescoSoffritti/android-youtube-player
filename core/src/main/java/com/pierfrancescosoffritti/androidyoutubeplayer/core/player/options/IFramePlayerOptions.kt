@@ -37,6 +37,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
       private const val CC_LANG_PREF = "cc_lang_pref"
       private const val LIST = "list"
       private const val LIST_TYPE = "listType"
+      private const val VIDEO_ID = "videoId"
     }
 
     private val builderOptions = JSONObject()
@@ -171,6 +172,15 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
      */
     fun fullscreen(fs: Int): Builder {
       addInt(FS, fs)
+      return this
+    }
+
+    /**
+     * Sets the initial video ID to pass when constructing the YouTube Player.
+     * Setting this value may help avoid initialization errors reported by the API.
+     */
+    fun videoId(videoId: String): Builder {
+      addString(VIDEO_ID, videoId)
       return this
     }
 

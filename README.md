@@ -333,6 +333,9 @@ If set to 0: web UI is not visible.
 
 If set to 1: web UI is visible.
 
+##### `videoId`
+This option indicates the initial video ID that will be played. Providing this may help avoid initialization errors reported by the API.
+
 ##### `rel`
 This option controls the related videos shown at the end of a video.
 
