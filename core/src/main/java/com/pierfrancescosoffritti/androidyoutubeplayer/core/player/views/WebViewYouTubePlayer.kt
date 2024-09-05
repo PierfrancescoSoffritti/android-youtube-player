@@ -93,9 +93,9 @@ internal class WebViewYouTubePlayer constructor(
 
   internal var isBackgroundPlaybackEnabled = false
 
-  internal fun initialize(initListener: (YouTubePlayer) -> Unit, playerOptions: IFramePlayerOptions?) {
+  internal fun initialize(initListener: (YouTubePlayer) -> Unit, playerOptions: IFramePlayerOptions?, videoId: String?) {
     youTubePlayerInitListener = initListener
-    initWebView(playerOptions ?: IFramePlayerOptions.default)
+    initWebView(playerOptions ?: IFramePlayerOptions.default, videoId)
   }
 
   // create new set to avoid concurrent modifications
@@ -111,7 +111,7 @@ internal class WebViewYouTubePlayer constructor(
   }
 
   @SuppressLint("SetJavaScriptEnabled")
-  private fun initWebView(playerOptions: IFramePlayerOptions) {
+  private fun initWebView(playerOptions: IFramePlayerOptions, videoId: String?) {
     settings.apply {
       javaScriptEnabled = true
       mediaPlaybackRequiresUserGesture = false
@@ -121,6 +121,7 @@ internal class WebViewYouTubePlayer constructor(
     addJavascriptInterface(YouTubePlayerBridge(this), "YouTubePlayerBridge")
 
     val htmlPage = readHTMLFromUTF8File(resources.openRawResource(R.raw.ayp_youtube_player))
+      .replace("<<injectedVideoId>>", if (videoId != null) { "'$videoId'" } else { "undefined" })
       .replace("<<injectedPlayerVars>>", playerOptions.toString())
 
     loadDataWithBaseURL(playerOptions.getOrigin(), htmlPage, "text/html", "utf-8", null)
