@@ -1,5 +1,6 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options
 
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -184,8 +185,9 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
     }
 
     /**
-     * Sets the initial video ID to pass when constructing the YouTube Player.
-     * Setting this value may help avoid initialization errors reported by the API.
+     * Sets the initial video ID to load when constructing the YouTube Player.
+     * If this is not provided, the API will load a blank placeholder video initially,
+     * until [YouTubePlayer.loadVideo] or [YouTubePlayer.cueVideo] is called.
      */
     fun videoId(videoId: String): Builder {
       addString(VIDEO_ID, videoId)
