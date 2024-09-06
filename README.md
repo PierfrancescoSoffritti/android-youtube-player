@@ -313,7 +313,7 @@ By passing an `IFramePlayerOptions` to the initialize method it is possible to s
 All the possible parameters and values are listed [here](https://developers.google.com/youtube/player_parameters#Parameters). Not all of them are supported in this library because some don't make sense in this context. [Open an issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues) if you need a parameter that is not currently supported.
 
 #### `initialize(YouTubePlayerListener, boolean, IFramePlayerOptions, String)`
-The `videoId` can be passed as an optimization, allowing the API to load the video assets as early as possible during initialization.
+By passing the `videoId` the video will be loaded as soon as possible after initialization.
 
 ### IFramePlayerOptions
 The `IFramePlayerOptions` is an optional argument that can be passed to `YouTubePlayerView.initialize(YouTubePlayerListener, boolean, IFramePlayerOptions)`, it can be used to set some of the parameters of the IFrame YouTubePlayer.

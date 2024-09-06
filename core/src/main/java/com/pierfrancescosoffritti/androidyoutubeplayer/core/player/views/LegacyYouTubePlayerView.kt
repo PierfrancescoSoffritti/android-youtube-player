@@ -88,7 +88,7 @@ internal class LegacyYouTubePlayerView(
    * @param handleNetworkEvents if set to true a broadcast receiver will be registered and network events will be handled automatically.
    * If set to false, you should handle network events with your own broadcast receiver.
    * @param playerOptions customizable options for the embedded video player, can be null.
-   * @param videoId used to load an initial video, can be null.
+   * @param videoId optional, used to load a video right after initialization.
    */
   fun initialize(
     youTubePlayerListener: YouTubePlayerListener,
