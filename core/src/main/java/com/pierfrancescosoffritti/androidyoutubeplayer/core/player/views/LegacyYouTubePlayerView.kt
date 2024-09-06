@@ -88,13 +88,11 @@ internal class LegacyYouTubePlayerView(
    * @param handleNetworkEvents if set to true a broadcast receiver will be registered and network events will be handled automatically.
    * If set to false, you should handle network events with your own broadcast receiver.
    * @param playerOptions customizable options for the embedded video player, can be null.
-   * @param videoId optional, used to load a video right after initialization.
    */
   fun initialize(
     youTubePlayerListener: YouTubePlayerListener,
     handleNetworkEvents: Boolean,
-    playerOptions: IFramePlayerOptions,
-    videoId: String?
+    playerOptions: IFramePlayerOptions
   ) {
     if (isYouTubePlayerReady) {
       throw IllegalStateException("This YouTubePlayerView has already been initialized.")
@@ -105,22 +103,13 @@ internal class LegacyYouTubePlayerView(
     }
 
     initialize = {
-      webViewYouTubePlayer.initialize({ it.addListener(youTubePlayerListener) }, playerOptions, videoId)
+      webViewYouTubePlayer.initialize({ it.addListener(youTubePlayerListener) }, playerOptions)
     }
 
     if (!handleNetworkEvents) {
       initialize()
     }
   }
-
-  /**
-   * Initialize the player.
-   * @param playerOptions customizable options for the embedded video player.
-   *
-   * @see LegacyYouTubePlayerView.initialize
-   */
-  fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean, playerOptions: IFramePlayerOptions) =
-    initialize(youTubePlayerListener, handleNetworkEvents, playerOptions, null)
 
   /**
    * Initialize the player.
