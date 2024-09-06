@@ -102,30 +102,14 @@ class YouTubePlayerView(
    * @param handleNetworkEvents if set to true a broadcast receiver will be registered and network events will be handled automatically.
    * If set to false, you should handle network events with your own broadcast receiver.
    * @param playerOptions customizable options for the embedded video player.
-   * @param videoId optionally used to load an initial video.
+   * @param videoId optional, used to load an initial video.
    */
-  fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean, playerOptions: IFramePlayerOptions, videoId: String?) {
+  fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean, playerOptions: IFramePlayerOptions, videoId: String? = null) {
     if (enableAutomaticInitialization) {
       throw IllegalStateException(AUTO_INIT_ERROR)
     }
     else {
       legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, playerOptions, videoId)
-    }
-  }
-
-  /**
-   * Initialize the player. You must call this method before using the player.
-   * @param youTubePlayerListener listener for player events
-   * @param handleNetworkEvents if set to true a broadcast receiver will be registered and network events will be handled automatically.
-   * If set to false, you should handle network events with your own broadcast receiver.
-   * @param playerOptions customizable options for the embedded video player.
-   */
-  fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean, playerOptions: IFramePlayerOptions) {
-    if (enableAutomaticInitialization) {
-      throw IllegalStateException(AUTO_INIT_ERROR)
-    }
-    else {
-      legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, playerOptions)
     }
   }
 
