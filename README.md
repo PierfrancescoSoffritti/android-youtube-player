@@ -296,9 +296,6 @@ YouTubePlayerView.initialize(YouTubePlayerListener listener, boolean handleNetwo
 ```java
 YouTubePlayerView.initialize(YouTubePlayerListener listener, boolean handleNetworkEvents, IFramePlayerOptions iframePlayerOptions)
 ```
-```java
-YouTubePlayerView.initialize(YouTubePlayerListener listener, boolean handleNetworkEvents, IFramePlayerOptions iframePlayerOptions, String videoId)
-```
 #### `initialize(YouTubePlayerListener)`
 Initialize the `YouTubePlayer`. Network events are automatically handled by the player.
 
@@ -311,9 +308,6 @@ Initialize the `YouTubePlayer`. By using the `boolean` is possible to decide if 
 By passing an `IFramePlayerOptions` to the initialize method it is possible to set some of the parameters of the IFrame YouTubePlayer. Read more about `IFramePlayerOptions` [here](#iframeplayeroptions).
 
 All the possible parameters and values are listed [here](https://developers.google.com/youtube/player_parameters#Parameters). Not all of them are supported in this library because some don't make sense in this context. [Open an issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues) if you need a parameter that is not currently supported.
-
-#### `initialize(YouTubePlayerListener, boolean, IFramePlayerOptions, String)`
-By passing the `videoId` the video will be loaded as soon as possible after initialization.
 
 ### IFramePlayerOptions
 The `IFramePlayerOptions` is an optional argument that can be passed to `YouTubePlayerView.initialize(YouTubePlayerListener, boolean, IFramePlayerOptions)`, it can be used to set some of the parameters of the IFrame YouTubePlayer.
