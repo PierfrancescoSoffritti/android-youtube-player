@@ -32,7 +32,6 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
       private const val REL = "rel"
       private const val SHOW_INFO = "showinfo"
       private const val IV_LOAD_POLICY = "iv_load_policy"
-      private const val MODEST_BRANDING = "modestbranding"
       private const val CC_LOAD_POLICY = "cc_load_policy"
       private const val CC_LANG_PREF = "cc_lang_pref"
       private const val LIST = "list"
@@ -51,7 +50,6 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
       addInt(REL, 0)
       addInt(SHOW_INFO, 0)
       addInt(IV_LOAD_POLICY, 3)
-      addInt(MODEST_BRANDING, 1)
       addInt(CC_LOAD_POLICY, 0)
     }
 
@@ -175,12 +173,12 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
     }
 
     /**
-     * Controls if the YouTube logo will be displayed in the control bar or not.
-     * @param modestBranding If set to 1: the YouTube logo will not be displayed in the control bar.
-     * If set to 0: the YouTube logo will be displayed in the control bar.
+     * The modestbranding parameter is deprecated and will have no effect.
+     * To align with YouTube's branding requirements, the player now determines the appropriate branding treatment based on a combination of factors, including player size, other API parameters (e.g. controls), and additional signals.
+     * See August 15, 2023 deprecation announcement: https://developers.google.com/youtube/player_parameters#release_notes_08_15_2023
      */
+    @Deprecated("Deprecated and will have no effect")
     fun modestBranding(modestBranding: Int): Builder {
-      addInt(MODEST_BRANDING, modestBranding)
       return this
     }
 
