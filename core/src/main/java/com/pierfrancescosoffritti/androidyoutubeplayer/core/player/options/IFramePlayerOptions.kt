@@ -36,6 +36,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
       private const val CC_LANG_PREF = "cc_lang_pref"
       private const val LIST = "list"
       private const val LIST_TYPE = "listType"
+      private const val START = "start"
     }
 
     private val builderOptions = JSONObject()
@@ -169,6 +170,16 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
      */
     fun fullscreen(fs: Int): Builder {
       addInt(FS, fs)
+      return this
+    }
+
+    /**
+     * This parameter causes the player to begin playing the video at the given number of seconds from the start of the video.
+     * The parameter value is a positive integer.
+     * @param startSeconds positive integer, number of seconds to offset playback from the start of the video.
+     */
+    fun start(startSeconds: Int): Builder {
+      addInt(START, startSeconds)
       return this
     }
 
