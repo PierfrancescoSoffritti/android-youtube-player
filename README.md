@@ -360,6 +360,14 @@ If set to 0: the player will show captions.
 
 If set to 1: the player won't show captions.
 
+##### `start`
+This parameter causes the player to begin playing the video at the given number of seconds from the start of the video. The parameter value is a positive integer.
+
+It works similarly to the `seekTo` method, and the `startSeconds` argument of `loadVideo` and `cueVideo`.
+
+##### `end`
+This parameter specifies the time, measured in seconds from the beginning of the video, when the player should stop playing the video. The parameter value is a positive integer.
+
 ### Full screen
 The full screen button can be added to the player by using `IFramePlayerOptions`
 
