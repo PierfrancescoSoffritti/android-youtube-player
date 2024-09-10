@@ -36,6 +36,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
       private const val LIST = "list"
       private const val LIST_TYPE = "listType"
       private const val START = "start"
+      private const val END = "end"
     }
 
     private val builderOptions = JSONObject()
@@ -178,6 +179,16 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
      */
     fun start(startSeconds: Int): Builder {
       addInt(START, startSeconds)
+      return this
+    }
+
+    /**
+     * This parameter specifies the time, measured in seconds from the beginning of the video, when the player should stop playing the video.
+     * The parameter value is a positive integer.
+     * @param endSeconds positive integer specifying the time, measured in seconds from the beginning of the video, when the player should stop playing the video.
+     */
+    fun end(endSeconds: Int): Builder {
+      addInt(END, endSeconds)
       return this
     }
 
