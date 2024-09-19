@@ -55,7 +55,7 @@ class YouTubePlayerView(
     }
   }
 
-  private val legacyTubePlayerView = LegacyYouTubePlayerView(context, webViewFullscreenListener)
+  private val legacyTubePlayerView = LegacyYouTubePlayerView(context.applicationContext, webViewFullscreenListener)
 
   // this is a publicly accessible API
   var enableAutomaticInitialization: Boolean

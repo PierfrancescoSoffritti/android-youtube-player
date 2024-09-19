@@ -78,7 +78,7 @@ internal object FakeWebViewYouTubeListener : FullscreenListener {
  */
 internal class WebViewYouTubePlayer constructor(
   context: Context,
-  private val listener: FullscreenListener,
+  private var listener: FullscreenListener?,
   attrs: AttributeSet? = null,
   defStyleAttr: Int = 0
 ) : WebView(context, attrs, defStyleAttr), YouTubePlayerBridge.YouTubePlayerBridgeCallbacks {
@@ -89,24 +89,38 @@ internal class WebViewYouTubePlayer constructor(
   private val _youTubePlayer = YouTubePlayerImpl(this)
   internal val youtubePlayer: YouTubePlayer get() = _youTubePlayer
 
-  private lateinit var youTubePlayerInitListener: (YouTubePlayer) -> Unit
+  private  var youTubePlayerInitListener:YouTubePlayerListener?=null
 
   internal var isBackgroundPlaybackEnabled = false
 
-  internal fun initialize(initListener: (YouTubePlayer) -> Unit, playerOptions: IFramePlayerOptions?) {
-    youTubePlayerInitListener = initListener
+  internal fun initialize(youTubePlayerListener:YouTubePlayerListener?, playerOptions: IFramePlayerOptions?) {
+    youTubePlayerInitListener = youTubePlayerListener
     initWebView(playerOptions ?: IFramePlayerOptions.default)
   }
 
   // create new set to avoid concurrent modifications
   override val listeners: Collection<YouTubePlayerListener> get() = _youTubePlayer.listeners.toSet()
   override fun getInstance(): YouTubePlayer = _youTubePlayer
-  override fun onYouTubeIFrameAPIReady() = youTubePlayerInitListener(_youTubePlayer)
+  override fun onYouTubeIFrameAPIReady() {
+      youTubePlayerInitListener?.let {
+          _youTubePlayer.addListener(it)
+      }
+  }
   fun addListener(listener: YouTubePlayerListener) = _youTubePlayer.listeners.add(listener)
   fun removeListener(listener: YouTubePlayerListener) = _youTubePlayer.listeners.remove(listener)
 
   override fun destroy() {
+    if (youTubePlayerInitListener!=null){
+          try{
+              //Prevent anomalies
+              _youTubePlayer.removeListener(youTubePlayerInitListener!!)
+          }catch (e:Exception){
+              e.printStackTrace()
+          }
+          youTubePlayerInitListener=null
+      }
     _youTubePlayer.release()
+    listener=null
     super.destroy()
   }
 
@@ -129,12 +143,12 @@ internal class WebViewYouTubePlayer constructor(
 
       override fun onShowCustomView(view: View, callback: CustomViewCallback) {
         super.onShowCustomView(view, callback)
-        listener.onEnterFullscreen(view) { callback.onCustomViewHidden() }
+        listener?.onEnterFullscreen(view) { callback.onCustomViewHidden() }
       }
 
       override fun onHideCustomView() {
         super.onHideCustomView()
-        listener.onExitFullscreen()
+        listener?.onExitFullscreen()
       }
 
       override fun getDefaultVideoPoster(): Bitmap? {
