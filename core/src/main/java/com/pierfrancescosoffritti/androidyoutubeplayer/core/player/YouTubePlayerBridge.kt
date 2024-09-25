@@ -33,8 +33,11 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
 
     private const val RATE_0_25 = "0.25"
     private const val RATE_0_5 = "0.5"
+    private const val RATE_0_75 = "0.75"
     private const val RATE_1 = "1"
+    private const val RATE_1_25 = "1.25"
     private const val RATE_1_5 = "1.5"
+    private const val RATE_1_75 = "1.75"
     private const val RATE_2 = "2"
 
     private const val ERROR_INVALID_PARAMETER_IN_REQUEST = "2"
@@ -182,8 +185,11 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
     return when {
       rate.equals(RATE_0_25, ignoreCase = true) -> PlayerConstants.PlaybackRate.RATE_0_25
       rate.equals(RATE_0_5, ignoreCase = true) -> PlayerConstants.PlaybackRate.RATE_0_5
+      rate.equals(RATE_0_75, ignoreCase = true) -> PlayerConstants.PlaybackRate.RATE_0_75
       rate.equals(RATE_1, ignoreCase = true) -> PlayerConstants.PlaybackRate.RATE_1
+      rate.equals(RATE_1_25, ignoreCase = true) -> PlayerConstants.PlaybackRate.RATE_1_25
       rate.equals(RATE_1_5, ignoreCase = true) -> PlayerConstants.PlaybackRate.RATE_1_5
+      rate.equals(RATE_1_75, ignoreCase = true) -> PlayerConstants.PlaybackRate.RATE_1_75
       rate.equals(RATE_2, ignoreCase = true) -> PlayerConstants.PlaybackRate.RATE_2
       else -> PlayerConstants.PlaybackRate.UNKNOWN
     }

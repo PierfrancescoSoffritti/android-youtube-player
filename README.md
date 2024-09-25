@@ -1,13 +1,13 @@
-[<img src='./images/banner.png' alt="banner"/>](https://playstorereply.com)
+#### \<Advertisement\>
 
-:arrow_right: Check out [PlayStoreReply](https://playstorereply.com): reply to Google Play reviews using AI.
-<br/>
+#### [:mega: Reply to Google Play Reviews using AI :arrow_right:](https://playstorereply.com) 
 Increase your apps ratings. Engage with all users, no more unanswered reviews.
 Save time and increase customer satisfaction.
 
+#### \</Advertisement\>
+
 # android-youtube-player
 
-[![Build Status](https://travis-ci.com/PierfrancescoSoffritti/android-youtube-player.svg?branch=master)](https://travis-ci.com/PierfrancescoSoffritti/android-youtube-player) 
 [![Android YouTube Player](https://www.appbrain.com/stats/libraries/shield/android_youtube_player.svg)](https://www.appbrain.com/stats/libraries/details/android_youtube_player/android-youtube-player) 
 [![android arsenal](https://img.shields.io/badge/Android%20Arsenal-android--youtube--player-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/4322) 
 [![website](https://img.shields.io/badge/-website-brightgreen.svg)](https://pierfrancescosoffritti.github.io/android-youtube-player/)
@@ -130,7 +130,7 @@ Add this to your module level `build.gradle` file.
 
 ```gradle
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.1'
 }
 ```
 
@@ -141,7 +141,7 @@ Add this to your module level `build.gradle` file.
 
 ```gradle
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.30'
 }
 ```
 
@@ -296,6 +296,9 @@ YouTubePlayerView.initialize(YouTubePlayerListener listener, boolean handleNetwo
 ```java
 YouTubePlayerView.initialize(YouTubePlayerListener listener, boolean handleNetworkEvents, IFramePlayerOptions iframePlayerOptions)
 ```
+```java
+YouTubePlayerView.initialize(YouTubePlayerListener listener, boolean handleNetworkEvents, IFramePlayerOptions iframePlayerOptions, String videoId)
+```
 #### `initialize(YouTubePlayerListener)`
 Initialize the `YouTubePlayer`. Network events are automatically handled by the player.
 
@@ -308,6 +311,9 @@ Initialize the `YouTubePlayer`. By using the `boolean` is possible to decide if 
 By passing an `IFramePlayerOptions` to the initialize method it is possible to set some of the parameters of the IFrame YouTubePlayer. Read more about `IFramePlayerOptions` [here](#iframeplayeroptions).
 
 All the possible parameters and values are listed [here](https://developers.google.com/youtube/player_parameters#Parameters). Not all of them are supported in this library because some don't make sense in this context. [Open an issue](https://github.com/PierfrancescoSoffritti/android-youtube-player/issues) if you need a parameter that is not currently supported.
+
+#### `initialize(YouTubePlayerListener, boolean, IFramePlayerOptions, String)`
+By passing the `videoId` the video will be loaded as soon as possible after initialization.
 
 ### IFramePlayerOptions
 The `IFramePlayerOptions` is an optional argument that can be passed to `YouTubePlayerView.initialize(YouTubePlayerListener, boolean, IFramePlayerOptions)`, it can be used to set some of the parameters of the IFrame YouTubePlayer.
@@ -353,6 +359,14 @@ This option controls video captions. It doesn't work with automatically generate
 If set to 0: the player will show captions.
 
 If set to 1: the player won't show captions.
+
+##### `start`
+This parameter causes the player to begin playing the video at the given number of seconds from the start of the video. The parameter value is a positive integer.
+
+It works similarly to the `seekTo` method, and the `startSeconds` argument of `loadVideo` and `cueVideo`.
+
+##### `end`
+This parameter specifies the time, measured in seconds from the beginning of the video, when the player should stop playing the video. The parameter value is a positive integer.
 
 ### Full screen
 The full screen button can be added to the player by using `IFramePlayerOptions`
@@ -714,7 +728,7 @@ This component is useful to display and control the time of the playback. It sho
 You can add it to your layout programmatically or in your xml.
 
 ```xml
-<com.pierfrancescosoffritti.androidyoutubeplayer.core.ui.views.YouTubePlayerSeekBar
+<com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.views.YouTubePlayerSeekBar
   android:id="@+id/youtube_player_seekbar"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"

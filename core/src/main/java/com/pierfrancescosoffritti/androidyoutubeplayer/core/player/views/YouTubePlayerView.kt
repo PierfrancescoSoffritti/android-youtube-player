@@ -2,7 +2,6 @@ package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
@@ -90,8 +89,19 @@ class YouTubePlayerView(
       legacyTubePlayerView.initialize(
         youTubePlayerListener,
         handleNetworkEvents,
-        IFramePlayerOptions.default
+        IFramePlayerOptions.default,
+        videoId
       )
+    }
+  }
+
+  // TODO: Use @JvmOverloads instead of duplicating the method. Unfortunately that will cause a breaking change.
+  fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean, playerOptions: IFramePlayerOptions, videoId: String?) {
+    if (enableAutomaticInitialization) {
+      throw IllegalStateException(AUTO_INIT_ERROR)
+    }
+    else {
+      legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, playerOptions, videoId)
     }
   }
 
@@ -101,13 +111,14 @@ class YouTubePlayerView(
    * @param handleNetworkEvents if set to true a broadcast receiver will be registered and network events will be handled automatically.
    * If set to false, you should handle network events with your own broadcast receiver.
    * @param playerOptions customizable options for the embedded video player.
+   * @param videoId optional, used to load an initial video.
    */
   fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean, playerOptions: IFramePlayerOptions) {
     if (enableAutomaticInitialization) {
       throw IllegalStateException(AUTO_INIT_ERROR)
     }
     else {
-      legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, playerOptions)
+      legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, playerOptions, null)
     }
   }
 
