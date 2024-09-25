@@ -1,9 +1,10 @@
-[<img src='./images/banner.png' alt="banner"/>](https://playstorereply.com)
+#### \<Advertisement\>
 
-:arrow_right: Check out [PlayStoreReply](https://playstorereply.com): reply to Google Play reviews using AI.
-<br/>
+#### [:mega: Reply to Google Play Reviews using AI :arrow_right:](https://playstorereply.com) 
 Increase your apps ratings. Engage with all users, no more unanswered reviews.
 Save time and increase customer satisfaction.
+
+#### \</Advertisement\>
 
 # android-youtube-player
 
