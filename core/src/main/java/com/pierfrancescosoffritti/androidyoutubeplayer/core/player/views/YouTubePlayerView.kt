@@ -2,7 +2,6 @@ package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams
@@ -96,6 +95,16 @@ class YouTubePlayerView(
     }
   }
 
+  // TODO: Use @JvmOverloads instead of duplicating the method. Unfortunately that will cause a breaking change.
+  fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean, playerOptions: IFramePlayerOptions, videoId: String?) {
+    if (enableAutomaticInitialization) {
+      throw IllegalStateException(AUTO_INIT_ERROR)
+    }
+    else {
+      legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, playerOptions, videoId)
+    }
+  }
+
   /**
    * Initialize the player. You must call this method before using the player.
    * @param youTubePlayerListener listener for player events
@@ -104,12 +113,12 @@ class YouTubePlayerView(
    * @param playerOptions customizable options for the embedded video player.
    * @param videoId optional, used to load an initial video.
    */
-  fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean, playerOptions: IFramePlayerOptions, videoId: String? = null) {
+  fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean, playerOptions: IFramePlayerOptions) {
     if (enableAutomaticInitialization) {
       throw IllegalStateException(AUTO_INIT_ERROR)
     }
     else {
-      legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, playerOptions, videoId)
+      legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, playerOptions, null)
     }
   }
 
