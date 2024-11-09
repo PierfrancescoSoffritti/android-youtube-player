@@ -191,7 +191,7 @@ youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
 });
 ```
 
-If you decde to initialize the player programmatically, remember to remove the `autoPlay` and `videoId` attributes from the `YouTubePlayerView` in your XML file.
+If you decide to initialize the player programmatically, remember to remove the `autoPlay` and `videoId` attributes from the `YouTubePlayerView` in your XML file.
 
 ----
 
