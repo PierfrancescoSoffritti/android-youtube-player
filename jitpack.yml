@@ -1,4 +1,10 @@
 jdk:
   - openjdk17
 before_install:
+  - sdk install java 17.0.12-oracle
+  - sdk use java 17.0.12-oracle
   - ./scripts/prepareJitpackEnvironment.sh
+install:
+  - ./gradlew :core:clean :core:publishToMavenLocal
+  - ./gradlew :custom-ui:clean :custom-ui:publishToMavenLocal
+  - ./gradlew :chromecast-sender:clean :chromecast-sender:publishToMavenLocal
