@@ -19,6 +19,7 @@ buildscript {
 }
 
 apply plugin: 'io.github.gradle-nexus.publish-plugin'
+apply plugin: 'maven-publish'
 apply from: "./scripts/publish-root.gradle"
 
 allprojects {
