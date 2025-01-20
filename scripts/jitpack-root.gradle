@@ -1,0 +1,34 @@
+apply plugin: 'maven-publish'
+
+allprojects {
+    group = 'com.github.SureshTimma'
+    version = '1.0.1'
+}
+
+subprojects {
+    apply plugin: 'maven-publish'
+    
+    afterEvaluate { project ->
+        if (project.plugins.hasPlugin('com.android.library')) {
+            android {
+                publishing {
+                    singleVariant('release') {
+                        withSourcesJar()
+                        withJavadocJar()
+                    }
+                }
+            }
+
+            publishing {
+                publications {
+                    release(MavenPublication) {
+                        from components.release
+                        groupId = project.group
+                        artifactId = project.name
+                        version = project.version
+                    }
+                }
+            }
+        }
+    }
+}
