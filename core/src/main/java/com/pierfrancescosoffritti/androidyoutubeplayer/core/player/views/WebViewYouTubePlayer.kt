@@ -29,7 +29,7 @@ import java.util.*
  */
 private class YouTubePlayerImpl(private val webView: WebView) : YouTubePlayer {
   private val mainThread: Handler = Handler(Looper.getMainLooper())
-  val listeners = mutableSetOf<YouTubePlayerListener>()
+  override val listeners = HashSet<YouTubePlayerListener>()
 
   override fun loadVideo(videoId: String, startSeconds: Float) = webView.invoke("loadVideo", videoId, startSeconds)
   override fun cueVideo(videoId: String, startSeconds: Float) = webView.invoke("cueVideo", videoId, startSeconds)
@@ -48,10 +48,21 @@ private class YouTubePlayerImpl(private val webView: WebView) : YouTubePlayer {
   }
   override fun seekTo(time: Float) = webView.invoke("seekTo", time)
   override fun setPlaybackRate(playbackRate: PlayerConstants.PlaybackRate) = webView.invoke("setPlaybackRate", playbackRate.toFloat())
-  override fun setPlaybackQuality(quality: String) = webView.invoke("setPlaybackQuality", quality)
+  override fun setPlaybackQuality(quality: String) {
+    webView.loadUrl("javascript:player.setPlaybackQuality('$quality')")
+  }
+  override fun showCaption() {
+    webView.loadUrl("javascript:showCaption()")
+  }
+  override fun hideCaption() {
+    webView.loadUrl("javascript:hideCaption()")
+  }
+  override fun toggleCaption() {
+    webView.loadUrl("javascript:toggleCaption()")
+  }
   override fun toggleFullscreen() = webView.invoke("toggleFullscreen")
-  override fun addListener(listener: YouTubePlayerListener) = listeners.add(listener)
-  override fun removeListener(listener: YouTubePlayerListener) = listeners.remove(listener)
+  override fun addListener(listener: YouTubePlayerListener): Boolean = listeners.add(listener)
+  override fun removeListener(listener: YouTubePlayerListener): Boolean = listeners.remove(listener)
 
   fun release() {
     listeners.clear()
@@ -79,114 +90,112 @@ internal object FakeWebViewYouTubeListener : FullscreenListener {
 /**
  * WebView implementation of [YouTubePlayer]. The player runs inside the WebView, using the IFrame Player API.
  */
-internal class WebViewYouTubePlayer constructor(
-  context: Context,
-  private val listener: FullscreenListener,
-  attrs: AttributeSet? = null,
-  defStyleAttr: Int = 0
-) : WebView(context, attrs, defStyleAttr), YouTubePlayerBridge.YouTubePlayerBridgeCallbacks {
+internal class WebViewYouTubePlayer internal constructor(
+    context: Context,
+    private val youTubePlayerOwner: YouTubePlayerOwner,
+    private val mainThreadHandler: Handler
+) : WebView(context) {
 
-  /** Constructor used by tools */
-  constructor(context: Context) : this(context, FakeWebViewYouTubeListener)
+    private val _youTubePlayer = YouTubePlayerImpl(this)
+    internal val youtubePlayer: YouTubePlayer get() = _youTubePlayer
 
-  private val _youTubePlayer = YouTubePlayerImpl(this)
-  internal val youtubePlayer: YouTubePlayer get() = _youTubePlayer
+    private lateinit var youTubePlayerInitListener: (YouTubePlayer) -> Unit
 
-  private lateinit var youTubePlayerInitListener: (YouTubePlayer) -> Unit
+    internal var isBackgroundPlaybackEnabled = false
 
-  internal var isBackgroundPlaybackEnabled = false
-
-  internal fun initialize(initListener: (YouTubePlayer) -> Unit, playerOptions: IFramePlayerOptions?, videoId: String?) {
-    youTubePlayerInitListener = initListener
-    initWebView(playerOptions ?: IFramePlayerOptions.default, videoId)
-  }
-
-  // create new set to avoid concurrent modifications
-  override val listeners: Collection<YouTubePlayerListener> get() = _youTubePlayer.listeners.toSet()
-  override fun getInstance(): YouTubePlayer = _youTubePlayer
-  override fun onYouTubeIFrameAPIReady() = youTubePlayerInitListener(_youTubePlayer)
-  fun addListener(listener: YouTubePlayerListener) = _youTubePlayer.listeners.add(listener)
-  fun removeListener(listener: YouTubePlayerListener) = _youTubePlayer.listeners.remove(listener)
-
-  override fun destroy() {
-    _youTubePlayer.release()
-    super.destroy()
-  }
-
-  @SuppressLint("SetJavaScriptEnabled")
-  private fun initWebView(playerOptions: IFramePlayerOptions, videoId: String?) {
-    settings.apply {
-      javaScriptEnabled = true
-      mediaPlaybackRequiresUserGesture = false
-      cacheMode = WebSettings.LOAD_DEFAULT
-      domStorageEnabled = true  // Enable DOM storage for video quality control
+    internal fun initialize(youTubePlayerInitListener: (YouTubePlayer) -> Unit, playerOptions: IFramePlayerOptions?, videoId: String?) {
+        this.youTubePlayerInitListener = youTubePlayerInitListener
+        initWebView(playerOptions ?: IFramePlayerOptions.default, videoId)
     }
 
-    addJavascriptInterface(YouTubePlayerBridge(this), "YouTubePlayerBridge")
+    // create new set to avoid concurrent modifications
+    override val listeners: Collection<YouTubePlayerListener> get() = _youTubePlayer.listeners
+    override fun getInstance(): YouTubePlayer = _youTubePlayer
+    override fun onYouTubeIFrameAPIReady() = youTubePlayerInitListener(_youTubePlayer)
+    fun addListener(listener: YouTubePlayerListener) = _youTubePlayer.listeners.add(listener)
+    fun removeListener(listener: YouTubePlayerListener) = _youTubePlayer.listeners.remove(listener)
 
-    val htmlPage = readHTMLFromUTF8File(resources.openRawResource(R.raw.ayp_youtube_player))
-      .replace("<<injectedVideoId>>", if (videoId != null) { "'$videoId'" } else { "undefined" })
-      .replace("<<injectedPlayerVars>>", playerOptions.toString())
-
-    loadDataWithBaseURL(playerOptions.getOrigin(), htmlPage, "text/html", "utf-8", null)
-
-    webChromeClient = object : WebChromeClient() {
-
-      override fun onShowCustomView(view: View, callback: CustomViewCallback) {
-        super.onShowCustomView(view, callback)
-        listener.onEnterFullscreen(view) { callback.onCustomViewHidden() }
-      }
-
-      override fun onHideCustomView() {
-        super.onHideCustomView()
-        listener.onExitFullscreen()
-      }
-
-      override fun getDefaultVideoPoster(): Bitmap? {
-        val result = super.getDefaultVideoPoster()
-        // if the video's thumbnail is not in memory, show a black screen
-        return result ?: Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565)
-      }
-    }
-  }
-
-  override fun onWindowVisibilityChanged(visibility: Int) {
-    if (isBackgroundPlaybackEnabled && (visibility == View.GONE || visibility == View.INVISIBLE)) {
-      return
+    override fun destroy() {
+        _youTubePlayer.release()
+        super.destroy()
     }
 
-    super.onWindowVisibilityChanged(visibility)
-  }
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun initWebView(playerOptions: IFramePlayerOptions, videoId: String?) {
+        settings.apply {
+            javaScriptEnabled = true
+            mediaPlaybackRequiresUserGesture = false
+            cacheMode = WebSettings.LOAD_DEFAULT
+            domStorageEnabled = true  // Enable DOM storage for video quality control
+        }
 
-  override fun setPlaybackQuality(quality: String) {
-    mainThread.post { youTubePlayer.setPlaybackQuality(quality) }
-  }
+        addJavascriptInterface(YouTubePlayerBridge(this), "YouTubePlayerBridge")
 
-  override fun showCaption() {
-    mainThread.post { loadUrl("javascript:showCaption()") }
-  }
+        val htmlPage = readHTMLFromUTF8File(resources.openRawResource(R.raw.ayp_youtube_player))
+            .replace("<<injectedVideoId>>", if (videoId != null) { "'$videoId'" } else { "undefined" })
+            .replace("<<injectedPlayerVars>>", playerOptions.toString())
 
-  override fun hideCaption() {
-    mainThread.post { loadUrl("javascript:hideCaption()") }
-  }
+        loadDataWithBaseURL(playerOptions.getOrigin(), htmlPage, "text/html", "utf-8", null)
 
-  override fun toggleCaption() {
-    mainThread.post { loadUrl("javascript:toggleCaption()") }
-  }
+        webChromeClient = object : WebChromeClient() {
 
-  override fun toggleFullscreen() {
-    mainThread.post { youTubePlayer.toggleFullscreen() }
-  }
+            override fun onShowCustomView(view: View, callback: CustomViewCallback) {
+                super.onShowCustomView(view, callback)
+                youTubePlayerOwner.onEnterFullscreen(view) { callback.onCustomViewHidden() }
+            }
+
+            override fun onHideCustomView() {
+                super.onHideCustomView()
+                youTubePlayerOwner.onExitFullscreen()
+            }
+
+            override fun getDefaultVideoPoster(): Bitmap? {
+                val result = super.getDefaultVideoPoster()
+                // if the video's thumbnail is not in memory, show a black screen
+                return result ?: Bitmap.createBitmap(1, 1, Bitmap.Config.RGB_565)
+            }
+        }
+    }
+
+    override fun onWindowVisibilityChanged(visibility: Int) {
+        if (visibility != View.GONE) {
+            mainThreadHandler.post { youTubePlayerOwner.getInstance()?.play() }
+        } else {
+            mainThreadHandler.post { youTubePlayerOwner.getInstance()?.pause() }
+        }
+
+        super.onWindowVisibilityChanged(visibility)
+    }
+
+    override fun setPlaybackQuality(quality: String) {
+        mainThreadHandler.post { youTubePlayer.setPlaybackQuality(quality) }
+    }
+
+    override fun showCaption() {
+        mainThreadHandler.post { loadUrl("javascript:showCaption()") }
+    }
+
+    override fun hideCaption() {
+        mainThreadHandler.post { loadUrl("javascript:hideCaption()") }
+    }
+
+    override fun toggleCaption() {
+        mainThreadHandler.post { loadUrl("javascript:toggleCaption()") }
+    }
+
+    override fun toggleFullscreen() {
+        mainThreadHandler.post { youTubePlayer.toggleFullscreen() }
+    }
 }
 
 @VisibleForTesting
 internal fun readHTMLFromUTF8File(inputStream: InputStream): String {
-  inputStream.use {
-    try {
-      val bufferedReader = BufferedReader(InputStreamReader(inputStream, "utf-8"))
-      return bufferedReader.readLines().joinToString("\n")
-    } catch (e: Exception) {
-      throw RuntimeException("Can't parse HTML file.")
+    inputStream.use {
+        try {
+            val bufferedReader = BufferedReader(InputStreamReader(inputStream, "utf-8"))
+            return bufferedReader.readLines().joinToString("\n")
+        } catch (e: Exception) {
+            throw RuntimeException("Can't parse HTML file.")
+        }
     }
-  }
 }
