@@ -157,6 +157,26 @@ internal class WebViewYouTubePlayer constructor(
 
     super.onWindowVisibilityChanged(visibility)
   }
+
+  override fun setPlaybackQuality(quality: String) {
+    mainThread.post { youTubePlayer.setPlaybackQuality(quality) }
+  }
+
+  override fun showCaption() {
+    mainThread.post { loadUrl("javascript:showCaption()") }
+  }
+
+  override fun hideCaption() {
+    mainThread.post { loadUrl("javascript:hideCaption()") }
+  }
+
+  override fun toggleCaption() {
+    mainThread.post { loadUrl("javascript:toggleCaption()") }
+  }
+
+  override fun toggleFullscreen() {
+    mainThread.post { youTubePlayer.toggleFullscreen() }
+  }
 }
 
 @VisibleForTesting

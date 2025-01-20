@@ -48,7 +48,11 @@
     	  videoId: <<injectedVideoId>>,
     			
         events: {
-    	    onReady: function(event) { YouTubePlayerBridge.sendReady() },
+    	    onReady: function(event) { 
+                player = event.target;
+                YouTubePlayerBridge.sendReady() 
+                hideCaption();
+            },
     		  onStateChange: function(event) { sendPlayerStateChange(event.data) },
     		  onPlaybackQualityChange: function(event) { YouTubePlayerBridge.sendPlaybackQualityChange(event.data) },
     		  onPlaybackRateChange: function(event) { YouTubePlayerBridge.sendPlaybackRateChange(event.data) },
@@ -215,5 +219,35 @@
       }
     }
 
-  </script>
+    function hideCaption() {
+        setInterval(() => {
+            if(!player) {
+                return;
+            }
+            player.unloadModule('captions');
+        }, 1000);
+    }
+
+    function showCaption() {
+        if(!player) {
+            return;
+        }
+        player.loadModule('captions');
+    }
+
+    function toggleCaption() {
+        if(!player) {
+            return;
+        }
+        const isCaptionVisible = localStorage.getItem('caption_visible') === 'true';
+        if(isCaptionVisible) {
+            player.unloadModule('captions');
+            localStorage.setItem('caption_visible', 'false');
+        } else {
+            player.loadModule('captions');
+            localStorage.setItem('caption_visible', 'true');
+        }
+    }
+</script>
+</body>
 </html>

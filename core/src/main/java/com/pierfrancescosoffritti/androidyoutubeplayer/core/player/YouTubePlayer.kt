@@ -55,6 +55,21 @@ interface YouTubePlayer {
   fun setPlaybackQuality(quality: String)
 
   /**
+   * Shows captions on the video
+   */
+  fun showCaption()
+
+  /**
+   * Hides captions on the video
+   */
+  fun hideCaption()
+
+  /**
+   * Toggles caption visibility
+   */
+  fun toggleCaption()
+
+  /**
    * Tries to enter or exit fullscreen in the player.
    *
    * Might require setting the `origin` parameter to "https://www.youtube.com".
@@ -63,4 +78,6 @@ interface YouTubePlayer {
 
   fun addListener(listener: YouTubePlayerListener): Boolean
   fun removeListener(listener: YouTubePlayerListener): Boolean
+
+  val listeners: Collection<YouTubePlayerListener>
 }
