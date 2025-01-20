@@ -2,7 +2,7 @@ apply plugin: 'maven-publish'
 
 allprojects {
     group = 'com.github.SureshTimma'
-    version = '1.0.1'
+    version = '1.0.2'
 }
 
 subprojects {
@@ -12,19 +12,23 @@ subprojects {
         if (project.plugins.hasPlugin('com.android.library')) {
             android {
                 publishing {
-                    singleVariant('release') {
+                    multipleVariants {
                         withSourcesJar()
                         withJavadocJar()
                     }
                 }
             }
 
+            project.tasks.withType(Javadoc).all {
+                enabled = false
+            }
+
             publishing {
                 publications {
-                    release(MavenPublication) {
-                        from components.release
-                        groupId = project.group
+                    maven(MavenPublication) {
+                        from components.getByName("default")
                         artifactId = project.name
+                        groupId = project.group
                         version = project.version
                     }
                 }
