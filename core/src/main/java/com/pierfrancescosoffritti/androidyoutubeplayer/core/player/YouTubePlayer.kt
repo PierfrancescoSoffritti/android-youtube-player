@@ -52,6 +52,8 @@ interface YouTubePlayer {
 
   fun setPlaybackRate(playbackRate: PlayerConstants.PlaybackRate)
 
+  fun setPlaybackQuality(quality: String)
+
   /**
    * Tries to enter or exit fullscreen in the player.
    *

@@ -62,5 +62,13 @@ interface YouTubePlayerListener {
    */
   fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String)
 
+  /**
+   * Called when the player's API changes. Specifically, this is called when the player is ready after a video change.
+   */
   fun onApiChange(youTubePlayer: YouTubePlayer)
+
+  /**
+   * Called when the available video quality levels are loaded
+   */
+  fun onVideoQuality(youTubePlayer: YouTubePlayer, quality: String)
 }
