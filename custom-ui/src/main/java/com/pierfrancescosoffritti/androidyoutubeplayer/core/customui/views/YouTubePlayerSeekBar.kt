@@ -184,6 +184,7 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null) :
   }
 
   override fun onError(youTubePlayer: YouTubePlayer, error: PlayerConstants.PlayerError) {}
+  override fun onVideoQuality(youTubePlayer: YouTubePlayer, quality: String) {}
 }
 
 interface YouTubePlayerSeekBarListener {

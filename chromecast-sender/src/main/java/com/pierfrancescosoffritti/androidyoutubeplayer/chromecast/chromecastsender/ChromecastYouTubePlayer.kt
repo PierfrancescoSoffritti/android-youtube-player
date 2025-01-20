@@ -156,6 +156,10 @@ class ChromecastYouTubePlayer internal constructor(private val chromecastCommuni
     chromecastCommunicationChannel.sendMessage(message)
   }
 
+  override fun setPlaybackQuality(quality: String) {
+    // Not implemented for Chromecast
+  }
+
   override fun toggleFullscreen() { }
 
   override val listeners: Collection<YouTubePlayerListener> get() =  youTubePlayerListeners
