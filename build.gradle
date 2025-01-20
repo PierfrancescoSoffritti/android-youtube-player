@@ -28,3 +28,7 @@ allprojects {
     enabled = false
   }
 }
+
+subprojects {
+  apply plugin: 'maven-publish'
+}
