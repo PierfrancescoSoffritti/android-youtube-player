@@ -187,5 +187,26 @@
       player.setShuffle(shuffle);
     }
 
+    function sendVideoQuality(player) {
+      YouTubePlayerBridge.sendVideoQuality(JSON.stringify(player.getAvailableQualityLevels()))
+    }
+
+    function setPlaybackQuality(playbackQuality) {
+      if (playbackQuality == "auto") {
+        localStorage.removeItem("yt-player-quality");
+      } else {
+        var now = Date.now();
+        localStorage.setItem("yt-player-quality", JSON.stringify({
+          data: playbackQuality,
+          creation: now,
+          expiration: now + 2419200000
+        }));
+      }
+      if (player) {
+        var currentTime = player.getCurrentTime();
+        player.loadVideoById(player.getVideoData().video_id, currentTime);
+      }
+    }
+
   </script>
 </html>

@@ -1,7 +1,8 @@
 ext.versions = [
         // Project
-        minSdk                          : 17,
+        minSdk                          : 21,
         compileSdk                      : 34,
+        multiDexEnabled                 : true,
 
         publishVersion_core             : '12.1.1',
         publishVersionCode_core         : 21,
@@ -37,6 +38,7 @@ ext.versions = [
         junit                           : '4.13.2',
         runner                          : '1.5.2',
         espressoCore                    : '3.5.1',
+        multiDex                        : '2.0.1',
 
         // Debug
         leakcanary                      : '2.10',

@@ -50,6 +50,10 @@ private class YouTubePlayerImpl(private val webView: WebView) : YouTubePlayer {
   override fun addListener(listener: YouTubePlayerListener) = listeners.add(listener)
   override fun removeListener(listener: YouTubePlayerListener) = listeners.remove(listener)
 
+  override fun setPlaybackQuality(quality: String) {
+    mainThread.post { webView.loadUrl("javascript:setPlaybackQuality('$quality')") }
+  }
+
   fun release() {
     listeners.clear()
     mainThread.removeCallbacksAndMessages(null)
@@ -113,6 +117,7 @@ internal class WebViewYouTubePlayer constructor(
   @SuppressLint("SetJavaScriptEnabled")
   private fun initWebView(playerOptions: IFramePlayerOptions, videoId: String?) {
     settings.apply {
+      domStorageEnabled = true
       javaScriptEnabled = true
       mediaPlaybackRequiresUserGesture = false
       cacheMode = WebSettings.LOAD_DEFAULT
