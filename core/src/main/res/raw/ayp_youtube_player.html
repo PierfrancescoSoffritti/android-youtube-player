@@ -187,7 +187,7 @@
       player.setShuffle(shuffle);
     }
 
-    function sendVideoQuality(player) {
+    function sendVideoQuality() {
       YouTubePlayerBridge.sendVideoQuality(JSON.stringify(player.getAvailableQualityLevels()))
     }
 

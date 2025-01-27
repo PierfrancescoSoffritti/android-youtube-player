@@ -54,6 +54,8 @@ private class YouTubePlayerImpl(private val webView: WebView) : YouTubePlayer {
     mainThread.post { webView.loadUrl("javascript:setPlaybackQuality('$quality')") }
   }
 
+  override fun getPlaybackQuality() = webView.invoke("sendVideoQuality")
+
   fun release() {
     listeners.clear()
     mainThread.removeCallbacksAndMessages(null)

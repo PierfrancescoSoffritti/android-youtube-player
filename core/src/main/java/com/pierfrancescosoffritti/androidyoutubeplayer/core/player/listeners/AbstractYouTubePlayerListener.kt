@@ -16,6 +16,8 @@ abstract class AbstractYouTubePlayerListener : YouTubePlayerListener {
   override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {}
   override fun onVideoDuration(youTubePlayer: YouTubePlayer, duration: Float) {}
   override fun onVideoLoadedFraction(youTubePlayer: YouTubePlayer, loadedFraction: Float) {}
-  override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) {}
+  override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) {
+    youTubePlayer.getPlaybackQuality()
+  }
   override fun onVideoQuality(youTubePlayer: YouTubePlayer, quality: String) {}
 }
