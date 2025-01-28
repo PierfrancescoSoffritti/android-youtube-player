@@ -56,6 +56,10 @@ private class YouTubePlayerImpl(private val webView: WebView) : YouTubePlayer {
 
   override fun getPlaybackQuality() = webView.invoke("sendVideoQuality")
 
+  override fun hideVideoTitle() = webView.invoke("hideVideoTitle")
+
+  override fun hideTabletPopup() = webView.invoke("hideTabletPopup")
+
   fun release() {
     listeners.clear()
     mainThread.removeCallbacksAndMessages(null)

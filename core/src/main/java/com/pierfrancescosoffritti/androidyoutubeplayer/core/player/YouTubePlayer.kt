@@ -65,4 +65,8 @@ interface YouTubePlayer {
   fun setPlaybackQuality(quality: String)
 
   fun getPlaybackQuality()
+
+  fun hideVideoTitle()
+
+  fun hideTabletPopup()
 }

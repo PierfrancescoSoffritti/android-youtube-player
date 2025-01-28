@@ -7,7 +7,10 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
  * Extend this class if you want to implement only some of the methods of [YouTubePlayerListener]
  */
 abstract class AbstractYouTubePlayerListener : YouTubePlayerListener {
-  override fun onReady(youTubePlayer: YouTubePlayer) {}
+  override fun onReady(youTubePlayer: YouTubePlayer) {
+    youTubePlayer.hideVideoTitle()
+    youTubePlayer.hideTabletPopup()
+  }
   override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {}
   override fun onPlaybackQualityChange(youTubePlayer: YouTubePlayer, playbackQuality: PlayerConstants.PlaybackQuality) {}
   override fun onPlaybackRateChange(youTubePlayer: YouTubePlayer, playbackRate: PlayerConstants.PlaybackRate) {}
