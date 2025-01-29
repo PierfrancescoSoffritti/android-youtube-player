@@ -50,12 +50,12 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null) :
 
     val padding = resources.getDimensionPixelSize(R.dimen.ayp_8dp)
 
-    videoCurrentTimeTextView.text = resources.getString(R.string.ayp_null_time)
+    videoCurrentTimeTextView.text = convertNumbersToEnglish(resources.getString(R.string.ayp_null_time))
     videoCurrentTimeTextView.setPadding(padding, padding, 0, padding)
     videoCurrentTimeTextView.setTextColor(ContextCompat.getColor(context, android.R.color.white))
     videoCurrentTimeTextView.gravity = Gravity.CENTER_VERTICAL
 
-    videoDurationTextView.text = resources.getString(R.string.ayp_null_time)
+    videoDurationTextView.text = convertNumbersToEnglish(resources.getString(R.string.ayp_null_time))
     videoDurationTextView.setPadding(0, padding, padding, padding)
     videoDurationTextView.setTextColor(ContextCompat.getColor(context, android.R.color.white))
     videoDurationTextView.gravity = Gravity.CENTER_VERTICAL
@@ -118,7 +118,7 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null) :
   // Seekbar
 
   override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-    videoCurrentTimeTextView.text = TimeUtilities.formatTime(progress.toFloat())
+    videoCurrentTimeTextView.text = convertNumbersToEnglish(TimeUtilities.formatTime(progress.toFloat()))
   }
 
   override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -157,7 +157,7 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null) :
   }
 
   override fun onVideoDuration(youTubePlayer: YouTubePlayer, duration: Float) {
-    videoDurationTextView.text = TimeUtilities.formatTime(duration)
+    videoDurationTextView.text = convertNumbersToEnglish(TimeUtilities.formatTime(duration))
     seekBar.max = duration.toInt()
   }
 
@@ -185,6 +185,20 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null) :
   }
 
   override fun onError(youTubePlayer: YouTubePlayer, error: PlayerConstants.PlayerError) {}
+
+  private fun convertNumbersToEnglish(input: String): String {
+    return input.replace("٠".toRegex(), "0")
+      .replace("١".toRegex(), "1")
+      .replace("٢".toRegex(), "2")
+      .replace("٣".toRegex(), "3")
+      .replace("٤".toRegex(), "4")
+      .replace("٥".toRegex(), "5")
+      .replace("٦".toRegex(), "6")
+      .replace("٧".toRegex(), "7")
+      .replace("٨".toRegex(), "8")
+      .replace("٩".toRegex(), "9")
+      .replace("٫".toRegex(), ".")
+  }
 }
 
 interface YouTubePlayerSeekBarListener {
