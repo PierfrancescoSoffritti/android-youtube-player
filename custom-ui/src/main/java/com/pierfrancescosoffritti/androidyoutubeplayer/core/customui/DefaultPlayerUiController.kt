@@ -286,4 +286,6 @@ class DefaultPlayerUiController(
     val drawable = if (playing) R.drawable.ayp_ic_pause_36dp else R.drawable.ayp_ic_play_36dp
     playPauseButton.setImageResource(drawable)
   }
+
+  fun getFadeController() = fadeControlsContainer
 }
