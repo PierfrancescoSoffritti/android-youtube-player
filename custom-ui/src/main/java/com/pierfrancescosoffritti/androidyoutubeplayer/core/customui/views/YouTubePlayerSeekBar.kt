@@ -44,7 +44,7 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null) :
 
 
 
-    seekBar.setPadding(padding * 2, padding, padding * 2, padding)
+    seekBar.setPadding(padding * 2, 0, padding * 2, 0)
     setColor(color)
 
     addView(seekBar, LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f))

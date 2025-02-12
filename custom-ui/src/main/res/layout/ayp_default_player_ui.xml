@@ -112,7 +112,8 @@
                 android:id="@+id/bottomLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="8dp"
+                android:paddingHorizontal="@dimen/ayp_8dp"
+                android:paddingBottom="@dimen/ayp_8dp"
                 app:layout_constraintBottom_toBottomOf="parent">
 
                 <ImageView
@@ -128,7 +129,7 @@
                     android:id="@+id/videoCurrentProgress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/ayp_8dp"
+                    android:paddingHorizontal="8dp"
                     android:text="00:00"
                     android:textStyle="bold"
                     android:textColor="@android:color/white"
@@ -141,7 +142,6 @@
                     android:id="@+id/spacer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="@dimen/ayp_8dp"
                     android:text="/"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/ayp_12sp"
@@ -154,7 +154,7 @@
                     android:id="@+id/videoDuration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/ayp_8dp"
+                    android:paddingHorizontal="8dp"
                     android:text="00:00"
                     android:textStyle="bold"
                     android:textColor="@android:color/white"
@@ -184,7 +184,7 @@
                     android:clickable="true"
                     android:contentDescription="@string/ayp_open_video_in_youtube"
                     android:focusable="true"
-                    android:padding="8dp"
+                    android:paddingHorizontal="8dp"
                     android:src="@drawable/ayp_ic_youtube_24dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/quality_button" />
@@ -195,7 +195,7 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
-                    android:padding="8dp"
+                    android:paddingHorizontal="8dp"
                     android:src="@drawable/ayp_ic_video_quality"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/playback_speed_button" />
@@ -206,7 +206,7 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
-                    android:padding="8dp"
+                    android:paddingHorizontal="8dp"
                     android:src="@drawable/ayp_ic_playback_rate"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/fullscreen_button" />
@@ -219,7 +219,7 @@
                     android:clickable="true"
                     android:contentDescription="@string/ayp_full_screen_button"
                     android:focusable="true"
-                    android:padding="8dp"
+                    android:paddingHorizontal="8dp"
                     android:src="@drawable/ayp_ic_fullscreen_24dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
