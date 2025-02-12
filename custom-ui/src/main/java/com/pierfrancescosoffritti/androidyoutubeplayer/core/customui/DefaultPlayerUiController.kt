@@ -17,6 +17,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.menu.YouTubePlayerMenu
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.menu.defaultMenu.DefaultYouTubePlayerMenu
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.utils.FadeViewHelper
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.utils.TimeUtilities
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.views.YouTubePlayerSeekBar
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.views.YouTubePlayerSeekBarListener
 
@@ -54,6 +55,10 @@ class DefaultPlayerUiController(
 
   private val youtubePlayerSeekBar: YouTubePlayerSeekBar = rootView.findViewById(R.id.youtube_player_seekbar)
   private val fadeControlsContainer: FadeViewHelper = FadeViewHelper(controlsContainer)
+
+  private val videoCurrentProgress : TextView = rootView.findViewById(R.id.videoCurrentProgress)
+  private val videoDuration : TextView = rootView.findViewById(R.id.videoDuration)
+  private val seekBarPlayPauseButton : ImageView = rootView.findViewById(R.id.playPauseSeekBarButton)
 
   private var onFullscreenButtonListener: View.OnClickListener
   private var onMenuButtonClickListener: View.OnClickListener
@@ -139,9 +144,21 @@ class DefaultPlayerUiController(
 
     youtubePlayerSeekBar.youtubePlayerSeekBarListener = object : YouTubePlayerSeekBarListener {
       override fun seekTo(time: Float) = youTubePlayer.seekTo(time)
+      override fun onProgressChanged(progress: Int) {
+        videoCurrentProgress.text = convertNumbersToEnglish(TimeUtilities.formatTime(progress.toFloat()))
+      }
+
+      override fun onVideoDuration(duration: Float) {
+        videoDuration.text = convertNumbersToEnglish(TimeUtilities.formatTime(duration))
+      }
+
+      override fun resetUi() {
+        videoDuration.post { videoDuration.text = "00:00" }
+      }
     }
     panel.setOnClickListener { fadeControlsContainer.toggleVisibility() }
     playPauseButton.setOnClickListener { onPlayButtonPressed() }
+    seekBarPlayPauseButton.setOnClickListener { onPlayButtonPressed() }
     fullscreenButton.setOnClickListener { onFullscreenButtonListener.onClick(fullscreenButton) }
     menuButton.setOnClickListener { onMenuButtonClickListener.onClick(menuButton) }
   }
@@ -218,12 +235,12 @@ class DefaultPlayerUiController(
   }
 
   override fun showCurrentTime(show: Boolean): PlayerUiController {
-    youtubePlayerSeekBar.videoCurrentTimeTextView.visibility = if (show) View.VISIBLE else View.GONE
+//    youtubePlayerSeekBar.videoCurrentTimeTextView.visibility = if (show) View.VISIBLE else View.GONE
     return this
   }
 
   override fun showDuration(show: Boolean): PlayerUiController {
-    youtubePlayerSeekBar.videoDurationTextView.visibility = if (show) View.VISIBLE else View.GONE
+//    youtubePlayerSeekBar.videoDurationTextView.visibility = if (show) View.VISIBLE else View.GONE
     return this
   }
 
@@ -285,6 +302,21 @@ class DefaultPlayerUiController(
   private fun updatePlayPauseButtonIcon(playing: Boolean) {
     val drawable = if (playing) R.drawable.ayp_ic_pause_36dp else R.drawable.ayp_ic_play_36dp
     playPauseButton.setImageResource(drawable)
+    seekBarPlayPauseButton.setImageResource(drawable)
+  }
+
+  private fun convertNumbersToEnglish(input: String): String {
+    return input.replace("٠".toRegex(), "0")
+      .replace("١".toRegex(), "1")
+      .replace("٢".toRegex(), "2")
+      .replace("٣".toRegex(), "3")
+      .replace("٤".toRegex(), "4")
+      .replace("٥".toRegex(), "5")
+      .replace("٦".toRegex(), "6")
+      .replace("٧".toRegex(), "7")
+      .replace("٨".toRegex(), "8")
+      .replace("٩".toRegex(), "9")
+      .replace("٫".toRegex(), ".")
   }
 
   fun getFadeController() = fadeControlsContainer

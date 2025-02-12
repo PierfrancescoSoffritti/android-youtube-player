@@ -28,19 +28,11 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null) :
 
   var showBufferingProgress = true
   var youtubePlayerSeekBarListener: YouTubePlayerSeekBarListener? = null
-
-  val videoCurrentTimeTextView = TextView(context)
-  val videoDurationTextView = TextView(context)
   val seekBar = SeekBar(context)
 
   init {
     val typedArray =
       context.theme.obtainStyledAttributes(attrs, R.styleable.YouTubePlayerSeekBar, 0, 0)
-
-    val fontSize = typedArray.getDimensionPixelSize(
-      R.styleable.YouTubePlayerSeekBar_fontSize,
-      resources.getDimensionPixelSize(R.dimen.ayp_12sp)
-    )
     val color = typedArray.getColor(
       R.styleable.YouTubePlayerSeekBar_color,
       ContextCompat.getColor(context, R.color.ayp_red)
@@ -50,36 +42,12 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null) :
 
     val padding = resources.getDimensionPixelSize(R.dimen.ayp_8dp)
 
-    videoCurrentTimeTextView.text = convertNumbersToEnglish(resources.getString(R.string.ayp_null_time))
-    videoCurrentTimeTextView.setPadding(padding, padding, 0, padding)
-    videoCurrentTimeTextView.setTextColor(ContextCompat.getColor(context, android.R.color.white))
-    videoCurrentTimeTextView.gravity = Gravity.CENTER_VERTICAL
 
-    videoDurationTextView.text = convertNumbersToEnglish(resources.getString(R.string.ayp_null_time))
-    videoDurationTextView.setPadding(0, padding, padding, padding)
-    videoDurationTextView.setTextColor(ContextCompat.getColor(context, android.R.color.white))
-    videoDurationTextView.gravity = Gravity.CENTER_VERTICAL
-
-    setFontSize(fontSize.toFloat())
 
     seekBar.setPadding(padding * 2, padding, padding * 2, padding)
     setColor(color)
 
-    addView(
-      videoCurrentTimeTextView,
-      LayoutParams(
-        LayoutParams.WRAP_CONTENT,
-        LayoutParams.WRAP_CONTENT
-      )
-    )
     addView(seekBar, LayoutParams(0, LayoutParams.WRAP_CONTENT, 1f))
-    addView(
-      videoDurationTextView,
-      LayoutParams(
-        LayoutParams.WRAP_CONTENT,
-        LayoutParams.WRAP_CONTENT
-      )
-    )
 
     gravity = Gravity.CENTER_VERTICAL
 
@@ -90,8 +58,7 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null) :
    * @param fontSize in pixels.
    */
   fun setFontSize(fontSize: Float) {
-    videoCurrentTimeTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
-    videoDurationTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, fontSize)
+
   }
 
   fun setColor(@ColorInt color: Int) {
@@ -112,13 +79,13 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null) :
   private fun resetUi() {
     seekBar.progress = 0
     seekBar.max = 0
-    videoDurationTextView.post { videoDurationTextView.text = "" }
+    youtubePlayerSeekBarListener?.resetUi()
   }
 
   // Seekbar
 
   override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-    videoCurrentTimeTextView.text = convertNumbersToEnglish(TimeUtilities.formatTime(progress.toFloat()))
+    youtubePlayerSeekBarListener?.onProgressChanged(progress)
   }
 
   override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -157,8 +124,8 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null) :
   }
 
   override fun onVideoDuration(youTubePlayer: YouTubePlayer, duration: Float) {
-    videoDurationTextView.text = convertNumbersToEnglish(TimeUtilities.formatTime(duration))
     seekBar.max = duration.toInt()
+    youtubePlayerSeekBarListener?.onVideoDuration(duration)
   }
 
   override fun onVideoLoadedFraction(youTubePlayer: YouTubePlayer, loadedFraction: Float) {
@@ -185,22 +152,11 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null) :
   }
 
   override fun onError(youTubePlayer: YouTubePlayer, error: PlayerConstants.PlayerError) {}
-
-  private fun convertNumbersToEnglish(input: String): String {
-    return input.replace("٠".toRegex(), "0")
-      .replace("١".toRegex(), "1")
-      .replace("٢".toRegex(), "2")
-      .replace("٣".toRegex(), "3")
-      .replace("٤".toRegex(), "4")
-      .replace("٥".toRegex(), "5")
-      .replace("٦".toRegex(), "6")
-      .replace("٧".toRegex(), "7")
-      .replace("٨".toRegex(), "8")
-      .replace("٩".toRegex(), "9")
-      .replace("٫".toRegex(), ".")
-  }
 }
 
 interface YouTubePlayerSeekBarListener {
   fun seekTo(time: Float)
+  fun onProgressChanged(progress: Int)
+  fun onVideoDuration(duration: Float)
+  fun resetUi()
 }

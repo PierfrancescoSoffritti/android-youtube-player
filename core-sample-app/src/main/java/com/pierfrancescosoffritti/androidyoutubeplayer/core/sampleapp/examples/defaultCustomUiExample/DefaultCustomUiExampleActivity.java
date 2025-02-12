@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.DefaultPlayerUiController;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.utils.FadeViewHelper;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener;
@@ -20,42 +21,41 @@ import com.pierfrancescosoffritti.aytplayersample.R;
 public class DefaultCustomUiExampleActivity extends AppCompatActivity {
 
   private YouTubePlayerView youTubePlayerView;
-
+  private FadeViewHelper closeFadeController;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_default_custom_ui_example);
-
     youTubePlayerView = findViewById(R.id.youtube_player_view);
-
+    closeFadeController = new FadeViewHelper(findViewById(R.id.close_icon));
     initYouTubePlayerView();
   }
 
   private void initYouTubePlayerView() {
     getLifecycle().addObserver(youTubePlayerView);
-
     YouTubePlayerListener listener = new AbstractYouTubePlayerListener() {
       @Override
       public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-
+        super.onReady(youTubePlayer);
         // using pre-made custom ui
         DefaultPlayerUiController defaultPlayerUiController = new DefaultPlayerUiController(youTubePlayerView, youTubePlayer);
         youTubePlayerView.setCustomPlayerUi(defaultPlayerUiController.getRootView());
-
+        findViewById(R.id.panel).setOnClickListener(view -> {
+          defaultPlayerUiController.getFadeController().toggleVisibility();
+          closeFadeController.toggleVisibility();
+        });
+        youTubePlayer.addListener(closeFadeController);
         setPlayNextVideoButtonClickListener(youTubePlayer);
-
         YouTubePlayerUtils.loadOrCueVideo(
                 youTubePlayer,
                 getLifecycle(),
-                VideoIdsProvider.getNextVideoId(),
+                "7CZcnJuYgC0",
                 0f
         );
       }
     };
-
     // disable web ui
     IFramePlayerOptions options = new IFramePlayerOptions.Builder().controls(0).build();
-
     youTubePlayerView.initialize(listener, options);
   }
 
