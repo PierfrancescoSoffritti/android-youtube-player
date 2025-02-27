@@ -169,4 +169,6 @@ class ChromecastYouTubePlayer internal constructor(private val chromecastCommuni
   override fun hideVideoTitle() {}
 
   override fun hideTabletPopup() {}
+
+  override fun hideVideoSuggestionsPopup() {}
 }

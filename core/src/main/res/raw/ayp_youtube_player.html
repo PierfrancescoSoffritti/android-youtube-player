@@ -243,5 +243,23 @@
       }, 100);
     }
 
+    function hideVideoSuggestionsPopup() {
+      setInterval(() => {
+        const playerIFrame = document.querySelector("iframe");
+        if (!playerIFrame) {
+          return;
+        }
+        const frameDoc = playerIFrame.contentDocument;
+        if (!frameDoc) {
+          return;
+        }
+        const collection = frameDoc.getElementsByClassName("html5-endscreen ytp-player-content videowall-endscreen")[0];
+        if (!collection) {
+          return;
+        }
+        collection.style.display = 'none';
+      }, 100);
+    }
+
   </script>
 </html>
