@@ -261,5 +261,23 @@
       }, 100);
     }
 
+    function hideWatchOnYoutubeButton() {
+      setInterval(() => {
+        const playerIFrame = document.querySelector("iframe");
+        if (!playerIFrame) {
+          return;
+        }
+        const frameDoc = playerIFrame.contentDocument;
+        if (!frameDoc) {
+          return;
+        }
+        const collection = frameDoc.getElementsByClassName("ytp-watch-on-youtube-button")[0];
+        if (!collection) {
+          return;
+        }
+        collection.style.display = 'none';
+      }, 100);
+    }
+
   </script>
 </html>

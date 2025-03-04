@@ -71,4 +71,6 @@ interface YouTubePlayer {
   fun hideTabletPopup()
 
   fun hideVideoSuggestionsPopup()
+
+  fun hideWatchOnYoutubeButton()
 }
