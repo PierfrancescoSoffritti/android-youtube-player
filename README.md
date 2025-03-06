@@ -105,7 +105,7 @@ Also remember when publishing your app on the PlayStore to write title and descr
     5. [Force to hide subtitles](#hide-captions)
     6. [Play Next Recomended Video](#play-next-recomended-video)
     7. [Hiding the "more videos" overlay that appears when videos are paused](#hide-more-videos-on-pause)
-    8. [Removing the YouTube logo/watermark to create a distraction-free experience](hide-the-youTube-watermark-on-pause)
+    8. [Removing the YouTube logo/watermark to create a distraction-free experience](hide-youTube-watermark-on-pause)
 
 # Sample app
 :memo: Both the **core module** and the **chromecast module** have a sample app, to provide examples of usage of the libraries.
@@ -1384,7 +1384,7 @@ case YT.PlayerState.PAUSED:
   return;
 ```
 
-## Hide the YouTube Watermark On Pause
+## Hide YouTube Watermark On Pause
 
 The YouTube logo in the bottom right corner can also be distracting. Here's how to hide it:
 
