@@ -104,6 +104,7 @@
                 android:maxHeight="100dp"
                 app:color="@color/ayp_red"
                 app:fontSize="12sp"
+                android:layout_marginBottom="@dimen/ayp_8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/bottomLayout" />
@@ -114,6 +115,7 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/ayp_8dp"
                 android:paddingBottom="@dimen/ayp_8dp"
+                android:layout_marginBottom="@dimen/ayp_8dp"
                 app:layout_constraintBottom_toBottomOf="parent">
 
                 <ImageView
