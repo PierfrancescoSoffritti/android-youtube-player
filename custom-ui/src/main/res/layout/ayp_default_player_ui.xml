@@ -121,8 +121,9 @@
                 <ImageView
                     android:id="@+id/playPauseSeekBarButton"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="@dimen/ayp_8dp"
                     android:src="@drawable/ayp_ic_pause_36dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -186,7 +187,7 @@
                     android:clickable="true"
                     android:contentDescription="@string/ayp_open_video_in_youtube"
                     android:focusable="true"
-                    android:paddingHorizontal="8dp"
+                    android:padding="8dp"
                     android:src="@drawable/ayp_ic_youtube_24dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/quality_button" />
@@ -197,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
-                    android:paddingHorizontal="8dp"
+                    android:padding="8dp"
                     android:src="@drawable/ayp_ic_video_quality"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/playback_speed_button" />
@@ -208,7 +209,7 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
-                    android:paddingHorizontal="8dp"
+                    android:padding="8dp"
                     android:src="@drawable/ayp_ic_playback_rate"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/fullscreen_button" />
@@ -221,7 +222,7 @@
                     android:clickable="true"
                     android:contentDescription="@string/ayp_full_screen_button"
                     android:focusable="true"
-                    android:paddingHorizontal="8dp"
+                    android:padding="8dp"
                     android:src="@drawable/ayp_ic_fullscreen_24dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
