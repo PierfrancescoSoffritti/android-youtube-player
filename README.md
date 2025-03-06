@@ -105,7 +105,7 @@ Also remember when publishing your app on the PlayStore to write title and descr
     5. [Force to hide subtitles](#hide-captions)
     6. [Play Next Recomended Video](#play-next-recomended-video)
     7. [Hiding the "more videos" overlay that appears when videos are paused](#hide-more-videos-on-pause)
-    8. [Removing the YouTube logo/watermark to create a distraction-free experience](hide-youTube-watermark-on-pause)
+    8. [Removing the YouTube logo/watermark to create a distraction-free experience](#hide-youtube-watermark-on-pause)
 
 # Sample app
 :memo: Both the **core module** and the **chromecast module** have a sample app, to provide examples of usage of the libraries.
@@ -1404,6 +1404,49 @@ function hideRelatedVideos() {
 }
 ```
 
+It's essential to test your changes carefully to ensure they work as expected without breaking the player functionality:
+
+1. Build and run your app with the modified player
+2. Check that videos play normally
+3. Pause videos and verify that no related videos or YouTube logo appear
+4. Test on different device sizes and orientations
+
+### Black Screen Issue
+
+If the video turns black after your modifications, your CSS selectors might be too aggressive:
+
+```javascript
+// DON'T use overly-aggressive selectors like these:
+const ytElements = frameDoc.querySelectorAll('[aria-label*="YouTube"]');
+ytElements.forEach(element => {
+  element.style.display = 'none';
+});
+
+// Instead, be precise with your targeting:
+const ytWatermark = frameDoc.querySelector('.ytp-watermark');
+if (ytWatermark) {
+  ytWatermark.style.display = 'none';
+}
+```
+
+### Player Controls Not Working
+
+If some player controls stop working after your modifications, you might be hiding essential elements:
+
+```javascript
+// Be careful with selectors that might affect player controls
+const logoContainer = frameDoc.querySelector('.ytp-chrome-bottom');
+if (logoContainer) {
+  // DON'T hide the entire container
+  // logoContainer.style.display = 'none'; 
+  
+  // DO target specific elements within it
+  const logos = logoContainer.querySelectorAll('.ytp-youtube-button');
+  logos.forEach(logo => {
+    logo.style.display = 'none';
+  });
+}
+```
 
 ---
 
