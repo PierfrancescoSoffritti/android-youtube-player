@@ -95,7 +95,7 @@ class DefaultPlayerUiController(
               android.R.color.transparent
             )
           )
-          if (isPlayPauseButtonEnabled) playPauseButton.visibility = View.INVISIBLE
+          playPauseButton.visibility = View.GONE
 
           customActionLeft.visibility = View.GONE
           customActionRight.visibility = View.GONE
@@ -103,7 +103,7 @@ class DefaultPlayerUiController(
 
         if (state === PlayerConstants.PlayerState.UNSTARTED) {
           progressBar.visibility = View.GONE
-          if (isPlayPauseButtonEnabled) playPauseButton.visibility = View.VISIBLE
+          playPauseButton.visibility = View.GONE
         }
       }
     }
