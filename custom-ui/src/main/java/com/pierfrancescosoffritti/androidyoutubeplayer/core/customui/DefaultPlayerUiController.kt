@@ -301,8 +301,9 @@ class DefaultPlayerUiController(
 
   private fun updatePlayPauseButtonIcon(playing: Boolean) {
     val drawable = if (playing) R.drawable.ayp_ic_pause_36dp else R.drawable.ayp_ic_play_36dp
+    val seekbarDrawable = if (playing) R.drawable.ayp_ic_pause_24dp else R.drawable.ayp_ic_play_24dp
     playPauseButton.setImageResource(drawable)
-    seekBarPlayPauseButton.setImageResource(drawable)
+    seekBarPlayPauseButton.setImageResource(seekbarDrawable)
   }
 
   private fun convertNumbersToEnglish(input: String): String {

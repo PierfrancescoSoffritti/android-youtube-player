@@ -34,4 +34,6 @@ dependencies {
   implementation "androidx.core:core-ktx:$versions.androidxCore"
   implementation "androidx.recyclerview:recyclerview:$versions.androidxRecyclerView"
   implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+  implementation "com.intuit.sdp:sdp-android:1.0.6"
+  implementation "com.intuit.ssp:ssp-android:1.0.6"
 }

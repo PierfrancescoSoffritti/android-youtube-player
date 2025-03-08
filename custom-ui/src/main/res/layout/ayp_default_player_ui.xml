@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -104,7 +105,7 @@
                 android:maxHeight="100dp"
                 app:color="@color/ayp_red"
                 app:fontSize="12sp"
-                android:layout_marginBottom="@dimen/ayp_8dp"
+                android:layout_marginBottom="@dimen/_4sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/bottomLayout" />
@@ -113,30 +114,31 @@
                 android:id="@+id/bottomLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/ayp_8dp"
                 android:paddingHorizontal="@dimen/ayp_8dp"
                 android:paddingBottom="@dimen/ayp_8dp"
-                android:layout_marginBottom="@dimen/ayp_8dp"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:layout_editor_absoluteX="26dp">
 
                 <ImageView
                     android:id="@+id/playPauseSeekBarButton"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="@dimen/ayp_8dp"
-                    android:src="@drawable/ayp_ic_pause_36dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_7sdp"
+                    android:src="@drawable/ayp_ic_pause_24dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/videoCurrentProgress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="8dp"
+                    android:paddingHorizontal="@dimen/_8sdp"
                     android:text="00:00"
-                    android:textStyle="bold"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/ayp_12sp"
+                    android:textSize="@dimen/_9ssp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/playPauseSeekBarButton"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -147,7 +149,7 @@
                     android:layout_height="wrap_content"
                     android:text="/"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/ayp_12sp"
+                    android:textSize="@dimen/_9ssp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/videoCurrentProgress"
@@ -157,11 +159,11 @@
                     android:id="@+id/videoDuration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="8dp"
+                    android:paddingHorizontal="@dimen/_8sdp"
                     android:text="00:00"
-                    android:textStyle="bold"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/ayp_12sp"
+                    android:textSize="@dimen/_9ssp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/spacer"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -188,6 +190,7 @@
                     android:contentDescription="@string/ayp_open_video_in_youtube"
                     android:focusable="true"
                     android:padding="8dp"
+                    android:visibility="gone"
                     android:src="@drawable/ayp_ic_youtube_24dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/quality_button" />
@@ -198,7 +201,8 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
-                    android:padding="8dp"
+                    android:paddingVertical="@dimen/_7sdp"
+                    android:paddingHorizontal="@dimen/_9sdp"
                     android:src="@drawable/ayp_ic_video_quality"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/playback_speed_button" />
@@ -209,7 +213,8 @@
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
-                    android:padding="8dp"
+                    android:paddingHorizontal="@dimen/_9sdp"
+                    android:paddingVertical="@dimen/_7sdp"
                     android:src="@drawable/ayp_ic_playback_rate"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/fullscreen_button" />
@@ -223,6 +228,7 @@
                     android:contentDescription="@string/ayp_full_screen_button"
                     android:focusable="true"
                     android:padding="8dp"
+                    android:visibility="gone"
                     android:src="@drawable/ayp_ic_fullscreen_24dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
