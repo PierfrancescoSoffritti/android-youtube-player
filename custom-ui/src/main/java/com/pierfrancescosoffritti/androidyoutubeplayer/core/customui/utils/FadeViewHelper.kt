@@ -16,6 +16,7 @@ class FadeViewHelper(val targetView: View) : YouTubePlayerListener {
 
   private var canFade = false
   private var isVisible = true
+  var isTogglingSeekbar = false
 
   private var fadeOut: Runnable = Runnable { fade(0f) }
 
@@ -36,7 +37,7 @@ class FadeViewHelper(val targetView: View) : YouTubePlayerListener {
   }
 
   private fun fade(finalAlpha: Float) {
-    if (!canFade || isDisabled)
+    if (!canFade || isDisabled || isTogglingSeekbar)
       return
 
     isVisible = finalAlpha != 0f

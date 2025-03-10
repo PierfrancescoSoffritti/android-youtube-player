@@ -19,7 +19,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.customui.utils.TimeU
 class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null) :
   LinearLayout(context, attrs), SeekBar.OnSeekBarChangeListener, YouTubePlayerListener {
 
-  private var seekBarTouchStarted = false
+   var seekBarTouchStarted = false
 
   // I need this variable because onCurrentSecond gets called every 100 mils, so without the proper checks on this variable in onCurrentSeconds the seek bar glitches when touched.
   private var newSeekBarProgress = -1
@@ -90,6 +90,7 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null) :
 
   override fun onStartTrackingTouch(seekBar: SeekBar) {
     seekBarTouchStarted = true
+    youtubePlayerSeekBarListener?.stopFadeAnimation()
   }
 
   override fun onStopTrackingTouch(seekBar: SeekBar) {
@@ -98,6 +99,7 @@ class YouTubePlayerSeekBar(context: Context, attrs: AttributeSet? = null) :
 
     youtubePlayerSeekBarListener?.seekTo(seekBar.progress.toFloat())
     seekBarTouchStarted = false
+    youtubePlayerSeekBarListener?.startFadeAnimation()
   }
 
   // YouTubePlayerListener
@@ -159,4 +161,6 @@ interface YouTubePlayerSeekBarListener {
   fun onProgressChanged(progress: Int)
   fun onVideoDuration(duration: Float)
   fun resetUi()
+  fun stopFadeAnimation()
+  fun startFadeAnimation()
 }

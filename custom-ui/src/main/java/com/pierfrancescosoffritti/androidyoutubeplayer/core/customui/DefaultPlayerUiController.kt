@@ -146,6 +146,9 @@ class DefaultPlayerUiController(
       override fun seekTo(time: Float) = youTubePlayer.seekTo(time)
       override fun onProgressChanged(progress: Int) {
         videoCurrentProgress.text = convertNumbersToEnglish(TimeUtilities.formatTime(progress.toFloat()))
+        if (youtubePlayerSeekBar.seekBarTouchStarted) {
+          youTubePlayer.seekTo(progress.toFloat())
+        }
       }
 
       override fun onVideoDuration(duration: Float) {
@@ -155,6 +158,16 @@ class DefaultPlayerUiController(
       override fun resetUi() {
         videoDuration.post { videoDuration.text = "00:00" }
       }
+
+      override fun stopFadeAnimation() {
+        fadeControlsContainer.isTogglingSeekbar = true
+      }
+
+      override fun startFadeAnimation() {
+        fadeControlsContainer.isTogglingSeekbar = false
+        fadeControlsContainer.toggleVisibility()
+      }
+
     }
     panel.setOnClickListener { fadeControlsContainer.toggleVisibility() }
     playPauseButton.setOnClickListener { onPlayButtonPressed() }
