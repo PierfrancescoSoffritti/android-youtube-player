@@ -10,8 +10,13 @@ object TimeUtilities {
   @SuppressLint("DefaultLocale")
   @JvmStatic
   fun formatTime(timeInSeconds: Float): String {
-    val minutes = (timeInSeconds / 60).toInt()
-    val seconds = (timeInSeconds % 60).toInt()
-    return String.format("%d:%02d", minutes, seconds)
+      val hours = (timeInSeconds / 3600).toInt()
+      val minutes = (timeInSeconds % 3600 / 60).toInt()
+      val seconds = (timeInSeconds % 60).toInt()
+      return if (hours == 0) {
+          String.format("%02d:%02d", minutes, seconds)
+      } else {
+          String.format("%02d:%02d:%02d", hours, minutes, seconds)
+      }
   }
 }
