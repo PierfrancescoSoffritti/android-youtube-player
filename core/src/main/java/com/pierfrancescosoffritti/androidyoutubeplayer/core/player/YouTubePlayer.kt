@@ -38,6 +38,7 @@ interface YouTubePlayer {
 
   fun mute()
   fun unMute()
+  fun isMuted(): Boolean
 
   /**
    * @param volumePercent Integer between 0 and 100
