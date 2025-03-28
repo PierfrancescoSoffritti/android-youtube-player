@@ -27,7 +27,6 @@ import java.util.*
 
 private class YouTubePlayerImpl(private val webView: WebView) : YouTubePlayer {
   private val mainThread: Handler = Handler(Looper.getMainLooper())
-  private var mutedState = false
   val listeners = mutableSetOf<YouTubePlayerListener>()
 
   override fun loadVideo(videoId: String, startSeconds: Float) = webView.invoke("loadVideo", videoId, startSeconds)
@@ -39,15 +38,8 @@ private class YouTubePlayerImpl(private val webView: WebView) : YouTubePlayer {
   override fun playVideoAt(index: Int) = webView.invoke("playVideoAt", index)
   override fun setLoop(loop: Boolean) = webView.invoke("setLoop", loop)
   override fun setShuffle(shuffle: Boolean) = webView.invoke("setShuffle", shuffle)
-  override fun isMuted(): Boolean = isMuted
-  override fun mute() {
-    webView.invoke("mute")
-    isMuted = true
-  }
-  override fun unMute() {
-    webView.invoke("unMute")
-    isMuted = false
-  }
+  override fun mute() = webView.invoke("mute")
+  override fun unMute() = webView.invoke("unMute")
   override fun setVolume(volumePercent: Int) {
     require(volumePercent in 0..100) { "Volume must be between 0 and 100" }
     webView.invoke("setVolume", volumePercent)
