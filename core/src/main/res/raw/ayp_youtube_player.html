@@ -186,6 +186,10 @@
     function setShuffle(shuffle) {
       player.setShuffle(shuffle);
     }
+    function getMuteState(requestId) {
+      var isMuted = player.isMuted();
+      YouTubePlayerBridge.sendBooleanValue(requestId, isMuted);
+    }
 
   </script>
 </html>

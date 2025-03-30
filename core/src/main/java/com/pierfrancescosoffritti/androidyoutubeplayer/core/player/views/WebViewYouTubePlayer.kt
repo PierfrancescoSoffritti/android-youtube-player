@@ -15,6 +15,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayerBridge
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.callbacks.BooleanCallback
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.FullscreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
@@ -40,6 +41,12 @@ private class YouTubePlayerImpl(private val webView: WebView) : YouTubePlayer {
   override fun setShuffle(shuffle: Boolean) = webView.invoke("setShuffle", shuffle)
   override fun mute() = webView.invoke("mute")
   override fun unMute() = webView.invoke("unMute")
+  override fun isMutedAsync(callback: BooleanCallback) {
+    val bridge = (webView as WebViewYouTubePlayer).getBridge()
+    val requestId = bridge.registerBooleanCallback(callback)
+
+    webView.invoke("getMuteState", requestId)
+  }
   override fun setVolume(volumePercent: Int) {
     require(volumePercent in 0..100) { "Volume must be between 0 and 100" }
     webView.invoke("setVolume", volumePercent)
@@ -93,6 +100,8 @@ internal class WebViewYouTubePlayer constructor(
 
   internal var isBackgroundPlaybackEnabled = false
 
+  private val youTubePlayerBridge = YouTubePlayerBridge(this)
+
   internal fun initialize(initListener: (YouTubePlayer) -> Unit, playerOptions: IFramePlayerOptions?, videoId: String?) {
     youTubePlayerInitListener = initListener
     initWebView(playerOptions ?: IFramePlayerOptions.default, videoId)
@@ -118,7 +127,7 @@ internal class WebViewYouTubePlayer constructor(
       cacheMode = WebSettings.LOAD_DEFAULT
     }
 
-    addJavascriptInterface(YouTubePlayerBridge(this), "YouTubePlayerBridge")
+    addJavascriptInterface(youTubePlayerBridge, "YouTubePlayerBridge")
 
     val htmlPage = readHTMLFromUTF8File(resources.openRawResource(R.raw.ayp_youtube_player))
       .replace("<<injectedVideoId>>", if (videoId != null) { "'$videoId'" } else { "undefined" })
@@ -153,6 +162,8 @@ internal class WebViewYouTubePlayer constructor(
 
     super.onWindowVisibilityChanged(visibility)
   }
+
+  internal fun getBridge(): YouTubePlayerBridge = youTubePlayerBridge
 }
 
 @VisibleForTesting

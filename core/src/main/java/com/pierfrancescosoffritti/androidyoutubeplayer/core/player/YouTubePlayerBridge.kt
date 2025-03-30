@@ -5,7 +5,10 @@ import android.os.Looper
 import android.text.TextUtils
 import android.webkit.JavascriptInterface
 import androidx.annotation.RestrictTo
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.callbacks.BooleanCallback
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
+import java.util.Random
+import java.util.concurrent.ConcurrentHashMap
 
 
 /**
@@ -48,6 +51,7 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
   }
 
   private val mainThreadHandler: Handler = Handler(Looper.getMainLooper())
+  private val booleanCallbacks = ConcurrentHashMap<String, BooleanCallback>()
 
   interface YouTubePlayerBridgeCallbacks {
     val listeners: Collection<YouTubePlayerListener>
@@ -150,6 +154,22 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
   @JavascriptInterface
   fun sendVideoId(videoId: String) = mainThreadHandler.post {
     youTubePlayerOwner.listeners.forEach { it.onVideoId(youTubePlayerOwner.getInstance(), videoId) }
+  }
+
+  @JavascriptInterface
+  fun sendBooleanValue(requestId: String, value: Boolean) {
+    mainThreadHandler.post {
+      booleanCallbacks[requestId]?.let { callback ->
+        callback.accept(value)
+        booleanCallbacks.remove(requestId)
+      }
+    }
+  }
+
+  fun registerBooleanCallback(callback: BooleanCallback): String {
+    val requestId = "req_${System.currentTimeMillis()}_${Random().nextInt(1000)}"
+    booleanCallbacks[requestId] = callback
+    return requestId
   }
 
   private fun parsePlayerState(state: String): PlayerConstants.PlayerState {
