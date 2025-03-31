@@ -155,22 +155,6 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
     youTubePlayerOwner.listeners.forEach { it.onVideoId(youTubePlayerOwner.getInstance(), videoId) }
   }
 
-  @JavascriptInterface
-  fun sendBooleanValue(requestId: String, value: Boolean) {
-    mainThreadHandler.post {
-      booleanCallbacks[requestId]?.let { callback ->
-        callback.accept(value)
-        booleanCallbacks.remove(requestId)
-      }
-    }
-  }
-
-  fun registerBooleanCallback(callback: BooleanProvider): String {
-    val requestId = "req_${System.currentTimeMillis()}_${Random().nextInt(1000)}"
-    booleanCallbacks[requestId] = callback
-    return requestId
-  }
-
   private fun parsePlayerState(state: String): PlayerConstants.PlayerState {
     return when {
       state.equals(STATE_UNSTARTED, ignoreCase = true) -> PlayerConstants.PlayerState.UNSTARTED
