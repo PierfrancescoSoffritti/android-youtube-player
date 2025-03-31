@@ -6,8 +6,6 @@ import android.text.TextUtils
 import android.webkit.JavascriptInterface
 import androidx.annotation.RestrictTo
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
-import java.util.Random
-import java.util.concurrent.ConcurrentHashMap
 
 
 /**
@@ -50,7 +48,6 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
   }
 
   private val mainThreadHandler: Handler = Handler(Looper.getMainLooper())
-  private val booleanCallbacks = ConcurrentHashMap<String, BooleanProvider>()
 
   interface YouTubePlayerBridgeCallbacks {
     val listeners: Collection<YouTubePlayerListener>
