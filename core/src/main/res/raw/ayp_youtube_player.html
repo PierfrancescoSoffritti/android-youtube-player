@@ -33,6 +33,7 @@
     var CUED = "CUED";
 
     var YouTubePlayerBridge = window.YouTubePlayerBridge;
+    var YouTubePlayerCallbacks = window.YouTubePlayerCallbacks;
     var player;
 
     var timerId;
@@ -185,6 +186,11 @@
 
     function setShuffle(shuffle) {
       player.setShuffle(shuffle);
+    }
+
+    function getMuteValue(requestId) {
+      var isMuted = player.isMuted();
+      YouTubePlayerCallbacks.sendBooleanValue(requestId, isMuted);
     }
 
   </script>
