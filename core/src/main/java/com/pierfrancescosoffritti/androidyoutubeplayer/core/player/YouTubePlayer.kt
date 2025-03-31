@@ -1,6 +1,6 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.core.player
 
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.callbacks.BooleanCallback
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.BooleanCallback
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 
 /**

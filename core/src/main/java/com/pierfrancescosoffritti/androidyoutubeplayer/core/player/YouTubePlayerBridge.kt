@@ -5,7 +5,7 @@ import android.os.Looper
 import android.text.TextUtils
 import android.webkit.JavascriptInterface
 import androidx.annotation.RestrictTo
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.callbacks.BooleanCallback
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.BooleanCallback
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import java.util.Random
 import java.util.concurrent.ConcurrentHashMap

@@ -1,4 +1,4 @@
-package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.callbacks
+package com.pierfrancescosoffritti.androidyoutubeplayer.core.player
 
 /**
  * A callback accepting a Boolean value
