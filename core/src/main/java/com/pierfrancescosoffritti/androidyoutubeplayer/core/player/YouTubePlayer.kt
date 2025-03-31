@@ -1,6 +1,5 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.core.player
 
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.BooleanCallback
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 
 /**
@@ -41,7 +40,7 @@ interface YouTubePlayer {
   fun unMute()
 
   /** Returns true if the player is muted, false otherwise. */
-  fun isMutedAsync(callback: BooleanCallback)
+  fun isMutedAsync(callback: BooleanProvider)
 
   /**
    * @param volumePercent Integer between 0 and 100

@@ -5,7 +5,6 @@ import android.os.Looper
 import android.text.TextUtils
 import android.webkit.JavascriptInterface
 import androidx.annotation.RestrictTo
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.BooleanCallback
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import java.util.Random
 import java.util.concurrent.ConcurrentHashMap
@@ -51,7 +50,7 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
   }
 
   private val mainThreadHandler: Handler = Handler(Looper.getMainLooper())
-  private val booleanCallbacks = ConcurrentHashMap<String, BooleanCallback>()
+  private val booleanCallbacks = ConcurrentHashMap<String, BooleanProvider>()
 
   interface YouTubePlayerBridgeCallbacks {
     val listeners: Collection<YouTubePlayerListener>
@@ -166,7 +165,7 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
     }
   }
 
-  fun registerBooleanCallback(callback: BooleanCallback): String {
+  fun registerBooleanCallback(callback: BooleanProvider): String {
     val requestId = "req_${System.currentTimeMillis()}_${Random().nextInt(1000)}"
     booleanCallbacks[requestId] = callback
     return requestId

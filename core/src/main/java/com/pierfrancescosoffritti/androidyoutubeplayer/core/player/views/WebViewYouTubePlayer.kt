@@ -15,7 +15,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayerBridge
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.BooleanCallback
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.BooleanProvider
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.FullscreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
@@ -41,7 +41,7 @@ private class YouTubePlayerImpl(private val webView: WebView) : YouTubePlayer {
   override fun setShuffle(shuffle: Boolean) = webView.invoke("setShuffle", shuffle)
   override fun mute() = webView.invoke("mute")
   override fun unMute() = webView.invoke("unMute")
-  override fun isMutedAsync(callback: BooleanCallback) {
+  override fun isMutedAsync(callback: BooleanProvider) {
     val bridge = (webView as WebViewYouTubePlayer).getBridge()
     val requestId = bridge.registerBooleanCallback(callback)
 
