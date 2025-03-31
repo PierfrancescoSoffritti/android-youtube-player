@@ -28,9 +28,9 @@ import java.util.*
 
 
 private class YouTubePlayerImpl(
-        private val webView: WebView,
-        private val callbacks: YouTubePlayerCallbacks
-  ) : YouTubePlayer {
+  private val webView: WebView,
+  private val callbacks: YouTubePlayerCallbacks
+) : YouTubePlayer {
   private val mainThread: Handler = Handler(Looper.getMainLooper())
   val listeners = mutableSetOf<YouTubePlayerListener>()
 
