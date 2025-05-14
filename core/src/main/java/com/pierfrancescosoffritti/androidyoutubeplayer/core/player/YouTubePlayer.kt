@@ -13,6 +13,8 @@ interface YouTubePlayer {
    */
   fun loadVideo(videoId: String, startSeconds: Float)
 
+  fun setPlaybackQuality(quality: String)
+
   /**
    * Loads the video's thumbnail and prepares the player to play the video. Does not automatically play the video.
    * @param videoId id of the video

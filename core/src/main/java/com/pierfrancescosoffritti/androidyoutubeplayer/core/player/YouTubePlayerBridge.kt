@@ -56,6 +56,17 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
   }
 
   @JavascriptInterface
+  fun sendVideoQuality(quality: String) {
+    val playbackQuality = parsePlaybackQuality(quality)
+    mainThreadHandler.post {
+      for(listener in youTubePlayerOwner.listeners) {
+        // also add this new method to the listener interface
+        listener.onPlaybackQualityChange(youTubePlayerOwner.getInstance(), playbackQuality)
+      }
+    }
+  }
+
+  @JavascriptInterface
   fun sendYouTubeIFrameAPIReady() = mainThreadHandler.post { youTubePlayerOwner.onYouTubeIFrameAPIReady() }
 
   @JavascriptInterface

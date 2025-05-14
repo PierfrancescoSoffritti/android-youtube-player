@@ -22,14 +22,17 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.toFloat
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
-import java.util.*
-
 
 private class YouTubePlayerImpl(private val webView: WebView) : YouTubePlayer {
   private val mainThread: Handler = Handler(Looper.getMainLooper())
   val listeners = mutableSetOf<YouTubePlayerListener>()
 
   override fun loadVideo(videoId: String, startSeconds: Float) = webView.invoke("loadVideo", videoId, startSeconds)
+  override fun setPlaybackQuality(quality: String) {
+    mainThread.post {
+      webView.loadUrl("javascript:setPlaybackQuality('$quality')")
+    }
+  }
   override fun cueVideo(videoId: String, startSeconds: Float) = webView.invoke("cueVideo", videoId, startSeconds)
   override fun play() = webView.invoke("playVideo")
   override fun pause() = webView.invoke("pauseVideo")
@@ -113,6 +116,7 @@ internal class WebViewYouTubePlayer constructor(
   @SuppressLint("SetJavaScriptEnabled")
   private fun initWebView(playerOptions: IFramePlayerOptions, videoId: String?) {
     settings.apply {
+      domStorageEnabled = true
       javaScriptEnabled = true
       mediaPlaybackRequiresUserGesture = false
       cacheMode = WebSettings.LOAD_DEFAULT

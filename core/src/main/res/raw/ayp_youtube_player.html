@@ -40,13 +40,13 @@
     function onYouTubeIframeAPIReady() {
 
       YouTubePlayerBridge.sendYouTubeIFrameAPIReady();
-            
+
     	player = new YT.Player('youTubePlayerDOM', {
-    			
+
         height: '100%',
     	  width: '100%',
     	  videoId: <<injectedVideoId>>,
-    			
+
         events: {
     	    onReady: function(event) { YouTubePlayerBridge.sendReady() },
     		  onStateChange: function(event) { sendPlayerStateChange(event.data) },
@@ -124,6 +124,33 @@
     }
 
     // JAVA to WEB functions
+    // Return the available quality options for the current video.
+    // Not all videos have the same quality options, so we need to check what's available first.
+    // this function will return an array like: ["hd1080","hd720","large","medium","small","tiny","auto"]
+    function sendVideoQuality(player) {
+        YouTubePlayerBridge.sendVideoQuality(JSON.stringify(player.getAvailableQualityLevels()))
+    }
+
+    function setPlaybackQuality(playbackQuality) {
+      if (playbackQuality == "auto") {
+        localStorage.removeItem("yt-player-quality");
+      } else {
+        var now = Date.now();
+        // this will set `playbackQuality` as the selected video quality, untile it expires
+        localStorage.setItem("yt-player-quality", JSON.stringify({
+          data: playbackQuality,
+          creation: now,
+          expiration: now + 2419200000
+        }));
+      }
+
+      // after changing the quality you need to reload the video to see changes.
+      // reload the video and start playing where it was.
+      if (player) {
+        var currentTime = player.getCurrentTime();
+        player.loadVideoById(player.getVideoData().video_id, currentTime);
+      }
+    }
 
     function seekTo(startSeconds) {
       player.seekTo(startSeconds, true);
