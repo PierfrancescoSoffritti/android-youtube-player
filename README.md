@@ -45,7 +45,7 @@ You can [see more stats here](https://www.appbrain.com/stats/libraries/details/a
 **TL;DR** No. 
 
 The library uses YouTube's own web player to play videos. Therefore it is 100% compliant with  terms of service.
-Playing YouTube videos in a WebView is the recomended approach by Google, both on [Android](https://developers.google.com/youtube/android/player/) and [iOS](https://developers.google.com/youtube/v3/guides/ios_youtube_helper).
+Playing YouTube videos in a WebView is the recommended approach by Google, both on [Android](https://developers.google.com/youtube/android/player/) and [iOS](https://developers.google.com/youtube/v3/guides/ios_youtube_helper).
 
 That said how you use the library matters, be sure to play videos only when the player is visible. If you follow the instructions in the documentation, the library will automatically handle this for you.
 
