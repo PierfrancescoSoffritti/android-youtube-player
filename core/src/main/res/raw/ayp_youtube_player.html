@@ -33,6 +33,7 @@
     var CUED = "CUED";
 
     var YouTubePlayerBridge = window.YouTubePlayerBridge;
+    var YouTubePlayerCallbacks = window.YouTubePlayerCallbacks;
     var player;
 
     var timerId;
@@ -41,24 +42,25 @@
 
       YouTubePlayerBridge.sendYouTubeIFrameAPIReady();
             
-    	player = new YT.Player('youTubePlayerDOM', {
-    			
+      var youtubePlayerConfig = {
         height: '100%',
-    	  width: '100%',
-    	  videoId: <<injectedVideoId>>,
-    			
+        width: '100%',
         events: {
-    	    onReady: function(event) { YouTubePlayerBridge.sendReady() },
-    		  onStateChange: function(event) { sendPlayerStateChange(event.data) },
-    		  onPlaybackQualityChange: function(event) { YouTubePlayerBridge.sendPlaybackQualityChange(event.data) },
-    		  onPlaybackRateChange: function(event) { YouTubePlayerBridge.sendPlaybackRateChange(event.data) },
-    		  onError: function(error) { YouTubePlayerBridge.sendError(error.data) },
-    		  onApiChange: function(event) { YouTubePlayerBridge.sendApiChange() }
-    	  },
+          onReady: function(event) { YouTubePlayerBridge.sendReady() },
+          onStateChange: function(event) { sendPlayerStateChange(event.data) },
+          onPlaybackQualityChange: function(event) { YouTubePlayerBridge.sendPlaybackQualityChange(event.data) },
+          onPlaybackRateChange: function(event) { YouTubePlayerBridge.sendPlaybackRateChange(event.data) },
+          onError: function(error) { YouTubePlayerBridge.sendError(error.data) },
+          onApiChange: function(event) { YouTubePlayerBridge.sendApiChange() }
+        },
+        playerVars: <<injectedPlayerVars>>
+      };
 
-    	  playerVars: <<injectedPlayerVars>>
+      if (<<injectedVideoId>>) {
+        youtubePlayerConfig.videoId = <<injectedVideoId>>;
+      }
 
-      });
+      player = new YT.Player('youTubePlayerDOM', youtubePlayerConfig);
     }
 
     function sendPlayerStateChange(playerState) {
@@ -185,6 +187,11 @@
 
     function setShuffle(shuffle) {
       player.setShuffle(shuffle);
+    }
+
+    function getMuteValue(requestId) {
+      var isMuted = player.isMuted();
+      YouTubePlayerCallbacks.sendBooleanValue(requestId, isMuted);
     }
 
   </script>

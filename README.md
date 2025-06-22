@@ -45,7 +45,7 @@ You can [see more stats here](https://www.appbrain.com/stats/libraries/details/a
 **TL;DR** No. 
 
 The library uses YouTube's own web player to play videos. Therefore it is 100% compliant with  terms of service.
-Playing YouTube videos in a WebView is the recomended approach by Google, both on [Android](https://developers.google.com/youtube/android/player/) and [iOS](https://developers.google.com/youtube/v3/guides/ios_youtube_helper).
+Playing YouTube videos in a WebView is the recommended approach by Google, both on [Android](https://developers.google.com/youtube/android/player/) and [iOS](https://developers.google.com/youtube/v3/guides/ios_youtube_helper).
 
 That said how you use the library matters, be sure to play videos only when the player is visible. If you follow the instructions in the documentation, the library will automatically handle this for you.
 
@@ -70,7 +70,8 @@ Also remember when publishing your app on the PlayStore to write title and descr
         2. [Load videos](#load-videos)
             1. [Utility for loading videos](#utility-for-loading-videos)
         3. [Events](#events)
-        4. [YouTubePlayerTracker](#youtubeplayertracker)
+        4. [Get state from the player](#get-state-from-the-player)
+        5. [YouTubePlayerTracker](#youtubeplayertracker)
     3. [YouTubePlayerListener](#youtubeplayerlistener)
         1. [onReady callback](#onready-callback)
         2. [onStateChanged callback](#onstatechanged-callback)
@@ -130,7 +131,7 @@ Add this to your module level `build.gradle` file.
 
 ```gradle
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.1'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.2'
 }
 ```
 
@@ -141,7 +142,7 @@ Add this to your module level `build.gradle` file.
 
 ```gradle
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.30'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.31'
 }
 ```
 
@@ -191,7 +192,7 @@ youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
 });
 ```
 
-If you decde to initialize the player programmatically, remember to remove the `autoPlay` and `videoId` attributes from the `YouTubePlayerView` in your XML file.
+If you decide to initialize the player programmatically, remember to remove the `autoPlay` and `videoId` attributes from the `YouTubePlayerView` in your XML file.
 
 ----
 
@@ -507,6 +508,18 @@ This function will call `loadVideo` only if the Activity is resumed, otherwise i
 
 ### Events
 During its existence the player will constantly emit events, you can easily listen to all of them by adding a [`YouTubePlayerListener`](#youtubeplayerlistener) to it.
+
+### Get state from the player
+The IFrame API exposes methods like `isMute` that can be used to read the current state of the player.
+
+These are exposed in the `YouTubePlayer` interface as async calls. They are async becasue in order to get them, the JVM player needs to send a requesto to the IFrame player inside the Webview.
+
+These methods are exposed with the `async` suffix in the `YouTubePlayer`. Suspending extension functions are available to simplify usage from Kotlin.
+
+```kotlin
+fun isMutedAsync(callback: BooleanProvider)
+suspend fun isMuted(): Boolean
+```
 
 ### YouTubePlayerTracker
 `YouTubePlayerTracker` is an utility provided by the library to easily keep track of a `YouTubePlayer`'s state and other information.
