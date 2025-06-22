@@ -142,7 +142,7 @@ Add this to your module level `build.gradle` file.
 
 ```gradle
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.30'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.31'
 }
 ```
 
