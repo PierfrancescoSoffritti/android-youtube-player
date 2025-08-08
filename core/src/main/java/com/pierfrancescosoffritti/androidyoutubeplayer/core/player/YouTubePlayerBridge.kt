@@ -45,6 +45,7 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
     private const val ERROR_VIDEO_NOT_FOUND = "100"
     private const val ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER1 = "101"
     private const val ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER2 = "150"
+    private const val ERROR_REQUEST_MISSING_HTTP_REFERER = "153"
   }
 
   private val mainThreadHandler: Handler = Handler(Looper.getMainLooper())
@@ -202,6 +203,7 @@ class YouTubePlayerBridge(private val youTubePlayerOwner: YouTubePlayerBridgeCal
       error.equals(ERROR_VIDEO_NOT_FOUND, ignoreCase = true) -> PlayerConstants.PlayerError.VIDEO_NOT_FOUND
       error.equals(ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER1, ignoreCase = true) -> PlayerConstants.PlayerError.VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER
       error.equals(ERROR_VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER2, ignoreCase = true) -> PlayerConstants.PlayerError.VIDEO_NOT_PLAYABLE_IN_EMBEDDED_PLAYER
+      error.equals(ERROR_REQUEST_MISSING_HTTP_REFERER, ignoreCase = true) -> PlayerConstants.PlayerError.REQUEST_MISSING_HTTP_REFERER
       else -> PlayerConstants.PlayerError.UNKNOWN
     }
   }
