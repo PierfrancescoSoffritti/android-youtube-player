@@ -9,6 +9,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.FullscreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.VideoIdsProvider
 import com.pierfrancescosoffritti.aytplayersample.BuildConfig
 import com.pierfrancescosoffritti.aytplayersample.R
 
@@ -61,7 +62,7 @@ class FullscreenExampleActivity : AppCompatActivity() {
       override fun onReady(youTubePlayer: YouTubePlayer) {
         youTubePlayer.toggleFullscreen()
         this@FullscreenExampleActivity.youTubePlayer = youTubePlayer
-        youTubePlayer.loadVideo("S0Q4gqBUs7c", 0f)
+        youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f)
       }
     }, iFramePlayerOptions)
 
