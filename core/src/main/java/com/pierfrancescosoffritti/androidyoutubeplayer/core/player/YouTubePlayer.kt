@@ -60,6 +60,7 @@ interface YouTubePlayer {
    *
    * Might require setting the `origin` parameter to "https://www.youtube.com".
    */
+  @Deprecated("This method is deprecated and does nothing when invoked. Unfortunately there is not a replacement. See issue #1252 on Github for more info.")
   fun toggleFullscreen()
 
   fun addListener(listener: YouTubePlayerListener): Boolean

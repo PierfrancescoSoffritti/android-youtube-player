@@ -1,12 +1,10 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.completeExample
 
 import android.content.pm.ActivityInfo
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -52,29 +50,6 @@ class CompleteExampleActivity : AppCompatActivity() {
     muteTextView = findViewById(R.id.mute_text_view)
 
     initYouTubePlayerView(youTubePlayerView)
-  }
-
-  override fun onConfigurationChanged(configuration: Configuration) {
-    super.onConfigurationChanged(configuration)
-
-    // Checks the orientation of the screen
-    if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-      if (!isFullscreen) {
-        youTubePlayer?.toggleFullscreen()
-      }
-    } else if (configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-      if (isFullscreen) {
-        youTubePlayer?.toggleFullscreen()
-      }
-    }
-  }
-
-  override fun onBackPressed() {
-    if (isFullscreen) {
-      youTubePlayer?.toggleFullscreen()
-    } else {
-      super.onBackPressed()
-    }
   }
 
   private fun initYouTubePlayerView(youTubePlayerView: YouTubePlayerView) {
