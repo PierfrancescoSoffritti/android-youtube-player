@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".examples.chromecastExample.ChromeCastExampleActivity" >
+    android:orientation="vertical" >
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
         android:id="@+id/youtube_player_view"
@@ -41,7 +40,7 @@
             app:layout_constraintBottom_toTopOf="@+id/chromecast_controls_low"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:tint="@android:color/black"
+            app:tint="@android:color/black"
             android:src="@drawable/ayp_ic_play_36dp" />
 
         <ProgressBar
@@ -119,7 +118,7 @@
                 android:focusable="true"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                android:tint="@android:color/black"
+                app:tint="@android:color/black"
                 android:src="@drawable/ayp_ic_youtube_24dp" />
 
             <TextView

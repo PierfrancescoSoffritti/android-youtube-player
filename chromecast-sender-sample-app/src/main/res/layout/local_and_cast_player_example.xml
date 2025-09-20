@@ -42,7 +42,7 @@
             app:layout_constraintBottom_toTopOf="@+id/chromecast_controls_low"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:tint="@android:color/black"
+            app:tint="@android:color/black"
             android:src="@drawable/ayp_ic_play_36dp" />
 
         <ProgressBar
@@ -120,7 +120,7 @@
                 android:focusable="true"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                android:tint="@android:color/black"
+                app:tint="@android:color/black"
                 android:contentDescription="watch on YouTube"
                 android:src="@drawable/ayp_ic_youtube_24dp" />
 

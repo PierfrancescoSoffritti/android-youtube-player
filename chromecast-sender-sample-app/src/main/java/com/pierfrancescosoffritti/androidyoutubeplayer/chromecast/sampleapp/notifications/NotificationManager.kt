@@ -76,6 +76,8 @@ class NotificationManager(
       .setStyle(MediaStyle().setShowActionsInCompactView(0, 1))
   }
 
+  // TODO: fix
+  @SuppressLint("NotificationPermission", "MissingPermission")
   fun showNotification() {
     val notificationManager = NotificationManagerCompat.from(context)
     notificationManager.notify(notificationId, notificationBuilder.build())
@@ -88,11 +90,11 @@ class NotificationManager(
 
   @SuppressLint("SwitchIntDef")
   override fun onStateChange(youTubePlayer: YouTubePlayer, state: PlayerConstants.PlayerState) {
-    when (state) {
-      PlayerConstants.PlayerState.PLAYING -> notificationBuilder.mActions[0].icon =
-        R.drawable.ic_pause_24dp
-      else -> notificationBuilder.mActions[0].icon = R.drawable.ic_play_arrow_24dp
-    }
+    // TODO: fix
+//    when (state) {
+//      PlayerConstants.PlayerState.PLAYING -> notificationBuilder.mActions[0].icon = R.drawable.ic_pause_24dp
+//      else -> notificationBuilder.mActions[0].icon = R.drawable.ic_play_arrow_24dp
+//    }
 
     showNotification()
   }

@@ -1,5 +1,6 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.examples.localPlayerExample
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
@@ -111,6 +112,8 @@ class LocalPlayerInitExampleActivity : AppCompatActivity(),
     )
   }
 
+  // TODO: fix
+  @SuppressLint("UnspecifiedRegisterReceiverFlag")
   private fun registerBroadcastReceiver() {
     playbackControllerBroadcastReceiver = PlaybackControllerBroadcastReceiver {
       youTubePlayersManager.togglePlayback()
