@@ -58,7 +58,6 @@ class FullscreenExampleActivity : AppCompatActivity() {
 
     youTubePlayerView.initialize(object : AbstractYouTubePlayerListener() {
       override fun onReady(youTubePlayer: YouTubePlayer) {
-        youTubePlayer.toggleFullscreen()
         this@FullscreenExampleActivity.youTubePlayer = youTubePlayer
         youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f)
       }
