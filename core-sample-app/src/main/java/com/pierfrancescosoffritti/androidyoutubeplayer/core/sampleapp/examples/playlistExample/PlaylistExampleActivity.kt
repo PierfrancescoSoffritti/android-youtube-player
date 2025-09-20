@@ -7,6 +7,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import com.pierfrancescosoffritti.aytplayersample.BuildConfig
 import com.pierfrancescosoffritti.aytplayersample.R
 
 class PlaylistExampleActivity : AppCompatActivity() {
@@ -19,6 +20,7 @@ class PlaylistExampleActivity : AppCompatActivity() {
 
     youTubePlayerView = findViewById<YouTubePlayerView>(R.id.youtube_player_view).apply {
       val iFramePlayerOptions = IFramePlayerOptions.Builder()
+        .origin("https://${BuildConfig.APPLICATION_ID}")
         .controls(1)
         .listType("playlist")
         .list(PLAYLIST_ID)

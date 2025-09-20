@@ -13,6 +13,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFram
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.VideoIdsProvider;
+import com.pierfrancescosoffritti.aytplayersample.BuildConfig;
 import com.pierfrancescosoffritti.aytplayersample.R;
 
 public class IFramePlayerOptionsExampleActivity extends AppCompatActivity {
@@ -31,6 +32,7 @@ public class IFramePlayerOptionsExampleActivity extends AppCompatActivity {
 
   private void initYouTubePlayerView() {
     IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
+            .origin("https://" + BuildConfig.APPLICATION_ID)
             .controls(0)
             .rel(0)
             .ivLoadPolicy(1)
