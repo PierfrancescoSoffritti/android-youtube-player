@@ -12,10 +12,10 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.annotation.VisibleForTesting
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.BooleanProvider
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayerBridge
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.BooleanProvider
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayerCallbacks
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.FullscreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
@@ -24,7 +24,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.toFloat
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
-import java.util.*
 
 
 private class YouTubePlayerImpl(
@@ -107,7 +106,7 @@ internal class WebViewYouTubePlayer constructor(
 
   internal fun initialize(initListener: (YouTubePlayer) -> Unit, playerOptions: IFramePlayerOptions?, videoId: String?) {
     youTubePlayerInitListener = initListener
-    initWebView(playerOptions ?: IFramePlayerOptions.default, videoId)
+    initWebView(playerOptions ?: IFramePlayerOptions.getDefault(context), videoId)
   }
 
   // create new set to avoid concurrent modifications

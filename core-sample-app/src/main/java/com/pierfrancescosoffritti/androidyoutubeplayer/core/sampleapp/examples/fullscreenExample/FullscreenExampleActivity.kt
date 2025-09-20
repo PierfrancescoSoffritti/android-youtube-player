@@ -10,7 +10,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Ful
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.VideoIdsProvider
-import com.pierfrancescosoffritti.aytplayersample.BuildConfig
 import com.pierfrancescosoffritti.aytplayersample.R
 
 class FullscreenExampleActivity : AppCompatActivity() {
@@ -26,8 +25,7 @@ class FullscreenExampleActivity : AppCompatActivity() {
     val youTubePlayerView = findViewById<YouTubePlayerView>(R.id.youtube_player_view)
     val fullscreenViewContainer = findViewById<FrameLayout>(R.id.full_screen_view_container)
 
-    val iFramePlayerOptions = IFramePlayerOptions.Builder()
-      .origin("https://${BuildConfig.APPLICATION_ID}")
+    val iFramePlayerOptions = IFramePlayerOptions.Builder(applicationContext)
       .controls(1)
       .fullscreen(1) // enable full screen button
       .build()

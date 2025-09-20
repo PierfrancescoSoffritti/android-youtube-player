@@ -15,7 +15,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFram
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.VideoIdsProvider;
-import com.pierfrancescosoffritti.aytplayersample.BuildConfig;
 import com.pierfrancescosoffritti.aytplayersample.R;
 
 public class DefaultCustomUiExampleActivity extends AppCompatActivity {
@@ -55,8 +54,7 @@ public class DefaultCustomUiExampleActivity extends AppCompatActivity {
     };
 
     // disable web ui
-    IFramePlayerOptions options = new IFramePlayerOptions.Builder()
-            .origin("https://" + BuildConfig.APPLICATION_ID)
+    IFramePlayerOptions options = new IFramePlayerOptions.Builder(getApplicationContext())
             .controls(0)
             .build();
 

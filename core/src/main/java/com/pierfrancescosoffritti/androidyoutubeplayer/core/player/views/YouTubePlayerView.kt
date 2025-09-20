@@ -89,7 +89,7 @@ class YouTubePlayerView(
       legacyTubePlayerView.initialize(
         youTubePlayerListener,
         handleNetworkEvents,
-        IFramePlayerOptions.default,
+        IFramePlayerOptions.getDefault(context),
         videoId
       )
     }
@@ -134,7 +134,7 @@ class YouTubePlayerView(
       throw IllegalStateException(AUTO_INIT_ERROR)
     }
     else {
-      legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, IFramePlayerOptions.default)
+      legacyTubePlayerView.initialize(youTubePlayerListener, handleNetworkEvents, IFramePlayerOptions.getDefault(context))
     }
   }
 

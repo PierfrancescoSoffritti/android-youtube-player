@@ -17,7 +17,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFram
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.VideoIdsProvider
-import com.pierfrancescosoffritti.aytplayersample.BuildConfig
 import com.pierfrancescosoffritti.aytplayersample.R
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -101,8 +100,7 @@ class CompleteExampleActivity : AppCompatActivity() {
       }
     }
 
-    val iFramePlayerOptions = IFramePlayerOptions.Builder()
-      .origin("https://${BuildConfig.APPLICATION_ID}")
+    val iFramePlayerOptions = IFramePlayerOptions.Builder(applicationContext)
       .controls(1)
       .fullscreen(1) // enable full screen button
       .build()
