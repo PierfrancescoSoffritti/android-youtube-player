@@ -55,14 +55,6 @@ interface YouTubePlayer {
 
   fun setPlaybackRate(playbackRate: PlayerConstants.PlaybackRate)
 
-  /**
-   * Tries to enter or exit fullscreen in the player.
-   *
-   * Might require setting the `origin` parameter to "https://www.youtube.com".
-   */
-  @Deprecated("This method is deprecated and does nothing when invoked. Unfortunately there is not a replacement. See issue #1252 on Github for more info.")
-  fun toggleFullscreen()
-
   fun addListener(listener: YouTubePlayerListener): Boolean
   fun removeListener(listener: YouTubePlayerListener): Boolean
 }
