@@ -323,7 +323,7 @@ A simple example of how to use `IFramePlayerOptions` can be found in the sample 
 Use the Builder to get a `IFramePlayerOptions` object.
 
 ```java
-IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
+IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder(context)
   .controls(1)
   .build();
 ```
@@ -372,7 +372,7 @@ This parameter specifies the time, measured in seconds from the beginning of the
 The full screen button can be added to the player by using `IFramePlayerOptions`
 
 ```java
-IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
+IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder(context)
   .controls(1)
   // enable full screen button
   .fullscreen(1)
@@ -414,7 +414,7 @@ If you need to change the orientation of your Activity/Fragment, remember that b
 You can initialize the player to play playlists instead of videos. This can be done by setting `listType` to `playlist` and then providing the id of the playlist to `list`.
 
 ```kotlin
-val iFramePlayerOptions = IFramePlayerOptions.Builder()
+val iFramePlayerOptions = IFramePlayerOptions.Builder(context)
   .controls(1)
   .listType("playlist")
   .list(PLAYLIST_ID)
@@ -618,7 +618,7 @@ For this reason it is recommended to disable the UI of the IFrame player, by ini
 
 ```java
 // disable web ui
-IFramePlayerOptions options = new IFramePlayerOptions.Builder().controls(0).build();
+IFramePlayerOptions options = new IFramePlayerOptions.Builder(context).controls(0).build();
 youTubePlayerView.initialize(listener, options);
 ```
 
@@ -644,7 +644,7 @@ YouTubePlayerListener listener = new AbstractYouTubePlayerListener() {
 };
 
 // disable iframe ui
-IFramePlayerOptions options = new IFramePlayerOptions.Builder().controls(0).build();
+IFramePlayerOptions options = new IFramePlayerOptions.Builder(context).controls(0).build();
 youTubePlayerView.initialize(listener, options);
 ```
 A blog post going deeper on this is available [at this link](https://medium.com/@soffritti.pierfrancesco/customize-android-youtube-players-ui-9f32da9e8505).
@@ -680,7 +680,7 @@ YouTubePlayerListener listener = new AbstractYouTubePlayerListener() {
 };
 
 // disable iframe ui
-IFramePlayerOptions options = new IFramePlayerOptions.Builder().controls(0).build();
+IFramePlayerOptions options = new IFramePlayerOptions.Builder(context).controls(0).build();
 youTubePlayerView.initialize(listener, options);
 ```
 
