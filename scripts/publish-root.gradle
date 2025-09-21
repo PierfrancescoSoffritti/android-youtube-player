@@ -34,6 +34,7 @@ if (snapshot) {
 
 // Set up Sonatype repository
 nexusPublishing {
+    packageGroup = 'com.pierfrancescosoffritti.androidyoutubeplayer'
     repositories {
         sonatype {
             nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
