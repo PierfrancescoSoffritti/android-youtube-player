@@ -121,7 +121,7 @@ Also remember when publishing your app on the PlayStore to write title and descr
 # Download
 The Gradle dependency is available via [MavenCentral](https://repo1.maven.org/maven2/com/pierfrancescosoffritti/androidyoutubeplayer/).
 
-The minimum API level supported by this library is API 17.
+The minimum API level supported by this library is API 21.
 
 ### Core
 The *core* module contains the YouTube Player. It's all you need to play YouTube videos in your app.
@@ -130,7 +130,7 @@ Add this to your module level `build.gradle` file.
 
 ```gradle
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.2'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:13.0.0'
 }
 ```
 
@@ -141,7 +141,7 @@ Add this to your module level `build.gradle` file.
 
 ```gradle
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.31'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.32'
 }
 ```
 
@@ -833,9 +833,7 @@ Remember that this behavior is against [YouTube terms of service](https://develo
 Use this functionality only if you plan to build the app for personal use or if you plan to distribute it through different channels.
 
 ### minSdk
-The minSdk of the library is 17. [At this point in time](https://developer.android.com/about/dashboards/index.html) it doesn't make much sense for new apps to support older versions of Android.
-
-I'm not sure how WebView will behave on older versions of Android, but technically it should be possible to lower the minSdk. If you absolutely need to support older devices, I suggest you fork the library and lower the minSdk yourself.
+The minSdk of the library is 21. [At this point in time](https://developer.android.com/about/dashboards/index.html) it doesn't make much sense for new apps to support older versions of Android.
 
 ---
 
