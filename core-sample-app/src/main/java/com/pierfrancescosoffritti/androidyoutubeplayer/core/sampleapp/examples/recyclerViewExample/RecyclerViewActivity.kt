@@ -4,22 +4,23 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.VideoIdsProvider
 import com.pierfrancescosoffritti.aytplayersample.R
 
 /** Videos to play inside the list */
 private val videoIds = listOf(
-  "6JYIGclVQdw",
-  "LvetJ9U_tVY",
-  "6JYIGclVQdw",
-  "LvetJ9U_tVY",
-  "6JYIGclVQdw",
-  "LvetJ9U_tVY",
-  "6JYIGclVQdw",
-  "LvetJ9U_tVY",
-  "6JYIGclVQdw",
-  "LvetJ9U_tVY",
-  "6JYIGclVQdw",
-  "LvetJ9U_tVY"
+  VideoIdsProvider.getNextVideoId(),
+  VideoIdsProvider.getNextVideoId(),
+  VideoIdsProvider.getNextVideoId(),
+  VideoIdsProvider.getNextVideoId(),
+  VideoIdsProvider.getNextVideoId(),
+  VideoIdsProvider.getNextVideoId(),
+  VideoIdsProvider.getNextVideoId(),
+  VideoIdsProvider.getNextVideoId(),
+  VideoIdsProvider.getNextVideoId(),
+  VideoIdsProvider.getNextVideoId(),
+  VideoIdsProvider.getNextVideoId(),
+  VideoIdsProvider.getNextVideoId(),
 )
 
 class RecyclerViewActivity : AppCompatActivity() {

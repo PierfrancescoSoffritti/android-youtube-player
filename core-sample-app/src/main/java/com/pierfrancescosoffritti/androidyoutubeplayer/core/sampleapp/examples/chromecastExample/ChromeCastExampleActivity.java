@@ -1,5 +1,6 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.chromecastExample;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -144,6 +145,8 @@ public class ChromeCastExampleActivity extends AppCompatActivity implements YouT
     );
   }
 
+  // TODO: fix
+  @SuppressLint("UnspecifiedRegisterReceiverFlag")
   private void registerBroadcastReceiver() {
     playbackControllerBroadcastReceiver = new PlaybackControllerBroadcastReceiver(youTubePlayersManager::togglePlayback);
     IntentFilter filter = new IntentFilter(PlaybackControllerBroadcastReceiver.TOGGLE_PLAYBACK);

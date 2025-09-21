@@ -1,5 +1,6 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.chromecast.sampleapp.examples.notificationExample
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
@@ -61,6 +62,8 @@ class NotificationExampleActivity : AppCompatActivity() {
         Runnable { initChromecast() })
   }
 
+  // TODO: fix
+  @SuppressLint("UnspecifiedRegisterReceiverFlag")
   private fun registerBroadcastReceiver() {
     val filter = IntentFilter(PlaybackControllerBroadcastReceiver.TOGGLE_PLAYBACK)
     filter.addAction(PlaybackControllerBroadcastReceiver.STOP_CAST_SESSION)

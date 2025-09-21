@@ -2,31 +2,24 @@ apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply plugin: 'org.jetbrains.dokka'
 
-task androidSourcesJar(type: Jar) {
-    archiveClassifier.set('sources')
-    if (project.plugins.findPlugin("com.android.library")) {
-        from android.sourceSets.main.java.srcDirs
-        from android.sourceSets.main.kotlin.srcDirs
-    } else {
-        from sourceSets.main.java.srcDirs
-        from sourceSets.main.kotlin.srcDirs
+android {
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+        }
     }
 }
 
 tasks.withType(dokkaHtmlPartial.getClass()).configureEach {
     pluginsMapConfiguration.set(
-            ["org.jetbrains.dokka.base.DokkaBase": """{ "separateInheritedMembers": true}"""]
+            ["org.jetbrains.dokka.base.DokkaBase": """{ "separateInheritedMembers": true }"""]
     )
 }
 
-task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
+def javadocJar = tasks.register('javadocJar', Jar) {
+    dependsOn(tasks.named('dokkaJavadoc'))
     archiveClassifier.set('javadoc')
-    from dokkaJavadoc.outputDirectory
-}
-
-artifacts {
-    archives androidSourcesJar
-    archives javadocJar
+    from(tasks.named('dokkaJavadoc').map { it.outputDirectory })
 }
 
 group = PUBLISH_GROUP_ID
@@ -35,18 +28,13 @@ version = PUBLISH_VERSION
 afterEvaluate {
     publishing {
         publications {
-            release(MavenPublication) {
-                groupId PUBLISH_GROUP_ID
-                artifactId PUBLISH_ARTIFACT_ID
-                version PUBLISH_VERSION
-                if (project.plugins.findPlugin("com.android.library")) {
-                    from components.release
-                } else {
-                    from components.java
-                }
+            create('release', MavenPublication) {
+                groupId    = PUBLISH_GROUP_ID
+                artifactId = PUBLISH_ARTIFACT_ID
+                version    = PUBLISH_VERSION
 
-                artifact androidSourcesJar
-                artifact javadocJar
+                from components.release
+                artifact(javadocJar)
 
                 pom {
                     name = PUBLISH_ARTIFACT_ID
@@ -74,13 +62,13 @@ afterEvaluate {
             }
         }
     }
-}
 
-signing {
-    useInMemoryPgpKeys(
-            rootProject.ext["signing.keyId"],
-            rootProject.ext["signing.key"],
-            rootProject.ext["signing.password"],
-    )
-    sign publishing.publications
+    signing {
+        useInMemoryPgpKeys(
+                rootProject.ext["signing.keyId"],
+                rootProject.ext["signing.key"],
+                rootProject.ext["signing.password"],
+        )
+        sign publishing.publications
+    }
 }

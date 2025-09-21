@@ -1,5 +1,6 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options
 
+import android.content.Context
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -10,7 +11,7 @@ import org.json.JSONObject
 class IFramePlayerOptions private constructor(private val playerOptions: JSONObject) {
 
   companion object {
-    val default = Builder().controls(1).build()
+    fun getDefault(context: Context) = Builder(context).controls(1).build()
   }
 
   override fun toString(): String {
@@ -21,7 +22,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
     return playerOptions.getString(Builder.ORIGIN)
   }
 
-  class Builder {
+  class Builder(context: Context) {
     companion object {
       private const val AUTO_PLAY = "autoplay"
       private const val MUTE = "mute"
@@ -47,7 +48,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
       addInt(CONTROLS, 0)
       addInt(ENABLE_JS_API, 1)
       addInt(FS, 0)
-      addString(ORIGIN, "https://www.youtube.com")
+      addString(ORIGIN, "https://${context.packageName}")
       addInt(REL, 0)
       addInt(IV_LOAD_POLICY, 3)
       addInt(CC_LOAD_POLICY, 0)

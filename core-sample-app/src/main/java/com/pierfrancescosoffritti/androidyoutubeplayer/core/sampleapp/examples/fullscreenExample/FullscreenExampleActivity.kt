@@ -2,15 +2,14 @@ package com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.FrameLayout
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.FullscreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.VideoIdsProvider
 import com.pierfrancescosoffritti.aytplayersample.R
 
 class FullscreenExampleActivity : AppCompatActivity() {
@@ -18,27 +17,15 @@ class FullscreenExampleActivity : AppCompatActivity() {
   private lateinit var youTubePlayer: YouTubePlayer
 
   private var isFullscreen = false
-  private val onBackPressedCallback = object : OnBackPressedCallback(true) {
-    override fun handleOnBackPressed() {
-      if (isFullscreen) {
-        // if the player is in fullscreen, exit fullscreen
-        youTubePlayer.toggleFullscreen()
-      } else {
-        finish()
-      }
-    }
-  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_fullscreen_example)
 
-    onBackPressedDispatcher.addCallback(onBackPressedCallback)
-
     val youTubePlayerView = findViewById<YouTubePlayerView>(R.id.youtube_player_view)
     val fullscreenViewContainer = findViewById<FrameLayout>(R.id.full_screen_view_container)
 
-    val iFramePlayerOptions = IFramePlayerOptions.Builder()
+    val iFramePlayerOptions = IFramePlayerOptions.Builder(applicationContext)
       .controls(1)
       .fullscreen(1) // enable full screen button
       .build()
@@ -72,12 +59,7 @@ class FullscreenExampleActivity : AppCompatActivity() {
     youTubePlayerView.initialize(object : AbstractYouTubePlayerListener() {
       override fun onReady(youTubePlayer: YouTubePlayer) {
         this@FullscreenExampleActivity.youTubePlayer = youTubePlayer
-        youTubePlayer.loadVideo("S0Q4gqBUs7c", 0f)
-
-        val enterFullscreenButton = findViewById<Button>(R.id.enter_fullscreen_button)
-        enterFullscreenButton.setOnClickListener {
-          youTubePlayer.toggleFullscreen()
-        }
+        youTubePlayer.loadVideo(VideoIdsProvider.getNextVideoId(), 0f)
       }
     }, iFramePlayerOptions)
 

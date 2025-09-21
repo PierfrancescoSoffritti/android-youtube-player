@@ -9,7 +9,6 @@ Save time and increase customer satisfaction.
 # android-youtube-player
 
 [![Android YouTube Player](https://www.appbrain.com/stats/libraries/shield/android_youtube_player.svg)](https://www.appbrain.com/stats/libraries/details/android_youtube_player/android-youtube-player) 
-[![android arsenal](https://img.shields.io/badge/Android%20Arsenal-android--youtube--player-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/4322) 
 [![website](https://img.shields.io/badge/-website-brightgreen.svg)](https://pierfrancescosoffritti.github.io/android-youtube-player/)
 
 [![share on twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=A%20new%20YouTube%20Player%20library%20for%20Android%20and%20Chromecast,%20stable%20and%20customizable&url=https://github.com/PierfrancescoSoffritti/android-youtube-player&via=psoffritti&hashtags=opensource,youtubeplayer,androiddev)
@@ -122,7 +121,7 @@ Also remember when publishing your app on the PlayStore to write title and descr
 # Download
 The Gradle dependency is available via [MavenCentral](https://repo1.maven.org/maven2/com/pierfrancescosoffritti/androidyoutubeplayer/).
 
-The minimum API level supported by this library is API 17.
+The minimum API level supported by this library is API 21.
 
 ### Core
 The *core* module contains the YouTube Player. It's all you need to play YouTube videos in your app.
@@ -131,7 +130,7 @@ Add this to your module level `build.gradle` file.
 
 ```gradle
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.2'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:13.0.0'
 }
 ```
 
@@ -142,7 +141,7 @@ Add this to your module level `build.gradle` file.
 
 ```gradle
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.31'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.32'
 }
 ```
 
@@ -324,7 +323,7 @@ A simple example of how to use `IFramePlayerOptions` can be found in the sample 
 Use the Builder to get a `IFramePlayerOptions` object.
 
 ```java
-IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
+IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder(context)
   .controls(1)
   .build();
 ```
@@ -373,7 +372,7 @@ This parameter specifies the time, measured in seconds from the beginning of the
 The full screen button can be added to the player by using `IFramePlayerOptions`
 
 ```java
-IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
+IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder(context)
   .controls(1)
   // enable full screen button
   .fullscreen(1)
@@ -415,7 +414,7 @@ If you need to change the orientation of your Activity/Fragment, remember that b
 You can initialize the player to play playlists instead of videos. This can be done by setting `listType` to `playlist` and then providing the id of the playlist to `list`.
 
 ```kotlin
-val iFramePlayerOptions = IFramePlayerOptions.Builder()
+val iFramePlayerOptions = IFramePlayerOptions.Builder(context)
   .controls(1)
   .listType("playlist")
   .list(PLAYLIST_ID)
@@ -619,7 +618,7 @@ For this reason it is recommended to disable the UI of the IFrame player, by ini
 
 ```java
 // disable web ui
-IFramePlayerOptions options = new IFramePlayerOptions.Builder().controls(0).build();
+IFramePlayerOptions options = new IFramePlayerOptions.Builder(context).controls(0).build();
 youTubePlayerView.initialize(listener, options);
 ```
 
@@ -645,7 +644,7 @@ YouTubePlayerListener listener = new AbstractYouTubePlayerListener() {
 };
 
 // disable iframe ui
-IFramePlayerOptions options = new IFramePlayerOptions.Builder().controls(0).build();
+IFramePlayerOptions options = new IFramePlayerOptions.Builder(context).controls(0).build();
 youTubePlayerView.initialize(listener, options);
 ```
 A blog post going deeper on this is available [at this link](https://medium.com/@soffritti.pierfrancesco/customize-android-youtube-players-ui-9f32da9e8505).
@@ -681,7 +680,7 @@ YouTubePlayerListener listener = new AbstractYouTubePlayerListener() {
 };
 
 // disable iframe ui
-IFramePlayerOptions options = new IFramePlayerOptions.Builder().controls(0).build();
+IFramePlayerOptions options = new IFramePlayerOptions.Builder(context).controls(0).build();
 youTubePlayerView.initialize(listener, options);
 ```
 
@@ -834,9 +833,7 @@ Remember that this behavior is against [YouTube terms of service](https://develo
 Use this functionality only if you plan to build the app for personal use or if you plan to distribute it through different channels.
 
 ### minSdk
-The minSdk of the library is 17. [At this point in time](https://developer.android.com/about/dashboards/index.html) it doesn't make much sense for new apps to support older versions of Android.
-
-I'm not sure how WebView will behave on older versions of Android, but technically it should be possible to lower the minSdk. If you absolutely need to support older devices, I suggest you fork the library and lower the minSdk yourself.
+The minSdk of the library is 21. [At this point in time](https://developer.android.com/about/dashboards/index.html) it doesn't make much sense for new apps to support older versions of Android.
 
 ---
 

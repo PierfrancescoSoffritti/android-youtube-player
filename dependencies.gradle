@@ -1,42 +1,42 @@
 ext.versions = [
         // Project
-        minSdk                          : 17,
-        compileSdk                      : 34,
+        minSdk                          : 21,
+        compileSdk                      : 36,
 
-        publishVersion_core             : '12.1.2',
-        publishVersionCode_core         : 21,
+        publishVersion_core             : '13.0.0',
+        publishVersionCode_core         : 22,
 
-        publishVersion_chromecast       : '0.31',
-        publishVersionCode_chromecast   : 15,
+        publishVersion_chromecast       : '0.32',
+        publishVersionCode_chromecast   : 16,
 
         // Plugins
         gradlePlugin                    : '8.10.1',
         dexCount                        : '4.0.0',
-        gradleNexus                     : '1.3.0',
+        gradleNexus                     : '2.0.0',
         dokka                           : '1.8.10',
 
         // Kotlin
-        kotlin                          : '1.8.0',
+        kotlin                          : '2.1.0',
 
         // AndroidX
-        androidxCore                    : '1.12.0',
-        appcompat                       : '1.6.1',
+        androidxCore                    : '1.17.0',
+        appcompat                       : '1.7.1',
         androidxAnnotations             : '1.6.0',
-        androidxConstraintLayout        : '2.1.4',
-        androidxRecyclerView            : '1.3.2',
-        androidxMediarouter             : '1.6.0',
-        androidxLifecycleRuntime        : '2.6.0',
+        androidxConstraintLayout        : '2.2.1',
+        androidxRecyclerView            : '1.4.0',
+        androidxMediarouter             : '1.8.1',
+        androidxLifecycleRuntime        : '2.9.4',
 
         // Google Play
         googlePlayServicesCastFramework : '21.3.0',
 
         // psoffritti
-        sampleAppTemplate               : '1.0.3',
+        sampleAppTemplate               : 'v1.0.4',
 
         // Tests
         junit                           : '4.13.2',
-        runner                          : '1.5.2',
-        espressoCore                    : '3.5.1',
+        runner                          : '1.7.0',
+        espressoCore                    : '3.7.0',
 
         // Debug
         leakcanary                      : '2.10',

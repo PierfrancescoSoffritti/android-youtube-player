@@ -1,8 +1,8 @@
 apply from: './dependencies.gradle'
 
 // Create variables with empty default values
-ext["ossrhUsername"] = ''
-ext["ossrhPassword"] = ''
+ext["sonatypeUsername"] = ''
+ext["sonatypePassword"] = ''
 ext["sonatypeStagingProfileId"] = ''
 ext["signing.keyId"] = ''
 ext["signing.password"] = ''
@@ -17,8 +17,8 @@ if (secretPropsFile.exists()) {
     p.each { name, value -> ext[name] = value }
 } else {
     // Use system environment variables
-    ext["ossrhUsername"] = System.getenv('OSSRH_USERNAME')
-    ext["ossrhPassword"] = System.getenv('OSSRH_PASSWORD')
+    ext["sonatypeUsername"] = System.getenv('OSSRH_USERNAME')
+    ext["sonatypePassword"] = System.getenv('OSSRH_PASSWORD')
     ext["sonatypeStagingProfileId"] = System.getenv('SONATYPE_STAGING_PROFILE_ID')
     ext["signing.keyId"] = System.getenv('SIGNING_KEY_ID')
     ext["signing.password"] = System.getenv('SIGNING_PASSWORD')
@@ -34,14 +34,15 @@ if (snapshot) {
 
 // Set up Sonatype repository
 nexusPublishing {
+    packageGroup = 'com.pierfrancescosoffritti.androidyoutubeplayer'
     repositories {
         sonatype {
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+            nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://central.sonatype.com/repository/maven-snapshots/"))
 
             stagingProfileId = sonatypeStagingProfileId
-            username = ossrhUsername
-            password = ossrhPassword
+            username = sonatypeUsername
+            password = sonatypePassword
             version = rootVersionName
         }
     }

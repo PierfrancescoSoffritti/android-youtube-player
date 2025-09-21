@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.lifecycle.*
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -130,7 +129,7 @@ internal class LegacyYouTubePlayerView(
    * @see LegacyYouTubePlayerView.initialize
    */
   fun initialize(youTubePlayerListener: YouTubePlayerListener, handleNetworkEvents: Boolean) =
-    initialize(youTubePlayerListener, handleNetworkEvents, IFramePlayerOptions.default)
+    initialize(youTubePlayerListener, handleNetworkEvents, IFramePlayerOptions.getDefault(context))
 
   /**
    * Initialize the player. Network events are automatically handled by the player.

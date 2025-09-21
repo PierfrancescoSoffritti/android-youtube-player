@@ -30,7 +30,7 @@ public class IFramePlayerOptionsExampleActivity extends AppCompatActivity {
   }
 
   private void initYouTubePlayerView() {
-    IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder()
+    IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder(getApplicationContext())
             .controls(0)
             .rel(0)
             .ivLoadPolicy(1)

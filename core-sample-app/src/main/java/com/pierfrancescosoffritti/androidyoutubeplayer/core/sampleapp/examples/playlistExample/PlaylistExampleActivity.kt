@@ -18,7 +18,7 @@ class PlaylistExampleActivity : AppCompatActivity() {
     setContentView(R.layout.activity_playlist_example)
 
     youTubePlayerView = findViewById<YouTubePlayerView>(R.id.youtube_player_view).apply {
-      val iFramePlayerOptions = IFramePlayerOptions.Builder()
+      val iFramePlayerOptions = IFramePlayerOptions.Builder(applicationContext)
         .controls(1)
         .listType("playlist")
         .list(PLAYLIST_ID)

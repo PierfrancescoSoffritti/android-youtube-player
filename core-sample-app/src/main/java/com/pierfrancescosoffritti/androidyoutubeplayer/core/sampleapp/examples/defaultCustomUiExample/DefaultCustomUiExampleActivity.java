@@ -54,7 +54,9 @@ public class DefaultCustomUiExampleActivity extends AppCompatActivity {
     };
 
     // disable web ui
-    IFramePlayerOptions options = new IFramePlayerOptions.Builder().controls(0).build();
+    IFramePlayerOptions options = new IFramePlayerOptions.Builder(getApplicationContext())
+            .controls(0)
+            .build();
 
     youTubePlayerView.initialize(listener, options);
   }
