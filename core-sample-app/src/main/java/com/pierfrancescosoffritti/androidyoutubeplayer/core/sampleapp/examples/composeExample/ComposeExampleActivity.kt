@@ -8,8 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,9 +35,14 @@ class ComposeExampleActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            ComposeYouTubePlayer(
-                videoId = VideoIdsProvider.getNextVideoId()
-            )
+            var videoId by remember { mutableStateOf(VideoIdsProvider.getNextVideoId()) }
+            Column {
+                ComposeYouTubePlayer(videoId = videoId)
+
+                Button(onClick = { videoId = VideoIdsProvider.getNextVideoId() }) {
+                    Text("Play next video")
+                }
+            }
         }
     }
 }
@@ -49,6 +58,8 @@ private fun ComposeYouTubePlayer(
 
     var playerView by remember { mutableStateOf<YouTubePlayerView?>(null) }
     var fullScreenView by remember { mutableStateOf<View?>(null) }
+
+    var youTubePlayer by remember { mutableStateOf<YouTubePlayer?>(null) }
 
     AndroidView(
         modifier = modifier,
@@ -66,8 +77,8 @@ private fun ComposeYouTubePlayer(
                     .build()
 
                 val listener = object : AbstractYouTubePlayerListener() {
-                    override fun onReady(youTubePlayer: YouTubePlayer) {
-                        youTubePlayer.loadOrCueVideo(lifecycleOwner.lifecycle, videoId, 0f)
+                    override fun onReady(player: YouTubePlayer) {
+                        youTubePlayer = player
                     }
                 }
 
@@ -100,6 +111,11 @@ private fun ComposeYouTubePlayer(
             }
         }
     )
+
+    // Use LaunchedEffect to react to changes in videoId or the player instance
+    LaunchedEffect(youTubePlayer, videoId) {
+        youTubePlayer?.loadOrCueVideo(lifecycleOwner.lifecycle, videoId, 0f)
+    }
 
     DisposableEffect(lifecycleOwner, activity) {
         onDispose {

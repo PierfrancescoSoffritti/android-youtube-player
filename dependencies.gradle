@@ -18,6 +18,9 @@ ext.versions = [
         // Kotlin
         kotlin                          : '2.1.0',
 
+        // Compose
+        composeBom                      : '2025.10.01',
+
         // AndroidX
         androidxCore                    : '1.17.0',
         appcompat                       : '1.7.1',
