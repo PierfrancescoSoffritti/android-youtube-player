@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Layout used by `rememberYouTubePlayerState` to construct a YouTubePlayerView with automatic
+    initialization disabled. Setting `enableAutomaticInitialization` via the constructor arg only
+    works when the attribute is read by the view's init block — assigning the property *after*
+    construction is too late, because the init block already called `initialize()` with the default
+    (true), which registers a network callback. Inflating with this XML ensures the attribute is
+    applied before any initialization runs.
+-->
+<com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:enableAutomaticInitialization="false" />
