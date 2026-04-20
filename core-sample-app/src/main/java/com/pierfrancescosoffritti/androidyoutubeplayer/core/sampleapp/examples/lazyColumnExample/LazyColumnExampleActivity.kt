@@ -21,7 +21,6 @@ import androidx.compose.ui.unit.dp
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.compose.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.compose.rememberYouTubePlayerState
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.VideoIdsProvider
 
 /**
  * Scrolls a long list of [YouTubePlayer]s inside a `LazyColumn`. This exercises the exact scenario
@@ -37,7 +36,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.Vide
 class LazyColumnExampleActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    val items = List(30) { index -> VideoItem(index, VideoIdsProvider.getNextVideoId()) }
+    val items = VIDEO_IDS.mapIndexed { index, id -> VideoItem(index, id) }
     setContent {
       LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(items = items, key = { it.index }) { item ->
@@ -49,6 +48,17 @@ class LazyColumnExampleActivity : ComponentActivity() {
 }
 
 private data class VideoItem(val index: Int, val videoId: String)
+
+// 30 distinct public video IDs used only by this stress-test screen. Kept local to avoid bloating
+// the shared VideoIdsProvider.
+private val VIDEO_IDS = listOf(
+  "-e_3Cg9GZFU", "LvetJ9U_tVY", "S0Q4gqBUs7c", "kqSdQq5bklE", "n365C9NbbC4",
+  "aqz-KE-bpKQ", "dQw4w9WgXcQ", "9bZkp7q19f0", "JGwWNGJdvx8", "kJQP7kiw5Fk",
+  "CevxZvSJLk8", "hT_nvWreIhg", "RgKAFK5djSk", "OPf0YbXqDm0", "lp-EO5I60KA",
+  "YykjpeuMNEk", "papuvlVeZg8", "nfWlot6h_JM", "hLQl3WQQoQ0", "60ItHLz5WEA",
+  "fJ9rUzIMcZQ", "fLexgOxsZu0", "pRpeEdMmmQ0", "y6120QOlsfU", "QtXby3twMmI",
+  "09R8_2nJtjg", "ktvTqknDobU", "uelHwf8o7_U", "YQHsXMglC9A", "7wtfhZwyrcc",
+)
 
 @Composable
 private fun VideoRow(item: VideoItem) {
