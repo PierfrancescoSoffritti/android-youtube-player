@@ -1,0 +1,49 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'org.jetbrains.kotlin.plugin.compose'
+apply from: '../dependencies.gradle'
+
+android {
+  compileSdkVersion versions.compileSdk
+
+  defaultConfig {
+    minSdkVersion versions.minSdk
+    targetSdkVersion versions.compileSdk
+  }
+
+  buildFeatures {
+    compose true
+  }
+
+  namespace 'com.pierfrancescosoffritti.androidyoutubeplayer.core.compose'
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+  kotlinOptions {
+    jvmTarget = '1.8'
+  }
+}
+
+dependencies {
+  api project(':core')
+
+  def composeBom = platform("androidx.compose:compose-bom:$versions.composeBom")
+  api composeBom
+  api "androidx.compose.ui:ui"
+  api "androidx.compose.runtime:runtime"
+  api "androidx.compose.foundation:foundation"
+  implementation "androidx.lifecycle:lifecycle-runtime-compose:$versions.androidxLifecycleRuntime"
+
+  testImplementation "junit:junit:$versions.junit"
+}
+
+ext {
+  PUBLISH_GROUP_ID = 'com.pierfrancescosoffritti.androidyoutubeplayer'
+  PUBLISH_VERSION = versions.publishVersion_core
+  PUBLISH_ARTIFACT_ID = 'core-compose'
+  PUBLISH_DESCRIPTION = 'Compose-native API to use with android-youtube-player core module.'
+}
+
+apply from: "../scripts/publish-module.gradle"
