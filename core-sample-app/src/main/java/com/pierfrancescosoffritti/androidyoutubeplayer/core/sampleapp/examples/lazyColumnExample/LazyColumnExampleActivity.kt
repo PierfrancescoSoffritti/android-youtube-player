@@ -14,10 +14,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.compose.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.compose.rememberYouTubePlayerState
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFramePlayerOptions
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.VideoIdsProvider
 
 /**
@@ -26,7 +29,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.utils.Vide
  * composition the player view is created and released repeatedly, which would otherwise pile up
  * `registerDefaultNetworkCallback` calls above the per-UID system limit.
  *
- * Every item opts into `handleNetworkEvents = true` on purpose, to stress-test the network observer
+ * Each item opts into `handleNetworkEvents = true` and autoplays on bind so that every scroll
+ * triggers fresh network traffic — both `registerDefaultNetworkCallback` from the player and the
+ * YouTube iframe's own video fetch — producing the worst-case load for the network observer
  * guards.
  */
 class LazyColumnExampleActivity : ComponentActivity() {
@@ -47,10 +52,24 @@ private data class VideoItem(val index: Int, val videoId: String)
 
 @Composable
 private fun VideoRow(item: VideoItem) {
-  val state = rememberYouTubePlayerState(handleNetworkEvents = true)
+  val context = LocalContext.current
+  // Autoplay needs mute=1 on mobile browsers, otherwise the iframe blocks playback without a user
+  // gesture. ivLoadPolicy(3) hides annotations so the test is purely about playback traffic.
+  val options = remember(context) {
+    IFramePlayerOptions.Builder(context)
+      .controls(0)
+      .autoplay(1)
+      .mute(1)
+      .ivLoadPolicy(3)
+      .build()
+  }
+  val state = rememberYouTubePlayerState(
+    handleNetworkEvents = true,
+    playerOptions = options,
+  )
 
   LaunchedEffect(state.player, item.videoId) {
-    state.player?.cueVideo(item.videoId, 0f)
+    state.player?.loadVideo(item.videoId, 0f)
   }
 
   Column(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
