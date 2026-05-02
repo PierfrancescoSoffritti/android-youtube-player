@@ -821,6 +821,8 @@ If you need to disable hardware acceleration in your application, you can enable
 
 Disabling hardware acceleration on the Activity containing `YouTubePlayerView` may result in some weird behavior. The one I have observed so far shows a black image in the player, while the audio is playing normally.
 
+On a small number of devices (notably some low-end Android 11 media boards whose AAudio low-latency path is incomplete) the hardware accelerated WebView pipeline tears down the audio output stream during playback, producing continuous video/audio cutting. As a per-view workaround you can switch the embedded WebView to a software-rendered layer without touching the rest of the Activity by calling `YouTubePlayerView.setWebViewSoftwareLayerType()`. Use `YouTubePlayerView.setWebViewHardwareLayerType()` to revert.
+
 ### Play YouTube videos in the background
 With this library it's easy to play YouTube videos when the app is not visible. In order to do that you simply have to not call `youTubePlayer.pause()` when the Activity is being paused or stopped and enable background playback by calling `YouTubePlayerView.enableBackgroundPlayback(true)`.
 
