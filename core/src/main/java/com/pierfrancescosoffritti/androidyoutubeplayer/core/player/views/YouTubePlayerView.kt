@@ -23,14 +23,25 @@ private val matchParent
     LayoutParams.MATCH_PARENT
   )
 
-class YouTubePlayerView(
+class YouTubePlayerView private constructor(
   context: Context,
-  attrs: AttributeSet? = null,
-  defStyleAttr: Int = 0
+  attrs: AttributeSet?,
+  defStyleAttr: Int,
+  enableAutomaticInitializationOverride: Boolean?,
 ) : SixteenByNineFrameLayout(context, attrs, defStyleAttr), LifecycleEventObserver {
 
-  constructor(context: Context) : this(context, null, 0)
-  constructor(context: Context, attrs: AttributeSet? = null) : this(context, attrs, 0)
+  @JvmOverloads
+  constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
+    : this(context, attrs, defStyleAttr, enableAutomaticInitializationOverride = null)
+
+  /**
+   * Programmatic constructor that lets callers disable automatic initialization without inflating
+   * from XML. Setting [enableAutomaticInitialization] after `YouTubePlayerView(context)` has no
+   * effect because the init block has already auto-initialized the player; use this constructor
+   * when you need to control initialization yourself.
+   */
+  constructor(context: Context, enableAutomaticInitialization: Boolean)
+    : this(context, null, 0, enableAutomaticInitializationOverride = enableAutomaticInitialization)
 
   private val fullscreenListeners = mutableListOf<FullscreenListener>()
 
@@ -64,7 +75,8 @@ class YouTubePlayerView(
 
     val typedArray = context.theme.obtainStyledAttributes(attrs, R.styleable.YouTubePlayerView, 0, 0)
 
-    enableAutomaticInitialization = typedArray.getBoolean(R.styleable.YouTubePlayerView_enableAutomaticInitialization, true)
+    enableAutomaticInitialization = enableAutomaticInitializationOverride
+      ?: typedArray.getBoolean(R.styleable.YouTubePlayerView_enableAutomaticInitialization, true)
     val autoPlay = typedArray.getBoolean(R.styleable.YouTubePlayerView_autoPlay, false)
     val handleNetworkEvents = typedArray.getBoolean(R.styleable.YouTubePlayerView_handleNetworkEvents, true)
     val videoId = typedArray.getString(R.styleable.YouTubePlayerView_videoId)
