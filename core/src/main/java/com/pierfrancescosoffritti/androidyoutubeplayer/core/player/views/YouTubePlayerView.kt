@@ -34,12 +34,7 @@ class YouTubePlayerView private constructor(
   constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
     : this(context, attrs, defStyleAttr, enableAutomaticInitializationOverride = null)
 
-  /**
-   * Programmatic constructor that lets callers disable automatic initialization without inflating
-   * from XML. Setting [enableAutomaticInitialization] after `YouTubePlayerView(context)` has no
-   * effect because the init block has already auto-initialized the player; use this constructor
-   * when you need to control initialization yourself.
-   */
+  /** Programmatic constructor for setting [enableAutomaticInitialization] before the init block runs. */
   constructor(context: Context, enableAutomaticInitialization: Boolean)
     : this(context, null, 0, enableAutomaticInitializationOverride = enableAutomaticInitialization)
 
