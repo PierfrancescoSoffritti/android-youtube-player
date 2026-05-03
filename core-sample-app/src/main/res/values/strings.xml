@@ -16,5 +16,6 @@
     <string name="default_custom_ui_example">Default custom UI example</string>
     <string name="no_lifecycle_observer_example">NoLifecycleObserver example</string>
     <string name="compose_example">Compose example</string>
+    <string name="compose_fullscreen_example">Compose fullscreen example</string>
     <string name="lazy_column_example">LazyColumn example</string>
 </resources>
