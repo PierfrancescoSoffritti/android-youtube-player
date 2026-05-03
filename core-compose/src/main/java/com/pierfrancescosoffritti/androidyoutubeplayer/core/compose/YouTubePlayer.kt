@@ -8,11 +8,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Ful
 /**
  * Compose-native entry point for the YouTube player.
  *
- * Renders the [YouTubePlayerView] owned by [state]. Because the view lives inside the
- * [rememberYouTubePlayerState] scope rather than being recreated on every recomposition, the
- * player's internal network observer is registered only once per state instance — which is the
- * Compose-safe way to avoid `ConnectivityManager$TooManyRequestsException`.
- *
  * @param state the [YouTubePlayerState] returned by [rememberYouTubePlayerState].
  * @param modifier a [Modifier] applied to the player view.
  * @param fullscreenListener optional listener registered for the lifetime of this composable.
