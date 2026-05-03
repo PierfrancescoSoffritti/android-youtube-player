@@ -1,6 +1,5 @@
 package com.pierfrancescosoffritti.androidyoutubeplayer.core.compose
 
-import android.view.LayoutInflater
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.Stable
@@ -10,7 +9,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.compose.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
@@ -21,20 +19,14 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
  * Owns a single [YouTubePlayerView] across Compose recompositions.
  *
  * Instances must be created with [rememberYouTubePlayerState] and passed to the [YouTubePlayer]
- * composable. The underlying view is created once inside the enclosing `remember` scope and
- * released when the state leaves composition, so the internal network observer registered by the
- * player is registered at most once per state instance. This avoids the
- * `ConnectivityManager$TooManyRequestsException` that can occur when rapid recompositions recreate
- * the view and pile up `registerDefaultNetworkCallback` calls above the per-UID system limit.
+ * composable.
  */
 @Stable
 class YouTubePlayerState internal constructor(
   internal val view: YouTubePlayerView,
 ) {
   /**
-   * The underlying [YouTubePlayer] once it has become ready, or `null` before then. Reading this
-   * property inside a composable triggers recomposition when the player becomes available, which
-   * is useful for driving `LaunchedEffect(state.player) { ... }` patterns that load videos.
+   * The underlying [YouTubePlayer] once it has become ready, or `null` before then.
    */
   var player: YouTubePlayer? by mutableStateOf(null)
     internal set
@@ -65,12 +57,7 @@ fun rememberYouTubePlayerState(
   val lifecycle = LocalLifecycleOwner.current.lifecycle
 
   val state = remember {
-    // The view is inflated from XML with `enableAutomaticInitialization=false` so that the init
-    // block skips auto-initialization. Setting the flag after calling `YouTubePlayerView(context)`
-    // is too late and results in a duplicate `initialize()` (and network observer registration).
-    val view = LayoutInflater.from(context)
-      .inflate(R.layout.ayp_compose_player_view, null) as YouTubePlayerView
-    YouTubePlayerState(view)
+    YouTubePlayerState(YouTubePlayerView(context, enableAutomaticInitialization = false))
   }
 
   DisposableEffect(state) {
