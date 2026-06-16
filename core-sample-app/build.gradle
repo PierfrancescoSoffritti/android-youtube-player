@@ -49,6 +49,7 @@ dependencies {
   androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
 
   implementation project(':core')
+  implementation project(':core-compose')
   implementation project(':custom-ui')
   implementation project(':chromecast-sender')
 
