@@ -45,6 +45,7 @@
       var youtubePlayerConfig = {
         height: '100%',
         width: '100%',
+        host: <<injectedHost>>,
         events: {
           onReady: function(event) { YouTubePlayerBridge.sendReady() },
           onStateChange: function(event) { sendPlayerStateChange(event.data) },

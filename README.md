@@ -368,6 +368,9 @@ It works similarly to the `seekTo` method, and the `startSeconds` argument of `l
 ##### `end`
 This parameter specifies the time, measured in seconds from the beginning of the video, when the player should stop playing the video. The parameter value is a positive integer.
 
+##### `host`
+This option specifies the host from which the player is loaded. Set it to `https://www.youtube-nocookie.com` to use YouTube's [privacy-enhanced mode](https://support.google.com/youtube/answer/171780). The default value is `https://www.youtube.com`.
+
 ### Full screen
 The full screen button can be added to the player by using `IFramePlayerOptions`
 

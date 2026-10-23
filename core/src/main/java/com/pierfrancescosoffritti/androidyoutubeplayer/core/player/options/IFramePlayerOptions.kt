@@ -8,7 +8,7 @@ import org.json.JSONObject
  * Options used to configure the IFrame Player. All the options are listed here:
  * [IFrame player parameters](https://developers.google.com/youtube/player_parameters#Parameters)
  */
-class IFramePlayerOptions private constructor(private val playerOptions: JSONObject) {
+class IFramePlayerOptions private constructor(private val playerOptions: JSONObject, private val host: String) {
 
   companion object {
     fun getDefault(context: Context) = Builder(context).controls(1).build()
@@ -20,6 +20,10 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
 
   internal fun getOrigin(): String {
     return playerOptions.getString(Builder.ORIGIN)
+  }
+
+  internal fun getHost(): String {
+    return host
   }
 
   class Builder(context: Context) {
@@ -41,6 +45,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
     }
 
     private val builderOptions = JSONObject()
+    private var host = "https://www.youtube.com"
 
     init {
       addInt(AUTO_PLAY, 0)
@@ -55,7 +60,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
     }
 
     fun build(): IFramePlayerOptions {
-      return IFramePlayerOptions(builderOptions)
+      return IFramePlayerOptions(builderOptions, host)
     }
 
     /**
@@ -136,6 +141,16 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
      */
     fun origin(origin: String): Builder {
       addString(ORIGIN, origin)
+      return this
+    }
+
+    /**
+     * The host from which the player is loaded.
+     * Set it to "https://www.youtube-nocookie.com" to use YouTube's privacy-enhanced mode (https://support.google.com/youtube/answer/171780).
+     * @param host either "https://www.youtube.com" (the default value) or "https://www.youtube-nocookie.com".
+     */
+    fun host(host: String): Builder {
+      this.host = host
       return this
     }
 
