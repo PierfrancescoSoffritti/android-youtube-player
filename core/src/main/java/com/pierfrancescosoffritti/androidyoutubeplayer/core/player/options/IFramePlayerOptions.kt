@@ -128,11 +128,14 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
     }
 
     /**
-     * This parameter specifies the domain from which the player is running.
-     * Since the player in this library is not running from a website there should be no reason to change this.
-     * Using "https://www.youtube.com" (the default value) is recommended as some functions from the IFrame Player are only available
-     * when the player is running on a trusted domain.
-     * @param origin your domain.
+     * This parameter specifies the identity of the page embedding the player, which in this library is your app.
+     * It is used as the base URL of the WebView hosting the player and is sent to YouTube as the "origin" player parameter.
+     * It does not change the domain the player is loaded from.
+     * The default value is "https://" followed by your app's package name (eg. "https://com.example.myapp"),
+     * as recommended by the IFrame Player documentation for embeds in mobile apps.
+     * Don't set this to "https://www.youtube.com": YouTube rejects that origin and the video will fail to play.
+     * There should be no reason to change this, unless you need to use a different identifier for your app.
+     * @param origin the origin of the embedding app, in the form "https://your.app.id".
      */
     fun origin(origin: String): Builder {
       addString(ORIGIN, origin)
