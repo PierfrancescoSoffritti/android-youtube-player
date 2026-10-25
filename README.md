@@ -62,8 +62,9 @@ Also remember when publishing your app on the PlayStore to write title and descr
         2. [Initialization](#initialization)
         3. [IFramePlayerOptions](#iframeplayeroptions)
         4. [Full screen](#full-screen)
-        5. [Release the YouTubePlayerView](#release-the-youtubeplayerview)
-        6. [LifecycleObserver](#lifecycleobserver)
+        5. [Privacy-enhanced mode](#privacy-enhanced-mode)
+        6. [Release the YouTubePlayerView](#release-the-youtubeplayerview)
+        7. [LifecycleObserver](#lifecycleobserver)
     2. [YouTubePlayer](#youtubeplayer)
         1. [Get a reference to YouTubePlayer](#get-a-reference-to-youtubeplayer)
         2. [Load videos](#load-videos)
@@ -369,7 +370,7 @@ It works similarly to the `seekTo` method, and the `startSeconds` argument of `l
 This parameter specifies the time, measured in seconds from the beginning of the video, when the player should stop playing the video. The parameter value is a positive integer.
 
 ##### `privacyEnhancedMode`
-This option loads the player from `https://www.youtube-nocookie.com` instead of `https://www.youtube.com`, YouTube's [privacy-enhanced mode](https://support.google.com/youtube/answer/171780).
+This option enables YouTube's privacy-enhanced mode. Read more about it [here](#privacy-enhanced-mode).
 
 If set to false (the default value): the player is loaded from `https://www.youtube.com`.
 
@@ -427,6 +428,28 @@ val iFramePlayerOptions = IFramePlayerOptions.Builder(context)
   .list(PLAYLIST_ID)
   .build()
 ```
+
+### Privacy-enhanced mode
+YouTube offers a [privacy-enhanced mode](https://support.google.com/youtube/answer/171780) for embedded players. In this mode the player is loaded from `https://www.youtube-nocookie.com` instead of `https://www.youtube.com`, and:
+- Videos watched in your app are not used to personalize the viewer's experience on YouTube (for example their recommendations).
+- Ads shown in the player are non-personalized, and videos watched in your app are not used to personalize the ads the viewer sees elsewhere.
+
+See YouTube's documentation for the details.
+
+You may want to enable it if you don't want videos watched in your app to affect your users' YouTube recommendations and ads, or if your app has to limit how its users' activity is used by third parties, for example because of privacy regulations such as the GDPR, or because of your own privacy policy.
+
+Privacy-enhanced mode is disabled by default. You can enable it using `IFramePlayerOptions`:
+
+```java
+IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder(context)
+  .privacyEnhancedMode(true)
+  .build();
+
+youTubePlayerView.setEnableAutomaticInitialization(false);
+youTubePlayerView.initialize(youTubePlayerListener, iFramePlayerOptions);
+```
+
+The rest of the library works the same way in privacy-enhanced mode: you can load videos, listen to events and use a custom UI as usual.
 
 ### Release the YouTubePlayerView
 Remember to release the `YouTubePlayerView` when you're done using it, by calling `YouTubePlayerView.release()`.
