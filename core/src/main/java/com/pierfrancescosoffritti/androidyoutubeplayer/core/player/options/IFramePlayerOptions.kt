@@ -8,7 +8,7 @@ import org.json.JSONObject
  * Options used to configure the IFrame Player. All the options are listed here:
  * [IFrame player parameters](https://developers.google.com/youtube/player_parameters#Parameters)
  */
-class IFramePlayerOptions private constructor(private val playerOptions: JSONObject) {
+class IFramePlayerOptions private constructor(private val playerOptions: JSONObject, private val privacyEnhancedMode: Boolean) {
 
   companion object {
     fun getDefault(context: Context) = Builder(context).controls(1).build()
@@ -20,6 +20,10 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
 
   internal fun getOrigin(): String {
     return playerOptions.getString(Builder.ORIGIN)
+  }
+
+  internal fun isPrivacyEnhancedMode(): Boolean {
+    return privacyEnhancedMode
   }
 
   class Builder(context: Context) {
@@ -41,6 +45,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
     }
 
     private val builderOptions = JSONObject()
+    private var privacyEnhancedMode = false
 
     init {
       addInt(AUTO_PLAY, 0)
@@ -55,7 +60,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
     }
 
     fun build(): IFramePlayerOptions {
-      return IFramePlayerOptions(builderOptions)
+      return IFramePlayerOptions(builderOptions, privacyEnhancedMode)
     }
 
     /**
@@ -139,6 +144,16 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
      */
     fun origin(origin: String): Builder {
       addString(ORIGIN, origin)
+      return this
+    }
+
+    /**
+     * Loads the player from "https://www.youtube-nocookie.com" instead of "https://www.youtube.com".
+     * See YouTube's privacy-enhanced mode: https://support.google.com/youtube/answer/171780
+     * @param enabled true to use privacy-enhanced mode. The default value is false.
+     */
+    fun privacyEnhancedMode(enabled: Boolean): Builder {
+      this.privacyEnhancedMode = enabled
       return this
     }
 

@@ -139,6 +139,7 @@ internal class WebViewYouTubePlayer constructor(
     val htmlPage = readHTMLFromUTF8File(resources.openRawResource(R.raw.ayp_youtube_player))
       .replace("<<injectedVideoId>>", if (videoId != null) { "'$videoId'" } else { "undefined" })
       .replace("<<injectedPlayerVars>>", playerOptions.toString())
+      .replace("<<injectedPrivacyEnhancedMode>>", playerOptions.isPrivacyEnhancedMode().toString())
 
     loadDataWithBaseURL(playerOptions.getOrigin(), htmlPage, "text/html", "utf-8", null)
 
