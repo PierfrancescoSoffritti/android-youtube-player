@@ -25,7 +25,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.toFloat
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
-import org.json.JSONObject
 
 
 private class YouTubePlayerImpl(
@@ -140,7 +139,7 @@ internal class WebViewYouTubePlayer constructor(
     val htmlPage = readHTMLFromUTF8File(resources.openRawResource(R.raw.ayp_youtube_player))
       .replace("<<injectedVideoId>>", if (videoId != null) { "'$videoId'" } else { "undefined" })
       .replace("<<injectedPlayerVars>>", playerOptions.toString())
-      .replace("<<injectedHost>>", JSONObject.quote(playerOptions.getHost()))
+      .replace("<<injectedPrivacyEnhancedMode>>", playerOptions.isPrivacyEnhancedMode().toString())
 
     loadDataWithBaseURL(playerOptions.getOrigin(), htmlPage, "text/html", "utf-8", null)
 

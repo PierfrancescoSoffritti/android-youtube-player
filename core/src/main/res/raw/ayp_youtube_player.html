@@ -45,7 +45,6 @@
       var youtubePlayerConfig = {
         height: '100%',
         width: '100%',
-        host: <<injectedHost>>,
         events: {
           onReady: function(event) { YouTubePlayerBridge.sendReady() },
           onStateChange: function(event) { sendPlayerStateChange(event.data) },
@@ -59,6 +58,10 @@
 
       if (<<injectedVideoId>>) {
         youtubePlayerConfig.videoId = <<injectedVideoId>>;
+      }
+
+      if (<<injectedPrivacyEnhancedMode>>) {
+        youtubePlayerConfig.host = 'https://www.youtube-nocookie.com';
       }
 
       player = new YT.Player('youTubePlayerDOM', youtubePlayerConfig);
