@@ -100,6 +100,16 @@
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/compose_example" />
+        <activity
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.lazyColumnExample.LazyColumnExampleActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:hardwareAccelerated="true"
+            android:label="@string/lazy_column_example" />
+        <activity
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.composeFullscreenExample.ComposeFullscreenExampleActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:hardwareAccelerated="true"
+            android:label="@string/compose_fullscreen_example" />
 
         <activity android:name="com.psoffritti.librarysampleapptemplate.core.SampleAppTemplateActivity" />
 
