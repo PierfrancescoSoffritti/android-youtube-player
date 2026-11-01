@@ -436,7 +436,9 @@ YouTube offers a [privacy-enhanced mode](https://support.google.com/youtube/answ
 
 See YouTube's documentation for the details.
 
-You may want to enable it if you don't want videos watched in your app to affect your users' YouTube recommendations and ads, or if your app has to limit how its users' activity is used by third parties, for example because of privacy regulations such as the GDPR, or because of your own privacy policy.
+You may want to enable it if you don't want videos watched in your app to affect your users' YouTube recommendations and ads.
+
+Privacy-enhanced mode doesn't stop YouTube from storing data on the device: the YouTube IFrame API script is always loaded from `https://www.youtube.com`, and cookies were still stored in testing. It's not a way to avoid cookies, and enabling it doesn't by itself make your app compliant with privacy regulations such as the GDPR.
 
 Privacy-enhanced mode is disabled by default. You can enable it using `IFramePlayerOptions`:
 
