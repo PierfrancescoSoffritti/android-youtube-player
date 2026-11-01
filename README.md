@@ -65,6 +65,7 @@ Also remember when publishing your app on the PlayStore to write title and descr
         5. [Privacy-enhanced mode](#privacy-enhanced-mode)
         6. [Release the YouTubePlayerView](#release-the-youtubeplayerview)
         7. [LifecycleObserver](#lifecycleobserver)
+        8. [Jetpack Compose](#jetpack-compose)
     2. [YouTubePlayer](#youtubeplayer)
         1. [Get a reference to YouTubePlayer](#get-a-reference-to-youtubeplayer)
         2. [Load videos](#load-videos)
@@ -478,6 +479,9 @@ Adding `YouTubePlayerView` as an observer to a lifecycle will allow `YouTubePlay
 
 
 If you want your app to keep [playing when the Activity/Fragment is not visible](#play-youtube-videos-in-the-background) (remember that this behavior is not allowed, if you want to publish your app on the PlayStore), don't register the `YouTubePlayerView` as a lifecycle observer. But remember to manually call `release()` when the Activity/Fragment is being destroyed.
+
+### Jetpack Compose
+`YouTubePlayerView` is an Android View, so in Compose you host it with `AndroidView`. See the [Compose example](./core-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/sampleapp/examples/composeExample/ComposeExampleActivity.kt) in the sample app, which also shows lifecycle handling and full screen.
 
 ## YouTubePlayer
 `YouTubePlayer` is the component responsible for controlling the playback of YouTube videos. You can see its contract [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/YouTubePlayer.kt).

@@ -122,7 +122,10 @@ private fun ComposeYouTubePlayer(
             val decor = activity?.window?.decorView as? ViewGroup
             fullScreenView?.let { decor?.removeView(it) }
             fullScreenView = null
-            playerView?.release()
+            playerView?.let {
+                lifecycleOwner.lifecycle.removeObserver(it)
+                it.release()
+            }
             playerView = null
         }
     }
