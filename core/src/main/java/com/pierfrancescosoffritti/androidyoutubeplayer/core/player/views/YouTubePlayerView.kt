@@ -247,4 +247,30 @@ class YouTubePlayerView(
       height = targetHeight
     }
   }
+
+  /**
+   * Switch the embedded WebView to a software-rendered layer
+   * ([View.LAYER_TYPE_SOFTWARE]). This bypasses the GPU compositor for the
+   * player only and is the documented Android workaround for video and
+   * audio playback glitches caused by the WebView / GPU pipeline on some
+   * devices, notably a number of low-end Android 11 boards whose AAudio
+   * low-latency path is incomplete (see issues #1115 and #1121). Unlike
+   * disabling hardware acceleration on the whole Activity, this hook
+   * keeps the rest of the UI hardware accelerated.
+   *
+   * Call this once after the view has been added to the hierarchy, for
+   * example guarded by [android.os.Build.MODEL].
+   */
+  fun setWebViewSoftwareLayerType() {
+    legacyTubePlayerView.webViewYouTubePlayer.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+  }
+
+  /**
+   * Restore the default hardware-accelerated layer
+   * ([View.LAYER_TYPE_HARDWARE]) on the embedded WebView. Counterpart of
+   * [setWebViewSoftwareLayerType].
+   */
+  fun setWebViewHardwareLayerType() {
+    legacyTubePlayerView.webViewYouTubePlayer.setLayerType(View.LAYER_TYPE_HARDWARE, null)
+  }
 }
