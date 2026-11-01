@@ -20,7 +20,7 @@ internal class NetworkObserver(private val context: Context) {
     fun onNetworkUnavailable()
   }
 
-  val listeners = mutableListOf<Listener>()
+  val listeners = mutableSetOf<Listener>()
 
   private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
   private var networkBroadcastReceiver: NetworkBroadcastReceiver? = null
