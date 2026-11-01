@@ -8,6 +8,7 @@ android {
   defaultConfig {
     minSdkVersion versions.minSdk
     targetSdkVersion versions.compileSdk
+    consumerProguardFiles 'consumer-rules.pro'
   }
 
   sourceSets {

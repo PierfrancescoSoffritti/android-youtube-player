@@ -8,7 +8,7 @@ import org.json.JSONObject
  * Options used to configure the IFrame Player. All the options are listed here:
  * [IFrame player parameters](https://developers.google.com/youtube/player_parameters#Parameters)
  */
-class IFramePlayerOptions private constructor(private val playerOptions: JSONObject) {
+class IFramePlayerOptions private constructor(private val playerOptions: JSONObject, private val privacyEnhancedMode: Boolean) {
 
   companion object {
     fun getDefault(context: Context) = Builder(context).controls(1).build()
@@ -20,6 +20,10 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
 
   internal fun getOrigin(): String {
     return playerOptions.getString(Builder.ORIGIN)
+  }
+
+  internal fun isPrivacyEnhancedMode(): Boolean {
+    return privacyEnhancedMode
   }
 
   class Builder(context: Context) {
@@ -41,6 +45,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
     }
 
     private val builderOptions = JSONObject()
+    private var privacyEnhancedMode = false
 
     init {
       addInt(AUTO_PLAY, 0)
@@ -55,7 +60,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
     }
 
     fun build(): IFramePlayerOptions {
-      return IFramePlayerOptions(builderOptions)
+      return IFramePlayerOptions(builderOptions, privacyEnhancedMode)
     }
 
     /**
@@ -128,14 +133,27 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
     }
 
     /**
-     * This parameter specifies the domain from which the player is running.
-     * Since the player in this library is not running from a website there should be no reason to change this.
-     * Using "https://www.youtube.com" (the default value) is recommended as some functions from the IFrame Player are only available
-     * when the player is running on a trusted domain.
-     * @param origin your domain.
+     * This parameter specifies the identity of the page embedding the player, which in this library is your app.
+     * It is used as the base URL of the WebView hosting the player and is sent to YouTube as the "origin" player parameter.
+     * It does not change the domain the player is loaded from.
+     * The default value is "https://" followed by your app's package name (eg. "https://com.example.myapp"),
+     * as recommended by the IFrame Player documentation for embeds in mobile apps.
+     * Don't set this to "https://www.youtube.com": YouTube rejects that origin and the video will fail to play.
+     * There should be no reason to change this, unless you need to use a different identifier for your app.
+     * @param origin the origin of the embedding app, in the form "https://your.app.id".
      */
     fun origin(origin: String): Builder {
       addString(ORIGIN, origin)
+      return this
+    }
+
+    /**
+     * Loads the player from "https://www.youtube-nocookie.com" instead of "https://www.youtube.com".
+     * See YouTube's privacy-enhanced mode: https://support.google.com/youtube/answer/171780
+     * @param enabled true to use privacy-enhanced mode. The default value is false.
+     */
+    fun privacyEnhancedMode(enabled: Boolean): Builder {
+      this.privacyEnhancedMode = enabled
       return this
     }
 

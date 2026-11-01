@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply from: '../dependencies.gradle'
 apply plugin: 'com.getkeepsafe.dexcount'
 apply plugin: 'kotlin-android'
+apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 
 android {
   compileSdkVersion versions.compileSdk
@@ -11,6 +12,10 @@ android {
     targetSdkVersion versions.compileSdk
     versionCode versions.publishVersionCode_core
     versionName versions.publishVersion_core
+  }
+
+  buildFeatures {
+    compose true
   }
 
   buildTypes {
@@ -50,6 +55,13 @@ dependencies {
   implementation "androidx.appcompat:appcompat:$versions.appcompat"
   implementation "androidx.recyclerview:recyclerview:$versions.androidxRecyclerView"
   implementation "androidx.constraintlayout:constraintlayout:$versions.androidxConstraintLayout"
+
+  def composeBom = platform("androidx.compose:compose-bom:$versions.composeBom")
+  api composeBom
+  androidTestImplementation composeBom
+  implementation "androidx.compose.material3:material3"
+  implementation "androidx.activity:activity-compose:$versions.androidxActivityCompose"
+  implementation "androidx.lifecycle:lifecycle-runtime-compose:$versions.androidxLifecycleRuntime"
 
   implementation "androidx.mediarouter:mediarouter:$versions.androidxMediarouter"
 

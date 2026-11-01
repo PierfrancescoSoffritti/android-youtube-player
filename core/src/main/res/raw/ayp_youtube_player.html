@@ -60,6 +60,10 @@
         youtubePlayerConfig.videoId = <<injectedVideoId>>;
       }
 
+      if (<<injectedPrivacyEnhancedMode>>) {
+        youtubePlayerConfig.host = 'https://www.youtube-nocookie.com';
+      }
+
       player = new YT.Player('youTubePlayerDOM', youtubePlayerConfig);
     }
 

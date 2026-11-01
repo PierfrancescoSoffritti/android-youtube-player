@@ -11,6 +11,7 @@ buildscript {
   dependencies {
     classpath "com.android.tools.build:gradle:$versions.gradlePlugin"
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+    classpath "org.jetbrains.kotlin:compose-compiler-gradle-plugin:$versions.kotlin"
 
     classpath "com.getkeepsafe.dexcount:dexcount-gradle-plugin:$versions.dexCount"
 

@@ -15,4 +15,5 @@
     <string name="playlist_example">Playlist example</string>
     <string name="default_custom_ui_example">Default custom UI example</string>
     <string name="no_lifecycle_observer_example">NoLifecycleObserver example</string>
+    <string name="compose_example">Compose example</string>
 </resources>

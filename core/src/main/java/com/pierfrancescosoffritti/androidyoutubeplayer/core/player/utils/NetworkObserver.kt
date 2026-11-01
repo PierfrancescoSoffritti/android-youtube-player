@@ -12,7 +12,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.annotation.RequiresApi
 
-/** Class used to observe changes to network state */
+/** Class used to observe changes to network state. Must be used on the main thread. */
 internal class NetworkObserver(private val context: Context) {
 
   interface Listener {
@@ -22,61 +22,60 @@ internal class NetworkObserver(private val context: Context) {
 
   val listeners = mutableListOf<Listener>()
 
+  private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
   private var networkBroadcastReceiver: NetworkBroadcastReceiver? = null
   private var networkCallback: ConnectivityManager.NetworkCallback? = null
 
-  /** Start observing network changes */
+  /** Start observing network changes, replacing any previous observation */
   fun observeNetwork() {
+    stopObserving()
+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-      doObserveNetwork(context)
+      doObserveNetwork()
     } else {
-      doObserveNetworkLegacy(context)
+      doObserveNetworkLegacy()
     }
   }
 
   /** Stop observing network changes and cleanup */
   fun destroy() {
-    // Min API for `unregisterNetworkCallback` is L, but we use `registerDefaultNetworkCallback` only for N and above.
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-      val callback = networkCallback ?: return
-      val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-      connectivityManager.unregisterNetworkCallback(callback)
-    }
-    else {
-      val receiver = networkBroadcastReceiver ?: return
-      runCatching { context.unregisterReceiver(receiver) }
-    }
-
+    stopObserving()
     listeners.clear()
+  }
+
+  private fun stopObserving() {
+    networkCallback?.let { connectivityManager.unregisterNetworkCallback(it) }
+    networkBroadcastReceiver?.let { runCatching { context.unregisterReceiver(it) } }
+
     networkCallback = null
     networkBroadcastReceiver = null
   }
 
   @RequiresApi(Build.VERSION_CODES.N)
-  private fun doObserveNetwork(context: Context) {
+  private fun doObserveNetwork() {
     val callback = object : ConnectivityManager.NetworkCallback() {
       private val mainThreadHandler = Handler(Looper.getMainLooper())
-      override fun onAvailable(network: Network) {
-        // the callback is not on the main thread
-        mainThreadHandler.post {
-          listeners.forEach { it.onNetworkAvailable() }
-        }
-      }
 
-      override fun onLost(network: Network) {
+      override fun onAvailable(network: Network) = notifyListeners { it.onNetworkAvailable() }
+
+      override fun onLost(network: Network) = notifyListeners { it.onNetworkUnavailable() }
+
+      private fun notifyListeners(event: (Listener) -> Unit) {
         // the callback is not on the main thread
         mainThreadHandler.post {
-          listeners.forEach { it.onNetworkUnavailable() }
+          // a replaced callback can still have events queued on the main thread
+          if (networkCallback === this) {
+            listeners.forEach(event)
+          }
         }
       }
     }
-    networkCallback = callback
 
-    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     connectivityManager.registerDefaultNetworkCallback(callback)
+    networkCallback = callback
   }
 
-  private fun doObserveNetworkLegacy(context: Context) {
+  private fun doObserveNetworkLegacy() {
     networkBroadcastReceiver = NetworkBroadcastReceiver(
       onNetworkAvailable = { listeners.forEach { it.onNetworkAvailable() } },
       onNetworkUnavailable = { listeners.forEach { it.onNetworkUnavailable() } },

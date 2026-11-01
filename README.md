@@ -62,8 +62,10 @@ Also remember when publishing your app on the PlayStore to write title and descr
         2. [Initialization](#initialization)
         3. [IFramePlayerOptions](#iframeplayeroptions)
         4. [Full screen](#full-screen)
-        5. [Release the YouTubePlayerView](#release-the-youtubeplayerview)
-        6. [LifecycleObserver](#lifecycleobserver)
+        5. [Privacy-enhanced mode](#privacy-enhanced-mode)
+        6. [Release the YouTubePlayerView](#release-the-youtubeplayerview)
+        7. [LifecycleObserver](#lifecycleobserver)
+        8. [Jetpack Compose](#jetpack-compose)
     2. [YouTubePlayer](#youtubeplayer)
         1. [Get a reference to YouTubePlayer](#get-a-reference-to-youtubeplayer)
         2. [Load videos](#load-videos)
@@ -130,7 +132,7 @@ Add this to your module level `build.gradle` file.
 
 ```gradle
 dependencies {
-  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:13.0.0'
+  implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:13.1.0'
 }
 ```
 
@@ -368,6 +370,13 @@ It works similarly to the `seekTo` method, and the `startSeconds` argument of `l
 ##### `end`
 This parameter specifies the time, measured in seconds from the beginning of the video, when the player should stop playing the video. The parameter value is a positive integer.
 
+##### `privacyEnhancedMode`
+This option enables YouTube's privacy-enhanced mode. Read more about it [here](#privacy-enhanced-mode).
+
+If set to false (the default value): the player is loaded from `https://www.youtube.com`.
+
+If set to true: the player is loaded from `https://www.youtube-nocookie.com`.
+
 ### Full screen
 The full screen button can be added to the player by using `IFramePlayerOptions`
 
@@ -421,6 +430,30 @@ val iFramePlayerOptions = IFramePlayerOptions.Builder(context)
   .build()
 ```
 
+### Privacy-enhanced mode
+YouTube offers a [privacy-enhanced mode](https://support.google.com/youtube/answer/171780) for embedded players. In this mode the player is loaded from `https://www.youtube-nocookie.com` instead of `https://www.youtube.com`, and:
+- Videos watched in your app are not used to personalize the viewer's experience on YouTube (for example their recommendations).
+- Ads shown in the player are non-personalized, and videos watched in your app are not used to personalize the ads the viewer sees elsewhere.
+
+See YouTube's documentation for the details.
+
+You may want to enable it if you don't want videos watched in your app to affect your users' YouTube recommendations and ads.
+
+Privacy-enhanced mode doesn't stop YouTube from storing data on the device: the YouTube IFrame API script is always loaded from `https://www.youtube.com`, and cookies were still stored in testing. It's not a way to avoid cookies, and enabling it doesn't by itself make your app compliant with privacy regulations such as the GDPR.
+
+Privacy-enhanced mode is disabled by default. You can enable it using `IFramePlayerOptions`:
+
+```java
+IFramePlayerOptions iFramePlayerOptions = new IFramePlayerOptions.Builder(context)
+  .privacyEnhancedMode(true)
+  .build();
+
+youTubePlayerView.setEnableAutomaticInitialization(false);
+youTubePlayerView.initialize(youTubePlayerListener, iFramePlayerOptions);
+```
+
+The rest of the library works the same way in privacy-enhanced mode: you can load videos, listen to events and use a custom UI as usual.
+
 ### Release the YouTubePlayerView
 Remember to release the `YouTubePlayerView` when you're done using it, by calling `YouTubePlayerView.release()`.
 
@@ -446,6 +479,9 @@ Adding `YouTubePlayerView` as an observer to a lifecycle will allow `YouTubePlay
 
 
 If you want your app to keep [playing when the Activity/Fragment is not visible](#play-youtube-videos-in-the-background) (remember that this behavior is not allowed, if you want to publish your app on the PlayStore), don't register the `YouTubePlayerView` as a lifecycle observer. But remember to manually call `release()` when the Activity/Fragment is being destroyed.
+
+### Jetpack Compose
+`YouTubePlayerView` is an Android View, so in Compose you host it with `AndroidView`. See the [Compose example](./core-sample-app/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/sampleapp/examples/composeExample/ComposeExampleActivity.kt) in the sample app, which also shows lifecycle handling and full screen.
 
 ## YouTubePlayer
 `YouTubePlayer` is the component responsible for controlling the playback of YouTube videos. You can see its contract [here](./core/src/main/java/com/pierfrancescosoffritti/androidyoutubeplayer/core/player/YouTubePlayer.kt).
@@ -1288,9 +1324,9 @@ function hideCaption() {
 
 This workaround gets the id from 'more videos' and plays it as a next video, you can think of it like the "recomended" section on YouTube. You can use it like auto-play on YouTube.
 
-If the `rel` paramter is set to 0: the next video will come from the same channel as the video that was just played.
+If the `rel` parameter is set to 0: the next video will come from the same channel as the video that was just played.
 
-If the `rel` paramater is set to 1: the next video will be from related videos that come from multiple channels.
+If the `rel` parameter is set to 1: the next video will be from related videos that come from multiple channels.
 
 Add this to `ayp_youtube_player.html`, and call it inside `onReady`.
 

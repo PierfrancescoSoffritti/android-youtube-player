@@ -139,6 +139,7 @@ internal class WebViewYouTubePlayer constructor(
     val htmlPage = readHTMLFromUTF8File(resources.openRawResource(R.raw.ayp_youtube_player))
       .replace("<<injectedVideoId>>", if (videoId != null) { "'$videoId'" } else { "undefined" })
       .replace("<<injectedPlayerVars>>", playerOptions.toString())
+      .replace("<<injectedPrivacyEnhancedMode>>", playerOptions.isPrivacyEnhancedMode().toString())
 
     loadDataWithBaseURL(playerOptions.getOrigin(), htmlPage, "text/html", "utf-8", null)
 
@@ -173,12 +174,13 @@ internal class WebViewYouTubePlayer constructor(
 
 @VisibleForTesting
 internal fun readHTMLFromUTF8File(inputStream: InputStream): String {
-  inputStream.use {
-    try {
-      val bufferedReader = BufferedReader(InputStreamReader(inputStream, "utf-8"))
-      return bufferedReader.readLines().joinToString("\n")
-    } catch (e: Exception) {
-      throw RuntimeException("Can't parse HTML file.")
+  inputStream.use { stream ->
+    BufferedReader(InputStreamReader(stream, "utf-8")).use { bufferedReader ->
+      try {
+        return bufferedReader.readLines().joinToString("\n")
+      } catch (_: Exception) {
+        throw RuntimeException("Can't parse HTML file.")
+      }
     }
   }
 }

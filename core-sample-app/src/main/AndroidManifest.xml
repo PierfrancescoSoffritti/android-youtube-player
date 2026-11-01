@@ -95,6 +95,11 @@
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
             android:hardwareAccelerated="true"
             android:label="@string/no_lifecycle_observer_example" />
+        <activity
+            android:name="com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.composeExample.ComposeExampleActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout"
+            android:hardwareAccelerated="true"
+            android:label="@string/compose_example" />
 
         <activity android:name="com.psoffritti.librarysampleapptemplate.core.SampleAppTemplateActivity" />
 
