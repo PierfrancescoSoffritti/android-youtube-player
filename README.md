@@ -353,6 +353,13 @@ If set to 0: the player will show captions.
 
 If set to 1: the player won't show captions.
 
+##### `interfaceLanguage`
+This option sets the language of the player interface. The value is an ISO 639-1 two-letter language code or a fully specified locale, for example `fr` or `fr-ca`. It is sent to YouTube as the `hl` parameter.
+
+If not set: the player uses the device language.
+
+YouTube also uses this language to decide whether automatically generated captions are shown.
+
 ##### `start`
 This parameter causes the player to begin playing the video at the given number of seconds from the start of the video. The parameter value is a positive integer.
 
