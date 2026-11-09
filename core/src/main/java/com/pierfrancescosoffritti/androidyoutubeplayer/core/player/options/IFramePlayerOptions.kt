@@ -125,7 +125,6 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
 
     /**
      * Sets the language of the player interface. By default the player uses the device language.
-     * YouTube also uses this language to decide whether automatically generated captions are shown.
      * It is sent to YouTube as the "hl" player parameter.
      * @param languageCode ISO 639-1 two-letter language code or a fully specified locale, for example "fr" or "fr-ca".
      */

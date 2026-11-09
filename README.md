@@ -367,8 +367,6 @@ This option sets the language of the player interface. The value is an ISO 639-1
 
 If not set: the player uses the device language.
 
-YouTube also uses this language to decide whether automatically generated captions are shown.
-
 ##### `start`
 This parameter causes the player to begin playing the video at the given number of seconds from the start of the video. The parameter value is a positive integer.
 
