@@ -38,6 +38,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
       private const val IV_LOAD_POLICY = "iv_load_policy"
       private const val CC_LOAD_POLICY = "cc_load_policy"
       private const val CC_LANG_PREF = "cc_lang_pref"
+      private const val HL = "hl"
       private const val LIST = "list"
       private const val LIST_TYPE = "listType"
       private const val START = "start"
@@ -119,6 +120,16 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
      */
     fun langPref(languageCode: String): Builder {
       addString(CC_LANG_PREF, languageCode)
+      return this
+    }
+
+    /**
+     * Sets the language of the player interface. By default the player uses the device language.
+     * It is sent to YouTube as the "hl" player parameter.
+     * @param languageCode ISO 639-1 two-letter language code or a fully specified locale, for example "fr" or "fr-ca".
+     */
+    fun interfaceLanguage(languageCode: String): Builder {
+      addString(HL, languageCode)
       return this
     }
 
