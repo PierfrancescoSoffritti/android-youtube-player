@@ -8,11 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.chromecastExample.ChromeCastExampleActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.completeExample.CompleteExampleActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.composeExample.ComposeExampleActivity;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.composeFullscreenExample.ComposeFullscreenExampleActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.customUiExample.CustomUiActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.defaultCustomUiExample.DefaultCustomUiExampleActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.fragmentExample.FragmentExampleActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.fullscreenExample.FullscreenExampleActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.iFramePlayerOptionsExample.IFramePlayerOptionsExampleActivity;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.lazyColumnExample.LazyColumnExampleActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.liveVideoExample.LiveVideoActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.noLifecycleObserverExample.NoLifecycleObserverExampleActivity;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.sampleapp.examples.pictureInPictureExample.PictureInPictureActivity;
@@ -54,7 +56,9 @@ public class MainActivity extends AppCompatActivity {
             new ExampleActivityDetails(R.string.iframe_player_options_example, null, IFramePlayerOptionsExampleActivity.class),
             new ExampleActivityDetails(R.string.playlist_example, null, PlaylistExampleActivity.class),
             new ExampleActivityDetails(R.string.no_lifecycle_observer_example, null, NoLifecycleObserverExampleActivity.class),
-            new ExampleActivityDetails(R.string.compose_example, null, ComposeExampleActivity.class)
+            new ExampleActivityDetails(R.string.compose_example, null, ComposeExampleActivity.class),
+            new ExampleActivityDetails(R.string.compose_fullscreen_example, null, ComposeFullscreenExampleActivity.class),
+            new ExampleActivityDetails(R.string.lazy_column_example, null, LazyColumnExampleActivity.class)
     };
 
     intent.putExtra(Constants.EXAMPLES.name(), examples);
