@@ -12,6 +12,8 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.annotation.GuardedBy
 import androidx.annotation.VisibleForTesting
+import androidx.webkit.ScriptHandler
+import androidx.webkit.WebViewFeature
 import com.pierfrancescosoffritti.androidyoutubeplayer.R
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.BooleanProvider
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
@@ -108,6 +110,7 @@ internal class WebViewYouTubePlayer constructor(
   internal var isBackgroundPlaybackEnabled = false
 
   private val youTubePlayerBridge = YouTubePlayerBridge(this)
+  private var experimentalUiScript: ScriptHandler? = null
 
   internal fun initialize(initListener: (YouTubePlayer) -> Unit, playerOptions: IFramePlayerOptions?, videoId: String?) {
     youTubePlayerInitListener = initListener
@@ -121,6 +124,7 @@ internal class WebViewYouTubePlayer constructor(
   fun removeListener(listener: YouTubePlayerListener) = _youTubePlayer.removeListener(listener)
 
   override fun destroy() {
+    clearExperimentalUiScript()
     _youTubePlayer.release()
     super.destroy()
   }
@@ -135,6 +139,11 @@ internal class WebViewYouTubePlayer constructor(
 
     addJavascriptInterface(youTubePlayerBridge, "YouTubePlayerBridge")
     addJavascriptInterface(youTubePlayerCallbacks, "YouTubePlayerCallbacks")
+
+    clearExperimentalUiScript()
+    if (playerOptions.isExperimentalPlayerUiHidingEnabled()) {
+      experimentalUiScript = ExperimentalPlayerUiHider.install(this)
+    }
 
     val htmlPage = readHTMLFromUTF8File(resources.openRawResource(R.raw.ayp_youtube_player))
       .replace("<<injectedVideoId>>", if (videoId != null) { "'$videoId'" } else { "undefined" })
@@ -169,6 +178,17 @@ internal class WebViewYouTubePlayer constructor(
     }
 
     super.onWindowVisibilityChanged(visibility)
+  }
+
+  private fun clearExperimentalUiScript() {
+    val script = experimentalUiScript ?: return
+    try {
+      if (WebViewFeature.isFeatureSupported(WebViewFeature.DOCUMENT_START_SCRIPT)) script.remove()
+    } catch (_: RuntimeException) {
+      // A provider that has already gone away must not prevent WebView cleanup.
+    } finally {
+      experimentalUiScript = null
+    }
   }
 }
 

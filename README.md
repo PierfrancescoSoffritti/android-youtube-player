@@ -17,7 +17,7 @@ Save time and increase customer satisfaction.
 
 android-youtube-player is a stable and customizable open source YouTube player for Android. It provides a simple View that can be easily integrated in every Activity/Fragment.
 
-The library is a wrapper around the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference), which runs inside of a WebView. Therefore there are [no issues with YouTube Terms of Service](#does-this-library-breaks-youtube-terms-of-service).
+The library is a wrapper around the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference), which runs inside of a WebView. See the [YouTube terms usage notes](#does-this-library-break-youtube-terms-of-service), especially before enabling experimental presentation features.
 
 This library also provides a [Chromecast YouTube player](#chromecast-extension-library), that you can use to cast YouTube videos from your app to a Chromecast device.
 
@@ -41,10 +41,10 @@ You can [see more stats here](https://www.appbrain.com/stats/libraries/details/a
 ![showcase](./images/showcase.jpg)
 
 ## Does this library break YouTube terms of service?
-**TL;DR** No. 
-
-The library uses YouTube's own web player to play videos. Therefore it is 100% compliant with  terms of service.
+Regular playback uses YouTube's own web player. Applications are responsible for how they configure and present it; using a WebView does not establish compliance for every configuration.
 Playing YouTube videos in a WebView is the recommended approach by Google, both on [Android](https://developers.google.com/youtube/android/player/) and [iOS](https://developers.google.com/youtube/v3/guides/ios_youtube_helper).
+
+The optional [experimental UI hiding](#experimentalplayeruihiding-client-side-experimental) is an additional DOM-based presentation change, not a documented YouTube API capability. Review the [YouTube player requirements](https://developers.google.com/youtube/terms/required-minimum-functionality#youtube-player-attributes) before enabling it.
 
 That said how you use the library matters, be sure to play videos only when the player is visible. If you follow the instructions in the documentation, the library will automatically handle this for you.
 
@@ -326,11 +326,32 @@ All the possible parameters and values are listed [here](https://developers.goog
 #### Supported options
 
 ##### `controls`
-This option indicates whether the web-based UI of the IFrame player should be hidden or visible.
+This option passes YouTube's [`controls` parameter](https://developers.google.com/youtube/player_parameters#controls) to the IFrame player unchanged.
 
-If set to 0: web UI is not visible.
+If set to 0: player controls are disabled.
 
-If set to 1: web UI is visible.
+If set to 1: player controls are enabled.
+
+This parameter does not guarantee removal of titles, branding, or playback feedback overlays, which YouTube may still display.
+
+##### `experimentalPlayerUiHiding` (client-side, experimental)
+This opt-in client-side feature additionally styles known desktop and mobile YouTube UI elements. It defaults to `false` and only takes effect with `controls(0)`, regardless of builder call order:
+
+Use manual initialization as described above, with `app:enableAutomaticInitialization="false"` in the view's XML.
+
+```java
+IFramePlayerOptions options = new IFramePlayerOptions.Builder(context)
+  .controls(0)
+  .experimentalPlayerUiHiding(true)
+  .build();
+youTubePlayerView.initialize(listener, options);
+```
+
+The flag is not sent to YouTube as a player parameter. The ordinary `controls(0)` behavior stays unchanged when it is disabled. It contains no application, device-model, or TV-address checks.
+
+The styling requires a recent Android System WebView supporting document-start scripts and modern CSS selectors. Unsupported providers keep ordinary playback; the feature does not promise that every overlay will be hidden. Known title/channel, playback-feedback, toolbar, recommendation, and background-gradient elements are targeted. Mobile controls can be siblings of the video player, so their styling is scoped separately. Advertising states are excluded; the actual video, captions and error messages are not targeted.
+
+This depends on undocumented YouTube DOM structure and may need updates when YouTube changes its player. It is not an official YouTube API capability. YouTube's [player requirements](https://developers.google.com/youtube/terms/required-minimum-functionality#youtube-player-attributes) restrict undocumented player and branding changes; enabling an opt-in flag does not itself establish compliance. Applications must review those requirements before use. This library makes no compliance guarantee for this experimental feature.
 
 ##### `rel`
 This option controls the related videos shown at the end of a video.

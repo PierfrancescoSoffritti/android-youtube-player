@@ -9,6 +9,7 @@ android {
     minSdkVersion versions.minSdk
     targetSdkVersion versions.compileSdk
     consumerProguardFiles 'consumer-rules.pro'
+    testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
   }
 
   sourceSets {
@@ -33,6 +34,7 @@ dependencies {
   androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoCore"
 
   api "androidx.lifecycle:lifecycle-runtime-ktx:$versions.androidxLifecycleRuntime"
+  implementation 'androidx.webkit:webkit:1.10.0'
 }
 
 ext {

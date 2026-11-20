@@ -8,7 +8,11 @@ import org.json.JSONObject
  * Options used to configure the IFrame Player. All the options are listed here:
  * [IFrame player parameters](https://developers.google.com/youtube/player_parameters#Parameters)
  */
-class IFramePlayerOptions private constructor(private val playerOptions: JSONObject, private val privacyEnhancedMode: Boolean) {
+class IFramePlayerOptions private constructor(
+  private val playerOptions: JSONObject,
+  private val privacyEnhancedMode: Boolean,
+  private val experimentalPlayerUiHiding: Boolean
+) {
 
   companion object {
     fun getDefault(context: Context) = Builder(context).controls(1).build()
@@ -25,6 +29,8 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
   internal fun isPrivacyEnhancedMode(): Boolean {
     return privacyEnhancedMode
   }
+
+  internal fun isExperimentalPlayerUiHidingEnabled(): Boolean = experimentalPlayerUiHiding
 
   class Builder(context: Context) {
     companion object {
@@ -47,6 +53,7 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
 
     private val builderOptions = JSONObject()
     private var privacyEnhancedMode = false
+    private var experimentalPlayerUiHiding = false
 
     init {
       addInt(AUTO_PLAY, 0)
@@ -61,15 +68,34 @@ class IFramePlayerOptions private constructor(private val playerOptions: JSONObj
     }
 
     fun build(): IFramePlayerOptions {
-      return IFramePlayerOptions(builderOptions, privacyEnhancedMode)
+      return IFramePlayerOptions(
+        JSONObject(builderOptions.toString()), privacyEnhancedMode,
+        experimentalPlayerUiHiding && builderOptions.optInt(CONTROLS) == 0
+      )
     }
 
     /**
-     * Controls whether the web-based UI of the IFrame player is used or not.
-     * @param controls If set to 0: web UI is not used. If set to 1: web UI is used.
+     * Passes YouTube's controls parameter through to its embedded player.
+     * This does not guarantee removal of title, branding, or playback feedback overlays.
+     * @param controls If set to 0: player controls are disabled. If set to 1: controls are enabled.
      */
     fun controls(controls: Int): Builder {
       addInt(CONTROLS, controls)
+      return this
+    }
+
+    /**
+     * Opts into experimental client-side styling of YouTube's desktop and mobile player UI.
+     * Effective only with controls(0), regardless of builder call order. Defaults to false.
+     *
+     * This is not a YouTube API parameter. It requires a recent WebView supporting document-start
+     * scripts and depends on undocumented YouTube DOM selectors, which can change. Unsupported
+     * providers fall back to normal controls(0) playback. Video, captions, ads and errors are not
+     * intentionally hidden. YouTube policies restrict undocumented changes to player presentation;
+     * applications must review those requirements before enabling this option.
+     */
+    fun experimentalPlayerUiHiding(enabled: Boolean): Builder {
+      experimentalPlayerUiHiding = enabled
       return this
     }
 
